@@ -25,11 +25,11 @@ async def on_ready():
     await client.wait_until_ready()
     while True:
         if online:
-            await member.edit(nick='[🟢] FarminFarm')
+            await member.edit(nick='[✔] FarminFarm')
             await client.change_presence(activity=discord.Game(name=f"{mc_status.player.online}/20 Online | farminfarm.minehut.gg"))
         else:
-            await member.edit(nick='[🔴] Farminfarm') 
-            await client.change_presence(activity=discord.Game(name="0/20 Online | farminfarm.minehut.gg"))
+            await member.edit(nick='[❌] Farminfarm') 
+            await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
         await sleep(30)
             
 @client.command(help='FarminFarm Server Status')
