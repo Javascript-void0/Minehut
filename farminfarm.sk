@@ -3,7 +3,6 @@
 # https://discord.gg/YkBRcR5
 
 # World Downloads
-# S1: http://www.mediafire.com/file/t8ai3tt9tyooki0/FiF_s1.zip/file
 # S2: http://www.mediafire.com/file/abl5b6e0pfa2o5g/FiF_s2.zip/file
 # S4: http://www.mediafire.com/file/eu759h534sg3a22/FiF_s4.zip/file
 # S5: http://www.mediafire.com/file/625x2ppuwomyh1z/FiF_s5.zip/file
@@ -25,8 +24,8 @@ options:
 	rule: &8[&3&lRULE&8]&f
 	fake: &8[&7&lFAKE&8]&f
 #Seasons
-	world: season5
-	season: 5
+	world: s-six
+	season: 6
 #Messages
 	money: &cError: javascript:void(0) Insufficient Money
 	permission: &cError: javascript:void(0) Insufficient Permissions
