@@ -23,14 +23,24 @@ async def on_ready():
     print('[ + ] Started {0.user}'.format(client))
     member = guild.me
     await client.wait_until_ready()
+
+    messages = await guild.get_channel(751663136448315464).history().flatten()
+    for msg in messages:
+        if 'started' in msg.content:
+            online = True
+            break
+        elif 'stopped' in msg.content:
+            online = False
+            break
+
     while True:
         if online:
-            await member.edit(nick='[✔] FarminFarm')
-            await client.change_presence(activity=discord.Game(name=f"{mc_status.player.online}/20 Online | farminfarm.minehut.gg"))
+            await member.edit(nick='[🔹] FarminFarm')
+            await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
         else:
-            await member.edit(nick='[❌] Farminfarm') 
+            await member.edit(nick='[🔸] Farminfarm') 
             await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
-        await sleep(30)
+        await sleep(10)
             
 @client.command(help='FarminFarm Server Status')
 async def status(ctx):
