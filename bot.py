@@ -10,10 +10,7 @@ guild = None
 online = False
 
 server = MinecraftServer.lookup("farminfarm.minehut.gg:25565")
-try:
-    mc_status = server.status()
-except OSError:
-    pass
+mc_status = server.status()
 
 @client.event
 async def on_ready():
@@ -21,7 +18,7 @@ async def on_ready():
     guild = client.get_guild(747233433511788637)
     print('[ + ] Started {0.user}'.format(client))
             
-@tasks.loop(minutes=1.0)
+@tasks.loop(seconds=5.0)
 async def on_off():
     global guild, online
     member = guild.me
@@ -58,11 +55,11 @@ async def status(ctx):
             break
     
     if online:
-        embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```        [ ONLINE ]```', color=discord.Color.green())
+        embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ ONLINE ]```', color=discord.Color.green())
         embed.add_field(name=f'Players online: {mc_status.players.online}/20', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
     else:
-        embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```        [ OFFLINE ]```', color=discord.Color.red())
+        embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ OFFLINE ]```', color=discord.Color.red())
         embed.add_field(name=f'Players online: 0/20', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
     await ctx.send(embed=embed)
