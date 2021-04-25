@@ -1,6 +1,5 @@
 import discord
 import os
-from asyncio import sleep
 from discord.ext import tasks, commands
 from discord.utils import get
 from mcstatus import MinecraftServer
@@ -21,27 +20,31 @@ async def on_ready():
     global guild, online
     guild = client.get_guild(747233433511788637)
     print('[ + ] Started {0.user}'.format(client))
+            
+@tasks.loop(minutes=1.0)
+async def on_off():
+    global guild, online
     member = guild.me
-    await client.wait_until_ready()
-
     messages = await guild.get_channel(751663136448315464).history().flatten()
     for msg in messages:
-        if 'started' in msg.content:
+        if msg.content == '✅ Server has started':
             online = True
             break
-        elif 'stopped' in msg.content:
+        elif msg.content == '🛑 Server has stopped':
             online = False
             break
+    if online:
+        await member.edit(nick='[🔹] FarminFarm')
+        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
+    else:
+        await member.edit(nick='[🔸] Farminfarm') 
+        await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
 
-    while True:
-        if online:
-            await member.edit(nick='[🔹] FarminFarm')
-            await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
-        else:
-            await member.edit(nick='[🔸] Farminfarm') 
-            await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
-        await sleep(10)
-            
+@on_off.before_loop
+async def before_on_off():
+    print('waiting...')
+    await client.wait_until_ready()
+
 @client.command(help='FarminFarm Server Status')
 async def status(ctx):
     global guild, online
@@ -64,5 +67,6 @@ async def status(ctx):
         embed.set_footer(text='farminfarm.minehut.gg')
     await ctx.send(embed=embed)
 
+on_off.start()
 if __name__ == '__main__':
     client.run(TOKEN)
