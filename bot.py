@@ -11,9 +11,6 @@ TOKEN = os.getenv("TOKEN")
 guild = None
 online = False
 
-server = MinecraftServer.lookup("farminfarm.minehut.gg:25565")
-mc_status = server.status()
-
 @client.event
 async def on_ready():
     global guild, online
@@ -24,6 +21,8 @@ async def on_ready():
 async def on_guild_channel_update(before, after):
     global guild, online
     member = guild.me
+    server = MinecraftServer.lookup("farminfarm.minehut.gg:25565")
+    mc_status = server.status()
     if before.id == 751663136448315464:
         if 'online' in after.topic:
             print('online')
@@ -41,16 +40,23 @@ async def on_guild_channel_update(before, after):
 @client.command(help='FarminFarm Server Status')
 async def status(ctx):
     global guild, online
+    member = guild.me
+    server = MinecraftServer.lookup("farminfarm.minehut.gg:25565")
+    mc_status = server.status()
     messages = await guild.get_channel(751663136448315464).history().flatten()
     if online:
         embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ ONLINE ]```', color=discord.Color.green())
         embed.add_field(name=f'Players online: {mc_status.players.online}/20', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
+        await member.edit(nick='[🔹] FarminFarm')
+        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
     else:
         embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ OFFLINE ]```', color=discord.Color.red())
         embed.add_field(name=f'Players online: 0/20', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
+        await member.edit(nick='[🔸] Farminfarm') 
+        await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
     await ctx.send(embed=embed)
-
+        
 if __name__ == '__main__':
     client.run(TOKEN)
