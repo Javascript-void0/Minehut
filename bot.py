@@ -15,7 +15,7 @@ online = False
 async def on_ready():
     global guild, online
     guild = client.get_guild(747233433511788637)
-    channel = guild.get_channel(751663136448315464):
+    channel = guild.get_channel(751663136448315464)
     print('[ + ] Started {0.user}'.format(client))
     server = MinecraftServer.lookup("farminfarm.minehut.gg:25565")
     mc_status = server.status()
