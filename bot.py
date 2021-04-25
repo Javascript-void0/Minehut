@@ -24,10 +24,10 @@ async def on_off():
     member = guild.me
     messages = await guild.get_channel(751663136448315464).history().flatten()
     for msg in messages:
-        if msg.content == '✅ Server has started':
+        if msg.content.endswith('Server has started'):
             online = True
             break
-        elif msg.content == '🛑 Server has stopped':
+        elif msg.content.endswith('Server has stopped'):
             online = False
             break
     if online:
@@ -46,14 +46,6 @@ async def before_on_off():
 async def status(ctx):
     global guild, online
     messages = await guild.get_channel(751663136448315464).history().flatten()
-    for msg in messages:
-        if 'started' in msg.content:
-            online = True
-            break
-        elif 'stopped' in msg.content:
-            online = False
-            break
-    
     if online:
         embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ ONLINE ]```', color=discord.Color.green())
         embed.add_field(name=f'Players online: {mc_status.players.online}/20', value=f" - `Ping: {mc_status.latency} ms`")
