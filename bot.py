@@ -1,10 +1,12 @@
 import discord
 import os
-from discord.ext import tasks, commands
+from discord.ext import commands
 from discord.utils import get
 from mcstatus import MinecraftServer
 
-client = commands.Bot(command_prefix='.')
+intents = discord.Intents.default()
+intents.guilds = True
+client = commands.Bot(command_prefix='.', intents=intents)
 TOKEN = os.getenv("TOKEN")
 guild = None
 online = False
@@ -17,32 +19,24 @@ async def on_ready():
     global guild, online
     guild = client.get_guild(747233433511788637)
     print('[ + ] Started {0.user}'.format(client))
-            
-@tasks.loop(seconds=5.0)
-async def on_off():
+
+@client.event
+async def on_guild_channel_update(before, after):
     global guild, online
     member = guild.me
-    messages = await guild.get_channel(751663136448315464).history().flatten()
-    for msg in messages:
-        if '✅' in msg.content and 'has started' in msg.content:
+    if before.id == 751663136448315464:
+        if 'online' in after.topic:
             print('online')
             online = True
-            break
-        elif '🛑' in msg.content and 'has stopped' in msg.ceont:
+        elif 'offline' in after.topic:
             print('offline')
             online = False
-            break
     if online:
         await member.edit(nick='[🔹] FarminFarm')
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
     else:
         await member.edit(nick='[🔸] Farminfarm') 
         await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
-
-@on_off.before_loop
-async def before_on_off():
-    print('waiting...')
-    await client.wait_until_ready()
 
 @client.command(help='FarminFarm Server Status')
 async def status(ctx):
@@ -58,6 +52,5 @@ async def status(ctx):
         embed.set_footer(text='farminfarm.minehut.gg')
     await ctx.send(embed=embed)
 
-on_off.start()
 if __name__ == '__main__':
     client.run(TOKEN)
