@@ -24,10 +24,12 @@ async def on_off():
     member = guild.me
     messages = await guild.get_channel(751663136448315464).history().flatten()
     for msg in messages:
-        if msg.content.endswith('Server has started'):
+        if '✅' in msg.content and 'has started' in msg.content:
+            print('online')
             online = True
             break
-        elif msg.content.endswith('Server has stopped'):
+        elif '🛑' in msg.content and 'has stopped' in msg.ceont:
+            print('offline')
             online = False
             break
     if online:
