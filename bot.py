@@ -17,6 +17,7 @@ async def on_ready():
     guild = client.get_guild(747233433511788637)
     channel = guild.get_channel(751663136448315464)
     print('[ + ] Started {0.user}'.format(client))
+    await client.wait_until_ready()
     server = MinecraftServer.lookup("farminfarm.minehut.gg:25565")
     mc_status = server.status()
     if 'online' in channel.topic:
