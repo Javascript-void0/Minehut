@@ -44,7 +44,7 @@ async def on_guild_channel_update(before, after):
         await member.edit(nick='[🔹] FarminFarm')
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
     else:
-        await member.edit(nick='[🔸] Farminfarm') 
+        await member.edit(nick='[🔸] FarminFarm') 
         await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
 
 @client.command(help='FarminFarm Server Status')
