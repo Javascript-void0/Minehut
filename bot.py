@@ -65,7 +65,7 @@ async def status(ctx):
         embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ OFFLINE ]```', color=discord.Color.red())
         embed.add_field(name=f'Players online: 0/20', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
-        await member.edit(nick='[🔸] Farminfarm') 
+        await member.edit(nick='[🔸] FarminFarm') 
         await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
     await ctx.send(embed=embed)
 
