@@ -70,7 +70,7 @@ async def status(ctx):
 
 @client.command(aliases=['cl'], help='Input for Changlogs')
 @commands.has_permissions(administrator=True)
-async def changelog(self, ctx, *, change):
+async def changelog(ctx, *, change):
     channel = ctx.guild.get_channel(788276026202521650)
     d = datetime.date.today().strftime("%b %d")
     embed = discord.Embed(title = "Change Log")
