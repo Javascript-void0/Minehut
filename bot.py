@@ -67,6 +67,17 @@ async def status(ctx):
         await member.edit(nick='[🔸] Farminfarm') 
         await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
     await ctx.send(embed=embed)
-        
+
+@commands.command(aliases=['cl'], help='Input for Changlogs')
+@commands.has_permissions(administrator=True)
+async def changelog(self, ctx, *, change):
+    channel = ctx.guild.get_channel(788276026202521650)
+    d = datetime.date.today().strftime("%b %d")
+    embed = discord.Embed(title = "Change Log")
+    embed.add_field(name = "Date:", value = f'{d}')
+    embed.add_field(name = "<:down1:837675982998732851> Changes:", value = f"{change}")
+    await channel.send(embed=embed)
+    await ctx.send('Created New Changelog')
+
 if __name__ == '__main__':
     client.run(TOKEN)
