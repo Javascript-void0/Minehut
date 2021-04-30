@@ -68,7 +68,7 @@ async def status(ctx):
         await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
     await ctx.send(embed=embed)
 
-@commands.command(aliases=['cl'], help='Input for Changlogs')
+@client.command(aliases=['cl'], help='Input for Changlogs')
 @commands.has_permissions(administrator=True)
 async def changelog(self, ctx, *, change):
     channel = ctx.guild.get_channel(788276026202521650)
