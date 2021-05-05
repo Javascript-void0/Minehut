@@ -40,7 +40,7 @@ on hunger meter change:
 
 command /apply:
 	trigger:
-		send "{@farminfarm} https://bit.ly/farminfarmapp"
+		send "{@farminfarm} https://bit.ly/farminfarmapp" #  <<<<< HOLLOW UPDATE LINK
 
 on portal create: 
 	if player is op: 
