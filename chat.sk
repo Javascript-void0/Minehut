@@ -23,25 +23,25 @@ on chat:
 		else:
 			set the chat format to gradient("&l%{_prefix}%&r%{_name}%⇾ %message%",(204 ,220, and 0),(255, 255, and 255))
 	else if group of player is "ceo":
-		set {_prefix} to colored "%rgbToHex(181, 61, and 77)% &l%{_prefix}%"
+		set {_prefix} to colored "%rgbToHex(181, 61, and 77)%&l%{_prefix}%"
 		if player has permission "sk.chatcolor":
 			set the chat format to "%{_prefix}%&r%display name of player%⇾ &f%message%"
 		else:
 			set the chat format to "%{_prefix}%&r%display name of player%⇾ &7%message%"
 	else if group of player is "monopoly":
-		set {_prefix} to colored "%rgbToHex(217, 98, and 64)% &l%{_prefix}%"
+		set {_prefix} to colored "%rgbToHex(217, 98, and 64)%&l%{_prefix}%"
 		if player has permission "sk.chatcolor":
 			set the chat format to "%{_prefix}%&r%display name of player%⇾ &f%message%"
 		else:
 			set the chat format to "%{_prefix}%&r%display name of player%⇾ &7%message%"
 	else if group of player is "spectre":
-		set {_prefix} to colored "%rgbToHex(143, 155, and 250)% &l%{_prefix}%"
+		set {_prefix} to colored "%rgbToHex(143, 155, and 250)%&l%{_prefix}%"
 		if player has permission "sk.chatcolor":
 			set the chat format to "%{_prefix}%&r%display name of player%⇾ &f%message%"
 		else:
 			set the chat format to "%{_prefix}%&r%display name of player%⇾ &7%message%"
 	else if group of player is "engineer":
-		set {_prefix} to colored "%rgbToHex(246, 112, and 108)% &l%{_prefix}%"
+		set {_prefix} to colored "%rgbToHex(246, 112, and 108)%&l%{_prefix}%"
 		if player has permission "sk.chatcolor":
 			set the chat format to "%{_prefix}%&r%display name of player%⇾ &f%message%"
 		else:
