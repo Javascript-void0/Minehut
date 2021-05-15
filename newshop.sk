@@ -1,0 +1,376 @@
+options:
+#====Prefiix====
+	shop: &8[&a&lSHOP&8]&f
+	prestige: &8[&a&lPRESTIGE&8]&f
+
+#====No Money====
+	money: &cNo money!
+
+
+#====Commands====
+command /shop:
+	trigger:
+		newShop(player)	
+
+command /toolshop:
+	aliases: /shoptool
+	trigger:
+		newtoolShop(player)
+
+command /redstoneshop:
+	aliases: /shopredstone
+	trigger:
+		newredstoneShop(player)
+
+command /pvpshop:
+	aliases: /shoppvp
+	trigger:
+		newpvpShop(player)
+
+command /blockshop:
+	aliases: /shopblock
+	trigger:
+		newblockShop(player)
+
+command /colorshop:
+	aliases: /shopcolor
+	trigger:
+		newcolorShop(player)
+
+command /farmshop:
+	aliases: /shopfarm
+	trigger:
+		newfarmShop(player)
+
+command /othershop:
+	aliases: /shopother
+	trigger:
+		newotherShop(player)
+
+#====Shop====
+function newShop(p:player):
+	open virtual chest inventory with size 2 named "&fShops" to {_p}
+	format gui slot 0 of {_p} with black stained glass pane named " " 
+	format gui slot 1 of {_p} with diamond pickaxe named "&bTools" to run function newtoolShop({_p})
+	format gui slot 3 of {_p} with redstone named "&cRedstone" to run function newredstoneShop({_p})
+	format gui slot 2 of {_p} with diamond sword named "&3PvP" to run function newpvpShop({_p})
+	format gui slot 4 of {_p} with grass block named "&3Blocks" to run function newblockShop({_p})
+	format gui slot 5 of {_p} with red dye named "&5Color" to run function newcolorShop({_p})
+	format gui slot 6 of {_p} with netherite hoe named "&2Farming" to run function newfarmShop({_p})
+	format gui slot 8 of {_p} with black stained glass pane named " " 
+	format gui slot 9 of {_p} with black stained glass pane named " " 
+	format gui slot 11 of {_p} with emerald named "&aServer Prestige &7- &a%{prestigecost}%" with lore "&f/prestige for more info" and "&fClick twice to purchase!" to run function newPrestige({_p})
+	format gui slot 10 of {_p} with tnt named "&7Other" to run function newotherShop({_p})
+	format gui slot 7 of {_p} with enchanted golden apple named "&cRankup!" to run:
+		close inventory of {_p}
+		execute console command "/sudo %player% rankup"
+	format gui slot 15 of {_p} with wooden hoe named "&aSellwand &7- &a1M" with lore "&aRight Click A Chest To Sell" to run function newsellwand({_p})
+	format gui slot 16 of {_p} with barrier named "&cExit" to run:
+		close inventory of {_p}
+	format gui slot 17 of {_p} with black stained glass pane named " " 
+
+#====Tool Shop====
+function newtoolShop(p:player):
+	open virtual chest inventory with size 2 named "&bTool Shop" to {_p}
+	format gui slot 0 of {_p} with black stained glass pane named " " 
+	format gui slot 1 of {_p} with iron pickaxe named "&bIron Pickaxe &7- &a$250" to run function newnumShop({_p},iron pickaxe,1,250)
+	format gui slot 2 of {_p} with iron axe named "&bIron Axe &7- &a$250" to run function newnumShop({_p},iron axe,1,250)
+	format gui slot 3 of {_p} with iron shovel named "&bIron Shovel &7- &a$250" to run function newnumShop({_p},iron shovel,1,250)
+	format gui slot 4 of {_p} with iron hoe named "&bIron Hoe &7- &a$250" to run function newnumShop({_p},iron hoe,1,250)
+	format gui slot 5 of {_p} with {dpick} named "&dSpeed Pick &7- &a$30,000" to run function newnumShop({_p},{dpick},1,30000)
+	format gui slot 6 of {_p} with {dshovel} named "&dSpeed Shovel &7- &a$30,000" to run function newnumShop({_p},{dshovel},1,30000)
+	format gui slot 7 of {_p} with {daxe} named "&dSpeed Axe &7- &a$30,000" to run function newnumShop({_p},{daxe},1,30000)
+	format gui slot 8 of {_p} with black stained glass pane named " " 
+	format gui slot 9 of {_p} with black stained glass pane named " " 
+	format gui slot 10 of {_p} with diamond pickaxe named "&bDiamond Pickaxe &7- &a$1,000" to run function newnumShop({_p},diamond pickaxe,1,1000)
+	format gui slot 11 of {_p} with diamond axe named "&bDiamond Axe &7- &a$1,000" to run function newnumShop({_p},diamond axe,1,1000)
+	format gui slot 12 of {_p} with diamond shovel named "&bDiamond Shovel &7- &a$1,000" to run function newnumShop({_p},diamond shovel,1,1000)
+	format gui slot 13 of {_p} with diamond hoe named "&bDiamond Hoe &7- &a$1,000" to run function newnumShop({_p},diamond hoe,1,1000)
+	format gui slot 14 of {_p} with {npick} named "&cUpgraded Speed Pickaxe &7- &a150,000" to run function newnumShop({_p},{npick},1,150000)
+	format gui slot 15 of {_p} with {nhoe} named "&cSpeed Hoe &7- &a$100,000" to run function newnumShop({_p},{nhoe},1,100000)
+	format gui slot 16 of {_p} with barrier named "&cBack" to run function newShop({_p})
+	format gui slot 17 of {_p} with black stained glass pane named " " 
+
+	#====Redstone Shop====
+function newredstoneShop(p:player):
+	open virtual chest inventory with size 3 named "&cRedstone &fShop" to {_p}
+	format gui slot 0 of {_p} with black stained glass pane named " " 
+	format gui slot 1 of {_p} with redstone block named "&fRedstone Block &7- &a16 for $1,000" to run function newnumShop({_p},redstone block,16,1000)
+	format gui slot 2 of {_p} with chest named "&fChest &7- &a16 for $1,600" to run function newnumShop({_p},chest,16,1600)
+	format gui slot 3 of {_p} with trapped chest named "&fTrapped Chest &7- &a16 for $1,800" to run function newnumShop({_p},trapped chest,16,1800)
+	format gui slot 22 of {_p} with repeater named "&fRepeater &7- &a16 for $200" to run function newnumShop({_p},repeater,16,200)
+	format gui slot 23 of {_p} with comparator named "&fComparator &7- &a16 for $200" to run function newnumShop({_p},comparator,16,200)
+	format gui slot 4 of {_p} with sticky piston named "&fSticky Piston &7- &a16 for $1,200" to run function newnumShop({_p},sticky piston,16,1200)
+	format gui slot 5 of {_p} with piston named "&fPiston &7- &a16 for $1,200" to run function newnumShop({_p},piston,16,1200)
+	format gui slot 6 of {_p} with dispenser named "&fDispenser &7- &a16 for $300" to run function newnumShop({_p},dispenser,16,300)
+	format gui slot 7 of {_p} with dropper named "&fDropper &7- &a16 for $300" to run function newnumShop({_p},dropper,16,300)
+	format gui slot 8 of {_p} with black stained glass pane named " " 
+	format gui slot 9 of {_p} with black stained glass pane named " " 
+	format gui slot 10 of {_p} with hopper named "&fHopper &7- &a16 for $1,400" to run function newnumShop({_p},hopper,16,1400)
+	format gui slot 11 of {_p} with observer named "&fObserver &7- &a16 for $1,400" to run function newnumShop({_p},observer,16,1400)
+	format gui slot 12 of {_p} with honey block named "&fHoney Block &7- &a16 for $600" to run function newnumShop({_p},honey block,16,600)
+	format gui slot 13 of {_p} with slime block named "&fSlime Block &7- &a16 for $600" to run function newnumShop({_p},slime block,16,600)
+	format gui slot 14 of {_p} with string named "&fString &7- &a16 for $200" to run function newnumShop({_p},string,16,200)
+	format gui slot 15 of {_p} with tripwire hook named "&fTripwire Hook &7- &a16 for $100" to run function newnumShop({_p},tripwire hook,16,100)
+	format gui slot 16 of {_p} with redstone torch named "&fRedstone Torch &7- &a16 for $200" to run function newnumShop({_p},redstone torch,16,200)
+	format gui slot 17 of {_p} with black stained glass pane named " " 
+	format gui slot 18 of {_p} with black stained glass pane named " " 
+	format gui slot 19 of {_p} with lever named "&fLever &7- &a16 for $100" to run function newnumShop({_p},lever,16,100)
+	format gui slot 20 of {_p} with redstone lamp named "&fRedstone Lamp &7- &a16 for $1,000" to run function newnumShop({_p},redstone lamp,16,1000)
+	format gui slot 21 of {_p} with daylight detector named "&fDaylight Detector &7- &a16 for $100" to run function newnumShop({_p},daylight detector,16,100)
+	format gui slot 24 of {_p} with scaffolding named "&fScaffolding &7- &a16 for $200" to run function newnumShop({_p},scaffolding,16,200)
+	format gui slot 25 of {_p} with barrier named "&cBack" to run function newShop({_p})
+	format gui slot 26 of {_p} with black stained glass pane named " " 
+
+#====PvP Shop====
+function newpvpShop(p:player):
+	open virtual chest inventory with size 2 named "&3PvP &fShop" to {_p}
+	format gui slot 0 of {_p} with black stained glass pane named " "
+	format gui slot 1 of {_p} with iron sword named "&fIron Sword &7- &a$250" to run function newnumShop({_p},iron sword,1,250)
+	format gui slot 12 of {_p} with enchanting table named "&fEnchanting Table &7- &a$5,000" to run function newnumShop({_p},enchanting table,1,5000)
+	format gui slot 13 of {_p} with bookshelf named "&fBookshelf &7- &a16 for $400" to run function newnumShop({_p},bookshelf,16,400)
+	format gui slot 14 of {_p} with experience bottle named "&fExperience Bottle &7- &a16 for $400" to run function newnumShop({_p},experience bottle,16,400)
+	format gui slot 2 of {_p} with bow named "&fBow &7- &a$800" to run function newnumShop({_p},bow,1,800)
+	format gui slot 11 of {_p} with arrow named "&fArrow &7- &a16 for $40" to run function newnumShop({_p},arrow,1,40)
+	format gui slot 15 of {_p} with lapis named "&fLapis &7- &a16 for $1,000" to run function newnumShop({_p},lapis,16,1000)
+	format gui slot 10 of {_p} with golden apple named "&fGolden Apple &7- &a16 for $600" to run function newnumShop({_p},golden apple,1,600)
+	format gui slot 8 of {_p} with black stained glass pane named " "
+	format gui slot 9 of {_p} with black stained glass pane named " "
+	format gui slot 7 of {_p} with totem of undying named "&fTotem of Undying &7- &a$5,000" to run function newnumShop({_p},totem of undying,1,5000)
+	format gui slot 3 of {_p} with iron helmet named "&fIron Helmet &7- &a$500" to run function newnumShop({_p},iron helmet,1,500)
+	format gui slot 4 of {_p} with iron chestplate named "&fIron Chestplate &7- &a$500" to run function newnumShop({_p},iron chestplate,1,500)
+	format gui slot 5 of {_p} with iron leggings named "&fIron Leggings &7- &a$500" to run function newnumShop({_p},iron leggings,1,500)
+	format gui slot 6 of {_p} with iron boots named "&fIron Boots &7- &a$500" to run function newnumShop({_p},iron boots,1,500)
+	format gui slot 16 of {_p} with barrier named "&cBack to Shops" to run function newShop({_p})
+	format gui slot 17 of {_p} with black stained glass pane named " "
+
+#====Block Shop====
+function newblockShop(p:player):
+	open virtual chest inventory with size 4 named "&3Block &fShop" to {_p}
+	format gui slot 0 of {_p} with black stained glass pane named " "
+	format gui slot 1 of {_p} with grass block named "&fGrass Block &7- &a16 for $300" to run function newnumShop({_p},grass block,16,300)
+	format gui slot 2 of {_p} with dirt named "&fDirt &7- &a16 for $300" to run function newnumShop({_p},dirt,16,300)
+	format gui slot 3 of {_p} with stone named "&fStone &7- &a16 for $300" to run function newnumShop({_p},stone,16,300)
+	format gui slot 4 of {_p} with cobblestone named "&fCobblestone &7- &4 for $300" to run function newnumShop({_p},cobblestone,16,300)
+	format gui slot 5 of {_p} with oak log named "&fOak Log &7- &a16 for $800" to run function newnumShop({_p},oak log,16,800)
+	format gui slot 6 of {_p} with blackstone named "&fBlackstone &7- &a16 for $800" to run function newnumShop({_p},blackstone,16,800)
+	format gui slot 7 of {_p} with stone brick named "&fStone Bricks &7- &a16 for $600" to run function newnumShop({_p},stone bricks,16,600)
+	format gui slot 8 of {_p} with black stained glass pane named " "
+	format gui slot 9 of {_p} with black stained glass pane named " "
+	format gui slot 10 of {_p} with white wool named "&fWhite Wool &7- &a16 for $80" to run function newnumShop({_p},white wool,16,80)
+	format gui slot 11 of {_p} with glass named "&fGlass &7- &a16 for $80" to run function newnumShop({_p},glass,16,80)
+	format gui slot 12 of {_p} with sand named "&fSand &7- &a16 for $80" to run function newnumShop({_p},sand,16,80)
+	format gui slot 13 of {_p} with gravel named "&fGravel &7- &a16 for $80" to run function newnumShop({_p},gravel,16,80)
+	format gui slot 14 of {_p} with terracotta named "&fTerracotta &7- &a16 for $80" to run function newnumShop({_p},terracotta,16,80)
+	format gui slot 15 of {_p} with endstone named "&fEndstone &7- &a16 for $800" to run function newnumShop({_p},endstone,16,800)
+	format gui slot 16 of {_p} with soul sand named "&fSoul Sand &7- &a16 for $600" to run function newnumShop({_p},soul sand,16,600)
+	format gui slot 17 of {_p} with black stained glass pane named " "
+	format gui slot 18 of {_p} with black stained glass pane named " "
+	format gui slot 19 of {_p} with soul soil named "&fSoul Soil &7- &a16 for $600"  to run function newnumShop({_p},soul soil,16,600)
+	format gui slot 20 of {_p} with magma block named "&fMagma Block &7- &a16 for $600" to run function newnumShop({_p},magma block,16,600)
+	format gui slot 21 of {_p} with packed ice named "&fPacked Ice &7- &a16 for $600" to run function newnumShop({_p},packed ice,16,600)
+	format gui slot 22 of {_p} with ice named "&fIce &7- &a16 for $600" to run function newnumShop({_p},ice,16,600)
+	format gui slot 23 of {_p} with granite named "&fGranite &7- &a16 for $80" to run function newnumShop({_p},granite,16,80)
+	format gui slot 24 of {_p} with diorite named "&fDiorite &7- &a16 for $80" to run function newnumShop({_p},diorite,16,80)
+	format gui slot 25 of {_p} with andesite named "&fAndesite &7- &a16 for $80" to run function newnumShop({_p},andesite,16,80)
+	format gui slot 28 of {_p} with sea lantern named "&fSea Lantern &7- &a16 for $120" to run function newnumShop({_p},sea lantern,16,120)
+	format gui slot 29 of {_p} with glowstone named "&fGlowstone &7- &a16 for $120" to run function newnumShop({_p},sea lantern,16,120)
+	format gui slot 26 of {_p} with black stained glass pane named " "
+	format gui slot 27 of {_p} with black stained glass pane named " "
+	format gui slot 30 of {_p} with lantern named "&fLantern &7- &a16 for $120" to run function newnumShop({_p},lantern,16,120)
+	format gui slot 31 of {_p} with soul lantern named "&fSoul Lantern &7- &a16 for $120" to run function newnumShop({_p},soul lantern,16,120)
+	format gui slot 32 of {_p} with torch named "&fTorch &7- &a16 for $120" to run function newnumShop({_p},torch,16,120)
+	format gui slot 33 of {_p} with soul torch named "&fSoul Torch &7- &a16 for $120" to run function newnumShop({_p},soul torch,16,120)
+	format gui slot 34 of {_p} with barrier named "&cBack to Shops" to run function newShop({_p})
+	format gui slot 35 of {_p} with black stained glass pane named " "
+
+#====Color Shop====
+function newcolorShop(p:player):
+	open virtual chest inventory with size 3 named "&5Color &7Shop" to {_p}
+	format gui slot 0 of {_p} with black stained glass pane named " "
+	format gui slot 1 of {_p} with red dye named "&fRed Dye &7- &a16 for $20" to run function newnumShop({_p},red dye,16,20)
+	format gui slot 2 of {_p} with orange dye named "&fOrange Dye &7- &a16 for $20" to run function newnumShop({_p},orange dye,16,20)
+	format gui slot 3 of {_p} with yellow dye named "&fYellow Dye &7- &a16 for $20" to run function newnumShop({_p},yellow dye,16,20)
+	format gui slot 4 of {_p} with lime dye named "&fLime Dye &7- &a16 for $20" to run function newnumShop({_p},lime dye,16,20)
+	format gui slot 5 of {_p} with green dye named "&fGreen Dye &7- &a16 for $20" to run function newnumShop({_p},green dye,16,20)
+	format gui slot 6 of {_p} with light blue dye named "&fLight Blue Dye &7- &a16 for $20" to run function newnumShop({_p},light blue dye,16,20)
+	format gui slot 7 of {_p} with blue dye named "&fBlue Dye &7- &a16 for $20" to run function newnumShop({_p},blue dye,16,20)
+	format gui slot 8 of {_p} with black stained glass pane named " "
+	format gui slot 9 of {_p} with black stained glass pane named " "
+	format gui slot 10 of {_p} with purple dye named "&fPurple Dye &7- &a16 for $20" to run function newnumShop({_p},purple dye,16,20)
+	format gui slot 11 of {_p} with magenta dye named "&fMagenta Dye &7- &a16 for $20" to run function newnumShop({_p},magenta dye,16,20)
+	format gui slot 12 of {_p} with pink dye named "&fPink Dye &7- &a16 for $20" to run function newnumShop({_p},pink dye,16,20)
+	format gui slot 13 of {_p} with brown dye named "&fBrown Dye &7- &a16 for $20" to run function newnumShop({_p},brown dye,16,20)
+	format gui slot 14 of {_p} with black dye named "&fBlack Dye &7- &a16 for $20" to run function newnumShop({_p},black dye,16,20)
+	format gui slot 15 of {_p} with gray dye named "&fGray Dye &7- &a16 for $20" to run function newnumShop({_p},gray dye,16,20)
+	format gui slot 16 of {_p} with light gray dye named "&fLight Gray Dye &7- &a16 for $20" to run function newnumShop({_p},light gray dye,16,20)
+	format gui slot 17 of {_p} with black stained glass pane named " "
+	format gui slot 18 of {_p} with black stained glass pane named " "
+	format gui slot 19 of {_p} with white dye named "&fWhite Dye &7- &a16 for $20" to run function newnumShop({_p},white dye,16,20)
+	format gui slot 25 of {_p} with barrier named "&cBack to Shops" to run function newShop({_p})
+	format gui slot 26 of {_p} with black stained glass pane named " "
+
+#====FarminFarm====
+function newfarmShop(p:player):
+	open virtual chest inventory with size 3 named "&2Farming &7Shop" to {_p}
+	format gui slot 0 of {_p} with black stained glass pane named " "
+	format gui slot 1 of {_p} with {scythe} named "&2Scythe &7- &a$1,000" to run function newnumShop({_p},{scythe},1,1000)
+	format gui slot 2 of {_p} with water bucket named "&fPocket &bWater &3Source &7- &a$10,000" to run function newnumShop({_p},{pws},1,10000)
+	format gui slot 3 of {_p} with carrot named "&fCarrot &7- &a16 for $800" to run function newnumShop({_p},carrot,16,800)
+	format gui slot 4 of {_p} with potato named "&fPotato &7- &a16 for $800" to run function newnumShop({_p},potato,16,800)
+	format gui slot 5 of {_p} with sugar cane named "&fSugar cane &7- &a16 for $1,600" to run function newnumShop({_p},sugar cane,16,1600)
+	format gui slot 6 of {_p} with melon seed named "&fMelon Seeds &7- &a16 for $1,000" to run function newnumShop({_p},melon seeds,16,1000)
+	format gui slot 7 of {_p} with pumpkin seed named "&fPumpkin Seeds &7- &a16 for $1,000" to run function newnumShop({_p},pumpkin seeds,16,1000)
+	format gui slot 8 of {_p} with black stained glass pane named " "
+	format gui slot 9 of {_p} with black stained glass pane named " "
+	format gui slot 10 of {_p} with melon seed named "&fMelon Seeds &7- &a16 for $1,000" to run function newnumShop({_p},melon seeds,16,1000)	
+	format gui slot 11 of {_p} with kelp named "&fKelp &7- &a16 for $1,600" to run function newnumShop({_p},kelp,16,1600)
+	format gui slot 10 of {_p} with oak sapling named "&fOak Sapling &7- &a16 for $3,000" to run function newnumShop({_p},oak sapling,16,3000)
+	format gui slot 11 of {_p} with spruce sapling named "&fSpruce Sapling &7- &a16 for $3,000" to run function newnumShop({_p},spruce sapling,16,3000)
+	format gui slot 12 of {_p} with birch sapling named "&fBirch Sapling &7- &a16 for $3,000" to run function newnumShop({_p},birch sapling,16,3000)
+	format gui slot 13 of {_p} with jungle sapling named "&fJungle Sapling &7- &a16 for $3,800" to run function newnumShop({_p},jungle sapling,16,3800)
+	format gui slot 14 of {_p} with Acacia sapling named "&fAcacia Sapling &7- &a16 for $3,000" to run function newnumShop({_p},acacia sapling,16,3000)
+	format gui slot 15 of {_p} with dark oak sapling named "&fDark Oak Sapling &7- &a16 for $3,000" to run function newnumShop({_p},dark oak sapling,16,3000)
+	format gui slot 16 of {_p} with cactus named "&fCactus &7- &a16 for $1,600" to run function newnumShop({_p},cactus,16,1600)
+	format gui slot 17 of {_p} with black stained glass pane named " "
+	format gui slot 18 of {_p} with black stained glass pane named " "
+	format gui slot 19 of {_p} with nether wart named "&fNether Wart &7- &a16 for $10,000" to run function newnumShop({_p},nether wart,16,10000)
+	format gui slot 20 of {_p} with chorus flower named "&fChorus Flower &7- &a16 for $80,000" to run function newnumShop({_p},chorus flower,16,80000)
+	format gui slot 21 of {_p} with water bucket named "&fWater Bucket &7- &a$250" to run function newnumShop({_p},water bucket,1,250)
+	format gui slot 22 of {_p} with lava bucket named "&fLava bucket &7- &a$500" to run function newnumShop({_p},lava bucket,1,500)
+	format gui slot 23 of {_p} with vine named "&fVine &7- &a16 for $40,000" to run function newnumShop({_p},vine,16,40000)
+	format gui slot 25 of {_p} with barrier named "&cBack to Shops" to run function newShop({_p})
+	format gui slot 26 of {_p} with black stained glass pane named " "
+
+#====Other Shop====
+function newotherShop(p:player):
+	open virtual chest inventory with size 3 named "&7Other &7Shop" to {_p}
+	format gui slot 0 of {_p} with black stained glass pane named " "
+	format gui slot 1 of {_p} with iron block named "&fIron Block &7- &a16 for $12,000" to run function newnumShop({_p},iron block,16,12000)
+	format gui slot 2 of {_p} with gold block named "&fGold Block &7- &a16 for $12,000" to run function newnumShop({_p},gold block,16,12000)
+	format gui slot 3 of {_p} with diamond block named "&fDiamond Block &7- &a16 for $50,000" to run function newnumShop({_p},diamond block,16,50000)
+	format gui slot 4 of {_p} with ancient debris named "&fAncient Debris &7- &a$120k" to run function newnumShop({_p},ancient debris,16,120000)
+	format gui slot 5 of {_p} with coal block named "&fCoal Block &7- &a16 for $2,400" to run function newnumShop({_p},coal block,16,2400)
+	format gui slot 6 of {_p} with shulker box named "&fShulker Box &7- &a$7,500" to run function newnumShop({_p},shulker box,1,7500)
+	format gui slot 7 of {_p} with quartz named "&fQuartz &7- &a16 for $200" to run function newnumShop({_p},quartz,200)
+	format gui slot 8 of {_p} with black stained glass pane named " "
+	format gui slot 9 of {_p} with black stained glass pane named " "
+	format gui slot 10 of {_p} with leather named "&fLeather &7- &a16 for $500" to run function newnumShop({_p},leather,16,500)
+	format gui slot 11 of {_p} with {elytra} named "&fThe Sky's the Limit &7- &a$60,000" to run function newnumShop({_p},{elytra},1,60000)
+	format gui slot 12 of {_p} with firework rocket named "&fFirework Rocket &7- &a16 for $200" to run function newnumShop({_p},firework rocket,16,200)
+	format gui slot 13 of {_p} with ender chest named "&fEnder Chest &7- &a$75" to run function newnumShop({_p},ender chest,1,75)
+	format gui slot 14 of {_p} with beacon named "&fBeacon &7- &a$6,500" to run function newnumShop({_p},beacon,1,6500)
+	format gui slot 15 of {_p} with emerald block named "&fBeacon Base &7- &a$164k" with lore "&fGives 164 Emerald Blocks" to run function newnumShop({_p},emerald block,164,164000)
+	format gui slot 16 of {_p} with {shears} named "&fShears &7- &a$7500" to run function newnumShop({_p},{shears},1,7500)
+	format gui slot 17 of {_p} with black stained glass pane named " "
+	format gui slot 18 of {_p} with black stained glass pane named " "
+	format gui slot 19 of {_p} with {rod} named "&fFishing Rod &7- &a$7500" to run function newnumShop({_p},{rod},1,7500)
+	format gui slot 20 of {_p} with sponge named "&fSponge &7- &a$3000 each" to run function newnumShop({_p},sponge,3000)
+	format gui slot 25 of {_p} with barrier named "&cBack to Shops" to run function newShop({_p})
+	format gui slot 26 of {_p} with black stained glass pane named " "
+
+
+
+#====Enchanted Items====
+on load:
+	if {dpick} is not set:
+		set {dpick} to diamond axe named  "&dSpeed Pickaxe"
+		set {dpick} to unbreakable diamond pickaxe
+		enchant {dpick} with efficiency 5
+		enchant {dpick} with silk touch 
+		enchant {dpick} with mending
+		enchant {dpick} with unbreaking 3
+	if {dshovel} is not set:
+		set {dshovel} to diamond shovel named "&dSpeed Shovel"
+		set {dshovel} to unbreakable diamond shovel
+		enchant {dshovel} with efficiency 5
+		enchant {dshovel} with silk touch 
+		enchant {dshovel} with mending
+		enchant {dshovel} with unbreaking 3
+	if {daxe} is not set:
+		set {daxe} to diamond axe named "&dSpeed Axe"
+		set {daxe} to unbreakable diamond axe
+		enchant {daxe} with efficiency 5
+		enchant {daxe} with silk touch 
+		enchant {daxe} with mending
+		enchant {daxe} with unbreaking 3
+	if {npick} is not set:
+		set {npick} to netherite pickaxe named "&cUpgraded Speed Hoe"
+		set {npick} to unbreakable netherite pickaxe
+		enchant {npick} with efficiency 10
+		enchant {npick} with silk touch 
+		enchant {npick} with mending
+		enchant {npick} with unbreaking 3
+	if {nhoe} is not set:
+		set {nhoe} to netherite hoe named "&cSpeed Hoe"
+		set {nhoe} to unbreakable netherite hoe
+		enchant {nhoe} with efficiency 10
+		enchant {nhoe} with silk touch 
+		enchant {nhoe} with mending
+		enchant {nhoe} with unbreaking 3
+	if {scythe} is not set:
+		set {scythe} to netherite hoe named "&2Scythe" with lore "&fReplants crops when right click. Only for Wheat, Carrot, and Potato"
+		enchant {scythe} with efficiency 5
+		enchant {scythe} with fortune 3
+		enchant {scythe} with mending
+		enchant {scythe} with unbreaking 3
+	if {elytra} is not set:
+		set {elytra} to unbreakable elytra named "The Sky's the Limit"
+		enchant {elytra} with unbreaking 3
+		enchant {elytra} with mending
+	if {shears} is not set:
+		set {shears} to unbreakable shears
+		enchant {shears} with efficiency 10
+		enchant {shears} with mending
+		enchant {shears} with silk touch
+		enchant {shears} with unbreaking 10
+	if {rod} is not set:
+		set {rod} to unbreakable fishing rod
+		enchant {rod} with luck of the sea 3
+		enchant {rod} with lure 3
+		enchant {rod} with mending
+		enchant {rod} with unbreaking 3
+	if {pws} is not set:
+		set {pws} to water bucket named "&fPocket &bWater &3Source"
+	if {sellwand} is not set:
+		set {sellwand} to wooden hoe named "&aSell Wand" with lore "&aRight Click A Chest To Sell"
+
+
+#====Prestige====
+function newPrestige(p:player):
+	if {prestige} is greater than 499:
+		format gui slot 11 of {_p} with barrier named "&cServer Prestige &7- &cMAX" with lore "&f/prestige for more info" to run:
+			send "{@prestige} &cServer is at Max Prestige (500)" to {_p}
+	else:
+		format gui slot 11 of {_p} with emerald named "&aServer Prestige &7- &a%{prestigecost}%" with lore "&f/prestige for more info" to run:
+			if balance of {_p} is greater than {prestigecost}:
+				close inventory of {_p}
+				remove {prestigecost} from balance of {_p}
+				add 1 to {prestige}
+				add 100000 to {prestigecost}
+				send "{@prestige} You bought the server &aPrestige %{prestige}%&f!" to {_p}
+				broadcast "{@prestige} %{_p}% bought the server &aPrestige&f. The server is at &aPrestige %{prestige}%&f."
+			else:
+				send "{@money}" to {_p}
+
+function newsellwand(p:player):
+	if inventory of {_p} has wooden hoe:
+		send "{@shop} &cDo you already have a sellwand?" to {_p}
+	else:
+		if balance of {_p} is greater than 1000000:
+			remove 1000000 from balance of {_p}
+			give {_p} wooden hoe named "&aSell wand" with lore "&aRight Click A Chest To Sell"
+			stop
+		else:
+			send "{@money}" to {_p}
+
+#====numShop====
+function newnumShop(p: player, item: object, qty: number, cost: number):
+	if balance of {_p} is greater than {_cost}:
+		remove {_cost} from balance of {_p}
+		give {_p} {_qty} of {_item}
+	else:
+		send "{@money}" to {_p}
+
+
+
