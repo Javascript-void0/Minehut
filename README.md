@@ -1,4 +1,4 @@
-# 🍞 FarminFarm - ✔ REOPENING
+# 🍞 FarminFarm - ✔ OPEN
 
 ##### Made by: Java ジャワ#7233 ♥
 
