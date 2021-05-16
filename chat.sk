@@ -12,6 +12,10 @@ on chat:
 	set {_name} to uncolored display name of player
 	set {_prefix} to uncolored player's prefix
 	set {_suffix} to uncolored player's suffix
+	if group of player is "._.":
+		stop
+	if group of player is "owner":
+		set the chat format to "%player's prefix% %player's name%&7⇾ &f%message%"
 	if group of player is "god":
 		if player has permission "sk.chatcolor":
 			set the chat format to gradient("&l%{_prefix}%&r%{_name}%⇾ %message%",(245, 140, and 0),(255, 255, and 255))
