@@ -252,7 +252,7 @@ function newotherShop(p:player):
 	format gui slot 4 of {_p} with ancient debris named "&fAncient Debris &7- &a$120k" to run function newnumShop({_p},ancient debris,16,120000)
 	format gui slot 5 of {_p} with coal block named "&fCoal Block &7- &a16 for $2,400" to run function newnumShop({_p},coal block,16,2400)
 	format gui slot 6 of {_p} with shulker box named "&fShulker Box &7- &a$7,500" to run function newnumShop({_p},shulker box,1,7500)
-	format gui slot 7 of {_p} with quartz named "&fQuartz &7- &a16 for $200" to run function newnumShop({_p},quartz,200)
+	format gui slot 7 of {_p} with quartz named "&fQuartz &7- &a16 for $200" to run function newnumShop({_p},quartz,16,200)
 	format gui slot 8 of {_p} with black stained glass pane named " "
 	format gui slot 9 of {_p} with black stained glass pane named " "
 	format gui slot 10 of {_p} with leather named "&fLeather &7- &a16 for $500" to run function newnumShop({_p},leather,16,500)
