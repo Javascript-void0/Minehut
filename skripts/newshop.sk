@@ -115,7 +115,7 @@ function newredstoneShop(p:player):
 	format gui slot 16 of {_p} with redstone torch named "&fRedstone Torch &7- &a16 for $200" to run function newnumShop({_p},redstone torch,16,200)
 	format gui slot 17 of {_p} with black stained glass pane named " " 
 	format gui slot 18 of {_p} with black stained glass pane named " " 
-	format gui slot 19 of {_p} with lever named "&fLever &7- &a16 for $100" to run function newnumShop({_p},lever,16,100)
+	format gui slot 19 of {_p} with stone pressure plate named "&fStone Pressure Plate&7- &a16 for $100" to run function newnumShop({_p},stone pressure plate,16,100)
 	format gui slot 20 of {_p} with redstone lamp named "&fRedstone Lamp &7- &a16 for $1,000" to run function newnumShop({_p},redstone lamp,16,1000)
 	format gui slot 21 of {_p} with daylight detector named "&fDaylight Detector &7- &a16 for $100" to run function newnumShop({_p},daylight detector,16,100)
 	format gui slot 24 of {_p} with scaffolding named "&fScaffolding &7- &a16 for $200" to run function newnumShop({_p},scaffolding,16,200)
