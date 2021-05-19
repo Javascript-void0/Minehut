@@ -78,12 +78,13 @@ async def status(ctx):
 @client.command(aliases=['cl'], help='Input for Changlogs')
 @commands.has_permissions(administrator=True)
 async def changelog(ctx, *, change):
+    role = ctx.guild.get_role(800936966988103680)
     channel = ctx.guild.get_channel(788276026202521650)
     d = datetime.date.today().strftime("%b %d")
     embed = discord.Embed(title = "Change Log")
     embed.add_field(name = "Date:", value = f'{d}')
     embed.add_field(name = "<:down1:837675982998732851> Changes:", value = f"{change}")
-    await channel.send(embed=embed)
+    await channel.send(role.mention, embed=embed)
     await ctx.send('Created New Changelog')
 
 if __name__ == '__main__':
