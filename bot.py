@@ -159,4 +159,4 @@ async def worth(ctx, *, crop = None):
             await ctx.send(f'```"{crop}" not found. ```')
 
 if __name__ == '__main__':
-    client.run(TOKEN)
+    client.run(TOKEN, reconnect=True)
