@@ -79,7 +79,7 @@ async def status(ctx):
 @commands.has_permissions(administrator=True)
 async def changelog(ctx, *, change):
     role = ctx.guild.get_role(800936966988103680)
-    channel = ctx.guild.get_channel(788276026202521650)
+    channel = ctx.guild.get_channel(747234399422119988)
     d = datetime.date.today().strftime("%b %d")
     embed = discord.Embed(title = "Change Log")
     embed.add_field(name = "Date:", value = f'{d}')
