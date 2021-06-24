@@ -59,7 +59,7 @@ function newShop(p:player):
 	format gui slot 6 of {_p} with netherite hoe named "&2Farming" to run function newfarmShop({_p})
 	format gui slot 8 of {_p} with black stained glass pane named " " 
 	format gui slot 9 of {_p} with black stained glass pane named " " 
-	format gui slot 11 of {_p} with emerald named "&aServer Prestige &7- &a%{prestigecost}%" with lore "&f/prestige for more info" and "&fClick twice to purchase!" to run function newPrestige({_p})
+	format gui slot 11 of {_p} with emerald named "&aServer Prestige &7- &a$%{prestigecost}%" with lore "&f/prestige for more info" and "&fClick twice to purchase!" to run function newPrestige({_p})
 	format gui slot 10 of {_p} with tnt named "&7Other" to run function newotherShop({_p})
 	format gui slot 7 of {_p} with enchanted golden apple named "&cRankup!" to run:
 		close inventory of {_p}
@@ -342,7 +342,7 @@ function newPrestige(p:player):
 		format gui slot 11 of {_p} with barrier named "&cServer Prestige &7- &cMAX" with lore "&f/prestige for more info" to run:
 			send "{@prestige} &cServer is at Max Prestige (500)" to {_p}
 	else:
-		format gui slot 11 of {_p} with emerald named "&aServer Prestige &7- &a%{prestigecost}%" with lore "&f/prestige for more info" to run:
+		format gui slot 11 of {_p} with emerald named "&aServer Prestige &7- &a$%{prestigecost}%" with lore "&f/prestige for more info" to run:
 			if balance of {_p} is greater than {prestigecost}:
 				close inventory of {_p}
 				remove {prestigecost} from balance of {_p}
@@ -371,6 +371,3 @@ function newnumShop(p: player, item: object, qty: number, cost: number):
 		give {_p} {_qty} of {_item}
 	else:
 		send "{@money}" to {_p}
-
-
-

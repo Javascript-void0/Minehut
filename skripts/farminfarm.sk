@@ -13,7 +13,7 @@ options:
 	clearlag: &8[&c&lCLEARLAG&8]&f
 	discord: &8[&3&lDISCORD&8]&f
 	broadcast: &8[&3&lBROADCAST&8]&f
-	prestige: &8[&a&lPRESTIGEe&8]&f
+	prestige: &8[&a&lPRESTIGE&8]&f
 	rebirth: &8[&b&lREBIRTH&8]&f
 	rankup: &8[&b&lRANKUP&8]&f
 	shop: &8[&a&lSHOP&8]&f
@@ -453,7 +453,7 @@ on disconnect:
 command /prestige:
 	trigger: 
 		send "{@prestige} The server is on &aPrestige %{prestige}%&f"
-		send "{@prestige} For every prestige level, you earn $10 every 10 seconds."
+		send "{@prestige} For every prestige level, you earn &a$10 &fevery 10 seconds. &a($%{prestige} * 10%&a)"
 
 command /resetpres: 
 	permission: pres.admin
@@ -469,20 +469,20 @@ every 30 seconds in "{@world}":
 #==== Rebirth ====
 variables:
 	{rebirth{@season}.%player%} = 1
-	{cost{@season}rebirth.%player%} = 500000
+	{cost{@season}rebirth.%player%} = 50000000
 
 on join:
 	if {rebirth{@season}.%player%} is not set:
 		set {rebirth{@season}.%player%} to 1
 	if {cost{@season}rebirth.%player%} is not set:
-		set {cost{@season}rebirth.%player%} to 500000
+		set {cost{@season}rebirth.%player%} to 50000000
 
 command /resetrebirth [<player>]:
 	trigger:
 		if player is op:
 			if arg-1 is "%player%":
 				set {rebirth{@season}.%arg-1%} to 1
-				set {cost{@season}rebirth.%player%} to 500000
+				set {cost{@season}rebirth.%player%} to 50000000
 				send "{@rebirth} Reset the Rebirth of %player%"
 			else:
 				send "{@rebirth} /resetrebirth <player>"
@@ -491,7 +491,7 @@ command /resetrebirth [<player>]:
 
 on first join: 
 	set {rebirth{@season}.%player%} to 1
-	set {cost{@season}rebirth.%player%} to 500000
+	set {cost{@season}rebirth.%player%} to 50000000
 
 command /rebirth [<offline player>]:
 	trigger:
@@ -513,7 +513,7 @@ command /rebirth [<offline player>]:
 				else: 
 					send "{@rebirth} &cYou need %{cost{@season}rebirth.%player%}% &cto Rebirth!"
 			else:
-				send "{@rebirth} &cYou need to /rankup to plantation to Rebirth"
+				send "{@rebirth} &cYou need to /rankup to Plantation to Rebirth"
 		else:
 			send "{@rebirth} &7%arg-1% &7is &bRebirth &8[&bx%{rebirth{@season}.%arg-1%}%&8]"
 
