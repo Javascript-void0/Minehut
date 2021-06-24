@@ -44,7 +44,7 @@ async def on_guild_channel_update(before, after):
             online = False
     if online:
         await member.edit(nick='[🔹] FarminFarm')
-        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/35 Online | farminfarm.minehut.gg"))
+        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | farminfarm.minehut.gg"))
         await role.edit(color=discord.Color(0x82c1f7))
     else:
         await member.edit(nick='[🔸] FarminFarm') 
@@ -61,14 +61,14 @@ async def status(ctx):
     messages = await guild.get_channel(751663136448315464).history().flatten()
     if online:
         embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ ONLINE ]```', color=discord.Color.green())
-        embed.add_field(name=f'Players online: {mc_status.players.online}/35', value=f" - `Ping: {mc_status.latency} ms`")
+        embed.add_field(name=f'Players online: {mc_status.players.online}/10', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
         await member.edit(nick='[🔹] FarminFarm')
-        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/35 Online | farminfarm.minehut.gg"))
+        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | farminfarm.minehut.gg"))
         await role.edit(color=discord.Color(0x82c1f7))
     else:
         embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ OFFLINE ]```', color=discord.Color.red())
-        embed.add_field(name=f'Players online: 0/35', value=f" - `Ping: {mc_status.latency} ms`")
+        embed.add_field(name=f'Players online: 0/10', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
         await member.edit(nick='[🔸] FarminFarm') 
         await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)

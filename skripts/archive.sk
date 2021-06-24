@@ -1,0 +1,207 @@
+#ChatColor
+on chat:
+    set chat format to "%player's prefix%%player's display name%%player's suffix% &8» %{chatcolor.%player%}%%message%"
+ 
+on first join:
+    set {chatcolor.%player%} to "&7"
+ 
+on join:
+    if {chatcolor.%player%} is not set:
+        set {chatcolor.%player%} to "&7"
+ 
+command /chatcolor:
+    aliases: chatcolour
+    permission: skriptessentials.chatcolor
+    permission message: Insufficent Permission
+    usage: &cUsage: /chatcolor
+    trigger:
+        open virtual chest inventory with size 4 to player
+        format gui slot 3 of player with blue dye named "&1Dark Blue" with lore "&7Click to set your chatcolor to Dark Blue!" to run:
+            set {chatcolor.%player%} to "&1"
+            close player's inventory
+            message "&3Successfully set chatcolor to &1Dark Blue&3."
+        format gui slot 4 of player with green dye named "&2Green" with lore "&7Click to set your chatcolor to Green!" to run:
+            set {chatcolor.%player%} to "&2"
+            close player's inventory
+            message "&3Successfully set chatcolor to &2Green&3."
+        format gui slot 20 of player with cyan dye named "&3Cyan" with lore "&7Click to set your chatcolor to Cyan!" to run:
+            set {chatcolor.%player%} to "&3"
+            close player's inventory
+            message "&3Successfully set chatcolor to &3Cyan."
+        format gui slot 21 of player with red dye named "&cLight Red" with lore "&7Click to set your chatcolor to Light Red!" to run:
+            set {chatcolor.%player%} to "&c"
+            close player's inventory
+            message "&3Successfully set chatcolor to &cLight Red&3."
+        format gui slot 22 of player with purple dye named "&5Purple" with lore "&7Click to set your chatcolor to Purple!" to run:
+            set {chatcolor.%player%} to "&5"
+            close player's inventory
+            message "&3Successfully set chatcolor to &5Purple&3."
+        format gui slot 23 of player with orange dye named "&6Orange" with lore "&7Click to set your chatcolor to Orange!" to run:
+            set {chatcolor.%player%} to "&6"
+            close player's inventory
+            message "&3Successfully set chatcolor to &6Orange&3."
+        format gui slot 24 of player with light gray dye named "&7Gray" with lore "&7Click to set your chatcolor to Gray!" to run:
+            set {chatcolor.%player%} to "&7"
+            close player's inventory
+            message "&3Successfully set chatcolor to &7Gray&3."
+        format gui slot 5 of player with gray dye named "&8Dark Gray" with lore "&7Click to set your chatcolor to Dark Gray!" to run:
+            set {chatcolor.%player%} to "&8"
+            close player's inventory
+            message "&3Successfully set chatcolor to &8Dark Gray&3."
+        format gui slot 30 of player with lapis lazuli named "&9Blue" with lore "&7Click to set your chatcolor to Blue!" to run:
+            set {chatcolor.%player%} to "&9"
+            close player's inventory
+            message "&3Successfully set chatcolor to &9Blue&3."
+        format gui slot 31 of player with lime dye named "&aLight Green" with lore "&7Click to set your chatcolor to Light Green!" to run:
+            set {chatcolor.%player%} to "&a"
+            close player's inventory
+            message "&3Successfully set chatcolor to &aLight Green&3."
+        format gui slot 32 of player with pink dye named "&dPink" with lore "&7Click to set your chatcolor to Pink!" to run:
+            set {chatcolor.%player%} to "&d"
+            close player's inventory
+            message "&3Successfully set chatcolor to &dPink&3."
+        format gui slot 11 of player with white dye named "&fWhite" with lore "&7Click to set your chatcolor to White!" to run:
+            set {chatcolor.%player%} to "&f"
+            close player's inventory
+            message "&3Successfully set chatcolor to &fWhite&3."
+        format gui slot 12 of player with yellow dye named "&eYellow" with lore "&7Click to set your chatcolor to Yellow!" to run:
+            set {chatcolor.%player%} to "&e"
+            close player's inventory
+            message "&3Successfully set chatcolor to &eYellow&3."
+        format gui slot 13 of player with black dye named "&0Black" with lore "&7Click to set your chatcolor to Black!" to run:
+            set {chatcolor.%player%} to "&0"
+            close player's inventory
+            message "&3Successfully set chatcolor to &0Black&3."
+        format gui slot 14 of player with fermented spider eye named "&4Red" with lore "&7Click to set your chatcolor to Red!" to run:
+            set {chatcolor.%player%} to "&4"
+            close player's inventory
+            message "&3Successfully set chatcolor to &4Red&3."
+        format gui slot 15 of player with light blue dye named "&bLight Blue" with lore "&7Click to set your chatcolor to Light Blue!" to run:
+            set {chatcolor.%player%} to "&b"
+            close player's inventory
+            message "&3Successfully set chatcolor to &bLight Blue&3."
+        format gui slot (all integers between 0 and 2) of player with dark gray glass pane named ""
+        format gui slot (all integers between 6 and 10) of player with dark gray glass pane named ""
+        format gui slot (all integers between 16 and 19) of player with dark gray glass pane named ""
+        format gui slot (all integers between 25 and 29) of player with dark gray glass pane named ""
+        format gui slot (all integers between 33 and 35) of player with dark gray glass pane named ""
+
+#Warnings/Punish/Kicks
+command /punish <offlineplayer>:
+    aliases: pun
+    permission: skriptessentials.punish
+    permission message: {@permission}
+    trigger:
+        if arg-1 is a player:
+            set {_offender} to arg-1
+            open virtual chest inventory with size 3 named "&c&lPUNISH" to player
+            format gui slot 4 of player with arg-1's skull named "&c&l%arg-1%" with lore "&eWhat's the punishment?"
+            format gui slot (all integers between 0 and 3) of player with dark gray glass pane named ""
+            format gui slot (all integers between 5 and 10) of player with dark gray glass pane named ""
+            format gui slot (all integers between 12 and 13) of player with dark gray glass pane named ""
+            format gui slot (all integers between 14 and 14) of player with dark gray glass pane named ""
+            format gui slot (all integers between 16 and 26) of player with dark gray glass pane named ""
+            format gui slot 11 of player with wooden axe named "&c&lBan" with lore "&eClick to open the ban GUI!" to run:
+                open virtual chest inventory with size 3 named "&c&lBan - %{_offender}%" to player
+                format gui slot (all integers between 0 and 3) of player with dark gray glass pane named ""
+                format gui slot (all integers between 5 and 10) of player with dark gray glass pane named ""
+                format gui slot (all integers between 12 and 13) of player with dark gray glass pane named ""
+                format gui slot (all integers between 14 and 14) of player with dark gray glass pane named ""
+                format gui slot (all integers between 16 and 26) of player with dark gray glass pane named ""
+                format gui slot 4 of player with {_offender}'s skull named "&c&l%{_offender}%" with lore "&eWhat's the reason?"
+                format gui slot 11 of player with book and quill named "&c&lHacking" with lore "&eDuration: 1 week" and "&eClick to ban &c%{_offender}% &efor Hacking!" to run:
+                    kick {_offender} due to "&4&lBANNED %newline%&cYou have been banned for Hacking. %newline% &8| &cDuration: 1 week."
+                    ban {_offender} due to "&4&lBANNED %newline%&cYou have been banned for Hacking. %newline% &8| &cDuration: 1 week." for 7 days
+                    close player's inventory
+                    message "&3Successfully banned &e%{_offender}% &3for &eHacking&3."
+                format gui slot 15 of player with book and quill named "&c&lMisbehaviour" with lore "&eDuration: 3 days" and "&eClick to ban &c%{_offender}% &efor Misbehaviour!" to run:
+                    kick {_offender} due to "&4&lBANNED %newline%&cYou have been banned for Misbehaviour. %newline% &8| &cDuration: 3 days."
+                    ban {_offender} due to "&4&lBANNED %newline%&cYou have been banned for Misbehaviour. %newline% &8| &cDuration: 3 days." for 3 days
+                    close player's inventory
+                    message "&3Successfully banned &e%{_offender}% &3for &eMisbehaviour&3."
+            format gui slot 15 of player with redstone dust named "&c&lWarn" with lore "&eClick to open the warn GUI!" to run:
+                open virtual chest inventory with size 3 named "&c&lWarn - %{_offender}%" to player
+                format gui slot (all integers between 0 and 3) of player with dark gray glass pane named ""
+                format gui slot (all integers between 5 and 9) of player with dark gray glass pane named ""
+                format gui slot (all integers between 11 and 13) of player with dark gray glass pane named ""
+                format gui slot (all integers between 14 and 15) of player with dark gray glass pane named ""
+                format gui slot (all integers between 17 and 26) of player with dark gray glass pane named ""
+                format gui slot 4 of player with {_offender}'s skull named "&c&l%{_offender}%" with lore "&eWhat's the reason?"
+                format gui slot 10 of player with book and quill named "&c&lHacking" with lore "&eClick to warn &c%{_offender}% &efor Hacking!" to run:
+                    set {_offenderuuid} to uuid of {_offender}
+                    add 1 to {warning::%{_offenderuuid}%}
+                    send "&cYou've been warned by &b%player% &cfor &bHacking &7[&c%{warning::%{_offenderuuid}%}%&7]" to {_offender}
+                    send "&3Successfully warned &e%{_offender}% &3for &3Hacking&e!" to player
+                    close player's inventory
+                    if {warning::%{_offenderuuid}%} is 3:
+                        kick {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 3 warns. %newline% &8| &cDuration: 10 minutes."
+                        ban {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 3 warns. %newline% &8| &cDuration: 10 minutes." for 15 seconds
+                    if {warning::%{_offenderuuid}%} is 4:
+                        kick {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 4 warns. %newline% &8| &cDuration: 30 minutes."
+                        ban {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 4 warns. %newline% &8| &cDuration: 30 minutes." for 30 minutes
+                    if {warning::%{_offenderuuid}%} is 5:
+                        set {warning::%{_offenderuuid}%} to 0
+                        kick {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 5 warns. %newline% &8| &cDuration: 60 minutes."
+                        ban {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 5 warns. %newline% &8| &cDuration: 60 minutes." for 60 minutes
+                format gui slot 13 of player with book and quill named "&c&lMisbehaviour" with lore "&eClick to warn &c%{_offender}% &efor Misbehaviour!" to run:
+                    set {_offenderuuid} to uuid of {_offender}
+                    add 1 to {warning::%{_offenderuuid}%}
+                    send "&cYou've been warned by &b%player% &cfor &bMisbehaviour &7[&c%{warning::%{_offenderuuid}%}%&7]" to {_offender}
+                    send "&3Successfully warned &e%{_offender}% &3for &eMisbehaviour&3!" to player
+                    close player's inventory
+                    if {warning::%{_offenderuuid}%} is 3:
+                        kick {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 3 warns. %newline% &8| &cDuration: 10 minutes."
+                        ban {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 3 warns. %newline% &8| &cDuration: 10 minutes." for 15 seconds
+                    if {warning::%{_offenderuuid}%} is 4:
+                        kick {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 4 warns. %newline% &8| &cDuration: 30 minutes."
+                        ban {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 4 warns. %newline% &8| &cDuration: 30 minutes." for 30 minutes
+                    if {warning::%{_offenderuuid}%} is 5:
+                        set {warning::%{_offenderuuid}%} to 0
+                        kick {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 5 warns. %newline% &8| &cDuration: 60 minutes."
+                        ban {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 5 warns. %newline% &8| &cDuration: 60 minutes." for 60 minutes
+                format gui slot 16 of player with book and quill named "&c&lExploiting Glitches" with lore "&eClick to warn &c%{_offender}% &efor Exploiting Glitches!" to run:
+                    set {_offenderuuid} to uuid of {_offender}
+                    add 1 to {warning::%{_offenderuuid}%}
+                    send "&cYou've been warned by &b%player% &cfor &bExploiting Glitches &7[&c%{warning::%{_offenderuuid}%}%&7]" to {_offender}
+                    send "&3Successfully warned &e%{_offender}% &3for &eExploiting Glitches&3!" to player
+                    close player's inventory
+                    if {warning::%{_offenderuuid}%} is 3:
+                        kick {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 3 warns. %newline% &8| &cDuration: 10 minutes."
+                        ban {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 3 warns. %newline% &8| &cDuration: 10 minutes." for 15 seconds
+                    if {warning::%{_offenderuuid}%} is 4:
+                        kick {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 4 warns. %newline%&cDuration: 30 minutes."
+                        ban {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 4 warns. %newline%&cDuration: 30 minutes." for 30 minutes
+                    if {warning::%{_offenderuuid}%} is 5:
+                        set {warning::%{_offenderuuid}%} to 0
+                        kick {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 5 warns. %newline%&cDuration: 60 minutes."
+                        ban {_offender} due to "&4&lBANNED %newline% &8| &cYou have been banned for having 5 warns. %newline%&cDuration: 60 minutes." for 60 minutes
+        else:
+            message "&cUsage: /punish <player>"
+
+command /kick <player> [<text>]:
+    permission: skriptessentials.kick
+    permission message: {@permission}
+    usage: &cUsage: /kick <player> [<reason>]
+    trigger:
+        if arg-2 is not set:
+            kick arg-1
+            message "&3Successfully kicked &e%arg-1%&3."
+        else:
+            kick arg-1 due to arg-2
+            message "&3Successfully kicked &e%arg-1% &3due to &e%arg-2%&3."
+ 
+command /kickall [<text>]:
+    permission: skriptessentials.kickall
+    permission message: {@permission}
+    usage: &cUsage: /kickall [<reason>]
+    trigger:
+        if arg-1 is not set:
+            set {_p} to player
+            loop all players:
+                loop-player is not {_p}:
+                    kick loop-player
+        else:
+            set {_p} to player
+            loop all players:
+                loop-player is not {_p}:
+                    kick loop-player due to arg-1

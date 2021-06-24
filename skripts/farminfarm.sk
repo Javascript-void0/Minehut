@@ -10,26 +10,27 @@
 options:
 #Prefixes
 	farminfarm: &8[&3&lFARMINFARM&8]&f
-	clearchat: &8[&cCLEARCHAT&8]&f
 	clearlag: &8[&c&lCLEARLAG&8]&f
-	mutechat: &8[&c&lMUTECHAT&8]&f
 	discord: &8[&3&lDISCORD&8]&f
 	broadcast: &8[&3&lBROADCAST&8]&f
-	prestige: &8[&a&lPRESTIGE&8]&f
+	prestige: &8[&a&lPRESTIGEe&8]&f
 	rebirth: &8[&b&lREBIRTH&8]&f
 	rankup: &8[&b&lRANKUP&8]&f
 	shop: &8[&a&lSHOP&8]&f
 	spy: &8[&7&lSPY&8]&f
 	mode: &8[&3&lMODE&8]&f
-	rule: &8[&3&lRULE&8]&f
-	fake: &8[&7&lFAKE&8]&f
+	rule: &8[&3&lRULE &8]&f
+	fake: &8[&7&lFAKE &8]&f
+	join: &8[&9&lJOIN&8]&f
+	leave: &8[&9&lLEAVE&8]&f
+
 #Seasons
-	world: s-six
-	season: 6
+	world: C2S1
+	chapter: ²
+	season: 1
 #Messages
-	money: &cError: javascript:void(0) Insufficient Money
-	permission: &cError: javascript:void(0) Insufficient Permissions
-	lore: "&7Left Click - x4" and "&7Right Click - x16" and "&7Shift + Right Click - x32" and "&7Shift + Left Click - x64"
+	money: &cJavascript:void(0)&8; &4Insufficient Money
+	permission: &cJavascrpt:void(0)&8; &4Insufficient Permission
 #Clear Lag
 	cooldown: 5 minutes
 	wait: 10 seconds
@@ -37,10 +38,6 @@ options:
 #==== The Small Stuff ====
 on hunger meter change:
 	cancel event
-
-command /apply:
-	trigger:
-		send "{@farminfarm} https://bit.ly/farminfarmapp" #  <<<<< HOLLOW UPDATE LINK
 
 on portal create: 
 	if player is op: 
@@ -112,18 +109,28 @@ command /tps:
 
 command /rules: 
 	trigger:
-		send "{@rule} &31. &fKeep the chat family friendly. Limit swearing."
-		send "{@rule} &32. &fEnglish only"
-		send "{@rule} &33. &fDon't spam/flood. Limit caps. "
-		send "{@rule} &34. &fRespect everyone"
-		send "{@rule} &35. &fNo advertising"
-		send "{@rule} &36. &fDon't start drama"
-		send "{@rule} &37. &fHave common sense. No stealing from other plots, even if it's full."
-		send "{@rule} &38. &fThe staff team always has the final say"
-		send "{@rule} &39. &fNo bugs, exploits, hacks, macros, or any unfair advantages"
-		send "{@rule} &310. &fOnly 2 accounts per (merged) plot (1 alt or friend)"
-		send "{@rule} &311. &fNo offensive skins or plots"
-		send "{@rule} &312. &fDon't be rude, racist, or bully others"
+		rules(player)
+
+function rules(p:player):
+	open virtual chest inventory with size 2 named "&cRules" to {_p}
+	format gui slot 0 of {_p} with black stained glass pane named " " 
+	format gui slot 1 of {_p} with red stained glass pane named "&8&l[&3RULE 1.&8] &fKeep the chat family friendly." with lore "&fThis means no swearing under any circumstances!"
+	format gui slot 2 of {_p} with red stained glass pane named "&8&l[&3RULE 2.&8] &fEnglish Only."
+	format gui slot 3 of {_p} with red stained glass pane named "&8&l[&3RULE 3.&8] &fDon't spam/flood. Limit caps. "
+	format gui slot 4 of {_p} with red stained glass pane named "&8&l[&3RULE 4.&8] &f&fRespect everyone."
+	format gui slot 5 of {_p} with red stained glass pane named "&8&l[&3RULE 5.&8] &fNo advertising."
+	format gui slot 6 of {_p} with red stained glass pane named "&8&l[&3RULE 6.&8] &fDon't start drama."
+	format gui slot 7 of {_p} with red stained glass pane named "&8&l[&3RULE 7.&8] &fHave common sense." with lore "&fNo stealing from other plots, even if it's full."
+	format gui slot 10 of {_p} with red stained glass pane named "&8&l[&3RULE 8.&8] &fThe staff team always has the final say."
+	format gui slot 8 of {_p} with black stained glass pane named " " 
+	format gui slot 9 of {_p} with black stained glass pane named " " 
+	format gui slot 11 of {_p} with red stained glass pane named "&8&l[&3RULE 9.&9] &fNo bugs, exploits, hacks, macros, or any unfair advantages"
+	format gui slot 12 of {_p} with red stained glass pane named "&8&l[&3RULE 10.&9] &fOnly 2 accounts per (merged) plot (1 alt or friend)"
+	format gui slot 13 of {_p} with red stained glass pane named "&8&l[&3RULE 11.&9] &fNo offensive skins or plots."
+	format gui slot 14 of {_p} with red stained glass pane named "&8&l[&3RULE 12.&9] &fDon't be rude, racist, or bully others"
+	format gui slot 15 of {_p} with red stained glass pane named "&8&l[&3RULE 13.&9] &fNo boosting, this means to helping others by giving them free items/money."
+	format gui slot 16 of {_p} with red stained glass pane named "&8&l[&3RULE 14.&9] &fNo posting harmful or sensitive links"
+	format gui slot 17 of {_p} with black stained glass pane named " " 
 
 command /nw:
 	trigger:
@@ -150,108 +157,11 @@ command /nw:
 			send "{@permission}"
 
 #==== Chat ====
-#on chat:
-#	if player has permission "sk.chatcolor":
-#		set the chat format to "%display name of player%&7⇾ &f%message%"
-#	else:
-#		set the chat format to "%display name of player%&7⇾ &7%message%"
-
-#==== Spam ====
 on chat:
-	if {SkCheat::spam.m::%uuid of player%} is message:
-		add 1 to {SkCheat::spam.p::%uuid of player%}
-		if {SkCheat.spam.notify::%uuid of player%} is not set:
-			set {SkCheat.spam.notify::%uuid of player%} to now
-		if difference between {SkCheat.spam.notify::%uuid of player%} and now is more than 1 second:
-			if {SkCheat::spam.p::%uuid of player%} is greater than 6:
-				kick the player due to "{@farminfarm} You were spamming."
-				clear {SkCheat::spam.p::%uuid of player%}
+	if player has permission "sk.chatcolor":
+		set the chat format to "%player's prefix%%display name of player%&7: &f%message%"
 	else:
-		set {SkCheat::spam.m::%uuid of player%} to message	
-
-on join:
-	clear {SkCheat::spam.p::%uuid of player%}
-	clear {SkCheat::spam.m::%uuid of player%}
-
-on disconnect:
-	clear {SkCheat::spam.p::%uuid of player%}
-	clear {SkCheat::spam.m::%uuid of player%}
-
-#==== Mute Chat ====
-command /mutechat:
-	permission: chat.mute
-	permission message: {@permission}
-	trigger:
-		if {Globalchat} is not set:
-			set {Globalchat} to true
-			broadcast "{@mutechat} &c&lChat muted by &r&c%player%"
-			stop trigger
-
-		if {Globalchat} is set:
-			clear {Globalchat}
-			broadcast "{@mutechat} &a&lChat unmuted by &r&a%player%"
-
-on chat:
-	if {Globalchat} is true:
-		if player has permission "chat.mute.bypass":
-			stop trigger
-		else:
-			cancel event
-			send "{@mutechat} &cChat is currently muted."
-
-#==== Clear Chat ====
-command /clearchat [<text>] [<player>]:
-	aliases: /cc
-	trigger:
-		if executor doesn't have permission "clearchat.all" or "clearchat.others" or "clearchat.own":
-			send "{@clearchat} {@permission}"
-			stop
-		else if arg-1 is "all":
-			if executor has the permission "clearchat.all":
-				loop 100 times:
-					broadcast ""
-				send "{@clearchat} &aYou have cleared the chat"
-			else:
-				send "{@clearchat} &cYou are not allowed to clear the chat!"
-				send "{@clearchat} &7&oDid you mean /clearchat &8&oown&7?"
-		else if arg-1 is "player":
-			if executor has the permission "clearchat.others":
-				if arg-2 is set:
-					loop 100 times:
-						send "" to arg-2
-					send "{@clearchat} &aYou have cleared &c%arg-2%&4's &achat"
-				else:
-					send "{@clearchat} &cYou must specify the name of an online player"
-					send "{@clearchat} &7&oDid you mean /clearchat &8&oown&7?"
-					stop
-			else:
-				send "{@clearchat} &cYou are not allowed to clear another player's chat!"
-				send "{@clearchat} &7&oDid you mean /clearchat &8&oown&7?"
-		else if arg-1 is "own":
-			loop 100 times:
-				send "" to executor
-			send "{@clearchat} &aYou have cleared your chat"
-		else if arg-1 is "help":
-			send "		&7&lClear&f&lChat"
-			if executor has the permission "clearchat.all":
-				send "&7/clearchat &fall &7- &oClears the chat of all online players"
-			if executor has the permission "clearchat.others":
-				send "&7/clearchat &fplayer &c<player> &7- &oClears the chat of <player>"
-			send "&7/clearchat &fown &7- &oClears your chat"
-		else if arg-1 isn't set:
-			send "&8Usage: &7/clearchat [ all | player | own | help ]"
-			send "&7&oType /clearchat &8&ohelp &7&ofor more information"
-		else:
-			if first 7 characters of arg-1 is "player ":
-				if executor has the permission "clearchat.others":
-					send "{@clearchat} &cplayer named '&n%subtext of arg-1 from characters 8 to (the length of arg-1)%&c' &cnot found!"
-				else:
-					send "{@clearchat} &cYou are not allowed to clear another player's chat!"
-					send "{@clearchat} &7&oDid you mean /clearchat &8&oown&7?"
-					stop
-			else:
-				send "{@clearchat} &cinvalid argument '&n%arg-1%&c'!"
-			send "{@clearchat} &7&oType /clearchat &8&ohelp &7&ofor more information"
+		set the chat format to "%player's prefix%%display name of player%&7: &7%message%"
 
 #==== Clear Lag ====
 every {@cooldown}:
@@ -309,48 +219,14 @@ function gradient(input: string, color-from: integers, color-to: integers) :: st
 	return colored {_r}
 
 #==== Chat Format ====
-on chat:
-	set {_name} to uncolored display name of player
-	set {_prefix} to uncolored player's prefix
-	set {_suffix} to uncolored player's suffix
-
-	if group of player is "owner":
-		if {mode} is 0:
-			set the chat format to "%player's prefix%%display name of player%⇾ %message%"
-		else if {mode} is 1:
-			set the chat format to colored "%rgbToHex(149, 113, and 221)% &l[OWNER] Java&7⇾&f %message%"
-		else if {mode} is 2:
-			set the chat format to gradient("[&lOWNER&r] %{_name}%⇾ %message%",(22, 156, and 157),(255, 255, and 255))
-		else if {mode} is 3:
-			set the chat format to gradient("[&lOWNER&r] %{_name}%⇾ %message%",(242, 154, and 68),(255, 255, and 255))
-		else if {mode} is 4:
-			set the chat format to gradient("[&lOWNER&r] %{_name}%⇾ %message%",(158, 65, and 86),(236, 219, and 121))
-		else if {mode} is 5:
-			set the chat format to gradient("[&lOWNER&r] %{_name}%⇾ %message%",(35, 66, and 72),(178, 229, and 96))
-		else if {mode} is 6:
-			set chat format to gradient("[&lOWNER&r] %{_name}%⇾ %message%",(92, 188, and 79),(231, 248, and 208))
-		else if {mode} is 1225:
-			set chat format to gradient("[&lOWNER&r] %{_name}%⇾ %message%",(91, 151, and 117),(228, 168, and 169))
-	if group of player is "god":
-		set the chat format to gradient("&l%{_prefix}%&r%{_name}%⇾ %message%",(245, 140, and 0),(255, 255, and 255))
-	else if group of player is "veteran":
-		set the chat format to gradient("&l%{_prefix}%&r%{_name}%⇾ %message%",(204 ,220, and 0),(255, 255, and 255))
-	else if group of player is "ceo":
-		set {_prefix} to colored "%rgbToHex(181, 61, and 77)%&l%{_prefix}%"
-		set the chat format to "%{_prefix}%&r%display name of player%⇾ &7%message%"
-	else if group of player is "monopoly":
-		set {_prefix} to colored "%rgbToHex(217, 98, and 64)%&l%{_prefix}%"
-		set the chat format to "%{_prefix}%&r%display name of player%⇾ &7%message%"
-	else if group of player is "spectre":
-		set {_prefix} to colored "%rgbToHex(143, 155, and 250)%&l%{_prefix}%"
-		set the chat format to "%{_prefix}%&r%display name of player%⇾ &7%message%"
-	else if group of player is "engineer":
-		set {_prefix} to colored "%rgbToHex(246, 112, and 108)%&l%{_prefix}%"
-		set the chat format to "%{_prefix}%&r%display name of player%⇾ &7%message%"
-	else if player has permission "sk.chatcolor":
-		set the chat format to "%player's prefix%%display name of player%%player's suffix%⇾ &f%message%"
-	else:
-		set chat format to "%player's prefix%%display name of player%%player's suffix%&7⇾ &7%message%"
+# on chat:
+# 	set {_name} to uncolored display name of player
+#	set {_prefix} to uncolored player's prefix
+#	set {_suffix} to uncolored player's suffix
+#	else if player has permission "sk.chatcolor":
+#		set the chat format to "%player's prefix%%display name of player%%player's suffix% ⇾ &f%message%"
+#	else:
+#		set chat format to "%player's prefix%%display name of player%%player's suffix% &7⇾ &7%message%"
 
 #==== Mode ====
 command /mode [<text>]:
@@ -540,12 +416,12 @@ command /fake [<text>] [<offline player>]:
 command /?:
 	aliases: /bukkit:?
 	trigger:
-		send "&7what does this do... idk kinda useless command imo"
+		send "&7Why not ask someone for help?"
 
 command /help:
 	aliases: /bukkit:help
 	trigger:
-		send "%player's prefix%%display name of player%⇾ &7HEY EVERYONE I NEED HELP"
+		broadcast "%player's prefix%%display name of player%⇾ &7HEY EVERYONE I NEED HELP"
 
 command /opapply:
 	trigger:
@@ -561,17 +437,17 @@ every 5 minutes in "{@world}":
 
 # ==== Join/Leave ====
 on first join:
-	broadcast "&fWelcome &3%player% &fto &2FarminFarm &8[&f##%size of all offline players%&8]"
+	broadcast "{@join} &fWelcome &3%player% &fto &2FarminFarm &8[&f##%size of all offline players%&8]"
 
 command /joins:
 	trigger:
 		send "{@farminfarm} &3%size of all offline players% &fUnique Joins"
 
 on connect:
-	broadcast "&f[&a+&f] %player%"
+	broadcast "{@join} &3%player% &fhas joined the server!"
 
 on disconnect:
-	broadcast "&f[&c-&f] %player%"
+	broadcast "{@leave} &3%player% &fhas disconnected from the server!"
 
 #==== Prestige ====
 command /prestige:
@@ -593,20 +469,20 @@ every 30 seconds in "{@world}":
 #==== Rebirth ====
 variables:
 	{rebirth{@season}.%player%} = 1
-	{cost{@season}rebirth.%player%} = 10000000
+	{cost{@season}rebirth.%player%} = 500000
 
 on join:
 	if {rebirth{@season}.%player%} is not set:
 		set {rebirth{@season}.%player%} to 1
 	if {cost{@season}rebirth.%player%} is not set:
-		set {cost{@season}rebirth.%player%} to 10000000
+		set {cost{@season}rebirth.%player%} to 500000
 
 command /resetrebirth [<player>]:
 	trigger:
 		if player is op:
 			if arg-1 is "%player%":
 				set {rebirth{@season}.%arg-1%} to 1
-				set {cost{@season}rebirth.%player%} to 10000000
+				set {cost{@season}rebirth.%player%} to 500000
 				send "{@rebirth} Reset the Rebirth of %player%"
 			else:
 				send "{@rebirth} /resetrebirth <player>"
@@ -615,29 +491,29 @@ command /resetrebirth [<player>]:
 
 on first join: 
 	set {rebirth{@season}.%player%} to 1
-	set {cost{@season}rebirth.%player%} to 10000000
+	set {cost{@season}rebirth.%player%} to 500000
 
 command /rebirth [<offline player>]:
 	trigger:
 		if arg-1 is not set:
 			send "{@rebirth} &7You are &bRebirth &8[&bx%{rebirth{@season}.%player%}%&8]"
 			send "{@rebirth} &7Next &bRebirth &7costs &a$%{cost{@season}rebirth.%player%}%"
-			if group of player is "god":
+			if group of player is "king":
 				if player's balance is greater than {cost{@season}rebirth.%player%}:
-					if {rebirth.%player%} is greater than 5:
+					if {rebirth.%player%} is greater than 10:
 						send "{@rebirth} &cMax Rebirth"
 					else:
 						remove {cost{@season}rebirth.%player%} from player's balance
-						add 1 to {rebirth{@season}.%player%}
+						add 0.2 to {rebirth{@season}.%player%}
 						set {cost{@season}rebirth.%player%} to {cost{@season}rebirth.%player%} * 1.2
 						execute console command "/lp user %player% parent add default"
 						wait 1 second
-						execute console command "/lp user %player% parent remove god"
+						execute console command "/lp user %player% parent remove king"
 						send "{@rebirth} You have Rebirthed to &8[&bx%{rebirth{@season}.%player%}%&8]"
 				else: 
 					send "{@rebirth} &cYou need %{cost{@season}rebirth.%player%}% &cto Rebirth!"
 			else:
-				send "{@rebirth} &cYou need to /rankup to God to Rebirth"
+				send "{@rebirth} &cYou need to /rankup to King to Rebirth"
 		else:
 			send "{@rebirth} &7%arg-1% &7is &bRebirth &8[&bx%{rebirth{@season}.%arg-1%}%&8]"
 
@@ -709,7 +585,7 @@ on right click:
 every 10 seconds:
 	loop all players:
 		wipe loop-player's sidebar
-		set name of sidebar of loop-player to "&3FarminFarm &7S{@season}"
+		set name of sidebar of loop-player to "&3FarminFarm &7S{@season}{@chapter}"
 		set score "             " in sidebar of loop-player to 13
 		set score "&3Rank: " in sidebar of loop-player to 12
 		set score "   %loop-player's prefix%" in sidebar of loop-player to 11
@@ -718,57 +594,42 @@ every 10 seconds:
 		set score "   &8[&bx%{rebirth{@season}.%loop-player%}%&8]" in sidebar of loop-player to 8
 		set score "                         " in sidebar of loop-player to 7
 		set score "&3Online: " in sidebar of loop-player to 6
-		set score "   &f%number of all players%/20" in sidebar of loop-player to 5
+		set score "   &f%number of all players%/10" in sidebar of loop-player to 5
 		set score "  " in sidebar of loop-player to 4
 		set score "&3Balance: " in sidebar of loop-player to 3
 		set score "   &a%balance of loop-player%" in sidebar of loop-player to 2
 		set score " " in sidebar of loop-player to 1
 		set score "&7farminfarm.minehut.gg" in sidebar of loop-player to 0
 
-#==== Staff Chat ====
-command /staffchat [<text>]:
-	aliases: /sc, /a
-	permission: sc.staffchat
-	permission message: {@permission}
-	trigger:
-		loop all players:
-			if loop-player has permission "sc.staffchat":
-				send "&8[&6StaffChat&8]&r %player's prefix%%display name of player%&f⇾ %arg 1%" to loop-player
-
-command /helperchat [<text>]:
-	aliases: /hc
-	permission: sc.helperchat
-	permission message: {@permission}
-	trigger:
-		loop all players:
-			if loop-player has permission "sc.helper.chat":
-				send "&8[&bHelperChat&8]&r %player's prefix%%display name of player%&f⇾ %arg 1%" to loop-player
-
 #==== Worth ====
 command /worth:
 	trigger:
 		open virtual chest inventory with size 2 named "&3Crop Sell Values" to player		
-		format gui slot 1 of player with wheat named "&fWheat &7- &a$24"
-		format gui slot 2 of player with potato named "&fPotato &7- &a$24"
-		format gui slot 3 of player with carrot named "&fCarrot &7- &a$24"
+		format gui slot 0 of player with black stained glass pane named " "
+		format gui slot 1 of player with wheat named "&fWheat &7- &a$12"
+		format gui slot 2 of player with potato named "&fPotato &7- &a$12"
+		format gui slot 3 of player with carrot named "&fCarrot &7- &a$12"
 		format gui slot 4 of player with wheat seed named "&fWheat Seeds &7- &a$1"
-		format gui slot 5 of player with pumpkin named "&fPumpkin &7- &a$20"
-		format gui slot 6 of player with melon slice named "&fMelon Slice &7- &a$10"
+		format gui slot 5 of player with pumpkin named "&fPumpkin &7- &a$10"
+		format gui slot 6 of player with melon slice named "&fMelon Slice &7- &a$5"
 		format gui slot 7 of player with cactus named "&fCactus &7- &a$20"
-		format gui slot 10 of player with sugar cane named "&fSugar Cane &7- &a$18"
-		format gui slot 11 of player with bamboo named "&fBamboo &7- &a$8"
-		format gui slot 12 of player with kelp named "&fKelp &7- &a$12"
-		format gui slot 13 of player with chorus fruit named "&fChorus Fruit &7- &a$30"
-		format gui slot 14 of player with vine named "&fVine &7- &a$30"
-		format gui slot 15 of player with nether wart named "&fNether Wart &7- &a$30"
+		format gui slot 8 of player with black stained glass pane named " "
+		format gui slot 9 of player with black stained glass pane named " "
+		format gui slot 10 of player with sugar cane named "&fSugar Cane &7- &a$9"
+		format gui slot 12 of player with apple named "&fApple &7- &a$15"
+		format gui slot 11 of player with kelp named "&fKelp &7- &a$6"
+		format gui slot 13 of player with chorus fruit named "&fChorus Fruit &7- &a$15"
+		format gui slot 14 of player with vine named "&fVine &7- &a$15"
+		format gui slot 15 of player with nether wart named "&fNether Wart &7- &a$15"
 		format gui slot 16 of player with barrier named "Exit" to run:
 			close player's inventory
+		format gui slot 17 of player with black stained glass pane named " "
 
 #==== Sellwand ====
 function GetBlockPrice(i: integer) :: number:
 	set {_j} to 0
 	loop {prices::*}:
-		add 1 to {_j}
+		add 0.1 to {_j}
 		if {_i} is {_j}:
 			return loop-value
 
@@ -880,334 +741,43 @@ command /rankup:
 	trigger:
 		if group of player is "default":
 			open virtual chest inventory with size 1 named "&bRankup" to player
-			format gui slot 4 of player with emerald named "&aRankup to Miner" with lore "&a$50k" to run:
-				if player's balance is greater than or equal to 50000:
-					make console execute command "lp user %player% promote ranks"
-					make console execute command "tab playeruuid %player% tab prefix &8[&3Miner&8] &f"
-					remove 50000 from player's balance
-					send "{@rankup} &fYou have miner rank now!"
-					close player's inventory
-				else:
-					send "{@rankup} {@money}" 
-
-		else if group of player is "miner":
-			open virtual chest inventory with size 1 named "&bRankup" to player
-			format gui slot 4 of player with emerald named "&aRankup to Warrior" with lore "&a$250k" to run:
+			format gui slot 4 of player with emerald named "&aRankup to Garden" with lore "&a$250k" to run:
 				if player's balance is greater than or equal to 250000:
-					make console execute command "lp user %player% promote ranks"
-					make console execute command "tab playeruuid %player% tab prefix &8[&9Warrior&8] &f"
+					make console execute command "lp user %player% promote rankup"
 					remove 250000 from player's balance
-					send "{@rankup} &fYou have warrior rank now!"
+					send "{@rankup} &aYou are now a Garden!"
 					close player's inventory
 				else:
 					send "{@rankup} {@money}" 
-
-		else if group of player is "warrior":
+		else if group of player is "garden":
 			open virtual chest inventory with size 1 named "&bRankup" to player
-			format gui slot 4 of player with emerald named "&aRankup to General" with lore "&a$1M" to run:
-				if player's balance is greater than or equal to 1000000:
-					make console execute command "lp user %player% promote ranks"
-					make console execute command "tab playeruuid %player% tab prefix &8[&3General&8] &f"
-					remove 1000000 from player's balance
-					send "{@rankup} &fYou have General rank now!"
-					close player's inventory
-				else:
-					send "{@rankup} {@money}" 
-
-		else if group of player is "general":
-			open virtual chest inventory with size 1 named "&bRankup" to player
-			format gui slot 4 of player with emerald named "&aRankup to Engineer" with lore "&a$5M" to run:
+			format gui slot 4 of player with emerald named "&aRankup to Vineyard" with lore "&a$5M" to run:
 				if player's balance is greater than or equal to 5000000:
-					make console execute command "lp user %player% promote ranks"
-					make console execute command "tab playeruuid %player% tab prefix &8[&4Engineer&8] &f"
+					make console execute command "lp user %player% promote rankup"
 					remove 5000000 from player's balance
-					send "{@rankup} &fYou have Engineer rank now!"
+					send "{@rankup} &aYou are now a Vineyard!"
 					close player's inventory
 				else:
 					send "{@rankup} {@money}" 
-
-		else if group of player is "engineer":
+		else if group of player is "vineyard":
 			open virtual chest inventory with size 1 named "&bRankup" to player
-			format gui slot 4 of player with emerald named "&aRankup to Spectre" with lore "&a$10M" to run:
-				if player's balance is greater than or equal to 10000000:
-					make console execute command "lp user %player% promote ranks"
-					make console execute command "tab playeruuid %player% tab prefix &8[&b&lSpectre&8] &f"
-					remove 10000000 from player's balance
-					send "{@rankup} &fYou have Spectre rank now!"
-					close player's inventory
-				else:
-					send "{@rankup} {@money}" 
-
-		else if group of player is "spectre":
-			open virtual chest inventory with size 1 named "&bRankup" to player
-			format gui slot 4 of player with emerald named "&aRankup to Monopoly" with lore "&a$15M" to run:
+			format gui slot 4 of player with emerald named "&aRankup to Ranch" with lore "&a$15M" to run:
 				if player's balance is greater than or equal to 15000000:
-					make console execute command "lp user %player% promote ranks"
-					make console execute command "tab playeruuid %player% tab prefix &8[&c&lMonopoly&8] &f"
+					make console execute command "lp user %player% promote rankup"
 					remove 15000000 from player's balance
-					send "{@rankup} &fYou have Monopoly rank now!"
+					send "{@rankup} &aYou are now a Ranch!"
 					close player's inventory
 				else:
 					send "{@rankup} {@money}" 
-
-		else if group of player is "monopoly":
+		else if group of player is "ranch":
 			open virtual chest inventory with size 1 named "&bRankup" to player
-			format gui slot 4 of player with emerald named "&aRankup to CEO" with lore "&a$20M" to run:
-				if player's balance is greater than or equal to 20000000:
-					make console execute command "lp user %player% promote ranks"
-					make console execute command "tab playeruuid %player% tab prefix &8[&4&lCEO&8] &f"
-					remove 20000000 from player's balance
-					send "{@rankup} &fYou have CEO rank now!"
-					close player's inventory
-				else:
-					send "{@rankup} {@money}" 
-
-		else if group of player is "ceo":
-			open virtual chest inventory with size 1 named "&bRankup" to player
-			format gui slot 4 of player with emerald named "&aRankup to Veteran" with lore "&a$25M" to run:
-				if player's balance is greater than or equal to 25000000:
-					make console execute command "lp user %player% promote ranks"
-					make console execute command "tab playeruuid %player% tab prefix &8[&e&lVeteran&8] &f"
-					remove 25000000 from player's balance
-					send "{@rankup} &fYou have Veteran rank now!"
-					close player's inventory
-				else:
-					send "{@rankup} {@money}" 
-
-		else if group of player is "veteran":
-			open virtual chest inventory with size 1 named "&bRankup" to player
-			format gui slot 4 of player with emerald named "&aRankup to God" with lore "&a$30M" to run:
+			format gui slot 4 of player with emerald named "&aRankup to Plantation" with lore "&a$30M" to run:
 				if player's balance is greater than or equal to 30000000:
-					make console execute command "lp user %player% promote ranks"
-					make console execute command "tab playeruuid %player% tab prefix &8[&6&lGod&8] &f"
-					remove 20000000 from player's balance
-					send "{@rankup} &fYou have God rank now! No more higher ranks"
+					make console execute command "lp user %player% promote rankup"
+					remove 30000000 from player's balance
+					send "{@rankup} &aYou are now a Plantation! You are unable to rankup higher now!"
 					close player's inventory
 				else:
 					send "{@rankup} {@money}" 
 		else:
 			send "{@rankup} &cYou can't rankup any higher!"
-
-#==== Shop ====
-on inventory click:
-	if clicked type is left mouse:
-		set {quantity} to 4
-	if clicked type is right mouse:
-		set {quantity} to 16
-	if clicked type is right mouse button with shift:
-		set {quantity} to 32
-	if clicked type is left mouse button with shift:
-		set {quantity} to 64
-
-function shopItems(p: player, item: object, per: number):
-	set {_cost} to {quantity} * {_per}
-	if balance of {_p} is greater than {_cost}:
-		remove {_cost} from balance of {_p}
-		give {_p} {quantity} of {_item}
-		clear {quantity}
-	else:
-		send "{@money}" to {_p}
-
-function numShop(p: player, item: object, qty: number, cost: number):
-	if balance of {_p} is greater than {_cost}:
-		remove {_cost} from balance of {_p}
-		give {_p} {_qty} of {_item}
-	else:
-		send "{@money}" to {_p}
-
-function otherShop(p:player):
-	open virtual chest inventory with size 2 named "&7Other &7Shop" to {_p}
-	format gui slot 0 of {_p} with iron block named "&fIron Block &7- &a$3k each" with lore {@lore} to run function shopItems({_p},iron block,3000)
-	format gui slot 1 of {_p} with gold block named "&fGold Block &7- &a$3k each" with lore {@lore} to run function shopItems({_p},gold block,3000)
-	format gui slot 2 of {_p} with diamond block named "&fDiamond &7- &a$12.5k each" with lore {@lore} to run function shopItems({_p},diamond block,12500)
-	format gui slot 3 of {_p} with ancient debris named "&fAncient Debris &7- &a$30k each" with lore {@lore} to run function shopItems({_p},ancient debris,30000)
-	format gui slot 4 of {_p} with coal block named "&fCoal Block &7- &a$600 each" with lore {@lore} to run function shopItems({_p},coal block,600)
-	format gui slot 5 of {_p} with shulker box named "&fShulker Box &7- &a$7500" to run function numShop({_p},shulker box,1,7500)
-	format gui slot 6 of {_p} with quartz named "&fQuartz &7- &a$50 each" with lore {@lore} to run function shopItems({_p},quartz,50)
-	format gui slot 7 of {_p} with leather named "&fLeather &7- &a$125 each" with lore {@lore} to run function shopItems({_p},leather,125)
-	format gui slot 8 of {_p} with {elytra} named "&fThe Sky's the Limit &7- &a$60k" to run function numShop({_p},{elytra},1,60000)
-	format gui slot 10 of {_p} with firework rocket named "&fFirework Rocket &7- &a$50 each" with lore {@lore} to run function shopItems({_p},firework rocket,50)
-	format gui slot 11 of {_p} with ender chest named "&fEnder Chest &7- &a$75 each" with lore {@lore} to run function shopItems({_p},ender chest,75)
-	format gui slot 12 of {_p} with beacon named "&fBeacon &7- &a$6,500 each" with lore {@lore} to run function shopItems({_p},beacon,6500)
-	format gui slot 13 of {_p} with emerald block named "&fBeacon Base &7- &a$164k" with lore "Gives 164 Emerald Blocks" to run function numShop({_p},emerald block,164,164000)
-	format gui slot 14 of {_p} with {shears} named "&fShears &7- &a$7500" to run function numShop({_p},{shears},1,7500)
-	format gui slot 15 of {_p} with {rod} named "&fFishing Rod &7- &a$7500" to run function numShop({_p},{rod},1,7500)
-	format gui slot 16 of {_p} with sponge named "&fSponge &7- &a$3000 each" with lore {@lore} to run function shopItems({_p},sponge,3000)
-	format gui slot 17 of {_p} with chest named "&fChest &7- &a$400 each" with lore {@lore} to run function shopItems({_p},chest,400)
-	format gui slot 9 of {_p} with barrier named "Back to Shops" to run function shop({_p})
-
-function redstoneShop(p:player):
-	open virtual chest inventory with size 2 named "&cRedstone &7Shop" to {_p}
-	format gui slot 0 of {_p} with redstone block named "&fRedstone Block x 16 &7- &a$250 each" with lore {@lore} to run function shopItems({_p},redstone block,250)
-	format gui slot 1 of {_p} with repeater named "&fRepeater &7- &a$50 each" with lore {@lore} to run function shopItems({_p},repeater,50)
-	format gui slot 2 of {_p} with comparator named "&fComparator &7- &a$50 each" with lore {@lore} to run function shopItems({_p},comparator,50)
-	format gui slot 3 of {_p} with sticky piston named "&fSticky Piston &7- &a$300 each" with lore {@lore} to run function shopItems({_p},sticky piston,300)
-	format gui slot 4 of {_p} with piston named "&fPiston &7- &a$300 each" with lore {@lore} to run function shopItems({_p},piston,300)
-	format gui slot 5 of {_p} with dispenser named "&fDispenser &7- &a$75 each" with lore {@lore} to run function shopItems({_p},dispenser,75)
-	format gui slot 6 of {_p} with dropper named "&fDropper &7- &a$75 each" with lore {@lore} to run function shopItems({_p},dropper,75)
-	format gui slot 7 of {_p} with hopper named "&fHopper &7- &a$350 each" with lore {@lore} to run function shopItems({_p},hopper,350)
-	format gui slot 8 of {_p} with observer named "&fObserver &7- &a$350 each" with lore {@lore} to run function shopItems({_p},observer,350)
-	format gui slot 10 of {_p} with honey block named "&fHoney Block &7- &a$150 each" with lore {@lore} to run function shopItems({_p},honey block,150)
-	format gui slot 11 of {_p} with slime block named "&fSlime Block &7- &a$150 each" with lore {@lore} to run function shopItems({_p},slime block,150)
-	format gui slot 12 of {_p} with string named "&fString &7- &a$50 each" with lore {@lore} to run function shopItems({_p},string,50)
-	format gui slot 13 of {_p} with tripwire hook named "&fTripwire Hook &7- &a$25 each" with lore {@lore} to run function shopItems({_p},tripwire hook,25)
-	format gui slot 14 of {_p} with redstone torch named "&fRedstone Torch &7- &a$50 each" with lore {@lore} to run function shopItems({_p},redstone torch,50)
-	format gui slot 15 of {_p} with lever named "&fLever &7- &a$25 each" with lore {@lore} to run function shopItems({_p},lever,25)
-	format gui slot 16 of {_p} with redstone lamp named "&fRedstone Lamp &7- &a$250 each" with lore {@lore} to run function shopItems({_p},redstone lamp,250)
-	format gui slot 17 of {_p} with daylight detector named "&fDaylight Detector &7- &a$25 each" with lore {@lore} to run function shopItems({_p},daylight detector,25)
-	format gui slot 9 of {_p} with barrier named "Back to Shops" to run function shop({_p})
-
-function pvpShop(p:player):
-	open virtual chest inventory with size 1 named "&3PvP &7Shop" to {_p}
-	format gui slot 1 of {_p} with enchanting table named "&fEnchanting Table &7- &a$5,000 each" to run function numShop({_p},enchanting table,1,5000)
-	format gui slot 2 of {_p} with bookshelf named "&fBookshelf &7- &a$100 each" with lore {@lore} to run function shopItems({_p},bookshelf,100)
-	format gui slot 3 of {_p} with experience bottle named "&fExperience Bottle &7- &a$100 each" with lore {@lore} to run function shopItems({_p},experience bottle,100)
-	format gui slot 4 of {_p} with bow named "&fBow &7- &a$800 each" to run function numShop({_p},bow,1,800)
-	format gui slot 5 of {_p} with arrow named "&fArrow &7- &a$10 each" with lore {@lore} to run function shopItems({_p},arrow,10)
-	format gui slot 6 of {_p} with lapis named "&fLapis &7- &a$250 each" with lore {@lore} to run function shopItems({_p},lapis,250)
-	format gui slot 7 of {_p} with golden apple named "&fGolden Apple &7- &a$150 each" with lore {@lore} to run function shopItems({_p},golden apple,150)
-	format gui slot 8 of {_p} with totem of undying named "&fTotem of Undying &7- &a$5,000 each" to run function numShop({_p},totem of undying,1,5000)
-	format gui slot 0 of {_p} with barrier named "Back to Shops" to run function shop({_p})
-
-function blockShop(p:player):
-	open virtual chest inventory with size 3 named "&3Block &7Shop" to {_p}
-	format gui slot 0 of {_p} with grass block named "&fGrass Block &7- &a$75 each" with lore {@lore} to run function shopItems({_p},grass block,75)
-	format gui slot 1 of {_p} with dirt named "&fDirt &7- &a$75 each" with lore {@lore} to run function shopItems({_p},dirt,75)
-	format gui slot 2 of {_p} with stone named "&fStone &7- &a$75 each" with lore {@lore} to run function shopItems({_p},stone,75)
-	format gui slot 3 of {_p} with cobblestone named "&fCobblestone &7- &a$75 each" with lore {@lore} to run function shopItems({_p},cobblestone,75)
-	format gui slot 4 of {_p} with oak log named "&fOak Log &7- &a$200 each" with lore {@lore} to run function shopItems({_p},oak log,200)
-	format gui slot 5 of {_p} with blackstone named "&fBlackstone &7- &a$200 each" with lore {@lore} to run function shopItems({_p},blackstone,200)
-	format gui slot 6 of {_p} with stone brick named "&fStone Bricks &7- &a$150 each" with lore {@lore} to run function shopItems({_p},stone bricks,150)
-	format gui slot 7 of {_p} with white wool named "&fWhite Wool &7- &a$20 each" with lore {@lore} to run function shopItems({_p},white wool,20)
-	format gui slot 8 of {_p} with glass named "&fGlass &7- &a$20 each" with lore {@lore} to run function shopItems({_p},glass,20)
-	format gui slot 9 of {_p} with sand named "&fSand &7- &a$20 each" with lore {@lore} to run function shopItems({_p},sand,20)
-	format gui slot 10 of {_p} with gravel named "&fGravel &7- &a$20 each" with lore {@lore} to run function shopItems({_p},gravel,20)
-	format gui slot 11 of {_p} with terracotta named "&fTerracotta &7- &a$20 each" with lore {@lore} to run function shopItems({_p},terracotta,20)
-	format gui slot 12 of {_p} with endstone named "&fEndstone &7- &a$200 each" with lore {@lore} to run function shopItems({_p},endstone,200)
-	format gui slot 13 of {_p} with scaffolding named "&fScaffolding &7- &a$50 each" with lore {@lore} to run function shopItems({_p},scaffolding,50)
-	format gui slot 14 of {_p} with soul sand named "&fSoul Sand &7- &a$150 each" with lore {@lore} to run function shopItems({_p},soul sand,150)
-	format gui slot 15 of {_p} with soul soil named "&fSoul Soil &7- &a$150 each" with lore {@lore} to run function shopItems({_p},soul soil,150)
-	format gui slot 16 of {_p} with magma block named "&fMagma Block &7- &a$150 each" with lore {@lore} to run function shopItems({_p},magma block,150)
-	format gui slot 17 of {_p} with packed ice named "&fPacked Ice &7- &a$150 each" with lore {@lore} to run function shopItems({_p},packed ice,150)
-	format gui slot 19 of {_p} with granite named "&fGranite &7- &a$20 each" with lore {@lore} to run function shopItems({_p},granite,20)
-	format gui slot 20 of {_p} with diorite named "&fDiorite &7- &a$20 each" with lore {@lore} to run function shopItems({_p},diorite,20)
-	format gui slot 21 of {_p} with andesite named "&fAndesite &7- &a$20 each" with lore {@lore} to run function shopItems({_p},andesite,20)
-	format gui slot 22 of {_p} with sea lantern named "&fSea Lantern &7- &a$30 each" with lore {@lore} to run function shopItems({_p},sea lantern,30)
-	format gui slot 23 of {_p} with lantern named "&fLantern &7- &a$30 each" with lore {@lore} to run function shopItems({_p},lantern,30)
-	format gui slot 24 of {_p} with soul lantern named "&fSoul Lantern &7- &a$30 each" with lore {@lore} to run function shopItems({_p},soul lantern,30)
-	format gui slot 25 of {_p} with torch named "&fTorch &7- &a$30 each" with lore {@lore} to run function shopItems({_p},torch,30)
-	format gui slot 26 of {_p} with soul torch named "&fSoul Torch &7- &a$30 each" with lore {@lore} to run function shopItems({_p},soul torch,30)
-	format gui slot 18 of {_p} with barrier named "Back to Shops" to run function shop({_p})
-
-function colorShop(p:player):
-	open virtual chest inventory with size 2 named "&5Color &7Shop" to {_p}
-	format gui slot 0 of {_p} with red dye named "&fRed Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},red dye,5)
-	format gui slot 1 of {_p} with orange dye named "&fOrange Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},orange dye,5)
-	format gui slot 2 of {_p} with yellow dye named "&fYellow Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},yellow dye,5)
-	format gui slot 3 of {_p} with lime dye named "&fLime Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},lime dye,5)
-	format gui slot 4 of {_p} with green dye named "&fGreen Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},green dye,5)
-	format gui slot 5 of {_p} with light blue dye named "&fLight Blue Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},light blue dye,5)
-	format gui slot 6 of {_p} with blue dye named "&fBlue Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},blue dye,5)
-	format gui slot 7 of {_p} with purple dye named "&fPurple Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},purple dye,5)
-	format gui slot 8 of {_p} with magenta dye named "&fMagenta Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},magenta dye,5)
-	format gui slot 10 of {_p} with pink dye named "&fPink Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},pink dye,5)
-	format gui slot 11 of {_p} with brown dye named "&fBrown Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},brown dye,5)
-	format gui slot 12 of {_p} with black dye named "&fBlack Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},black dye,5)
-	format gui slot 13 of {_p} with gray dye named "&fGray Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},gray dye,5)
-	format gui slot 14 of {_p} with light gray dye named "&fLight Gray Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},light gray dye,5)
-	format gui slot 15 of {_p} with white dye named "&fWhite Dye &7- &a$5 each" with lore {@lore} to run function shopItems({_p},white dye,5)
-	format gui slot 9 of {_p} with barrier named "Back to Shops" to run function shop({_p})
-
-function farmShop(p:player):
-	open virtual chest inventory with size 3 named "&2Farming &7Shop" to {_p}
-	format gui slot 0 of {_p} with {scythe} named "&2Scythe &7- &a$1000 each" to run function numShop({_p},{scythe},1,1000)
-	format gui slot 1 of {_p} with water bucket named "&fPocket &bWater &3Source &7- &a$10k each" to run function numShop({_p},{pws},1,10000)
-	format gui slot 2 of {_p} with carrot named "&fCarrot &7- &a$200 each" to run function numShop({_p},carrot,1,200)
-	format gui slot 3 of {_p} with potato named "&fPotato &7- &a$200 each" to run function numShop({_p},potato,1,200)
-	format gui slot 4 of {_p} with bamboo named "&fBamboo &7- &a$400 each" to run function numShop({_p},bamboo,1,400)
-	format gui slot 5 of {_p} with sugar cane named "&fSugar cane &7- &a$400 each" to run function numShop({_p},sugar cane,1,400)
-	format gui slot 6 of {_p} with cactus named "&fCactus &7- &a$400 each" to run function numShop({_p},cactus,1,400)
-	format gui slot 7 of {_p} with pumpkin seed named "&fPumpkin Seeds &7- &a$450 each" to run function numShop({_p},pumpkin seeds,1,450)
-	format gui slot 8 of {_p} with melon seed named "&fMelon Seeds &7- &a$450 each" to run function numShop({_p},melon seeds,1,450)	
-	format gui slot 9 of {_p} with kelp named "&fKelp &7- &a$400 each" to run function numShop({_p},kelp,1,400)
-	format gui slot 10 of {_p} with oak sapling named "&fOak Sapling &7- &a$750 each" to run function numShop({_p},oak sapling,1,750)
-	format gui slot 11 of {_p} with spruce sapling named "&fSpruce Sapling &7- &a$750 each" to run function numShop({_p},spruce sapling,1,750)
-	format gui slot 12 of {_p} with birch sapling named "&fBirch Sapling &7- &a$750 each" to run function numShop({_p},birch sapling,1,750)
-	format gui slot 13 of {_p} with jungle sapling named "&fJungle Sapling &7- &a$950 each" to run function numShop({_p},jungle sapling,1,950)
-	format gui slot 14 of {_p} with Acacia sapling named "&fAcacia Sapling &7- &a$750 each" to run function numShop({_p},acacia sapling,1,750)
-	format gui slot 15 of {_p} with dark oak sapling named "&fDark Oak Sapling &7- &a$750 each" to run function numShop({_p},dark oak sapling,1,750)
-	format gui slot 16 of {_p} with vine named "&fVine &7- &a$10k each" to run function numShop({_p},vine,1,10000)
-	format gui slot 17 of {_p} with nether wart named "&fNether Wart &7- &a$2500 each" to run function numShop({_p},nether wart,1,2500)
-	format gui slot 21 of {_p} with chorus flower named "&fChorus Flower &7- &a$20000 each" to run function numShop({_p},chorus flower,1,20000)
-	format gui slot 22 of {_p} with water bucket named "&fWater Bucket &7- &a$250 each" to run function numShop({_p},water bucket,1,250)
-	format gui slot 23 of {_p} with lava bucket named "&fLava bucket &7- &a$500 each" to run function numShop({_p},lava bucket,1,500)
-	format gui slot 18 of {_p} with barrier named "Back to Shops" to run function shop({_p})
-function sellwand(p:player):
-	if inventory of {_p} has wooden hoe:
-		send "{@shop} &cDo you already have a sellwand?" to {_p}
-	else:
-		if balance of {_p} is greater than 1000000:
-			remove 1000000 from balance of {_p}
-			give {_p} wooden hoe named "&aSell wand" with lore "&aRight Click A Chest To Sell"
-			stop
-		else:
-			send "{@money}" to {_p}
-
-function prestige(p:player):
-	if {prestige} is greater than 499:
-		format gui slot 7 of {_p} with barrier named "&cServer Prestige &7- &cMAX" with lore "&f/prestige for more info" to run:
-			send "{@prestige} &cServer is at Max Prestige (500)" to {_p}
-	else:
-		format gui slot 7 of {_p} with emerald named "&aServer Prestige &7- &a%{prestigecost}%" with lore "&f/prestige for more info" to run:
-			if balance of {_p} is greater than {prestigecost}:
-				close inventory of {_p}
-				remove {prestigecost} from balance of {_p}
-				add 1 to {prestige}
-				add 100000 to {prestigecost}
-				send "{@prestige} You bought the server &aPrestige %{prestige}%&f!" to {_p}
-				broadcast "{@prestige} %{_p}% bought the server &aPrestige&f. The server is at &aPrestige %{prestige}%&f."
-			else:
-				send "{@money}" to {_p}
-
-function shop(p:player):
-	open virtual chest inventory with size 1 named "&cShops" to {_p}
-	format gui slot 0 of {_p} with tnt named "&7Other" to run function otherShop({_p})
-	format gui slot 1 of {_p} with redstone named "&cRedstone" to run function redstoneShop({_p})
-	format gui slot 2 of {_p} with diamond sword named "&3PvP" to run function pvpShop({_p})
-	format gui slot 3 of {_p} with grass block named "&3Blocks" to run function blockShop({_p})
-	format gui slot 4 of {_p} with red dye named "&5Color" to run function colorShop({_p})
-	format gui slot 5 of {_p} with netherite hoe named "&2Farming" to run function farmShop({_p})
-	format gui slot 6 of {_p} with wooden hoe named "&aSellwand &7- &a1M" with lore "&aRight Click A Chest To Sell" to run function sellwand({_p})
-	format gui slot 7 of {_p} with emerald to run function prestige({_p})
-	format gui slot 8 of {_p} with barrier named "&cExit" to run:
-		close inventory of {_p}
-
-on load:
-	if {scythe} is not set:
-		set {scythe} to netherite hoe named "&2Scythe" with lore "&fReplants crops when right click. Only for Wheat, Carrot, and Potato"
-		enchant {scythe} with efficiency 5
-		enchant {scythe} with fortune 3
-		enchant {scythe} with mending
-		enchant {scythe} with unbreaking 3
-	if {elytra} is not set:
-		set {elytra} to unbreakable elytra named "The Sky's the Limit"
-		enchant {elytra} with unbreaking 3
-		enchant {elytra} with mending
-	if {shears} is not set:
-		set {shears} to unbreakable shears
-		enchant {shears} with efficiency 10
-		enchant {shears} with mending
-		enchant {shears} with silk touch
-		enchant {shears} with unbreaking 10
-	if {rod} is not set:
-		set {rod} to unbreakable fishing rod
-		enchant {rod} with luck of the sea 3
-		enchant {rod} with lure 3
-		enchant {rod} with mending
-		enchant {rod} with unbreaking 3
-	if {pws} is not set:
-		set {pws} to water bucket named "&fPocket &bWater &3Source"
-
-command /shop:
-	trigger:
-		shop(player)
