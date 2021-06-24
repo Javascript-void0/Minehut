@@ -585,7 +585,7 @@ every 10 seconds:
 		set score "   &8[&bx%{rebirth{@season}.%loop-player%}%&8]" in sidebar of loop-player to 8
 		set score "                         " in sidebar of loop-player to 7
 		set score "&3Online: " in sidebar of loop-player to 6
-		set score "   &f%number of all players%/10" in sidebar of loop-player to 5
+		set score "   &f%number of all players%/20" in sidebar of loop-player to 5
 		set score "  " in sidebar of loop-player to 4
 		set score "&3Balance: " in sidebar of loop-player to 3
 		set score "   &a%balance of loop-player%" in sidebar of loop-player to 2
