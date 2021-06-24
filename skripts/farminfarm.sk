@@ -147,13 +147,6 @@ command /nw:
 		else:
 			send "{@permission}"
 
-#==== Chat ====
-on chat:
-	if player has permission "sk.chatcolor":
-		set the chat format to "%player's prefix%%display name of player%&7: &f%message%"
-	else:
-		set the chat format to "%player's prefix%%display name of player%&7: &7%message%"
-
 #==== Clear Lag ====
 every {@cooldown}:
 	{clearlag} isn't false
@@ -208,16 +201,6 @@ function gradient(input: string, color-from: integers, color-to: integers) :: st
 		set {_r} to "%{_r} ? """"%%rgbToHex({_color-from::*})%%{_format} ? """"%%subtext of {_input} from indices loop-number to loop-number%"
 		set {_color-from::*} to ({_color-from::1} + {_i::1}), ({_color-from::2} + {_i::2}) and ({_color-from::3} + {_i::3})
 	return colored {_r}
-
-#==== Chat Format ====
-# on chat:
-# 	set {_name} to uncolored display name of player
-#	set {_prefix} to uncolored player's prefix
-#	set {_suffix} to uncolored player's suffix
-#	else if player has permission "sk.chatcolor":
-#		set the chat format to "%player's prefix%%display name of player%%player's suffix% ⇾ &f%message%"
-#	else:
-#		set chat format to "%player's prefix%%display name of player%%player's suffix% &7⇾ &7%message%"
 
 #==== Mode ====
 command /mode [<text>]:

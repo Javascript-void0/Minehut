@@ -1,0 +1,70 @@
+options:
+	chat: &8[&9&lCHAT&8]&f
+
+function checkgroup(p: OfflinePlayer, gp: String) :: Boolean:
+    loop groups of {_p}:
+        if loop-string is {_gp}:
+            return true
+            exit
+    return false
+
+command /mutechat:
+    permission: staff
+    permission message: &cJavascript:void(0); &4Insifficient Permission
+    trigger:
+        if {globalchat} is not set:
+            set {globalchat} to true
+            broadcast "{@chat} &7Chat &cMUTED &7by %player%"
+            stop trigger
+
+        if {globalchat} is set:
+            clear {globalchat}
+            broadcast "{@chat} &7Chat &aUNMUTED &7by %player%"
+
+command /clearchat:
+    permission: staff
+    permission message: &cJavascript:void(0); &4Insifficient Permission
+    aliases: /cc
+    trigger:
+        loop 100 times:
+            broadcast ""
+        broadcast "{@chat} &cChat has been cleared"
+
+on chat:
+    if {globalchat} is true:
+        if player has permission "staff":
+            stop trigger
+        else:
+            cancel event
+            send "{@chat} &cChat is currently muted."
+
+on chat:
+    if player has permission "white.chat":
+        set {_c} to "&f"
+    else:
+        set {_c} to "&7"
+    if checkgroup(the player, "owner") is true:
+        set {_prefix} to colored "%rgbToHex(251, 79, and 83)%Owner"
+    else if checkgroup(the player, "manager") is true:
+        set {_prefix} to colored "%rgbToHex(232, 119, and 89)%Manager"
+    else if checkgroup(the player, "admin") is true:
+        set {_prefix} to colored "%rgbToHex(194, 60, and 248)%Admin"
+    else if checkgroup(the player, "mod") is true:
+        set {_prefix} to colored "%rgbToHex(120, 208, and 208)%Mod"
+    else if checkgroup(the player, "sr-builder") is true:
+        set {_prefix} to colored "%rgbToHex(192, 136, and 159)%Builder"
+    else if checkgroup(the player, "builder") is true:
+        set {_prefix} to colored "%rgbToHex(225, 55, and 128)%Builder"
+    else if checkgroup(the player, "helper") is true:
+        set {_prefix} to colored "%rgbToHex(67, 240, and 120)%Helper"
+    else if checkgroup(the player, "plantation") is true:
+        set {_prefix} to colored "%rgbToHex(15, 143, and 151)%Plantation"
+    else if checkgroup(the player, "ranch") is true:
+        set {_prefix} to colored "%rgbToHex(246, 174, 110)%Ranch"
+    else if checkgroup(the player, "vineyard") is true:
+        set {_prefix} to colored "%rgbToHex(231, 226, and 157)%Vineyard"
+    else if checkgroup(the player, "garden") is true:
+        set {_prefix} to colored "%rgbToHex(28, 109, and 74)%Garden"
+    else if checkgroup(the player, "default") is true:
+        set {_prefix} to colored "%rgbToHex(131, 140, and 181)%Field"
+    set chat format to "&8[&r%{_prefix}%&8] %player's display name%&8: %{_c}%%colored message%"
