@@ -90,35 +90,25 @@ async def changelog(ctx, *, change):
 @client.command(aliases=['rank'], help='Ranks Info')
 async def ranks(ctx, rank = None):
     if not rank:
-        embed = discord.Embed(title="🍞     FarminFarm Ranks", description='```       [ IN-GAME RANKS ]```\n- [`50K`]: Miner\n- [`250K`]: Warrior: `2nd Plot`\n- [` 1M`]: General\n- [` 5M`]: Engineer: `/fly`, `/ec`, `/afk`, `/hat`\n- [`10M`]: Spectre\n- [`15M`]: Monopoly: `3rd Plot`\n- [`20M`]: CEO\n- [`25M`]: Veteran\n- [`30M`]: God: `4th Plot`', color=discord.Color(0xECA37E))
-        embed.set_footer(text='Rebirth to continue after God')
+        embed = discord.Embed(title="🍞     FarminFarm Ranks", description='```         [ IN-GAME RANKS ]```\n- [`250K`]: Garden: `2nd Plot`\n- [` 5M`]: Vineyard: `/fly`, `/ec`, `/afk`, `/hat`, `/nick`\n- [`15M`]: Ranch: `3rd Plot`\n- [`30M`]: Plantation: `4th Plot`', color=discord.Color(0xECA37E))
+        embed.set_footer(text='Rebirth to continue after Plantation')
     else:
-        if rank == 'miner':
-            embed = discord.Embed(title='⛏     Miner', description='```       [ $50K ]       ```\n**Previous**: `N/A`\n**Next**: `Warrior`', color=discord.Color(0xECA37E))
-        if rank == 'warrior':
-            embed = discord.Embed(title='🪓     Warrior - 2nd Plot', description='```       [ $250K ]       ```\n**Previous**: `Miner`\n**Next**: `General`', color=discord.Color(0xECA37E))
-        elif rank == 'general':
-            embed = discord.Embed(title='💪     General', description='```       [ $1M ]       ```\n**Previous**: `Warrior`\n**Next**: `Engineer`', color=discord.Color(0xECA37E))
-        elif rank == 'engineer':
-            embed = discord.Embed(title='🧠     Engineer - /fly, /ec, /afk, /hat', description='```           [ $5M ]       ```\n**Previous**: `General`\n**Next**: `Spectre`', color=discord.Color(0xECA37E))
-        elif rank == 'spectre':
-            embed = discord.Embed(title='🛸     Spectre', description='```       [ $10M ]       ```\n**Previous**: `Engineer`\n**Next**: `Monopoly`', color=discord.Color(0xECA37E))
-        elif rank == 'monopoly':
-            embed = discord.Embed(title='💸     Monopoly - 3rd Plot', description='```       [ $15M ]       ```\n**Previous**: `Spectre`\n**Next**: `CEO`', color=discord.Color(0xECA37E))
-        elif rank == 'ceo':
-            embed = discord.Embed(title='💼     CEO', description='```       [ $20M ]       ```\n**Previous**: `Monopoly`\n**Next**: `Veteran`', color=discord.Color(0xECA37E))
-        elif rank == 'veteran':
-            embed = discord.Embed(title='🔑     Veteran', description='```       [ $25M ]       ```\n**Previous**: `CEO`\n**Next**: `God`', color=discord.Color(0xECA37E))
-        elif rank == 'god':
-            embed = discord.Embed(title='👑     God - 4th Plot', description='```       [ $30M ]       ```\n**Previous**: `Veteran`\n**Next**: `Rebirth`', color=discord.Color(0xECA37E))
+        if rank == 'garden':
+            embed = discord.Embed(title='🌻     Garden - 2nd Plot', description='```       [ $250K ]       ```\n**Previous**: `N/A`\n**Next**: `Garden`', color=discord.Color(0xECA37E))
+        elif rank == 'vineyard':
+            embed = discord.Embed(title='🌱     Vineyard - /fly, /ec, /afk, /hat`, `/nick', description='```           [ $5M ]       ```\n**Previous**: `Garden`\n**Next**: `Ranch`', color=discord.Color(0xECA37E))
+        elif rank == 'ranch':
+            embed = discord.Embed(title='🐄     Ranch - 3rd Plot', description='```       [ $15M ]       ```\n**Previous**: `Vineyard`\n**Next**: `Plantation`', color=discord.Color(0xECA37E))
+        elif rank == 'plantation':
+            embed = discord.Embed(title='🚜     Plantation - 4th Plot', description='```       [ $30M ]       ```\n**Previous**: `Ranch`\n**Next**: `Rebirth`', color=discord.Color(0xECA37E))
         else:
-            embed = discord.Embed(title="🍞     FarminFarm Ranks", description='```       [ IN-GAME RANKS ]```\n- [`50K`]: Miner\n- [`250K`]: Warrior: `2nd Plot`\n- [` 1M`]: General\n- [` 5M`]: Engineer: `/fly`, `/ec`, `/afk`, `/hat`\n- [`10M`]: Spectre\n- [`15M`]: Monopoly: `3rd Plot`\n- [`20M`]: CEO\n- [`25M`]: Veteran\n- [`30M`]: God: `4th Plot`', color=discord.Color(0xECA37E))
-            embed.set_footer(text='Rebirth to continue after God')
+            embed = discord.Embed(title="🍞     FarminFarm Ranks", description='```         [ IN-GAME RANKS ]```\n- [`250K`]: Garden: `2nd Plot`\n- [` 5M`]: Vineyard: `/fly`, `/ec`, `/afk`, `/hat`, `/nick`\n- [`15M`]: Ranch: `3rd Plot`\n- [`30M`]: Plantation: `4th Plot`', color=discord.Color(0xECA37E))
+            embed.set_footer(text='Rebirth to continue after Platation')
     await ctx.send(embed=embed)
 
 @client.command(help='Rebirth Info')
 async def rebirth(ctx):
-    embed = discord.Embed(title="-                                           🥊     Rebirth", description='```                    [ REBIRTH ]```\nRebirth is avaiable at `God` rank. Initialially it costs 10M, but the price increases `x1.2` each time. Rebirth multiplies the value of your crops. \n\nEx: \n**Rebirth `1`** would sell `1` wheat for `$24`. (default)\n**Rebirth `5`** would sell `1` wheat for `$120`. (each)', color=discord.Color(0xECA37E))
+    embed = discord.Embed(title="-                                           🥊     Rebirth", description='```                    [ REBIRTH ]```\nRebirth is avaiable at `Plantation` rank. Initialially it costs 50M, but the price increases `x1.2` each time. Rebirth multiplies the value of your crops. \n\nEx: \n**Rebirth `1`** would sell `1` wheat for `$24`. (default)\n**Rebirth `5`** would sell `1` wheat for `$120`. (each)', color=discord.Color(0xECA37E))
     await ctx.send(embed=embed)
 
 @client.command(aliases=['sell'], help='Crop Sell Prices')
