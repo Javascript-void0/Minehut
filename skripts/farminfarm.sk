@@ -109,28 +109,19 @@ command /tps:
 
 command /rules: 
 	trigger:
-		rules(player)
-
-function rules(p:player):
-	open virtual chest inventory with size 2 named "&cRules" to {_p}
-	format gui slot 0 of {_p} with black stained glass pane named " " 
-	format gui slot 1 of {_p} with red stained glass pane named "&8&l[&3RULE 1.&8] &fKeep the chat family friendly." with lore "&fThis means no swearing under any circumstances!"
-	format gui slot 2 of {_p} with red stained glass pane named "&8&l[&3RULE 2.&8] &fEnglish Only."
-	format gui slot 3 of {_p} with red stained glass pane named "&8&l[&3RULE 3.&8] &fDon't spam/flood. Limit caps. "
-	format gui slot 4 of {_p} with red stained glass pane named "&8&l[&3RULE 4.&8] &f&fRespect everyone."
-	format gui slot 5 of {_p} with red stained glass pane named "&8&l[&3RULE 5.&8] &fNo advertising."
-	format gui slot 6 of {_p} with red stained glass pane named "&8&l[&3RULE 6.&8] &fDon't start drama."
-	format gui slot 7 of {_p} with red stained glass pane named "&8&l[&3RULE 7.&8] &fHave common sense." with lore "&fNo stealing from other plots, even if it's full."
-	format gui slot 10 of {_p} with red stained glass pane named "&8&l[&3RULE 8.&8] &fThe staff team always has the final say."
-	format gui slot 8 of {_p} with black stained glass pane named " " 
-	format gui slot 9 of {_p} with black stained glass pane named " " 
-	format gui slot 11 of {_p} with red stained glass pane named "&8&l[&3RULE 9.&9] &fNo bugs, exploits, hacks, macros, or any unfair advantages"
-	format gui slot 12 of {_p} with red stained glass pane named "&8&l[&3RULE 10.&9] &fOnly 2 accounts per (merged) plot (1 alt or friend)"
-	format gui slot 13 of {_p} with red stained glass pane named "&8&l[&3RULE 11.&9] &fNo offensive skins or plots."
-	format gui slot 14 of {_p} with red stained glass pane named "&8&l[&3RULE 12.&9] &fDon't be rude, racist, or bully others"
-	format gui slot 15 of {_p} with red stained glass pane named "&8&l[&3RULE 13.&9] &fNo boosting, this means to helping others by giving them free items/money."
-	format gui slot 16 of {_p} with red stained glass pane named "&8&l[&3RULE 14.&9] &fNo posting harmful or sensitive links"
-	format gui slot 17 of {_p} with black stained glass pane named " " 
+		send "{@rule} Keep things SFW"
+		send "{@rule} English Only"
+		send "{@rule} Don't spam/flood chat. Limit Caps"
+		send "{@rule} Respect Everyone"
+		send "{@rule} Don't Advertise in the server"
+		send "{@rule} Don't start drama"
+		send "{@rule} Have Common Sense - Don't steal from other plots even when full"
+		send "{@rule} No bugs, exploits, hacks, macros, or any other unfair advantages"
+		send "{@rule} Only 2 accounts per (merged) plot (1 alt or friend)"
+		send "{@rule} No offensive skins or plots"
+		send "{@rule} Don't be rude, racist, or bully others"
+		send "{@rule} No boosting (excluding Admins)"
+		send "{@rule} No posting harmful or sensitive links"
 
 command /nw:
 	trigger:
@@ -606,21 +597,21 @@ command /worth:
 	trigger:
 		open virtual chest inventory with size 2 named "&3Crop Sell Values" to player		
 		format gui slot 0 of player with black stained glass pane named " "
-		format gui slot 1 of player with wheat named "&fWheat &7- &a$12"
-		format gui slot 2 of player with potato named "&fPotato &7- &a$12"
-		format gui slot 3 of player with carrot named "&fCarrot &7- &a$12"
+		format gui slot 1 of player with wheat named "&fWheat &7- &a$24"
+		format gui slot 2 of player with potato named "&fPotato &7- &a$24"
+		format gui slot 3 of player with carrot named "&fCarrot &7- &a$24"
 		format gui slot 4 of player with wheat seed named "&fWheat Seeds &7- &a$1"
-		format gui slot 5 of player with pumpkin named "&fPumpkin &7- &a$10"
-		format gui slot 6 of player with melon slice named "&fMelon Slice &7- &a$5"
+		format gui slot 5 of player with pumpkin named "&fPumpkin &7- &a$20"
+		format gui slot 6 of player with melon slice named "&fMelon Slice &7- &a$10"
 		format gui slot 7 of player with cactus named "&fCactus &7- &a$20"
 		format gui slot 8 of player with black stained glass pane named " "
 		format gui slot 9 of player with black stained glass pane named " "
-		format gui slot 10 of player with sugar cane named "&fSugar Cane &7- &a$9"
-		format gui slot 12 of player with apple named "&fApple &7- &a$15"
-		format gui slot 11 of player with kelp named "&fKelp &7- &a$6"
-		format gui slot 13 of player with chorus fruit named "&fChorus Fruit &7- &a$15"
-		format gui slot 14 of player with vine named "&fVine &7- &a$15"
-		format gui slot 15 of player with nether wart named "&fNether Wart &7- &a$15"
+		format gui slot 10 of player with sugar cane named "&fSugar Cane &7- &a$24"
+		format gui slot 12 of player with bamboo named "&fApple &7- &a$1"
+		format gui slot 11 of player with kelp named "&fKelp &7- &a$12"
+		format gui slot 13 of player with chorus fruit named "&fChorus Fruit &7- &a$30"
+		format gui slot 14 of player with vine named "&fVine &7- &a$30"
+		format gui slot 15 of player with nether wart named "&fNether Wart &7- &a$30"
 		format gui slot 16 of player with barrier named "Exit" to run:
 			close player's inventory
 		format gui slot 17 of player with black stained glass pane named " "
