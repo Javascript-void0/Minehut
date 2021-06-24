@@ -498,22 +498,22 @@ command /rebirth [<offline player>]:
 		if arg-1 is not set:
 			send "{@rebirth} &7You are &bRebirth &8[&bx%{rebirth{@season}.%player%}%&8]"
 			send "{@rebirth} &7Next &bRebirth &7costs &a$%{cost{@season}rebirth.%player%}%"
-			if group of player is "king":
+			if group of player is "plantation":
 				if player's balance is greater than {cost{@season}rebirth.%player%}:
 					if {rebirth.%player%} is greater than 10:
 						send "{@rebirth} &cMax Rebirth"
 					else:
 						remove {cost{@season}rebirth.%player%} from player's balance
-						add 0.2 to {rebirth{@season}.%player%}
+						add 1 to {rebirth{@season}.%player%}
 						set {cost{@season}rebirth.%player%} to {cost{@season}rebirth.%player%} * 1.2
 						execute console command "/lp user %player% parent add default"
 						wait 1 second
-						execute console command "/lp user %player% parent remove king"
+						execute console command "/lp user %player% parent remove plantation"
 						send "{@rebirth} You have Rebirthed to &8[&bx%{rebirth{@season}.%player%}%&8]"
 				else: 
 					send "{@rebirth} &cYou need %{cost{@season}rebirth.%player%}% &cto Rebirth!"
 			else:
-				send "{@rebirth} &cYou need to /rankup to King to Rebirth"
+				send "{@rebirth} &cYou need to /rankup to plantation to Rebirth"
 		else:
 			send "{@rebirth} &7%arg-1% &7is &bRebirth &8[&bx%{rebirth{@season}.%arg-1%}%&8]"
 
@@ -629,7 +629,7 @@ command /worth:
 function GetBlockPrice(i: integer) :: number:
 	set {_j} to 0
 	loop {prices::*}:
-		add 0.1 to {_j}
+		add 1 to {_j}
 		if {_i} is {_j}:
 			return loop-value
 
