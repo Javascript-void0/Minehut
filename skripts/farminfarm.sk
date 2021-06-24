@@ -607,7 +607,7 @@ command /worth:
 		format gui slot 8 of player with black stained glass pane named " "
 		format gui slot 9 of player with black stained glass pane named " "
 		format gui slot 10 of player with sugar cane named "&fSugar Cane &7- &a$24"
-		format gui slot 12 of player with bamboo named "&fApple &7- &a$1"
+		format gui slot 12 of player with bamboo named "&fBamboo &7- &a$1"
 		format gui slot 11 of player with kelp named "&fKelp &7- &a$12"
 		format gui slot 13 of player with chorus fruit named "&fChorus Fruit &7- &a$30"
 		format gui slot 14 of player with vine named "&fVine &7- &a$30"
