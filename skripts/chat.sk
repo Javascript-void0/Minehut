@@ -39,6 +39,9 @@ on chat:
             send "{@chat} &cChat is currently muted."
 
 on chat:
+    if message contains "@":
+        cancel event
+        send "&cJavascript:void(0); &4No Pinging"
     if player has permission "white.chat":
         set {_c} to "&f"
     else:
