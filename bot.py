@@ -140,41 +140,41 @@ async def ranks(ctx, rank = None):
 
 @client.command(help='Rebirth Info')
 async def rebirth(ctx):
-    embed = discord.Embed(title="-                                           🥊     Rebirth", description='```                    [ REBIRTH ]```\nRebirth is avaiable at `Plantation` rank. Initialially it costs 50M, but the price increases `x1.2` each time. Rebirth multiplies the value of your crops. \n\nEx: \n**Rebirth `1`** would sell `1` wheat for `$24`. (default)\n**Rebirth `5`** would sell `1` wheat for `$120`. (each)', color=discord.Color(0xECA37E))
+    embed = discord.Embed(title="-                                           🥊     Rebirth", description='```                    [ REBIRTH ]```\nRebirth is avaiable at `Plantation` rank. Initialially it costs 50M, but the price increases `x1.2` each time. Rebirth multiplies the value of your crops. \n\nEx: \n**Rebirth `1`** would sell `1` wheat for `$12`. (default)\n**Rebirth `5`** would sell `1` wheat for `$60`. (each)', color=discord.Color(0xECA37E))
     await ctx.send(embed=embed)
 
 @client.command(aliases=['sell'], help='Crop Sell Prices')
 async def worth(ctx, *, crop = None):
     if not crop:
-        embed = discord.Embed(title='💸     Crop Prices', description='```         [ WORTH ]           ```\nDefault Prices - _Before_ factoring in rebirth. \n\n`        Wheat`: $24\n`       Potato`: $24\n`       Carrot`: $24\n`  Wheat Seeds`: $1\n`      Pumpkin`: $20\n`  Melon Slice`: $10\n`       Cactus`: $20\n`   Sugar Cane`: $24\n`       Bamboo`: $1\n`         Kelp`: $12\n` Chorus Fruit`: $30\n`         Vine`: $30\n`  Nether Wart`: $30', color=discord.Color(0xECA37E))
+        embed = discord.Embed(title='💸     Crop Prices', description='```         [ WORTH ]           ```\nDefault Prices - _Before_ factoring in rebirth. \n\n`        Wheat`: $12\n`       Potato`: $12\n`       Carrot`: $12\n`  Wheat Seeds`: $1\n`      Pumpkin`: $10\n`  Melon Slice`: $5\n`       Cactus`: $10\n`   Sugar Cane`: $12\n`       Bamboo`: $1\n`         Kelp`: $6\n` Chorus Fruit`: $20\n`         Vine`: $20\n`  Nether Wart`: $20', color=discord.Color(0xECA37E))
         await ctx.send(embed=embed)
     else:
         if crop == 'wheat':
-            cost = 24
+            cost = 12
         elif crop == 'potato':
-            cost = 24
+            cost = 12
         elif crop == 'carrot':
-            cost = 24
+            cost = 12
         elif crop == 'wheatseeds' or crop == 'wheat_seeds' or crop == 'seeds' or crop == 'wheat seeds':
             cost = 1
         elif crop == 'pumpkin':
-            cost = 20
-        elif crop == 'melon' or crop == 'melonslice':
             cost = 10
+        elif crop == 'melon' or crop == 'melonslice':
+            cost = 5
         elif crop == 'cactus':
-            cost = 20
+            cost = 10
         elif crop == 'sugarcane':
-            cost = 24
+            cost = 12
         elif crop == 'bamboo':
             cost = 1
         elif crop == 'kelp':
-            cost = 12
+            cost = 6
         elif crop == 'chorus' or crop == 'chorusfruit' or crop == 'chorus fruit':
-            cost = 30
+            cost = 20
         elif crop == 'vine':
-            cost = 30
+            cost = 20
         elif crop == 'wart' or crop == 'nether wart' or crop == 'netherwart':
-            cost = 30
+            cost = 20
         try:
             await ctx.send(f'```{crop}: ${cost}```')
         except UnboundLocalError:
