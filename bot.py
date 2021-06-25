@@ -7,6 +7,7 @@ from mcstatus import MinecraftServer
 
 intents = discord.Intents.default()
 intents.guilds = True
+intents.members = True
 client = commands.Bot(command_prefix='.', intents=intents)
 TOKEN = os.getenv("TOKEN")
 guild = None
@@ -27,6 +28,37 @@ async def on_ready():
     elif 'offline' in channel.topic:
         print('offline')
         online = False
+
+@client.event
+async def on_member_join(member):
+    global guild
+    channel = guild.get_channel(800394119079002112)
+    count = 0
+    for member in guild.members:
+        if not member.bot:
+            count += 1
+    await channel.edit(name=f'Members: {count} | S1²')
+
+@client.event
+async def on_member_leave(member):
+    global guild
+    channel = guild.get_channel(800394119079002112)
+    count = 0
+    for member in guild.members:
+        if not member.bot:
+            count += 1
+    await channel.edit(name=f'Members: {count} | S1²')
+
+@client.command(help='Update Member Count', aliases=['mu'])
+async def memberupdate(ctx):
+    global guild
+    channel = guild.get_channel(800394119079002112)
+    count = 0
+    for member in guild.members:
+        if not member.bot:
+            count += 1
+    await channel.edit(name=f'Members: {count} | S1²')
+    await ctx.send(f'```Member Count Updated to {count}```')
 
 @client.event
 async def on_guild_channel_update(before, after):
