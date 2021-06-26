@@ -23,7 +23,6 @@ options:
 	fake: &8[&7&lFAKE &8]&f
 	join: &8[&2&l+&8]&f
 	leave: &8[&4&l-&8]&f
-
 #Seasons
 	world: C2S1
 	chapter: ²
@@ -45,10 +44,6 @@ on portal create:
 	else: 
 		send "{@permission}"
 
-#on death of player:
-#	wait 3 ticks
-#	execute command "/sudo %player% warp spawn"
-
 on player join:
 	wait 2 ticks
 	execute command "/warp spawn %player%"
@@ -67,11 +62,6 @@ command /buy:
 	trigger:
 		send "&cNo P2W..."
 
-#command /sell:
-#	trigger:
-#		execute console command "/sudo %player% esell inventory"
-#		stop
-
 command /bal [<offline player>]:
 	aliases: /balance
 	trigger:
@@ -86,7 +76,6 @@ on item damage:
 #==== Entity Kill ====⇾
 every 90 seconds:
 	kill armor stands in "{@world}"
-#	kill armor stands in "Survival"
 
 on vehicle enter: 
 	execute console command "/minecraft:kill @e[type=boat]"
@@ -129,7 +118,6 @@ command /nw:
 			execute console command "/sudo %player% difficulty hard"
 			execute console command "/sudo %player% gamerule announceAdvancements false"
 			execute console command "/sudo %player% gamerule disableRaids true"
-	#		execute console command "/sudo %player% gamerule doDaylightCycle false"
 			execute console command "/sudo %player% gamerule doFireTick false"
 			execute console command "/sudo %player% gamerule doImmediateRespawn true"
 			execute console command "/sudo %player% gamerule doWeatherCycle false"
@@ -201,40 +189,6 @@ function gradient(input: string, color-from: integers, color-to: integers) :: st
 		set {_r} to "%{_r} ? """"%%rgbToHex({_color-from::*})%%{_format} ? """"%%subtext of {_input} from indices loop-number to loop-number%"
 		set {_color-from::*} to ({_color-from::1} + {_i::1}), ({_color-from::2} + {_i::2}) and ({_color-from::3} + {_i::3})
 	return colored {_r}
-
-#==== Mode ====
-command /mode [<text>]:
-	trigger:
-		if group of player is "owner":
-			if arg-1 is set:
-				if arg-1 is "off":
-					set {mode} to 0
-					send "{@mode} &cOff"
-				else if arg-1 is "1":
-					set {mode} to 1
-					send "{@mode} &a1"
-				else if arg-1 is "2":
-					set {mode} to 2
-					send "{@mode} &a2"
-				else if arg-1 is "3":
-					set {mode} to 3
-					send "{@mode} &a3"
-				else if arg-1 is "4":
-					set {mode} to 4
-					send "{@mode} &a4"
-				else if arg-1 is "5":
-					set {mode} to 5
-					send "{@mode} &a5"
-				else if arg-1 is "6":
-					set {mode} to 6
-					send "{@mode} &a6"
-				else if arg-1 is "xmas":
-					set {mode} to 1225
-					send "{@mode} &aChristmas"
-			else: 
-				send "/mode <off | 1 | 2 | 3 | 4 | 5 | 6 | xmas>"
-		else:
-			send "{@permission}"
 
 #==== Troll ====
 command /pl:
@@ -402,12 +356,12 @@ command /opapply:
 		send "{@farminfarm} https://bit.ly/farminfarmadmin"
 
 # ==== Discord ====
-every 5 minutes in "{@world}": 
+every 10 minutes in "{@world}": 
 	broadcast "{@discord} &7Join our &bDiscord! &7/discord for Events and Giveaways."
 
-#command /discord:
-#	trigger:
-#		send "{@discord} https://discord.gg/YkBRcR5"
+command /discord:
+	trigger:
+		send "{@discord} https://discord.gg/YkBRcR5"
 
 # ==== Join/Leave ====
 on first join:
