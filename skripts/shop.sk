@@ -4,8 +4,7 @@ options:
 	prestige: &8[&a&lPRESTIGE&8]&f
 
 #====No Money====
-	money: &cNo money!
-
+	money: &cJavascript:void(0); &4No money!
 
 #====Commands====
 command /shop:
@@ -77,17 +76,17 @@ function newtoolShop(p:player):
 	format gui slot 2 of {_p} with iron axe named "&bIron Axe &7- &a$250" to run function newnumShop({_p},iron axe,1,250)
 	format gui slot 3 of {_p} with iron shovel named "&bIron Shovel &7- &a$250" to run function newnumShop({_p},iron shovel,1,250)
 	format gui slot 4 of {_p} with iron hoe named "&bIron Hoe &7- &a$250" to run function newnumShop({_p},iron hoe,1,250)
-	format gui slot 5 of {_p} with {dpick} named "&dSpeed Pick &7- &a$30,000" to run function newnumShop({_p},{dpick},1,30000)
-	format gui slot 6 of {_p} with {dshovel} named "&dSpeed Shovel &7- &a$30,000" to run function newnumShop({_p},{dshovel},1,30000)
-	format gui slot 7 of {_p} with {daxe} named "&dSpeed Axe &7- &a$30,000" to run function newnumShop({_p},{daxe},1,30000)
+	format gui slot 5 of {_p} with {dpick} named "&3Upgraded &7Pick &7- &a$30,000" to run function newnumShop({_p},{dpick},1,30000)
+	format gui slot 6 of {_p} with {dshovel} named "&3Upgraded &7Shovel &7- &a$30,000" to run function newnumShop({_p},{dshovel},1,30000)
+	format gui slot 7 of {_p} with {daxe} named "&3Upgraded &7Axe &7- &a$30,000" to run function newnumShop({_p},{daxe},1,30000)
 	format gui slot 8 of {_p} with black stained glass pane named " " 
 	format gui slot 9 of {_p} with black stained glass pane named " " 
 	format gui slot 10 of {_p} with diamond pickaxe named "&bDiamond Pickaxe &7- &a$1,000" to run function newnumShop({_p},diamond pickaxe,1,1000)
 	format gui slot 11 of {_p} with diamond axe named "&bDiamond Axe &7- &a$1,000" to run function newnumShop({_p},diamond axe,1,1000)
 	format gui slot 12 of {_p} with diamond shovel named "&bDiamond Shovel &7- &a$1,000" to run function newnumShop({_p},diamond shovel,1,1000)
 	format gui slot 13 of {_p} with diamond hoe named "&bDiamond Hoe &7- &a$1,000" to run function newnumShop({_p},diamond hoe,1,1000)
-	format gui slot 14 of {_p} with {npick} named "&cUpgraded Speed Pickaxe &7- &a150,000" to run function newnumShop({_p},{npick},1,150000)
-	format gui slot 15 of {_p} with {nhoe} named "&cSpeed Hoe &7- &a$100,000" to run function newnumShop({_p},{nhoe},1,100000)
+	format gui slot 14 of {_p} with {npick} named "&3Upgraded&7-&bed &7Pick &7- &a150,000" to run function newnumShop({_p},{npick},1,150000)
+	format gui slot 15 of {_p} with {naxe} named "&3Upgraded&7-&bed &7Axe &7- &a$150,000" to run function newnumShop({_p},{naxe},1,100000)
 	format gui slot 16 of {_p} with barrier named "&cBack" to run function newShop({_p})
 	format gui slot 17 of {_p} with black stained glass pane named " " 
 
@@ -269,72 +268,62 @@ function newotherShop(p:player):
 	format gui slot 25 of {_p} with barrier named "&cBack to Shops" to run function newShop({_p})
 	format gui slot 26 of {_p} with black stained glass pane named " "
 
-
-
 #====Enchanted Items====
 on load:
-	if {dpick} is not set:
-		set {dpick} to diamond axe named  "&dSpeed Pickaxe"
-		set {dpick} to unbreakable diamond pickaxe
-		enchant {dpick} with efficiency 5
-		enchant {dpick} with silk touch 
-		enchant {dpick} with mending
-		enchant {dpick} with unbreaking 3
-	if {dshovel} is not set:
-		set {dshovel} to diamond shovel named "&dSpeed Shovel"
-		set {dshovel} to unbreakable diamond shovel
-		enchant {dshovel} with efficiency 5
-		enchant {dshovel} with silk touch 
-		enchant {dshovel} with mending
-		enchant {dshovel} with unbreaking 3
-	if {daxe} is not set:
-		set {daxe} to diamond axe named "&dSpeed Axe"
-		set {daxe} to unbreakable diamond axe
-		enchant {daxe} with efficiency 5
-		enchant {daxe} with silk touch 
-		enchant {daxe} with mending
-		enchant {daxe} with unbreaking 3
-	if {npick} is not set:
-		set {npick} to netherite pickaxe named "&cUpgraded Speed Hoe"
-		set {npick} to unbreakable netherite pickaxe
-		enchant {npick} with efficiency 10
-		enchant {npick} with silk touch 
-		enchant {npick} with mending
-		enchant {npick} with unbreaking 3
-	if {nhoe} is not set:
-		set {nhoe} to netherite hoe named "&cSpeed Hoe"
-		set {nhoe} to unbreakable netherite hoe
-		enchant {nhoe} with efficiency 10
-		enchant {nhoe} with silk touch 
-		enchant {nhoe} with mending
-		enchant {nhoe} with unbreaking 3
-	if {scythe} is not set:
-		set {scythe} to netherite hoe named "&2Scythe" with lore "&fReplants crops when right click. Only for Wheat, Carrot, and Potato"
-		enchant {scythe} with efficiency 5
-		enchant {scythe} with fortune 3
-		enchant {scythe} with mending
-		enchant {scythe} with unbreaking 3
-	if {elytra} is not set:
-		set {elytra} to unbreakable elytra named "The Sky's the Limit"
-		enchant {elytra} with unbreaking 3
-		enchant {elytra} with mending
-	if {shears} is not set:
-		set {shears} to unbreakable shears
-		enchant {shears} with efficiency 10
-		enchant {shears} with mending
-		enchant {shears} with silk touch
-		enchant {shears} with unbreaking 10
-	if {rod} is not set:
-		set {rod} to unbreakable fishing rod
-		enchant {rod} with luck of the sea 3
-		enchant {rod} with lure 3
-		enchant {rod} with mending
-		enchant {rod} with unbreaking 3
-	if {pws} is not set:
-		set {pws} to water bucket named "&fPocket &bWater &3Source"
-	if {sellwand} is not set:
-		set {sellwand} to wooden hoe named "&aSell Wand" with lore "&aRight Click A Chest To Sell"
+	set {dpick} to diamond axe named  "&3Upgraded &7Pick"
+	enchant {dpick} with efficiency 5
+	enchant {dpick} with silk touch 
+	enchant {dpick} with mending
+	enchant {dpick} with unbreaking 3
 
+	set {dshovel} to diamond shovel named "&3Upgraded &7Shovel"
+	enchant {dshovel} with efficiency 5
+	enchant {dshovel} with silk touch 
+	enchant {dshovel} with mending
+	enchant {dshovel} with unbreaking 3
+
+	set {daxe} to diamond axe named "&3Speed &7Axe"
+	enchant {daxe} with efficiency 5
+	enchant {daxe} with silk touch 
+	enchant {daxe} with mending
+	enchant {daxe} with unbreaking 3
+
+	set {npick} to netherite pickaxe named "&3Upgraded&7-&bed &7Pick"
+	enchant {npick} with efficiency 10
+	enchant {npick} with silk touch 
+	enchant {npick} with mending
+	enchant {npick} with unbreaking 3
+
+	set {naxe} to netherite axe named "&3Upgraded&7-&bed &7Axe"
+	enchant {naxe} with efficiency 10
+	enchant {naxe} with silk touch 
+	enchant {naxe} with mending
+	enchant {naxe} with unbreaking 3
+
+	set {scythe} to netherite hoe named "&2Scythe" with lore "&fReplants crops when right click. Only for Wheat, Carrot, and Potato"
+	enchant {scythe} with efficiency 5
+	enchant {scythe} with fortune 3
+	enchant {scythe} with mending
+	enchant {scythe} with unbreaking 3
+
+	set {elytra} to unbreakable elytra named "The Sky's the Limit"
+	enchant {elytra} with unbreaking 3
+	enchant {elytra} with mending
+
+	set {shears} to unbreakable shears
+	enchant {shears} with efficiency 10
+	enchant {shears} with mending
+	enchant {shears} with silk touch
+	enchant {shears} with unbreaking 10
+
+	set {rod} to unbreakable fishing rod
+	enchant {rod} with luck of the sea 3
+	enchant {rod} with lure 3
+	enchant {rod} with mending
+	enchant {rod} with unbreaking 3
+
+	set {pws} to water bucket named "&fPocket &bWater &3Source"
+	set {sellwand} to wooden hoe named "&aSell Wand" with lore "&aRight Click A Chest To Sell"
 
 #====Prestige====
 function newPrestige(p:player):
