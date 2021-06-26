@@ -514,19 +514,19 @@ every 10 seconds:
 	loop all players:
 		wipe loop-player's sidebar
 		set name of sidebar of loop-player to "&3FarminFarm &7S{@season}{@chapter}"
-		set score "	 " in sidebar of loop-player to 13
+		set score "                    " in sidebar of loop-player to 13
 		set score "&3Rank: " in sidebar of loop-player to 12
 		set score "   %loop-player's prefix%" in sidebar of loop-player to 11
 		set score "   " in sidebar of loop-player to 10
 		set score "&3Sellwand &fRebirth: " in sidebar of loop-player to 9
 		set score "   &8[&bx%{rebirth{@season}.%loop-player%}%&8]" in sidebar of loop-player to 8
-		set score "  " in sidebar of loop-player to 7
+		set score "                     " in sidebar of loop-player to 7
 		set score "&3Online: " in sidebar of loop-player to 6
 		set score "   &f%number of all players%/20" in sidebar of loop-player to 5
-		set score "  " in sidebar of loop-player to 4
+		set score "            " in sidebar of loop-player to 4
 		set score "&3Balance: " in sidebar of loop-player to 3
 		set score "   &a%balance of loop-player%" in sidebar of loop-player to 2
-		set score " " in sidebar of loop-player to 1
+		set score "                 " in sidebar of loop-player to 1
 		set score "&7farminfarm.minehut.gg" in sidebar of loop-player to 0
 
 #==== Worth ====
@@ -579,7 +579,7 @@ command /stats [<offline player>]:
 		if checkgroup({_p}, "plantation") is true:
 			set {_rank} to "&8[&aPlantation&8]"
 		else if checkgroup({_p}, "ranch") is true:
-			set {_rank} to "&8[&eRanch&8]"
+			set {_rank} to "&8[&6Ranch&8]"
 		else if checkgroup({_p}, "vineyard") is true:
 			set {_rank} to "&8[&eVineyard&8]"
 		else if checkgroup({_p}, "garden") is true:
