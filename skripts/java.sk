@@ -1,64 +1,13 @@
 options:
-    permission: &cjavascript:void(0) &7- &cNo Permissions
-    java: &7[&3&lJava&7] &r
-
-on chat:
-	if group of player is "._.":
-		set {_name} to "Java"
-		if {jm} is 0:
-			set chat format to "&7[&3&lzz&bZ&3z&bZ&7] &3%{_name}% &7⇾ &f%message%"
-		if {jm} is 1:
-			set chat format to gradient("[&lzzZzZ&r] %{_name}% ⇾ %message%",(22, 156, and 157),(255, 255, and 255))
-		if {jm} is 2:
-			set chat format to gradient("[&lzzZzZ&r] %{_name}% ⇾ %message%",(242, 154, and 68),(255, 255, and 255))
-		if {jm} is 3:
-			set chat format to gradient("[&lzzZzZ&r] %{_name}% ⇾ %message%",(158, 65, and 86),(236, 219, and 121))
-		if {jm} is 4:
-			set chat format to gradient("[&lzzZzZ&r] %{_name}% ⇾ %message%",(35, 66, and 72),(178, 229, and 96))
-		if {jm} is 5:
-			set chat format to gradient("[&lzzZzZ&r] %{_name}% ⇾ %message%",(92, 188, and 79),(231, 248, and 208))
-		if {jm} is 6:
-			set chat format to gradient("[&lzzZzZ&r] %{_name}% ⇾ %message%",(91, 151, and 117),(228, 168, and 169))
-            
-command /java [<text>]:
-	trigger:
-		if group of player is "._.":
-			if arg-1 is set:
-				if arg-1 is "off":
-					set {jm} to 0
-					send "{@java} &cOff"
-				else if arg-1 is "1":
-					set {jm} to 1
-					send "{@java} &a1"
-				else if arg-1 is "2":
-					set {jm} to 2
-					send "{@java} &a2"
-				else if arg-1 is "3":
-					set {jm} to 3
-					send "{@java} &a3"
-				else if arg-1 is "4":
-					set {jm} to 4
-					send "{@java} &a4"
-				else if arg-1 is "5":
-					set {jm} to 5
-					send "{@java} &a5"
-				else if arg-1 is "6":
-					set {jm} to 6
-					send "{@java} &a6"
-				else if arg-1 is "xmas":
-					set {jm} to 1225
-					send "{@java} &aChristmas"
-			else: 
-				send "{@java}/java <off | 1 | 2 | 3 | 4 | 5 | 6 | xmas>"
-		else:
-			send "{@permission}"
+    permission: &cjavascript:void(0) &4No Permission
+    java: &7[&3&lJAVA&7] &r
 
 on load:
 	set {good} to false
 
 command /goodjava:
     trigger:
-        if group of player is "._.":
+        if group of player is "owner":
             if {good} is true:
                 set {good} to false
                 send "{@java}&coff"

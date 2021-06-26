@@ -50,6 +50,9 @@ on player join:
 	wait 2 ticks
 	execute command "/warp spawn %player%"
 
+on death:
+	cancel event
+
 command /spawn:
 	trigger:
 		execute console command "/warp spawn %player%"
