@@ -4,69 +4,43 @@ options:
 	prestige: &8[&a&lPRESTIGE&8]&f
 
 #====No Money====
-	money: &cJavascript:void(0); &4No money!
+	money: &cJavascript:void(0); &4Insufficient Money
 
-#====Commands====
 command /shop:
 	trigger:
-		newShop(player)	
+		newShop(player)
 
-command /toolshop:
-	aliases: /shoptool
-	trigger:
-		newtoolShop(player)
+function newsellwand(p:player):
+	if inventory of {_p} has wooden hoe:
+		send "{@shop} &cDo you already have a sellwand?" to {_p}
+	else:
+		if balance of {_p} is greater than 1000000:
+			remove 1000000 from balance of {_p}
+			give {_p} wooden hoe named "&aSell wand" with lore "&aRight Click A Chest To Sell"
+			stop
+		else:
+			send "{@money}" to {_p}
 
-command /redstoneshop:
-	aliases: /shopredstone
-	trigger:
-		newredstoneShop(player)
-
-command /pvpshop:
-	aliases: /shoppvp
-	trigger:
-		newpvpShop(player)
-
-command /blockshop:
-	aliases: /shopblock
-	trigger:
-		newblockShop(player)
-
-command /colorshop:
-	aliases: /shopcolor
-	trigger:
-		newcolorShop(player)
-
-command /farmshop:
-	aliases: /shopfarm
-	trigger:
-		newfarmShop(player)
-
-command /othershop:
-	aliases: /shopother
-	trigger:
-		newotherShop(player)
+function newnumShop(p: player, item: object, qty: number, cost: number):
+	if balance of {_p} is greater than {_cost}:
+		remove {_cost} from balance of {_p}
+		give {_p} {_qty} of {_item}
+	else:
+		send "{@money}" to {_p}
 
 #====Shop====
 function newShop(p:player):
-	open virtual chest inventory with size 2 named "&fShops" to {_p}
-	format gui slot 0 of {_p} with black stained glass pane named " " 
-	format gui slot 1 of {_p} with diamond pickaxe named "&bTools" to run function newtoolShop({_p})
-	format gui slot 3 of {_p} with redstone named "&cRedstone" to run function newredstoneShop({_p})
-	format gui slot 2 of {_p} with diamond sword named "&3PvP" to run function newpvpShop({_p})
-	format gui slot 4 of {_p} with grass block named "&3Blocks" to run function newblockShop({_p})
-	format gui slot 5 of {_p} with red dye named "&5Color" to run function newcolorShop({_p})
-	format gui slot 6 of {_p} with netherite hoe named "&2Farming" to run function newfarmShop({_p})
-	format gui slot 8 of {_p} with black stained glass pane named " " 
-	format gui slot 9 of {_p} with black stained glass pane named " " 
-	format gui slot 11 of {_p} with emerald named "&aServer Prestige &7- &a$%{prestigecost}%" with lore "&f/prestige for more info" and "&fClick twice to purchase!" to run function newPrestige({_p})
-	format gui slot 10 of {_p} with tnt named "&7Other" to run function newotherShop({_p})
-	format gui slot 7 of {_p} with enchanted golden apple named "&cRankup!" to run:
+	open virtual chest inventory with size 1 named "&3Shops" to {_p}
+	format gui slot 0 of {_p} with diamond pickaxe named "&bTools" to run function newtoolShop({_p})
+	format gui slot 1 of {_p} with diamond sword named "&3PvP" to run function newpvpShop({_p})
+	format gui slot 2 of {_p} with redstone named "&cRedstone" to run function newredstoneShop({_p})
+	format gui slot 3 of {_p} with grass block named "&3Blocks" to run function newblockShop({_p})
+	format gui slot 4 of {_p} with red dye named "&5Color" to run function newcolorShop({_p})
+	format gui slot 5 of {_p} with netherite hoe named "&2Farming" to run function newfarmShop({_p})
+	format gui slot 6 of {_p} with tnt named "&7Other" to run function newotherShop({_p})
+	format gui slot 7 of {_p} with wooden hoe named "&aSellwand &7- &a1M" with lore "&aRight Click A Chest To Sell" to run function newsellwand({_p})
+	format gui slot 8 of {_p} with barrier named "&cExit" to run:
 		close inventory of {_p}
-		execute console command "/sudo %player% rankup"
-	format gui slot 15 of {_p} with wooden hoe named "&aSellwand &7- &a1M" with lore "&aRight Click A Chest To Sell" to run function newsellwand({_p})
-	format gui slot 16 of {_p} with barrier named "&cExit" to run:
-		close inventory of {_p}
-	format gui slot 17 of {_p} with black stained glass pane named " " 
 
 #====Tool Shop====
 function newtoolShop(p:player):
@@ -85,7 +59,7 @@ function newtoolShop(p:player):
 	format gui slot 11 of {_p} with diamond axe named "&bDiamond Axe &7- &a$1,000" to run function newnumShop({_p},diamond axe,1,1000)
 	format gui slot 12 of {_p} with diamond shovel named "&bDiamond Shovel &7- &a$1,000" to run function newnumShop({_p},diamond shovel,1,1000)
 	format gui slot 13 of {_p} with diamond hoe named "&bDiamond Hoe &7- &a$1,000" to run function newnumShop({_p},diamond hoe,1,1000)
-	format gui slot 14 of {_p} with {npick} named "&3Upgraded&7-&bed &7Pick &7- &a150,000" to run function newnumShop({_p},{npick},1,150000)
+	format gui slot 14 of {_p} with {npick} named "&3Upgraded&7-&bed &7Pick &7- &a$150,000" to run function newnumShop({_p},{npick},1,150000)
 	format gui slot 15 of {_p} with {naxe} named "&3Upgraded&7-&bed &7Axe &7- &a$150,000" to run function newnumShop({_p},{naxe},1,100000)
 	format gui slot 16 of {_p} with barrier named "&cBack" to run function newShop({_p})
 	format gui slot 17 of {_p} with black stained glass pane named " " 
@@ -270,7 +244,7 @@ function newotherShop(p:player):
 
 #====Enchanted Items====
 on load:
-	set {dpick} to diamond axe named  "&3Upgraded &7Pick"
+	set {dpick} to diamond pickaxe named  "&3Upgraded &7Pick"
 	enchant {dpick} with efficiency 5
 	enchant {dpick} with silk touch 
 	enchant {dpick} with mending
@@ -324,39 +298,3 @@ on load:
 
 	set {pws} to water bucket named "&fPocket &bWater &3Source"
 	set {sellwand} to wooden hoe named "&aSell Wand" with lore "&aRight Click A Chest To Sell"
-
-#====Prestige====
-function newPrestige(p:player):
-	if {prestige} is greater than 499:
-		format gui slot 11 of {_p} with barrier named "&cServer Prestige &7- &cMAX" with lore "&f/prestige for more info" to run:
-			send "{@prestige} &cServer is at Max Prestige (500)" to {_p}
-	else:
-		format gui slot 11 of {_p} with emerald named "&aServer Prestige &7- &a$%{prestigecost}%" with lore "&f/prestige for more info" to run:
-			if balance of {_p} is greater than {prestigecost}:
-				close inventory of {_p}
-				remove {prestigecost} from balance of {_p}
-				add 1 to {prestige}
-				add 100000 to {prestigecost}
-				send "{@prestige} You bought the server &aPrestige %{prestige}%&f!" to {_p}
-				broadcast "{@prestige} %{_p}% bought the server &aPrestige&f. The server is at &aPrestige %{prestige}%&f."
-			else:
-				send "{@money}" to {_p}
-
-function newsellwand(p:player):
-	if inventory of {_p} has wooden hoe:
-		send "{@shop} &cDo you already have a sellwand?" to {_p}
-	else:
-		if balance of {_p} is greater than 1000000:
-			remove 1000000 from balance of {_p}
-			give {_p} wooden hoe named "&aSell wand" with lore "&aRight Click A Chest To Sell"
-			stop
-		else:
-			send "{@money}" to {_p}
-
-#====numShop====
-function newnumShop(p: player, item: object, qty: number, cost: number):
-	if balance of {_p} is greater than {_cost}:
-		remove {_cost} from balance of {_p}
-		give {_p} {_qty} of {_item}
-	else:
-		send "{@money}" to {_p}

@@ -40,7 +40,7 @@ async def on_member_join(member):
     await channel.edit(name=f'Members: {count} | S1²')
 
 @client.event
-async def on_member_leave(member):
+async def on_member_remove(member):
     global guild
     channel = guild.get_channel(800394119079002112)
     count = 0

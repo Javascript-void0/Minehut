@@ -13,7 +13,6 @@ options:
 	clearlag: &8[&c&lCLEARLAG&8]&f
 	discord: &8[&3&lDISCORD&8]&f
 	broadcast: &8[&3&lBROADCAST&8]&f
-	prestige: &8[&a&lPRESTIGE&8]&f
 	rebirth: &8[&b&lREBIRTH&8]&f
 	rankup: &8[&b&lRANKUP&8]&f
 	shop: &8[&a&lSHOP&8]&f
@@ -23,6 +22,9 @@ options:
 	fake: &8[&7&lFAKE &8]&f
 	join: &8[&2&l+&8]&f
 	leave: &8[&4&l-&8]&f
+# Prestige
+	prestige: &8[&a&lPRESTIGE&8]&f
+	prestigemax: &8[&a&lPRESTIGE&8] &fThe server is at &cmax prestige (500) 
 #Seasons
 	world: C2S1
 	chapter: ²
@@ -60,7 +62,7 @@ command /start:
 
 command /buy:
 	trigger:
-		send "&cNo P2W..."
+		send "&cJavascript:void(0); &4No P2W..."
 
 command /bal [<offline player>]:
 	aliases: /balance
@@ -349,7 +351,7 @@ command /?:
 command /help:
 	aliases: /bukkit:help
 	trigger:
-		broadcast "%player's prefix%%display name of player%⇾ &7HEY EVERYONE I NEED HELP"
+		send "%player's prefix%%display name of player%⇾ &7HEY EVERYONE I NEED HELP"
 
 command /opapply:
 	trigger:
@@ -378,17 +380,89 @@ on disconnect:
 	broadcast "{@leave} &7%player%"
 
 #==== Prestige ====
-command /prestige:
-	trigger: 
-		send "{@prestige} The server is on &aPrestige %{prestige}%&f"
-		send "{@prestige} For every prestige level, you earn &a$10 &fevery 10 seconds. &a($%{prestige} * 10%&a)"
-
-command /resetpres: 
-	permission: pres.admin
-	trigger: 
-		set {prestige} to 0
-		set {prestigecost} to 10000000
-		send "{@prestige} &fSuccessfully reset the &aPrestige"
+command /prestige [<text>] [<integer>]:
+	aliases: /pres
+	trigger:
+		if arg-1 is set:
+			if arg-1 is "add":
+				if player is op:
+					if arg-2 is set:
+						if {prestige} is greater than 499:
+							send "{@prestigemax}"
+							stop
+						if arg-2 is greater than 500:
+							set {_n} to 500
+						else:
+							set {_n} to arg-2
+						add {_n} to {prestige}
+						add {_n} * 100000 to {prestigecost}
+						send "{@prestige} &fAdded %{_n}% to &aPrestige"
+					else:
+						send "/prestige add <int>"
+				else:
+					send "{@permission}"
+			if arg-1 is "remove":
+				if player is op:
+					if arg-2 is set:
+						if {prestige} is greater than 0:
+							if arg-2 is greater than {prestige}:
+								set {_n} to {prestige}
+							else:
+								set {_n} to arg-2
+							remove {_n} from {prestige}
+							remove {_n} * 100000 from {prestigecost}
+							send "{@prestige} &fRemoved %{_n}% from &aPrestige"
+						else:
+							send "{@prestige} &fRemoved %{_n2}% from &aPrestige"
+					else:
+						send "/prestige remove <int>"
+				else:
+					send "{@permission}"
+			if arg-1 is "reset":
+				if player is op:
+					set {prestige} to 0
+					set {prestigecost} to 10000000
+					send "{@prestige} &fReset the &aPrestige &fto 0"
+				else:
+					send "{@permission}"
+			if arg-1 is "set":
+				if arg-2 is set:
+					if player is op:
+						if arg-2 is greater than 500:
+							set {_n} to 500
+						else:
+							set {_n} to arg-1
+						set {prestige} to {_n}
+						set {_newcost} to {_n} * 100000
+						set {prestigecost} to {_newcost} + 10000000
+						send "{@prestige} &aPrestige &fhas been set to %{_n}%"
+					else:
+						send "{@permission}"
+				else:
+					send "/prestige set <int>"
+			if arg-1 is "buy":
+				if {prestige} is greater than 499:
+					send "{@prestige} The server is &cmaxed out (500)"
+				else:
+					if player's balance is greater than {prestigecost}:
+						remove {prestigecost} from balance of player
+						add 1 to {prestige}
+						add 100000 to {prestigecost}
+						broadcast "{@prestige} %player% bought the server &aPrestige&f. The server is at &aPrestige %{prestige}%&f."
+					else:
+						send "{@money}"
+		else:
+			if {prestige} is greater than 499:
+				send "{@prestigemax}"
+			else:
+				send ""
+				send "&7 ==== {@prestige} &7===="
+				send ""
+				send "&7The server is on &aPrestige %{prestige}%"
+				send "&7Next Prestige &7Costs &a$%{prestigecost}%"
+				send "&7For every prestige level, you earn &f$10 every 10 seconds &a($%{prestige} * 10%&a)&7"
+				send "&7Use &f/prestige buy &7to upgrade Prestige"
+				send ""
 
 every 30 seconds in "{@world}":
 	loop all players:
@@ -405,23 +479,11 @@ on join:
 	if {cost{@season}rebirth.%player%} is not set:
 		set {cost{@season}rebirth.%player%} to 50000000
 
-command /resetrebirth [<player>]:
-	trigger:
-		if player is op:
-			if arg-1 is "%player%":
-				set {rebirth{@season}.%arg-1%} to 1
-				set {cost{@season}rebirth.%player%} to 50000000
-				send "{@rebirth} Reset the Rebirth of %player%"
-			else:
-				send "{@rebirth} /resetrebirth <player>"
-		else:
-			send "{@rebirth} {@permission}"
-
 on first join: 
 	set {rebirth{@season}.%player%} to 1
 	set {cost{@season}rebirth.%player%} to 50000000
 
-command /rebirth [<offline player>]:
+command /rebirth [<offline player>] [<text>]:
 	trigger:
 		if arg-1 is not set:
 			send "{@rebirth} &7You are &bRebirth &8[&bx%{rebirth{@season}.%player%}%&8]"
@@ -443,7 +505,15 @@ command /rebirth [<offline player>]:
 			else:
 				send "{@rebirth} &cYou need to /rankup to Plantation to Rebirth"
 		else:
-			send "{@rebirth} &7%arg-1% &7is &bRebirth &8[&bx%{rebirth{@season}.%arg-1%}%&8]"
+			if arg-2 is "reset":
+				if player is op:
+					set {rebirth{@season}.%arg-1%} to 1
+					set {cost{@season}rebirth.%arg-1%} to 50000000
+					send "{@rebirth} Reset the Rebirth of %arg-1%"
+				else:
+					send "{@permission}"
+			else:
+				send "{@rebirth} &7%arg-1% &7is &bRebirth &8[&bx%{rebirth{@season}.%arg-1%}%&8]"
 
 #==== Scythe ====
 on block break:
@@ -588,14 +658,12 @@ command /stats [<offline player>]:
 			set {_rank} to "&8[&7Field&8]"
 		else:
 			set {_rank} to "&7undefined"
-		send ""
 		send "&8[ &7==== &3Stats for &b%{_p}% &7==== &8]"
 		send ""
 		send "    &3Balance&7: &f%balance of {_p}%"
 		send "    &3Rank&7: %{_rank}%"
 		send "    &3Staff&7: %{_staff}%"
 		send "    &3Rebirth&7: &8[&bx%{rebirth{@season}.%{_p}%}%&8]"
-		send ""
 
 #==== Sellwand ====
 function GetBlockPrice(i: integer) :: number:
