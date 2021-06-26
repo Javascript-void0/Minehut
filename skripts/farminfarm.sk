@@ -365,7 +365,7 @@ command /discord:
 
 # ==== Join/Leave ====
 on first join:
-	broadcast "{@join} &7New Join: &f%player% &8[&f##%size of all offline players%&8]"
+	broadcast "{@join} &fNew Join&7: &f%player% &8[&f##%size of all offline players%&8]"
 
 command /joins:
 	trigger:
@@ -514,13 +514,13 @@ every 10 seconds:
 	loop all players:
 		wipe loop-player's sidebar
 		set name of sidebar of loop-player to "&3FarminFarm &7S{@season}{@chapter}"
-		set score "             " in sidebar of loop-player to 13
+		set score "	 " in sidebar of loop-player to 13
 		set score "&3Rank: " in sidebar of loop-player to 12
 		set score "   %loop-player's prefix%" in sidebar of loop-player to 11
 		set score "   " in sidebar of loop-player to 10
 		set score "&3Sellwand &fRebirth: " in sidebar of loop-player to 9
 		set score "   &8[&bx%{rebirth{@season}.%loop-player%}%&8]" in sidebar of loop-player to 8
-		set score "                         " in sidebar of loop-player to 7
+		set score "  " in sidebar of loop-player to 7
 		set score "&3Online: " in sidebar of loop-player to 6
 		set score "   &f%number of all players%/20" in sidebar of loop-player to 5
 		set score "  " in sidebar of loop-player to 4
@@ -552,6 +552,50 @@ command /worth:
 		format gui slot 16 of player with barrier named "Exit" to run:
 			close player's inventory
 		format gui slot 17 of player with black stained glass pane named " "
+
+#==== Stats ====
+command /stats [<offline player>]:
+	trigger:
+		if arg-1 is set:
+			set {_p} to arg-1
+		else:
+			set {_p} to player
+		if checkgroup({_p}, "owner") is true:
+			set {_staff} to "&8[&cOwner&8]"
+		else if checkgroup({_p}, "manager") is true:
+			set {_staff} to "&8[&6Manager&8]"
+		else if checkgroup({_p}, "admin") is true:
+			set {_staff} to "&8[&5Admin&8]"
+		else if checkgroup({_p}, "sr-builder") is true:
+			set {_staff} to "&8[&5Builder&8]"
+		else if checkgroup({_p}, "mod") is true:
+			set {_staff} to "&8[&bMod&8]"
+		else if checkgroup({_p}, "builder") is true:
+			set {_staff} to "&8[&dBuiilder&8]"
+		else if checkgroup({_p}, "helper") is true:
+			set {_staff} to "&8[&aHelper&8]"
+		else:
+			set {_staff} to "&cFalse"
+		if checkgroup({_p}, "plantation") is true:
+			set {_rank} to "&8[&aPlantation&8]"
+		else if checkgroup({_p}, "ranch") is true:
+			set {_rank} to "&8[&eRanch&8]"
+		else if checkgroup({_p}, "vineyard") is true:
+			set {_rank} to "&8[&eVineyard&8]"
+		else if checkgroup({_p}, "garden") is true:
+			set {_rank} to "&8[&2Garden&8]"
+		else if checkgroup({_p}, "default") is true:
+			set {_rank} to "&8[&7Field&8]"
+		else:
+			set {_rank} to "&7undefined"
+		send ""
+		send "&8[ &7==== &3Stats for &b%{_p}% &7==== &8]"
+		send ""
+		send "    &3Balance&7: &f%balance of {_p}%"
+		send "    &3Rank&7: %{_rank}%"
+		send "    &3Staff&7: %{_staff}%"
+		send "    &3Rebirth&7: &8[&bx%{rebirth{@season}.%{_p}%}%&8]"
+		send ""
 
 #==== Sellwand ====
 function GetBlockPrice(i: integer) :: number:
