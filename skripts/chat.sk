@@ -1,5 +1,6 @@
 options:
 	chat: &8[&9&lCHAT&8]&f
+	farminfarm: &8[&3&lFARMINFARM&8]&f
 
 function checkgroup(p: OfflinePlayer, gp: String) :: Boolean:
     loop groups of {_p}:
@@ -70,4 +71,24 @@ on chat:
         set {_prefix} to colored "%rgbToHex(28, 109, and 74)%Garden"
     else if checkgroup(the player, "default") is true:
         set {_prefix} to colored "%rgbToHex(131, 140, and 181)%Field"
-    set chat format to "&8[&r%{_prefix}%&8] %player's display name%&8: %{_c}%%colored message%"
+    set chat format to "&8[&r%{_prefix}%&8] &r%player's display name%&8: %{_c}%%colored message%"
+
+on chat:
+	if {SkCheat::spam.m::%uuid of player%} is message:
+		add 1 to {SkCheat::spam.p::%uuid of player%}
+		if {SkCheat.spam.notify::%uuid of player%} is not set:
+			set {SkCheat.spam.notify::%uuid of player%} to now
+		if difference between {SkCheat.spam.notify::%uuid of player%} and now is more than 1 second:
+			if {SkCheat::spam.p::%uuid of player%} is greater than 6:
+				kick the player due to "{@farminfarm} You were spamming."
+				clear {SkCheat::spam.p::%uuid of player%}
+	else:
+		set {SkCheat::spam.m::%uuid of player%} to message	
+
+on join:
+	clear {SkCheat::spam.p::%uuid of player%}
+	clear {SkCheat::spam.m::%uuid of player%}
+
+on disconnect:
+	clear {SkCheat::spam.p::%uuid of player%}
+	clear {SkCheat::spam.m::%uuid of player%}

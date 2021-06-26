@@ -19,7 +19,7 @@ options:
 	shop: &8[&a&lSHOP&8]&f
 	spy: &8[&7&lSPY&8]&f
 	mode: &8[&3&lMODE&8]&f
-	rule: &8[&3&lRULE &8]&f
+	rule: &8[&3&lRULE&8]&f
 	fake: &8[&7&lFAKE &8]&f
 	join: &8[&9&lJOIN&8]&f
 	leave: &8[&9&lLEAVE&8]&f
