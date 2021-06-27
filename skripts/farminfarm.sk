@@ -635,6 +635,8 @@ command /stats [<offline player>]:
 			set {_p} to player
 		if checkgroup({_p}, "owner") is true:
 			set {_staff} to "&8[&cOwner&8]"
+		else if checkgroup({_p}, "co-owner") is true:
+			set {_staff} to "&8[&9Co&7-&9Owner&8]"
 		else if checkgroup({_p}, "manager") is true:
 			set {_staff} to "&8[&6Manager&8]"
 		else if checkgroup({_p}, "admin") is true:

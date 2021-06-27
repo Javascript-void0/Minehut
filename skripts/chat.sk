@@ -49,6 +49,8 @@ on chat:
         set {_c} to "&7"
     if checkgroup(the player, "owner") is true:
         set {_prefix} to colored "%rgbToHex(251, 79, and 83)%Owner"
+    else if checkgroup(the player, "co-owner") is true:
+        set {_prefix} to colored "%rgbToHex(58, 151, and 136)%Co&7-%rgbToHex(58, 151, and 136)%Owner"
     else if checkgroup(the player, "manager") is true:
         set {_prefix} to colored "%rgbToHex(232, 119, and 89)%Manager"
     else if checkgroup(the player, "admin") is true:
