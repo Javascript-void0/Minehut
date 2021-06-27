@@ -185,6 +185,7 @@ async def on_message(message):
     if "discord.gg/" in message.content or "discord.com/invite/" in message.content:
         if not message.author.id == '594352318464524289':
             await message.delete()
+    await client.process_commands(message)
 
 @client.command(aliases=['purge'], help='Clears certin number of messages')
 @commands.has_permissions(manage_messages=True)
