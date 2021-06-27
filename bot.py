@@ -75,13 +75,13 @@ async def on_guild_channel_update(before, after):
             print('offline')
             online = False
     if online:
-        await member.edit(nick='[🤢] FarminFarm')
+        await member.edit(nick='[🔹] FarminFarm')
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
-        await role.edit(color=discord.Color(0x3EA878))
+        await role.edit(color=discord.Color(0x82c1f7))
     else:
-        await member.edit(nick='[😡] FarminFarm') 
+        await member.edit(nick='[🔸] FarminFarm') 
         await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
-        await role.edit(color=discord.Color(0xE64043))
+        await role.edit(color=discord.Color(0xf7a982))
 
 @client.command(help='FarminFarm Server Status')
 async def status(ctx):
@@ -95,16 +95,16 @@ async def status(ctx):
         embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ ONLINE ]```', color=discord.Color.green())
         embed.add_field(name=f'Players online: {mc_status.players.online}/20', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
-        await member.edit(nick='[🤢] FarminFarm')
+        await member.edit(nick='[🔹] FarminFarm')
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
-        await role.edit(color=discord.Color(0x3EA878))
+        await role.edit(color=discord.Color(0x82c1f7))
     else:
         embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ OFFLINE ]```', color=discord.Color.red())
         embed.add_field(name=f'Players online: 0/20', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
-        await member.edit(nick='[😡] FarminFarm') 
+        await member.edit(nick='[🔸] FarminFarm') 
         await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
-        await role.edit(color=discord.Color(0xE64043))
+        await role.edit(color=discord.Color(0xf7a982))
     await ctx.send(embed=embed)
 
 @client.command(aliases=['cl'], help='Input for Changlogs')
