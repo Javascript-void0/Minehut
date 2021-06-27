@@ -180,5 +180,21 @@ async def worth(ctx, *, crop = None):
         except UnboundLocalError:
             await ctx.send(f'```"{crop}" not found. ```')
 
+@client.event
+async def on_message(message):
+    if "discord.gg/" in message.content or "discord.com/invite/" in message.content:
+        if not message.author.id == '594352318464524289':
+            await message.delete()
+
+@client.command(aliases=['purge'], help='Clears certin number of messages')
+@commands.has_permissions(manage_messages=True)
+async def clear(ctx, amount: int):
+    await ctx.channel.purge(limit=amount+1)
+    await ctx.send(f'Cleared {amount} messages', delete_after=5)
+@clear.error
+async def clear_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Please specify an amount of messages to delete.')
+
 if __name__ == '__main__':
     client.run(TOKEN, reconnect=True)
