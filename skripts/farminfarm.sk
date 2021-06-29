@@ -63,9 +63,10 @@ command /start:
 		execute console command "/sudo %player% p auto"
 		execute console command "/sudo %player% kit tools"
 
-command /buy:
+command /donated [<offline player>]:
+	permission: patreon
 	trigger:
-		send "&cJavascript:void(0); &4No P2W..."
+		broadcast "&8[&3PATREON&8] &bThank you %arg-1% for donating to the server!"
 
 command /bal [<offline player>]:
 	aliases: /balance
@@ -434,7 +435,7 @@ command /prestige [<text>] [<integer>]:
 						if arg-2 is greater than 500:
 							set {_n} to 500
 						else:
-							set {_n} to arg-1
+							set {_n} to arg-2
 						set {prestige} to {_n}
 						set {_newcost} to {_n} * 100000
 						set {prestigecost} to {_newcost} + 10000000
@@ -637,6 +638,8 @@ command /stats [<offline player>]:
 			set {_staff} to "&8[&cOwner&8]"
 		else if checkgroup({_p}, "co-owner") is true:
 			set {_staff} to "&8[&9Co&7-&9Owner&8]"
+		else if checkgroup({_p}, "support") is true:
+			set {_staff} to "&8[&eSupport&8]"
 		else if checkgroup({_p}, "manager") is true:
 			set {_staff} to "&8[&6Manager&8]"
 		else if checkgroup({_p}, "admin") is true:

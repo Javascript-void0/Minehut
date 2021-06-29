@@ -43,6 +43,9 @@ on chat:
     if message contains "@":
         cancel event
         send "&cJavascript:void(0); &4No Pinging"
+    if message contains "nigger" or "nigga" or "niger":
+        cancel event
+        ban the player because "&cJavascript:void(0); &4Racism. &fIf &osomehow &rthis is an accident... tell Java in discord: https://discord.gg/YkBRcR5."
     if player has permission "white.chat":
         set {_c} to "&f"
     else:
@@ -55,6 +58,8 @@ on chat:
         set {_prefix} to colored "%rgbToHex(232, 119, and 89)%Manager"
     else if checkgroup(the player, "admin") is true:
         set {_prefix} to colored "%rgbToHex(194, 60, and 248)%Admin"
+    else if checkgroup(the player, "support") is true:
+        set {_prefix} to colored "%rgbToHex(255, 255, 102)%Support"
     else if checkgroup(the player, "mod") is true:
         set {_prefix} to colored "%rgbToHex(120, 208, and 208)%Mod"
     else if checkgroup(the player, "sr-builder") is true:
@@ -63,6 +68,8 @@ on chat:
         set {_prefix} to colored "%rgbToHex(225, 55, and 128)%Builder"
     else if checkgroup(the player, "helper") is true:
         set {_prefix} to colored "%rgbToHex(67, 240, and 120)%Helper"
+    else if checkgroup(the player, "patreon") is true:
+        set {_prefix} to colored "%rgbToHex(36, 158, and 151)%Patreon"
     else if checkgroup(the player, "plantation") is true:
         set {_prefix} to colored "%rgbToHex(15, 143, and 151)%Plantation"
     else if checkgroup(the player, "ranch") is true:

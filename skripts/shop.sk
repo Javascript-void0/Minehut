@@ -147,7 +147,7 @@ function newblockShop(p:player):
 	format gui slot 24 of {_p} with diorite named "&fDiorite &7- &a16 for $80" to run function newnumShop({_p},diorite,16,80)
 	format gui slot 25 of {_p} with andesite named "&fAndesite &7- &a16 for $80" to run function newnumShop({_p},andesite,16,80)
 	format gui slot 28 of {_p} with sea lantern named "&fSea Lantern &7- &a16 for $120" to run function newnumShop({_p},sea lantern,16,120)
-	format gui slot 29 of {_p} with glowstone named "&fGlowstone &7- &a16 for $120" to run function newnumShop({_p},sea lantern,16,120)
+	format gui slot 29 of {_p} with glowstone named "&fGlowstone &7- &a16 for $120" to run function newnumShop({_p},glowstone,16,120)
 	format gui slot 26 of {_p} with black stained glass pane named " "
 	format gui slot 27 of {_p} with black stained glass pane named " "
 	format gui slot 30 of {_p} with lantern named "&fLantern &7- &a16 for $120" to run function newnumShop({_p},lantern,16,120)
@@ -166,20 +166,21 @@ function newcolorShop(p:player):
 	format gui slot 3 of {_p} with yellow dye named "&fYellow Dye &7- &a16 for $20" to run function newnumShop({_p},yellow dye,16,20)
 	format gui slot 4 of {_p} with lime dye named "&fLime Dye &7- &a16 for $20" to run function newnumShop({_p},lime dye,16,20)
 	format gui slot 5 of {_p} with green dye named "&fGreen Dye &7- &a16 for $20" to run function newnumShop({_p},green dye,16,20)
-	format gui slot 6 of {_p} with light blue dye named "&fLight Blue Dye &7- &a16 for $20" to run function newnumShop({_p},light blue dye,16,20)
-	format gui slot 7 of {_p} with blue dye named "&fBlue Dye &7- &a16 for $20" to run function newnumShop({_p},blue dye,16,20)
+	format gui slot 6 of {_p} with cyan dye named "&fCyan Dye &7- &a16 for $20" to run function newnumShop({_p},cyan dye, 16, 20)
+	format gui slot 7 of {_p} with light blue dye named "&fLight Blue Dye &7- &a16 for $20" to run function newnumShop({_p},light blue dye,16,20)
 	format gui slot 8 of {_p} with black stained glass pane named " "
 	format gui slot 9 of {_p} with black stained glass pane named " "
-	format gui slot 10 of {_p} with purple dye named "&fPurple Dye &7- &a16 for $20" to run function newnumShop({_p},purple dye,16,20)
-	format gui slot 11 of {_p} with magenta dye named "&fMagenta Dye &7- &a16 for $20" to run function newnumShop({_p},magenta dye,16,20)
-	format gui slot 12 of {_p} with pink dye named "&fPink Dye &7- &a16 for $20" to run function newnumShop({_p},pink dye,16,20)
-	format gui slot 13 of {_p} with brown dye named "&fBrown Dye &7- &a16 for $20" to run function newnumShop({_p},brown dye,16,20)
-	format gui slot 14 of {_p} with black dye named "&fBlack Dye &7- &a16 for $20" to run function newnumShop({_p},black dye,16,20)
-	format gui slot 15 of {_p} with gray dye named "&fGray Dye &7- &a16 for $20" to run function newnumShop({_p},gray dye,16,20)
-	format gui slot 16 of {_p} with light gray dye named "&fLight Gray Dye &7- &a16 for $20" to run function newnumShop({_p},light gray dye,16,20)
+	format gui slot 10 of {_p} with blue dye named "&fBlue Dye &7- &a16 for $20" to run function newnumShop({_p},blue dye,16,20)
+	format gui slot 11 of {_p} with purple dye named "&fPurple Dye &7- &a16 for $20" to run function newnumShop({_p},purple dye,16,20)
+	format gui slot 12 of {_p} with magenta dye named "&fMagenta Dye &7- &a16 for $20" to run function newnumShop({_p},magenta dye,16,20)
+	format gui slot 13 of {_p} with pink dye named "&fPink Dye &7- &a16 for $20" to run function newnumShop({_p},pink dye,16,20)
+	format gui slot 14 of {_p} with brown dye named "&fBrown Dye &7- &a16 for $20" to run function newnumShop({_p},brown dye,16,20)
+	format gui slot 15 of {_p} with black dye named "&fBlack Dye &7- &a16 for $20" to run function newnumShop({_p},black dye,16,20)
+	format gui slot 16 of {_p} with gray dye named "&fGray Dye &7- &a16 for $20" to run function newnumShop({_p},gray dye,16,20)
 	format gui slot 17 of {_p} with black stained glass pane named " "
 	format gui slot 18 of {_p} with black stained glass pane named " "
-	format gui slot 19 of {_p} with white dye named "&fWhite Dye &7- &a16 for $20" to run function newnumShop({_p},white dye,16,20)
+	format gui slot 19 of {_p} with light gray dye named "&fLight Gray Dye &7- &a16 for $20" to run function newnumShop({_p},light gray dye,16,20)
+	format gui slot 20 of {_p} with white dye named "&fWhite Dye &7- &a16 for $20" to run function newnumShop({_p},white dye,16,20)
 	format gui slot 25 of {_p} with barrier named "&cBack to Shops" to run function newShop({_p})
 	format gui slot 26 of {_p} with black stained glass pane named " "
 
@@ -238,7 +239,8 @@ function newotherShop(p:player):
 	format gui slot 17 of {_p} with black stained glass pane named " "
 	format gui slot 18 of {_p} with black stained glass pane named " "
 	format gui slot 19 of {_p} with {rod} named "&fFishing Rod &7- &a$7500" to run function newnumShop({_p},{rod},1,7500)
-	format gui slot 20 of {_p} with sponge named "&fSponge &7- &a$3000 each" to run function newnumShop({_p},sponge,3000)
+	format gui slot 20 of {_p} with sponge named "&fSponge &7- &a$3000 each" to run function newnumShop({_p},sponge,1,3000)
+	format gui slot 21 of {_p} with obsidian named "&fObsidian &7- &a$5000 each" to run function newnumShop({_p},obsidian,1,5000)
 	format gui slot 25 of {_p} with barrier named "&cBack to Shops" to run function newShop({_p})
 	format gui slot 26 of {_p} with black stained glass pane named " "
 
