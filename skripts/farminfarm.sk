@@ -519,62 +519,6 @@ command /rebirth [<offline player>] [<text>]:
 			else:
 				send "{@rebirth} &7%arg-1% &7is &bRebirth &8[&bx%{rebirth{@season}.%arg-1%}%&8]"
 
-#==== Scythe ====
-on block break:
-	if player's tool is {scythe}:
-		if event-block is fully grown wheat plant:
-			set {_block} to freshly planted wheat plant
-			set data value of {_block} to 0
-			set event-block to {_block}
-			drop 3 seed at event-location
-			drop 1 wheat at event-location
-
-		else if event-block is fully grown potato plant:
-			set {_block} to freshly planted potato plant
-			set data value of {_block} to 0
-			set event-block to {_block}
-			drop 3 potato at event-location
-
-		else if event-block is fully grown carrot plant:
-			set {_block} to freshly planted carrot plant
-			set data value of {_block} to 0
-			set event-block to {_block}
-			drop 3 carrot at event-location
-		
-		else if event-block is fully grown nether wart plant:
-			set {_block} to freshly planted nether wart plant
-			set data value of {_block} to 0
-			set event-block to {_block}
-			drop 3 nether wart at event-location
-		else:
-			cancel event
-
-#==================Un-Scythe=================
-on block break:
-	if player's tool is golden hoe named "&2UnScythe":
-		if event-block is wheat:
-			if event-block is ripe wheat plant:
-				cancel event
-			else:
-				set event-block to ripe wheat plant
-		else if event-block is carrot plant:
-			if event-block is ripe carrot plant:
-				cancel event
-			else:
-				set event-block to ripe carrot plant
-		else if event-block is potato plant:
-			if event-block is ripe potato plant:
-				cancel event
-			else:
-				set event-block to ripe potato plant
-		else if event-block is nether wart:
-			if event-block is ripe nether wart plant:
-				cancel event
-			else:
-				set event-block to ripe nether wart plant
-		else:
-			cancel event
-
 on right click:
 	set {pws} to water bucket named "&fPocket &bWater &3Source"
 	if player's held item is {pws}:

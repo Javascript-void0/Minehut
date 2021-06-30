@@ -1,0 +1,240 @@
+options:
+	name: &2Scythe&a²
+	prefix: &8[&2SCYTHE&8]&f
+	season: 1
+	money: &cJavascript:void(0); &4Insufficient Money
+
+on load:
+	set {newscythe} to netherite hoe named "{@name}"
+	set line 1 of lore of {newscythe} to ""
+	set line 2 of lore of {newscythe} to "&a > &2Replants Broken Crops"
+	set line 3 of lore of {newscythe} to "&a > &fWheat, Potatoes, Carrots, and Netherwart"
+	set line 4 of lore of {newscythe} to "&a > &fRight Click &7to Sell Inventory"
+	set line 5 of lore of {newscythe} to "&a > &fShift + Right Click &7to Open Menu"
+
+	set {bind} to book named "&fBroken Crops Bind to Inventory" with lore "&aLevel 0/1"
+	set line 2 of lore of {bind} to "&a$10M"
+	enchant {bind} with curse of binding
+	set {bindmax} to book named "&cBroken Crops Bind to Inventory" with lore "&aMax Level 1/1"
+	enchant {bindmax} with curse of binding
+
+	set {fort1} to book named "&a+1 &fDrop for Every Level of Fortune" with lore "&aLevel 0/3"
+	set line 2 of lore of {fort1} to "&a$10M"
+	enchant {fort1} with fortune
+	set {fort2} to book named "&a+1 &fDrop for Every Level of Fortune" with lore "&aLevel 1/3"
+	set line 2 of lore of {fort2} to "&a$20M"
+	enchant {fort2} with fortune 2
+	set {fort3} to book named "&a+1 &fDrop for Every Level of Fortune" with lore "&aLevel 2/3"
+	set line 2 of lore of {fort3} to "&a$30M"
+	enchant {fort3} with fortune 3
+	set {fortmax} to book named "&c+1 Drop for Every Level of Fortune" with lore "&cMax Level 3/3"
+	enchant {fortmax} with fortune 3
+
+	set {swep1} to book named "&fAge of Replanted Crop" with lore "&aLevel 0/3"
+	set line 2 of lore of {swep1} to "&a$10M"
+	enchant {swep1} with sweeping edge
+	set {swep2} to book named "&fAge of Replanted Crop" with lore "&aLevel 1/3"
+	set line 2 of lore of {swep2} to "&a$20M"
+	enchant {swep2} with sweeping edge 2
+	set {swep2} to book named "&fAge of Replanted Crop" with lore "&aLevel 2/3"
+	set line 2 of lore of {swep3} to "&a$30M"
+	enchant {swep3} with sweeping edge 3
+	set {swepmax} to book named "&cAge of Replanted Crop" with lore "&cMax Level 3/3"
+	enchant {swepmax} with fortune 3
+
+	set {mend} to book named "&fGain XP While Using {@name}" with lore "&aLevel 0/1"
+	set line 2 of lore of {mend} to "&a$5M"
+	enchant {mend} with mending
+	set {mendmax} to book named "&cGain XP While Using {@name}" with lore "&cMax Level 1/1"
+	enchant {mendmax} with mending
+
+
+command /test:
+	trigger:
+		if player is op:
+			give player {newscythe}
+
+on enchant:
+	if event-item is netherite hoe named "{@name}":
+		send "{@prefix} {@name} &ccan not &fbe enchanted. "
+		cancel event
+
+on anvil combine:
+	if name of event-item-one is "{@name}":
+		send "{@prefix} {@name} &ccan not &fbe enchanted. "
+		cancel event
+
+function enchantScythe(p: player, enchant: object, cost: number):
+	if balance of {_p} is greater than {_cost}:
+		remove {_cost} from balance of {_p}
+		enchant held item of {_p} with {_enchant}
+	else:
+		send "{@money}" to {_p}
+
+on right click:
+	cancel event
+	if name of player's tool is "{@name}":
+		if player is sneaking:
+			open virtual chest inventory with size 3 named "{@name} &fMenu" to player
+			if player's tool is enchanted with {bind}
+				format gui slot 10 of player with {bindmax}
+			else:
+				format gui slot 10 of player with {bind} to run function enchantScythe(player, curse of binding, 10000000)
+			if player's tool is enchanted with fortune 3:
+				format gui slot 14 of player with {fortmax}
+			if player's tool is enchanted with fortune 2:
+				format gui slot 14 of player with {fort3} to run function enchantScythe(player, fortune 3, 30000000)
+			if player's tool is enchanted with fortune 1:
+				format gui slot 14 of player with {fort2} to run function enchantScythe(player, fortune 2, 20000000)
+			else:
+				format gui slot 12 of player with {fort1} to run function enchantScythe(player, fortune, 10000000)
+			if player's tool is enchanted with sweeping edge 3:
+				format gui slot 14 of player with {swepmax}
+			if player's tool is enchanted with sweeping edge 2:
+				format gui slot 14 of player with {swep3} to run function enchantScythe(player, sweeping edge 3, 30000000)
+			if player's tool is enchanted with sweeping edge 1:
+				format gui slot 14 of player with {swep2} to run function enchantScythe(player, sweeping edge 2, 20000000)
+			else:
+				format gui slot 14 of player with {swep1} to run function enchantScythe(player, sweeping edge, 10000000)
+			if player's tool is enchanted with mending:
+				format gui slot 16 of player with {mendmax}
+			else:
+				format gui slot 16 of player with {mend} to run function enchantScythe(player, mending, 5000000)
+		else:
+			set {soldItems::%player%} to 0
+			set {earnings::%player%} to 0
+			loop all items in player's inventory:
+				set {_amount} to item amount of loop-item
+				set {_n} to 0
+				loop {sblocks::*}:
+					add 1 to {_n}
+					if loop-value-2 is loop-item:
+						add {_amount} to {soldItems::%player%}
+						add GetBlockPrice({_n}) * {rebirth{@season}.%player%} * {_amount} to {earnings::%player%}
+						remove loop-item from player's inventory
+			if {soldItems::%player%} is more than 0:
+				set action bar of player to colored "&7Items Sold: &b+$%{earnings::%player%}%"
+				add {earnings::%player%} to player's balance
+				clear {earnings::%player%}
+				clear {soldItems::%player%}
+			else:
+				set action bar of player to colored "{@prefix} &cEmpty Inventory"
+
+#==== Scythe ====
+on block break:
+	if name of player's tool is "{@name}":
+		set {_f} to level of fortune of player's tool
+		set {_s} to level of sweeping edge of player's tool
+		if {_f} is "<none>":
+			set {_f} to 0
+		add 3 to {_f}
+		if event-block is fully grown wheat plant:
+			if player's tool is enchanted with mending:
+				add 1 to xp of player
+			if {_s} is 1:
+				set event-block to stage 2 wheat plant
+			else if {_s} is 2:
+				set event-block to stage 3 wheat plant
+			else if {_s} is 3:
+				set event-block to stage 4 wheat plant
+			else:
+				set event-block to freshly planted wheat plant
+			cancel event
+			if player's tool is enchanted with curse of binding:
+				if player's inventory can't hold {_f} of seeds:
+					set action bar of player to colored "{@prefix} &cFull Inventory"
+					drop {_f} of wheat at event-location
+					drop 3 seeds at event-location
+				else:
+					give player {_f} of wheat
+					give player 3 seeds
+			else:
+				drop {_f} of wheat at event-location
+				drop 3 seeds at event-location
+
+		else if event-block is fully grown potato plant:
+			if player's tool is enchanted with mending:
+				add 1 to xp of player
+			if {_s} is 1:
+				set event-block to stage 2 potato plant
+			else if {_s} is 2:
+				set event-block to stage 3 potato plant
+			else if {_s} is 3:
+				set event-block to stage 4 potato plant
+			else:
+				set event-block to freshly planted potato plant
+			cancel event
+			if player's tool is enchanted with curse of binding:
+				if player's inventory can't hold {_f} of potato:
+					set action bar of player to colored "{@prefix} &cFull Inventory"
+					drop {_f} of potato at event-location
+				else:
+					give player {_f} of potato
+			else:
+				drop {_f} of potato at event-location
+
+		else if event-block is fully grown carrot plant:
+			if player's tool is enchanted with mending:
+				add 1 to xp of player
+			if {_s} is 1:
+				set event-block to stage 2 carrot plant
+			else if {_s} is 2:
+				set event-block to stage 3 carrot plant
+			else if {_s} is 3:
+				set event-block to stage 4 carrot plant
+			else:
+				set event-block to freshly planted carrot plant
+			cancel event
+			if player's tool is enchanted with curse of binding:
+				if player's inventory can't hold {_f} of carrot:
+					set action bar of player to colored "{@prefix} &cFull Inventory"
+					drop {_f} of carrot at event-location
+				else:
+					give player {_f} of carrot
+			else:
+				drop {_f} of carrot at event-location
+		
+		else if event-block is fully grown nether wart plant:
+			if player's tool is enchanted with mending:
+				add 1 to xp of player
+			if player's tool is enchanted with sweeping edge 3:
+				set event-block to stage 2 nether wart plant
+			else:
+				set event-block to freshly planted nether wart plant
+			cancel event
+			if player's tool is enchanted with curse of binding:
+				if player's inventory can't hold {_f} of nether wart:
+					set action bar of player to colored "{@prefix} &cFull Inventory"
+					drop {_f} of nether wart at event-location
+				else:
+					give player {_f} of nether wart
+			else:
+				drop {_f} of nether wart at event-location
+		else:
+			cancel event
+
+#==================Un-Scythe=================
+on block break:
+	if player's tool is golden hoe named "&2UnScythe":
+		if event-block is wheat:
+			if event-block is ripe wheat plant:
+				cancel event
+			else:
+				set event-block to ripe wheat plant
+		else if event-block is carrot plant:
+			if event-block is ripe carrot plant:
+				cancel event
+			else:
+				set event-block to ripe carrot plant
+		else if event-block is potato plant:
+			if event-block is ripe potato plant:
+				cancel event
+			else:
+				set event-block to ripe potato plant
+		else if event-block is nether wart:
+			if event-block is ripe nether wart plant:
+				cancel event
+			else:
+				set event-block to ripe nether wart plant
+		else:
+			cancel event
