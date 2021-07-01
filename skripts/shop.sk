@@ -213,6 +213,7 @@ function newfarmShop(p:player):
 	format gui slot 21 of {_p} with water bucket named "&fWater Bucket &7- &a$250" to run function newnumShop({_p},water bucket,1,250)
 	format gui slot 22 of {_p} with lava bucket named "&fLava bucket &7- &a$500" to run function newnumShop({_p},lava bucket,1,500)
 	format gui slot 23 of {_p} with vine named "&fVine &7- &a16 for $40,000" to run function newnumShop({_p},vine,16,40000)
+	format gui slot 24 of {_p} with kelp named "&fKelp &7- &a16 for $3,000" to run function newnumShop({_p},kelp,16,3000)
 	format gui slot 25 of {_p} with barrier named "&cBack to Shops" to run function newShop({_p})
 	format gui slot 26 of {_p} with black stained glass pane named " "
 
@@ -241,6 +242,7 @@ function newotherShop(p:player):
 	format gui slot 19 of {_p} with {rod} named "&fFishing Rod &7- &a$7500" to run function newnumShop({_p},{rod},1,7500)
 	format gui slot 20 of {_p} with sponge named "&fSponge &7- &a$3000 each" to run function newnumShop({_p},sponge,1,3000)
 	format gui slot 21 of {_p} with obsidian named "&fObsidian &7- &a$5000 each" to run function newnumShop({_p},obsidian,1,5000)
+	format gui slot 22 of {_p} with sea pickle named "&fSea Pickle &7- &a$5000 each" to run function newnumShop({_p},sea pickle,1,5000)
 	format gui slot 25 of {_p} with barrier named "&cBack to Shops" to run function newShop({_p})
 	format gui slot 26 of {_p} with black stained glass pane named " "
 
