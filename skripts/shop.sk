@@ -188,7 +188,7 @@ function newcolorShop(p:player):
 function newfarmShop(p:player):
 	open virtual chest inventory with size 3 named "&2Farming &7Shop" to {_p}
 	format gui slot 0 of {_p} with black stained glass pane named " "
-	format gui slot 1 of {_p} with {scythe} named "&2Scythe &7- &a$1,000" to run function newnumShop({_p},{scythe},1,1000)
+	format gui slot 1 of {_p} with {newscythe} named "&2Scythe &7- &a$1,000" to run function newnumShop({_p},{newscythe},1,1000)
 	format gui slot 2 of {_p} with water bucket named "&fPocket &bWater &3Source &7- &a$10,000" to run function newnumShop({_p},{pws},1,10000)
 	format gui slot 3 of {_p} with carrot named "&fCarrot &7- &a16 for $800" to run function newnumShop({_p},carrot,16,800)
 	format gui slot 4 of {_p} with potato named "&fPotato &7- &a16 for $800" to run function newnumShop({_p},potato,16,800)
@@ -278,11 +278,11 @@ on load:
 	enchant {naxe} with mending
 	enchant {naxe} with unbreaking 3
 
-	set {scythe} to netherite hoe named "&2Scythe" with lore "&fReplants crops when right click. Only for Wheat, Carrot, and Potato"
-	enchant {scythe} with efficiency 5
-	enchant {scythe} with fortune 3
-	enchant {scythe} with mending
-	enchant {scythe} with unbreaking 3
+	# set {scythe} to netherite hoe named "&2Scythe" with lore "&fReplants crops when right click. Only for Wheat, Carrot, and Potato"
+	# enchant {scythe} with efficiency 5
+	# enchant {scythe} with fortune 3
+	# enchant {scythe} with mending
+	# enchant {scythe} with unbreaking 3
 
 	set {elytra} to unbreakable elytra named "The Sky's the Limit"
 	enchant {elytra} with unbreaking 3
