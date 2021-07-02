@@ -22,6 +22,7 @@ options:
 	fake: &8[&7&lFAKE &8]&f
 	join: &8[&2&l+&8]&f
 	leave: &8[&4&l-&8]&f
+	staff: &8[&dStaff&8]&f
 # Prestige
 	prestige: &8[&a&lPRESTIGE&8]&f
 	prestigemax: &8[&a&lPRESTIGE&8] &fThe server is at &cmax prestige (500) 
@@ -66,7 +67,7 @@ command /start:
 command /donated [<offline player>]:
 	permission: patreon
 	trigger:
-		broadcast "&8[&3PATREON&8] &bThank you %arg-1% for donating to the server!"
+		broadcast "&8[&3&lPATREON&8] &fThank you &b%arg-1% &ffor becoming a Patreon :D"
 
 command /bal [<offline player>]:
 	aliases: /balance
@@ -92,7 +93,7 @@ command /bc [<text>]:
 	trigger:
 		if player has permission "essentials.broadcast":
 			if arg-1 is set:
-				broadcast "{@broadcast} &b%arg-1%"
+				broadcast colored "{@broadcast} &b%arg-1%"
 			else:
 				send "{@broadcast} /bc <msg>"
 		else:
@@ -100,7 +101,7 @@ command /bc [<text>]:
 
 command /tps:
 	trigger:
-		send "{@farminfarm} &cTPS: %tps%"
+		send "{@farminfarm} &fTPS: &b%tps%"
 
 command /rules: 
 	trigger:
@@ -355,7 +356,7 @@ command /?:
 command /help:
 	aliases: /bukkit:help
 	trigger:
-		send "%player's prefix%%display name of player%⇾ &7HEY EVERYONE I NEED HELP"
+		send "%player's prefix%%display name of player%&7: &7HEY EVERYONE I NEED HELP"
 
 command /opapply:
 	trigger:
@@ -382,6 +383,44 @@ on connect:
 
 on disconnect:
 	broadcast "{@leave} &7%player%"
+
+options:
+	farminfarm: &8[&3FarminFarm&8]&f
+
+#====Apply====
+command /apply:
+	trigger:
+		send "{@farminfarm} http://bit.ly/farminapps"
+
+#==== Staff Chat ====
+command /staffchat [<text>]:
+	aliases: /sc
+	permission: sc.staffchat
+	permission message: {@permission}
+	trigger:
+		if arg-1 is not set:
+			if {staffchat::%player%} is not set:
+				set {staffchat::%player%} to true
+				send "{@staff} &aEnabled Staff Chat"
+			else:
+				delete {staffchat::%player%}
+				send "{@staff} &cDisabled Staff Chat"
+		else:
+			loop all players:
+				if loop-player has permission "sc.staffchat":
+					send "{@staff} %player's prefix%&r%player's display name%&7: &r%arg 1%" to loop-player
+
+on chat:
+	if {staffchat::%player%} is set:
+		cancel event
+		loop all players:
+			if loop-player has permission "sc.staffchat":
+				send "{@staff} %player's prefix%&r%player's display name%&7: &r%message%" to loop-player
+
+every 1 second in "{@world}":
+	loop all players:
+		if {staffchat::%loop-player%} is true:
+			send action bar "{@staff} &aEnabled" to loop-player
 
 #==== Prestige ====
 command /prestige [<text>] [<integer>]:
@@ -536,7 +575,7 @@ every 10 seconds:
 		set score "&3Rank: " in sidebar of loop-player to 12
 		set score "   %loop-player's prefix%" in sidebar of loop-player to 11
 		set score "   " in sidebar of loop-player to 10
-		set score "&3Sellwand &fRebirth: " in sidebar of loop-player to 9
+		set score "&3Rebirth: " in sidebar of loop-player to 9
 		set score "   &8[&bx%{rebirth{@season}.%loop-player%}%&8]" in sidebar of loop-player to 8
 		set score "                     " in sidebar of loop-player to 7
 		set score "&3Online: " in sidebar of loop-player to 6

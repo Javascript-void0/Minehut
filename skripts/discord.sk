@@ -1,0 +1,24 @@
+
+options:
+	bot: FarminFarm
+	prefix: .
+	token: NzUxNjYxMDY1NDYwNTE0ODM2.X1MU6w.lknPKTXqmcy59TEc_e_i4VbXrTE
+	discord: &8[&3&lDISCORD&8]&f
+
+on load:
+	login to "{@token}" with the name "{@bot}"
+
+discord command list:
+	prefixes: "."
+	executable in: guild
+	trigger:
+		set {_} to a message builder
+		append line "Online: %size of all players%"
+		append line "```%"%all players%" split at ", "%```"
+		reply with {_}
+
+command /login:
+	trigger:
+		if player is op:
+			login to "{@token}" with the name "{@bot}"
+			send "{@discord} &fDone"

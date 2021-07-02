@@ -1,0 +1,21 @@
+#Levitating Shell
+on click:
+    if event-world = "C2S1":
+        if player's held item is shulker shell named "&5Levitating &dShell" with lore "&5When &dclicked &5in &dyour &5hand&7, &dmakes &dyou &5levitate&7!" and "&5Right &dclick &5to &dremove &5levitation&7!": 
+            apply levitation 2 to player
+
+on right click: 
+    if player's held item is shulker shell named "&5Levitating &dShell" with lore "&5When &dclicked &5in &dyour &5hand&7, &dmakes &dyou &5levitate&7!" and "&5Right &dclick &5to &dremove &5levitation&7!": 
+        remove levitation from player
+
+#Jumping Feather
+on click:
+    if event-world = "C2S1":
+        if player's held item is feather named "&aJumping &fFeather" with lore "&cWhen clicked in your hand it gives you jump boost!" and "&cRight click to remove the jump boost!": 
+            apply jump boost 5 to player
+
+on right click: 
+    if player's held item is feather named "&aJumping &fFeather" with lore "&cWhen clicked in your hand it gives you jump boost!" and "&cRight click to remove the jump boost!": 
+        remove jump boost from player
+
+# Deadly item, Speedy Item, Jumping Item, etc?

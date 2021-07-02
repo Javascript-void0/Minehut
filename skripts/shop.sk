@@ -51,8 +51,8 @@ function newtoolShop(p:player):
 	format gui slot 3 of {_p} with iron shovel named "&bIron Shovel &7- &a$250" to run function newnumShop({_p},iron shovel,1,250)
 	format gui slot 4 of {_p} with iron hoe named "&bIron Hoe &7- &a$250" to run function newnumShop({_p},iron hoe,1,250)
 	format gui slot 5 of {_p} with {dpick} named "&3Upgraded &7Pick &7- &a$30,000" to run function newnumShop({_p},{dpick},1,30000)
-	format gui slot 6 of {_p} with {dshovel} named "&3Upgraded &7Shovel &7- &a$30,000" to run function newnumShop({_p},{dshovel},1,30000)
-	format gui slot 7 of {_p} with {daxe} named "&3Upgraded &7Axe &7- &a$30,000" to run function newnumShop({_p},{daxe},1,30000)
+	format gui slot 6 of {_p} with {daxe} named "&3Upgraded &7Axe &7- &a$30,000" to run function newnumShop({_p},{daxe},1,30000)
+	format gui slot 7 of {_p} with {dshovel} named "&3Upgraded &7Shovel &7- &a$30,000" to run function newnumShop({_p},{dshovel},1,30000)
 	format gui slot 8 of {_p} with black stained glass pane named " " 
 	format gui slot 9 of {_p} with black stained glass pane named " " 
 	format gui slot 10 of {_p} with diamond pickaxe named "&bDiamond Pickaxe &7- &a$1,000" to run function newnumShop({_p},diamond pickaxe,1,1000)
@@ -61,8 +61,8 @@ function newtoolShop(p:player):
 	format gui slot 13 of {_p} with diamond hoe named "&bDiamond Hoe &7- &a$1,000" to run function newnumShop({_p},diamond hoe,1,1000)
 	format gui slot 14 of {_p} with {npick} named "&3Upgraded&7-&bed &7Pick &7- &a$150,000" to run function newnumShop({_p},{npick},1,150000)
 	format gui slot 15 of {_p} with {naxe} named "&3Upgraded&7-&bed &7Axe &7- &a$150,000" to run function newnumShop({_p},{naxe},1,100000)
-	format gui slot 16 of {_p} with barrier named "&cBack" to run function newShop({_p})
-	format gui slot 17 of {_p} with black stained glass pane named " " 
+	format gui slot 16 of {_p} with {nshovel} named "&3Upgraded&7-&bed &7Shovel &7- &a$150,000" to run function newnumShop({_p},{nshovel},1,100000)
+	format gui slot 17 of {_p} with barrier named "&cBack" to run function newShop({_p})
 
 	#====Redstone Shop====
 function newredstoneShop(p:player):
@@ -124,7 +124,7 @@ function newblockShop(p:player):
 	format gui slot 1 of {_p} with grass block named "&fGrass Block &7- &a16 for $300" to run function newnumShop({_p},grass block,16,300)
 	format gui slot 2 of {_p} with dirt named "&fDirt &7- &a16 for $300" to run function newnumShop({_p},dirt,16,300)
 	format gui slot 3 of {_p} with stone named "&fStone &7- &a16 for $300" to run function newnumShop({_p},stone,16,300)
-	format gui slot 4 of {_p} with cobblestone named "&fCobblestone &7- &4 for $300" to run function newnumShop({_p},cobblestone,16,300)
+	format gui slot 4 of {_p} with cobblestone named "&fCobblestone &7- &a16 for $300" to run function newnumShop({_p},cobblestone,16,300)
 	format gui slot 5 of {_p} with oak log named "&fOak Log &7- &a16 for $800" to run function newnumShop({_p},oak log,16,800)
 	format gui slot 6 of {_p} with blackstone named "&fBlackstone &7- &a16 for $800" to run function newnumShop({_p},blackstone,16,800)
 	format gui slot 7 of {_p} with stone brick named "&fStone Bricks &7- &a16 for $600" to run function newnumShop({_p},stone bricks,16,600)
@@ -277,6 +277,12 @@ on load:
 	enchant {naxe} with silk touch 
 	enchant {naxe} with mending
 	enchant {naxe} with unbreaking 3
+
+	set {nshovel} to netherite shovel named "&3Upgraded&7-&bed &7Shvoel"
+	enchant {nshovel} with efficiency 10
+	enchant {nshovel} with silk touch
+	enchant {nshovel} with mending
+	enchant {nshovel} with unbreaking 3
 
 	# set {scythe} to netherite hoe named "&2Scythe" with lore "&fReplants crops when right click. Only for Wheat, Carrot, and Potato"
 	# enchant {scythe} with efficiency 5
