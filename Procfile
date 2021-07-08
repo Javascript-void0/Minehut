@@ -1,2 +1,2 @@
 worker: python bot.py
-cmd: python cmds.py
+chat: python chat.py

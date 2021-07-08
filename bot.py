@@ -80,7 +80,7 @@ async def on_guild_channel_update(before, after):
         await role.edit(color=discord.Color(0x82c1f7))
     else:
         await member.edit(nick='[🔸] FarminFarm') 
-        await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
+        await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.dnd)
         await role.edit(color=discord.Color(0xf7a982))
 
 @client.command(help='FarminFarm Server Status')
@@ -103,7 +103,7 @@ async def status(ctx):
         embed.add_field(name=f'Players online: 0/20', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
         await member.edit(nick='[🔸] FarminFarm') 
-        await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.do_not_disturb)
+        await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.dnd)
         await role.edit(color=discord.Color(0xf7a982))
     await ctx.send(embed=embed)
 
