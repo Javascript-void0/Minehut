@@ -193,6 +193,9 @@ on chat:
 	if group of player is "admin":
 		set chat format to "&8[&b&lADMIN&8]&r &8[&b%{message::%player%}%&8]&r %{_name}%&7⇾ &f%message%"
 		stop
+	if group of player is "mod":
+		set chat format to "&8[&3&lMOD&8]&r &8[&b%{message::%player%}%&8]&r %{_name}%&7⇾ &f%message%"
+		stop
 	if {message::%player%} is greater than 1000:
 		set {_prefix} to colored "%rgbToHex(153, 153, and 255)%%{message::%player%}%"
 	else if {message::%player%} is greater than 900:
@@ -216,32 +219,37 @@ on chat:
 	else:
 		set {_prefix} to colored "%rgbToHex(204, 255, and 229)%%{message::%player%}%"
 	set chat format to "&8[%{_prefix}%&8]&r %{_name}%&7⇾ %message%"
-		
+	execute console command "/tab playeruuid %player%"
 
-command /count [<offline player>] [<integer>]:
-	permission: num.count
-	permission message: {@permission}
+command /count [<offline player>] [<text>] [<integer>]:
 	trigger:
-		if arg-1 is set:
-			if arg-2 is set:
-				set {_n} to arg-2
-				set {message::%arg-1%} to {_n}
-				send "Set Messages of %arg-1% to %arg-2%"
-				clear {_n}
+		if arg-1 is not set:
+			send "/count <offline player>"
+		else if arg-2 is set:
+			if player is op:
+				if arg-2 is "reset":
+					set {_o} to {message::%arg-1%}
+					set {message::%arg-1%} to 0
+					send "Reset %{_o}% Messages of %arg-1% to 0"
+				else if arg-3 is set:
+					if arg-2 is "add":
+						set {_n} to arg-3
+						add {_n} to {message::%arg-1%}
+						send "Added %{_n}% Messages to %arg-3% to %{message::%arg-1%}%"
+					if arg-2 is "remove":
+						set {_o} to {message::%arg-1%}
+						set {_n} to arg-3
+						remove {_n} from {message::%arg-1%}
+						if {message::%arg-1%} is less than 0:
+							set {message::%arg-1%} to 0
+						send "Removed %{_n}% Messages from %{_o}% to %{message::%arg-1%}%"
+					if arg-2 is "set":
+						set {_n} to arg-3
+						set {message::%arg-1%} to {_n}
+						send "Set Messages of %arg-1% to %arg-3%"
+				else:
+					send "/count <player> [option] <integer>"
 			else:
-				send "/count [<offline player>] [<integer>]"
+				send "no permission"
 		else:
-			send "/count [<offline player>] [<integer>]"
-
-command /creset [<text>]:
-	permission: num.reset
-	permission message: {@permission}
-	trigger:
-		if arg-1 is player:
-			set {message::%arg-1%} to 1
-			send "done"
-		else if arg-1 is "global":
-			set {global.message} to 1
-			send "done2"
-		else:
-			send "/creset <player | global>"
+			send "%{message::%arg-1%}%"
