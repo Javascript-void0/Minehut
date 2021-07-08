@@ -29,7 +29,7 @@ async def on_ready():
         online = False
     if online:
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | chatinchat.minehut.gg"))
-        await role.edit(color=discord.Color(0x82c1f7))
+        await role.edit(color=discord.Color(0x91caad))
     else:
         await client.change_presence(activity=discord.Game(name="Server Offline | chatinchat.minehut.gg"), status=discord.Status.dnd)
         await role.edit(color=discord.Color(0xf7a982))
@@ -48,7 +48,7 @@ async def on_guild_channel_update(before, after):
             online = False
     if online:
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | chatinchat.minehut.gg"))
-        await role.edit(color=discord.Color(0x82c1f7))
+        await role.edit(color=discord.Color(0x91caad))
     else:
         await client.change_presence(activity=discord.Game(name="Server Offline | chatinchat.minehut.gg"), status=discord.Status.dnd)
         await role.edit(color=discord.Color(0xf7a982))

@@ -33,7 +33,7 @@ async def on_ready():
         online = False
     if online:
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
-        await role.edit(color=discord.Color(0x82c1f7))
+        await role.edit(color=discord.Color(0x91caad))
     else:
         await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.dnd)
         await role.edit(color=discord.Color(0xf7a982))
@@ -83,7 +83,7 @@ async def on_guild_channel_update(before, after):
             online = False
     if online:
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
-        await role.edit(color=discord.Color(0x82c1f7))
+        await role.edit(color=discord.Color(0x91caad))
     else:
         await client.change_presence(activity=discord.Game(name="Server Offline | farminfarm.minehut.gg"), status=discord.Status.dnd)
         await role.edit(color=discord.Color(0xf7a982))
@@ -98,7 +98,7 @@ async def status(ctx):
         embed.add_field(name=f'Players online: {mc_status.players.online}/20', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='farminfarm.minehut.gg')
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/20 Online | farminfarm.minehut.gg"))
-        await role.edit(color=discord.Color(0x82c1f7))
+        await role.edit(color=discord.Color(0x91caad))
     else:
         embed = discord.Embed(title='🍞     FarminFarm Server Status', description=f'```       [ OFFLINE ]```', color=discord.Color.red())
         embed.add_field(name=f'Players online: 0/20', value=f" - `Ping: {mc_status.latency} ms`")
