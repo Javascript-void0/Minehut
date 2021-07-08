@@ -32,7 +32,7 @@ async def on_ready():
         await role.edit(color=discord.Color(0x82c1f7))
     else:
         await client.change_presence(activity=discord.Game(name="Server Offline | chatinchat.minehut.gg"), status=discord.Status.dnd)
-        await role.edit(color=discord.Color(0xf7a982))
+        await role.edit(color=discord.Color(0x91caad))
 
 @client.event
 async def on_guild_channel_update(before, after):
@@ -51,7 +51,7 @@ async def on_guild_channel_update(before, after):
         await role.edit(color=discord.Color(0x82c1f7))
     else:
         await client.change_presence(activity=discord.Game(name="Server Offline | chatinchat.minehut.gg"), status=discord.Status.dnd)
-        await role.edit(color=discord.Color(0xf7a982))
+        await role.edit(color=discord.Color(0x91caad))
 
 if __name__ == '__main__':
     client.run(TOKEN, reconnect=True)
