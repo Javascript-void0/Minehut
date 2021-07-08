@@ -89,7 +89,7 @@ on chat:
 			cancel event
 			send "{@mutechat} &cChat is currently muted."
 
-command /clearchat [<text>] [<player>]:
+command /clearchat:
 	permission: clearchat
 	permission message: {@permission}
 	aliases: /cc
