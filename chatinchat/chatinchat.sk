@@ -15,20 +15,20 @@ on hunger meter change:
 	cancel event
 
 on connect:
-	broadcast "&f[&a+&f] %player%"
+	broadcast "&8[&a+&8] &7%player%"
 
 on disconnect:
-	broadcast "&f[&c-&f] %player%"
+	broadcast "&8[&c-&8] &7%player%"
 
 on first join:
-	broadcast "&8[&f##%size of all offline players%&8] &fWelcome &3%player%"
+	broadcast "&8[&a+&8] &3%player% &8[&f##%size of all offline players%&8]"
 
 command /bc [<text>]:
 	aliases: /broadcast
 	trigger:
 		if player has permission "essentials.broadcast":
 			if arg-1 is set:
-				broadcast "{@broadcast} &b%arg-1%"
+				broadcast colored "{@broadcast} &b%arg-1%"
 			else:
 				send "{@broadcast} /bc <msg>"
 		else:
@@ -191,10 +191,10 @@ command /top:
 on chat:
 	set {_name} to display name of player
 	if group of player is "admin":
-		set chat format to "&8[&b&lADMIN&8]&r &8[&b%{message::%player%}%&8]&r %{_name}%&7⇾ &f%message%"
+		set chat format to "&8[&b&lADMIN&8]&r &8[&b%{message::%player%}%&8]&r %{_name}%&7: &f%message%"
 		stop
 	if group of player is "mod":
-		set chat format to "&8[&3&lMOD&8]&r &8[&b%{message::%player%}%&8]&r %{_name}%&7⇾ &f%message%"
+		set chat format to "&8[&3&lMOD&8]&r &8[&b%{message::%player%}%&8]&r %{_name}%&7: &f%message%"
 		stop
 	if {message::%player%} is greater than 1000:
 		set {_prefix} to colored "%rgbToHex(153, 153, and 255)%%{message::%player%}%"
@@ -218,8 +218,7 @@ on chat:
 		set {_prefix} to colored "%rgbToHex(204, 255, and 204)%%{message::%player%}%"
 	else:
 		set {_prefix} to colored "%rgbToHex(204, 255, and 229)%%{message::%player%}%"
-	set chat format to "&8[%{_prefix}%&8]&r %{_name}%&7⇾ %message%"
-	execute console command "/tab playeruuid %player%"
+	set chat format to "&8[%{_prefix}%&8]&r %{_name}%&7: %message%"
 
 command /count [<offline player>] [<text>] [<integer>]:
 	trigger:
