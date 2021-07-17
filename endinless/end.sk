@@ -1,0 +1,256 @@
+options:
+#Prefixes
+	endinless: &8[&b&lENDIN&3&lLESS&8]&f
+	chat: &8[&c&lCHAT&8]&f
+	discord: &8[&3&lDISCORD&8]&f
+	broadcast: &8[&3&lBROADCAST&8]&f
+	mode: &8[&3&lMODE&8]&f
+	rule: &8[&3&lRULE&8]&f
+	message: &cError: javascript:void(0) Insufficient Messages
+	permission: &cError: javascript:void(0) Insufficient Permissions
+
+on hunger meter change:
+	cancel event
+
+on drop:
+    if group of player is not "Admin":
+        cancel event
+
+on connect:
+	broadcast "&8[&a+&8] &7%player%"
+
+on disconnect:
+	broadcast "&8[&c-&8] &7%player%"
+
+on first join:
+	broadcast "&8[&a+&8] &3%player% &8[&f##%size of all offline players%&8]"
+
+command /bc [<text>]:
+	aliases: /broadcast
+	trigger:
+		if player has permission "essentials.broadcast":
+			if arg-1 is set:
+				broadcast colored "{@broadcast} &b%arg-1%"
+			else:
+				send "{@broadcast} /bc <msg>"
+		else:
+			send "{@permission}"
+
+command /rules: 
+	trigger:
+		send "{@rule} &31. &fNo NSFW. Limit swearing."
+		send "{@rule} &32. &fEnglish only"
+		send "{@rule} &33. &fDon't spam/flood. Limit caps. "
+		send "{@rule} &34. &fRespect everyone"
+		send "{@rule} &35. &fNo advertising"
+		send "{@rule} &36. &fDon't start drama"
+		send "{@rule} &37. &fNo bugs, exploits, hacks, macros, or any unfair advantages"
+		send "{@rule} &38. &fDon't be rude, racist, or bully others"
+
+on chat:
+	if player is op:
+		stop
+	else:
+		if {SkCheat::spam.m::%uuid of player%} is message:
+			add 1 to {SkCheat::spam.p::%uuid of player%}
+			if {SkCheat.spam.notify::%uuid of player%} is not set:
+				set {SkCheat.spam.notify::%uuid of player%} to now
+			if difference between {SkCheat.spam.notify::%uuid of player%} and now is more than 1 second:
+				if {SkCheat::spam.p::%uuid of player%} is greater than 6:
+					kick the player due to "{@endinless} You were spamming."
+					clear {SkCheat::spam.p::%uuid of player%}
+		else:
+			set {SkCheat::spam.m::%uuid of player%} to message	
+
+on join:
+	clear {SkCheat::spam.p::%uuid of player%}
+	clear {SkCheat::spam.m::%uuid of player%}
+
+on disconnect:
+	clear {SkCheat::spam.p::%uuid of player%}
+	clear {SkCheat::spam.m::%uuid of player%}
+
+command /mutechat:
+	permission: chat.mute
+	permission message: {@permission}
+	trigger:
+		if {Globalchat} is not set:
+			set {Globalchat} to true
+			broadcast "{@chat} &7Chat &cMUTED &7by %player%"
+			stop trigger
+
+		if {Globalchat} is set:
+			clear {Globalchat}
+			broadcast "{@chat} &7Chat &aUNMUTED &7by %player%"
+
+on chat:
+	if {Globalchat} is true:
+		if player has permission "chat.mute.bypass":
+			stop trigger
+		else:
+			cancel event
+			send "{@chat} &cChat is currently muted."
+
+command /clearchat:
+	permission: clearchat
+	permission message: {@permission}
+	aliases: /cc
+	trigger:
+		loop 100 times:
+			broadcast ""
+		send "{@chat} &aYou have cleared the chat"
+
+on load:
+	set {hex::*} to split "0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|k|l|m|n|o|r" at "|"
+ 
+function rgbToHex(values: numbers) :: string:
+	loop {_values::*}:
+		set {_r} to "%{_r} ? ""<##""%%{hex::%(( (round(loop-value)) - mod((round(loop-value)), 16)) / 16 + 1)%} ? """"%%{hex::%mod((round(loop-value)), 16) + 1%} ? """"%"
+	return colored "%{_r}%>"
+
+function gradient(input: string, color-from: integers, color-to: integers) :: string:
+	loop {_color-from::*}:
+		set {_i::%loop-index%} to ({_color-to::%loop-index%} - loop-value) / length of {_input}
+	loop length of {_input} times:
+		if subtext of {_input} from indices loop-number - 1 to loop-number - 1 = "§":
+			set {_format} to "%{_format} ? """"%&%subtext of {_input} from indices loop-number to loop-number%" if {hex::*} contains subtext of {_input} from indices loop-number to loop-number
+			clear {_format} if subtext of {_input} from indices loop-number to loop-number = "r"
+			continue loop
+		set {_r} to "%{_r} ? """"%%rgbToHex({_color-from::*})%%{_format} ? """"%%subtext of {_input} from indices loop-number to loop-number%"
+		set {_color-from::*} to ({_color-from::1} + {_i::1}), ({_color-from::2} + {_i::2}) and ({_color-from::3} + {_i::3})
+	return colored {_r}
+
+command /pl:
+	aliases: /plugins
+	trigger:
+		if group of player is "admin":
+			execute console command "/sudo %player% bukkit:plugins"
+		else:
+			send "&fPlugins (4): &aNone&f, &aOf&f, &aYour&f, &aBusiness"
+
+on load:
+	set {header} to "%nl%&b&lENDIN&3&lLESS%nl%&3&lTPS&3: &b%tps%"
+	set {footer} to "%nl%&7endinless.minehut.gg%nl%"
+
+every 5 seconds in "survdupe":
+	loop all players:
+		wipe loop-player's sidebar
+		set name of sidebar of loop-player to "&b&lENDIN&3&lLESS"
+		set score "             " in sidebar of loop-player to 10
+		set score "&3Rank: " in sidebar of loop-player to 9
+		set score "    &8[&f%{message::%loop-player%}%&8]" in sidebar of loop-player to 8
+		set score "                         " in sidebar of loop-player to 7
+		set score "&3Online: " in sidebar of loop-player to 6
+		set score "   &f%number of all players%/10" in sidebar of loop-player to 5
+		set score "  " in sidebar of loop-player to 4
+		set score "&3Global: " in sidebar of loop-player to 3
+		set score "   &f%{global.message}%" in sidebar of loop-player to 2
+		set score " " in sidebar of loop-player to 1
+		set score "&7endinless.minehut.gg" in sidebar of loop-player to 0
+
+on load:
+	if {global.message} is not set:
+		set {global.message} to 0
+
+on chat:
+	if {message::%player%} is not set:
+		set {message::%player%} to 1
+		add 1 to {global.message}
+	else:
+		add 1 to {message::%player%}
+		add 1 to {global.message}
+
+command /top:
+    trigger:
+        loop {message::*}:
+            add 1 to {_size}
+            if {_low.to.high.list::%loop-value%} is not set:
+                set {_low.to.high.list::%loop-value%} to loop-index
+            else:
+                set {_n} to 0
+                loop {_size} times:
+                    set {_n} to {_n}+1
+                    {_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+                    set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+                    stop loop
+        wait 1 tick
+        set {_n} to size of {_low.to.high.list::*}
+        loop {_low.to.high.list::*}:
+            set {_high.to.low.list::%{_n}%} to loop-value
+            set {_n} to {_n}-1
+        wait 1 tick
+        set {_i} to 0
+        send "&7&m-----------&8[ &3&lTOP &8]&7&m-------------"
+        loop {_high.to.low.list::*}:
+            add 1 to {_topnumber}
+            set {_player} to "%loop-value%" parsed as offlineplayer
+            send "&7%{_topnumber}%&8: &3%{_player}% &8: &7%{message::%loop-value%}% &7msgs"
+            add 1 to {_i}
+            if {_topnumber} > 10:
+                stop
+        send "&7&m------------------------------"
+
+on chat:
+	set {_name} to display name of player
+	if group of player is "admin":
+		set chat format to "&8[&b&lADMIN&8]&r &8[&b%{message::%player%}%&8]&r %{_name}%&7: &f%message%"
+		stop
+	if group of player is "mod":
+		set chat format to "&8[&3&lMOD&8]&r &8[&b%{message::%player%}%&8]&r %{_name}%&7: &f%message%"
+		stop
+	if {message::%player%} is greater than 1000:
+		set {_prefix} to colored "%rgbToHex(153, 153, and 255)%%{message::%player%}%"
+	else if {message::%player%} is greater than 900:
+		set {_prefix} to colored "%rgbToHex(204, 204, and 255)%%{message::%player%}%"
+	else if {message::%player%} is greater than 800:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 51)%%{message::%player%}%"
+	else if {message::%player%} is greater than 700:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 102)%%{message::%player%}%"
+	else if {message::%player%} is greater than 600:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 153)%%{message::%player%}%"
+	else if {message::%player%} is greater than 500:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 204)%%{message::%player%}%"
+	else if {message::%player%} is greater than 400:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 51)%%{message::%player%}%"
+	else if {message::%player%} is greater than 300:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 102)%%{message::%player%}%"
+	else if {message::%player%} is greater than 200:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 153)%%{message::%player%}%"
+	else if {message::%player%} is greater than 100:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 204)%%{message::%player%}%"
+	else:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 229)%%{message::%player%}%"
+	set chat format to "&8[%{_prefix}%&8]&r %{_name}%&7: %message%"
+
+command /count [<offline player>] [<text>] [<integer>]:
+	trigger:
+		if arg-1 is not set:
+			send "/count <offline player>"
+		else if arg-2 is set:
+			if player is op:
+				if arg-2 is "reset":
+					set {_o} to {message::%arg-1%}
+					set {message::%arg-1%} to 0
+					send "Reset %{_o}% Messages of %arg-1% to 0"
+				else if arg-3 is set:
+					if arg-2 is "add":
+						set {_n} to arg-3
+						add {_n} to {message::%arg-1%}
+						send "Added %{_n}% Messages to %arg-3% to %{message::%arg-1%}%"
+					if arg-2 is "remove":
+						set {_o} to {message::%arg-1%}
+						set {_n} to arg-3
+						remove {_n} from {message::%arg-1%}
+						if {message::%arg-1%} is less than 0:
+							set {message::%arg-1%} to 0
+						send "Removed %{_n}% Messages from %{_o}% to %{message::%arg-1%}%"
+					if arg-2 is "set":
+						set {_n} to arg-3
+						set {message::%arg-1%} to {_n}
+						send "Set Messages of %arg-1% to %arg-3%"
+				else:
+					send "/count <player> [option] <integer>"
+			else:
+				send "no permission"
+		else:
+			send "%{message::%arg-1%}%"
