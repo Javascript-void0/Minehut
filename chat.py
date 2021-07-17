@@ -19,7 +19,7 @@ async def on_ready():
     role = get(guild.roles, id=862498099406438430)
     print('[ + ] Started {0.user}'.format(client))
     await client.wait_until_ready()
-    server = MinecraftServer.lookup("chatinchat.minehut.gg:25565")
+    server = MinecraftServer.lookup("endinless.minehut.gg:25565")
     mc_status = server.status()
     if 'online' in channel.topic:
         print('online')
@@ -28,16 +28,16 @@ async def on_ready():
         print('offline')
         online = False
     if online:
-        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | chatinchat.minehut.gg"))
+        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | endinless.minehut.gg"))
         await role.edit(color=discord.Color(0x91caad))
     else:
-        await client.change_presence(activity=discord.Game(name="Server Offline | chatinchat.minehut.gg"), status=discord.Status.dnd)
+        await client.change_presence(activity=discord.Game(name="Server Offline | endinless.minehut.gg"), status=discord.Status.dnd)
         await role.edit(color=discord.Color(0xf7a982))
 
 @client.event
 async def on_guild_channel_update(before, after):
     global online, role
-    server = MinecraftServer.lookup("chatinchat.minehut.gg:25565")
+    server = MinecraftServer.lookup("endinless.minehut.gg:25565")
     mc_status = server.status()
     if before.id == 798198506878795797:
         if 'online' in after.topic:
@@ -47,10 +47,10 @@ async def on_guild_channel_update(before, after):
             print('offline')
             online = False
     if online:
-        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | chatinchat.minehut.gg"))
+        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | endinless.minehut.gg"))
         await role.edit(color=discord.Color(0x91caad))
     else:
-        await client.change_presence(activity=discord.Game(name="Server Offline | chatinchat.minehut.gg"), status=discord.Status.dnd)
+        await client.change_presence(activity=discord.Game(name="Server Offline | endinless.minehut.gg"), status=discord.Status.dnd)
         await role.edit(color=discord.Color(0xf7a982))
 
 if __name__ == '__main__':
