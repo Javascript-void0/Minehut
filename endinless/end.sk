@@ -356,6 +356,8 @@ on chat:
 				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "%{_keywords::%loop-index%}%"
 		set {_messageFormat::*} to message format split at "[message]"
 		replace "<[player]>" with "%{_player}%&7:&r" in {_messageFormat::1}
+		replace "[" with "" in {_messageFormat::*}
+		replace "]" with "" in {_messageFormat::*}
 		if message format contains message:
 			set {_messageFormat::*} to message format split at message
 		set {_temp} to a new text component of "%{_messageFormat::1}%"
