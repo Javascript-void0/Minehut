@@ -1,20 +1,34 @@
 options:
 #Prefixes
-	endinless: &8[&b&lENDIN&3&lLESS&8]&f
-	chat: &8[&c&lCHAT&8]&f
-	discord: &8[&3&lDISCORD&8]&f
-	broadcast: &8[&3&lBROADCAST&8]&f
-	mode: &8[&3&lMODE&8]&f
-	rule: &8[&3&lRULE&8]&f
-	message: &cError: javascript:void(0) Insufficient Messages
-	permission: &cError: javascript:void(0) Insufficient Permissions
+	endinless: &8[&6&lENDIN&e&lLESS&8]&f
+	chat: &8[&6&lCHAT&8]&f
+	discord: &8[&e&lDISCORD&8]&f
+	broadcast: &8[&e&lBROADCAST&8]&f
+	rule: &8[&e&lRULE&8]&f
+	permission: &6javascript:void(0) &eInsufficient Permissions
+	staff: &8[&e&lSTAFF&8]&f
+	world: build
 
 on hunger meter change:
 	cancel event
 
+on death: 
+	cancel event
+
+on damage: 
+	cancel event
+
+on portal create: 
+	if group of player is not "admin":
+		cancel event
+
 on drop:
-    if group of player is not "Admin":
+    if group of player is not "admin":
         cancel event
+
+on inventory click:
+	if group of player is not "admin":
+		cancel event
 
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
@@ -23,14 +37,14 @@ on disconnect:
 	broadcast "&8[&c-&8] &7%player%"
 
 on first join:
-	broadcast "&8[&a+&8] &3%player% &8[&f##%size of all offline players%&8]"
+	broadcast "&8[&a+&8] &e%player% &8[&f##%size of all offline players%&8]"
 
 command /bc [<text>]:
 	aliases: /broadcast
 	trigger:
-		if player has permission "essentials.broadcast":
+		if player is op:
 			if arg-1 is set:
-				broadcast colored "{@broadcast} &b%arg-1%"
+				broadcast colored "{@broadcast} &6%arg-1%"
 			else:
 				send "{@broadcast} /bc <msg>"
 		else:
@@ -38,14 +52,14 @@ command /bc [<text>]:
 
 command /rules: 
 	trigger:
-		send "{@rule} &31. &fNo NSFW. Limit swearing."
-		send "{@rule} &32. &fEnglish only"
-		send "{@rule} &33. &fDon't spam/flood. Limit caps. "
-		send "{@rule} &34. &fRespect everyone"
-		send "{@rule} &35. &fNo advertising"
-		send "{@rule} &36. &fDon't start drama"
-		send "{@rule} &37. &fNo bugs, exploits, hacks, macros, or any unfair advantages"
-		send "{@rule} &38. &fDon't be rude, racist, or bully others"
+		send "{@rule} &e1. &fNo NSFW. Limit swearing."
+		send "{@rule} &e2. &fEnglish only"
+		send "{@rule} &e3. &fDon't spam/flood. Limit caps. "
+		send "{@rule} &e4. &fRespect everyone"
+		send "{@rule} &e5. &fNo advertising"
+		send "{@rule} &e6. &fDon't start drama"
+		send "{@rule} &e7. &fNo bugs, exploits, hacks, macros, or any unfair advantages"
+		send "{@rule} &e8. &fDon't be rude, racist, or bully others"
 
 on chat:
 	if player is op:
@@ -129,24 +143,56 @@ command /pl:
 			send "&fPlugins (4): &aNone&f, &aOf&f, &aYour&f, &aBusiness"
 
 on load:
-	set {header} to "%nl%&b&lENDIN&3&lLESS%nl%&3&lTPS&3: &b%tps%"
+	set {header} to "%nl%&6&lENDIN&e&lLESS%nl%&e&lTPS&e: &6%tps%"
 	set {footer} to "%nl%&7endinless.minehut.gg%nl%"
 
-every 5 seconds in "survdupe":
+every 1 second in "{@world}":
 	loop all players:
 		wipe loop-player's sidebar
-		set name of sidebar of loop-player to "&b&lENDIN&3&lLESS"
-		set score "             " in sidebar of loop-player to 10
-		set score "&3Rank: " in sidebar of loop-player to 9
-		set score "    &8[&f%{message::%loop-player%}%&8]" in sidebar of loop-player to 8
-		set score "                         " in sidebar of loop-player to 7
-		set score "&3Online: " in sidebar of loop-player to 6
-		set score "   &f%number of all players%/10" in sidebar of loop-player to 5
-		set score "  " in sidebar of loop-player to 4
-		set score "&3Global: " in sidebar of loop-player to 3
-		set score "   &f%{global.message}%" in sidebar of loop-player to 2
+		set name of sidebar of loop-player to "&6&lENDIN&e&lLESS"
+		set score "   " in sidebar of loop-player to 10
+		set score "&e&lPLAYER &7(:&lL&769)" in sidebar of loop-player to 9
+		set score "  &7Gold: &f<none>" in sidebar of loop-player to 8
+		set score "  &7Gems: &f<none>" in sidebar of loop-player to 7
+		set score "  &7Multiplier: &f<none>" in sidebar of loop-player to 6
+		set score "  " in sidebar of loop-player to 5
+		set score "&e&lSERVER" in sidebar of loop-player to 4
+		set score "  &7Online: &f%number of all players%/10" in sidebar of loop-player to 3
+		set score "  &7TPS: &f%tps from the last 1 minute%" in sidebar of loop-player to 2
 		set score " " in sidebar of loop-player to 1
-		set score "&7endinless.minehut.gg" in sidebar of loop-player to 0
+		set score " &7&n&oendinless.minehut.gg" in sidebar of loop-player to 0
+
+#==== Staff Chat ====
+command /staffchat [<text>]:
+	aliases: /sc
+	permission: sc.staffchat
+	permission message: {@permission}
+	trigger:
+		if arg-1 is not set:
+			if {staffchat::%player%} is not set:
+				set {staffchat::%player%} to true
+				send "{@staff} &7Toggle &aENABLED"
+			else:
+				delete {staffchat::%player%}
+				send "{@staff} &7Toggle &cDISABLED"
+		else:
+			loop all players:
+				if loop-player has permission "sc.staffchat":
+					send colored "{@staff} %player's prefix%&r%player's display name%&7: &r%arg 1%" to loop-player
+
+on chat:
+	if {staffchat::%player%} is set:
+		cancel event
+		loop all players:
+			if loop-player has permission "sc.staffchat":
+				send colored "{@staff} %player's prefix%&r%player's display name%&7: &r%message%" to loop-player
+
+every 1 second in "{@world}":
+	loop all players:
+		if {staffchat::%loop-player%} is true:
+			send action bar "{@staff} &aEnabled" to loop-player
+
+# ==========
 
 on load:
 	if {global.message} is not set:
@@ -180,47 +226,15 @@ command /top:
             set {_n} to {_n}-1
         wait 1 tick
         set {_i} to 0
-        send "&7&m-----------&8[ &3&lTOP &8]&7&m-------------"
+        send "&7&m-----------&8[ &e&lTOP &8]&7&m-------------"
         loop {_high.to.low.list::*}:
             add 1 to {_topnumber}
             set {_player} to "%loop-value%" parsed as offlineplayer
-            send "&7%{_topnumber}%&8: &3%{_player}% &8: &7%{message::%loop-value%}% &7msgs"
+            send "&7%{_topnumber}%&8: &e%{_player}% &8: &7%{message::%loop-value%}% &7msgs"
             add 1 to {_i}
             if {_topnumber} > 10:
                 stop
         send "&7&m------------------------------"
-
-on chat:
-	set {_name} to display name of player
-	if group of player is "admin":
-		set chat format to "&8[&b&lADMIN&8]&r &8[&b%{message::%player%}%&8]&r %{_name}%&7: &f%message%"
-		stop
-	if group of player is "mod":
-		set chat format to "&8[&3&lMOD&8]&r &8[&b%{message::%player%}%&8]&r %{_name}%&7: &f%message%"
-		stop
-	if {message::%player%} is greater than 1000:
-		set {_prefix} to colored "%rgbToHex(153, 153, and 255)%%{message::%player%}%"
-	else if {message::%player%} is greater than 900:
-		set {_prefix} to colored "%rgbToHex(204, 204, and 255)%%{message::%player%}%"
-	else if {message::%player%} is greater than 800:
-		set {_prefix} to colored "%rgbToHex(255, 255, and 51)%%{message::%player%}%"
-	else if {message::%player%} is greater than 700:
-		set {_prefix} to colored "%rgbToHex(255, 255, and 102)%%{message::%player%}%"
-	else if {message::%player%} is greater than 600:
-		set {_prefix} to colored "%rgbToHex(255, 255, and 153)%%{message::%player%}%"
-	else if {message::%player%} is greater than 500:
-		set {_prefix} to colored "%rgbToHex(255, 255, and 204)%%{message::%player%}%"
-	else if {message::%player%} is greater than 400:
-		set {_prefix} to colored "%rgbToHex(204, 255, and 51)%%{message::%player%}%"
-	else if {message::%player%} is greater than 300:
-		set {_prefix} to colored "%rgbToHex(204, 255, and 102)%%{message::%player%}%"
-	else if {message::%player%} is greater than 200:
-		set {_prefix} to colored "%rgbToHex(204, 255, and 153)%%{message::%player%}%"
-	else if {message::%player%} is greater than 100:
-		set {_prefix} to colored "%rgbToHex(204, 255, and 204)%%{message::%player%}%"
-	else:
-		set {_prefix} to colored "%rgbToHex(204, 255, and 229)%%{message::%player%}%"
-	set chat format to "&8[%{_prefix}%&8]&r %{_name}%&7: %message%"
 
 command /count [<offline player>] [<text>] [<integer>]:
 	trigger:
@@ -254,3 +268,101 @@ command /count [<offline player>] [<text>] [<integer>]:
 				send "no permission"
 		else:
 			send "%{message::%arg-1%}%"
+
+on chat:
+
+	set {_player} to display name of player
+	if group of player is "admin":
+		set {_prefix} to "&8[&6&lADMIN&8]&r &8[&e%{message::%player%}%&8] &r"
+	else if group of player is "mod":
+		set {_prefix} to "&8[&e&lMOD&8]&r &8[&e%{message::%player%}%&8] &r"
+	else if {message::%player%} is greater than 1000:
+		set {_prefix} to colored "%rgbToHex(153, 153, and 255)%%{message::%player%}%"
+	else if {message::%player%} is greater than 900:
+		set {_prefix} to colored "%rgbToHex(204, 204, and 255)%%{message::%player%}%"
+	else if {message::%player%} is greater than 800:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 51)%%{message::%player%}%"
+	else if {message::%player%} is greater than 700:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 102)%%{message::%player%}%"
+	else if {message::%player%} is greater than 600:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 153)%%{message::%player%}%"
+	else if {message::%player%} is greater than 500:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 204)%%{message::%player%}%"
+	else if {message::%player%} is greater than 400:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 51)%%{message::%player%}%"
+	else if {message::%player%} is greater than 300:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 102)%%{message::%player%}%"
+	else if {message::%player%} is greater than 200:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 153)%%{message::%player%}%"
+	else if {message::%player%} is greater than 100:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 204)%%{message::%player%}%"
+	else:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 229)%%{message::%player%}%"
+
+	set {_slotList::hand} to index of player's hotbar slot
+	set {_keywordList::hand::*} to "[hand]", "[item]" and "[i]"
+	set {_slotList::offhand} to 40
+	set {_keywordList::offhand::*} to "[offhand]"
+	set {_slotList::helmet} to 39
+	set {_keywordList::helmet::*} to "[helmet]", "[helm]", "[cap]" and "[head]"
+	set {_slotList::chestplate} to 38
+	set {_keywordList::chestplate::*} to "[chestplate]", "[tunic]" and "[chest]"
+	set {_slotList::leggings} to 37
+	set {_keywordList::leggings::*} to "[leggings]", "[pants]" and "[legs]"
+	set {_slotList::boots} to 36
+	set {_keywordList::boots::*} to "[boots]" and "[feet]"
+	loop indices of {_keywordList::*}:
+		loop {_keywordList::%loop-value%::*}:
+			message contains loop-value-2
+			add {_slotList::%loop-value-1%} to {_items::*}
+			add loop-value-2 to {_keywords::*}
+			exit 1 loop
+	if size of {_keywords::*} > 0:
+		cancel event
+		set {_message} to message
+		loop {_keywords::*}:
+			loop indices of {_keywordList::*}:
+				{_keywordList::%loop-value-2%::*} contains loop-value-1
+				loop {_keywordList::%loop-value-2%::*}:
+					loop-value-3 is not loop-value-1
+					replace all loop-value-3 with "" in {_message}
+			set {_messages::*} to {_message} split at "%loop-value%"
+			set {_temp} to {_messages::1}
+			delete {_messages::1}
+			set {_message} to "%{_temp}%%loop-value%%join {_messages::*} with """"%"
+			replace all loop-value with "{CIplaceholder}:{%loop-index%}:{CIplaceholder}" in {_message}
+		set {_messages::*} to {_message} split at "{CIplaceholder}"
+		loop {_messages::*}:
+			set {_messages::%loop-index%} to a new text component of "%loop-value%"
+			"%loop-value%" is ":{1}:", ":{2}:", ":{3}:", ":{4}:", ":{5}:" or ":{6}:"
+			set {_itemIndex} to subtext of "%loop-value%" from characters 3 to 3
+			set {_itemIndexes::%{_itemIndex}%} to loop-index
+		loop {_items::*}:
+			delete {_name}
+			set {_item} to loop-value
+			if {_item} is a number:
+				set {_item} to slot {_item} of player's inventory
+			if {_item} is not set:
+				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "%{_keywords::%loop-index%}%"
+			else if {_item} is not air:
+				set {_name} to name of {_item}
+				if {_name} is not set:
+					set {_name} to a new translate component from {_item}
+				set {_itemName} to "&8[&r%{_name}%&8]&r"
+				set {_itemName} to a new text component of "%{_itemName}%"
+				set hover event of {_itemName} to a new hover event showing {_item}
+				set {_messages::%{_itemIndexes::%loop-index%}%} to {_itemName}
+			else:
+				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "%{_keywords::%loop-index%}%"
+		set {_messageFormat::*} to message format split at "[message]"
+		replace "<[player]>" with "%{_player}%&7:&r" in {_messageFormat::1}
+		if message format contains message:
+			set {_messageFormat::*} to message format split at message
+		set {_temp} to a new text component of "%{_messageFormat::1}%"
+		set {_p} to a new text component of "%{_prefix}%"
+		delete {_messageFormat::1}
+		loop all players:
+			send components {_p}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
+		send components {_p}, {_temp}, {_messages::*} and {_messageFormat::*} to console
+	else:
+		set the chat format to "%{_prefix}%%{_player}%&7: &7%message%"
