@@ -1,2 +1,2 @@
-worker: python bot.py
-chat: python chat.py
+farminfarm: python bot1.py
+shaft: python bot2.py

@@ -1,41 +1,32 @@
 options:
-#Prefixes
-	endinless: &8[&6&lENDIN&e&lLESS&8]&f
+	shaft: &8[&6&lRe&e&lSHAFT&8]&7²&f
 	chat: &8[&6&lCHAT&8]&f
 	discord: &8[&e&lDISCORD&8]&f
 	broadcast: &8[&e&lBROADCAST&8]&f
 	rule: &8[&e&lRULE&8]&f
-	permission: &6javascript:void(0) &eInsufficient Permissions
+	permission: &8[&cjavascript:void(0)&8] &cInsufficient Permissions
 	staff: &8[&e&lSTAFF&8]&f
 	world: build
 
 on hunger meter change:
 	cancel event
-
 on death: 
 	cancel event
-
 on damage: 
 	cancel event
-
 on portal create: 
 	if group of player is not "admin":
 		cancel event
-
 on drop:
     if group of player is not "admin":
         cancel event
-
 on inventory click:
 	if group of player is not "admin":
 		cancel event
-
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
-
 on disconnect:
 	broadcast "&8[&c-&8] &7%player%"
-
 on first join:
 	broadcast "&8[&a+&8] &e%player% &8[&f##%size of all offline players%&8]"
 
@@ -61,79 +52,6 @@ command /rules:
 		send "{@rule} &e7. &fNo bugs, exploits, hacks, macros, or any unfair advantages"
 		send "{@rule} &e8. &fDon't be rude, racist, or bully others"
 
-on chat:
-	if player is op:
-		stop
-	else:
-		if {SkCheat::spam.m::%uuid of player%} is message:
-			add 1 to {SkCheat::spam.p::%uuid of player%}
-			if {SkCheat.spam.notify::%uuid of player%} is not set:
-				set {SkCheat.spam.notify::%uuid of player%} to now
-			if difference between {SkCheat.spam.notify::%uuid of player%} and now is more than 1 second:
-				if {SkCheat::spam.p::%uuid of player%} is greater than 6:
-					kick the player due to "{@endinless} You were spamming."
-					clear {SkCheat::spam.p::%uuid of player%}
-		else:
-			set {SkCheat::spam.m::%uuid of player%} to message	
-
-on join:
-	clear {SkCheat::spam.p::%uuid of player%}
-	clear {SkCheat::spam.m::%uuid of player%}
-
-on disconnect:
-	clear {SkCheat::spam.p::%uuid of player%}
-	clear {SkCheat::spam.m::%uuid of player%}
-
-command /mutechat:
-	permission: chat.mute
-	permission message: {@permission}
-	trigger:
-		if {Globalchat} is not set:
-			set {Globalchat} to true
-			broadcast "{@chat} &7Chat &cMUTED &7by %player%"
-			stop trigger
-
-		if {Globalchat} is set:
-			clear {Globalchat}
-			broadcast "{@chat} &7Chat &aUNMUTED &7by %player%"
-
-on chat:
-	if {Globalchat} is true:
-		if player has permission "chat.mute.bypass":
-			stop trigger
-		else:
-			cancel event
-			send "{@chat} &cChat is currently muted."
-
-command /clearchat:
-	permission: clearchat
-	permission message: {@permission}
-	aliases: /cc
-	trigger:
-		loop 100 times:
-			broadcast ""
-		send "{@chat} &aYou have cleared the chat"
-
-on load:
-	set {hex::*} to split "0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|k|l|m|n|o|r" at "|"
- 
-function rgbToHex(values: numbers) :: string:
-	loop {_values::*}:
-		set {_r} to "%{_r} ? ""<##""%%{hex::%(( (round(loop-value)) - mod((round(loop-value)), 16)) / 16 + 1)%} ? """"%%{hex::%mod((round(loop-value)), 16) + 1%} ? """"%"
-	return colored "%{_r}%>"
-
-function gradient(input: string, color-from: integers, color-to: integers) :: string:
-	loop {_color-from::*}:
-		set {_i::%loop-index%} to ({_color-to::%loop-index%} - loop-value) / length of {_input}
-	loop length of {_input} times:
-		if subtext of {_input} from indices loop-number - 1 to loop-number - 1 = "§":
-			set {_format} to "%{_format} ? """"%&%subtext of {_input} from indices loop-number to loop-number%" if {hex::*} contains subtext of {_input} from indices loop-number to loop-number
-			clear {_format} if subtext of {_input} from indices loop-number to loop-number = "r"
-			continue loop
-		set {_r} to "%{_r} ? """"%%rgbToHex({_color-from::*})%%{_format} ? """"%%subtext of {_input} from indices loop-number to loop-number%"
-		set {_color-from::*} to ({_color-from::1} + {_i::1}), ({_color-from::2} + {_i::2}) and ({_color-from::3} + {_i::3})
-	return colored {_r}
-
 command /pl:
 	aliases: /plugins
 	trigger:
@@ -142,32 +60,28 @@ command /pl:
 		else:
 			send "&fPlugins (4): &aNone&f, &aOf&f, &aYour&f, &aBusiness"
 
-on load:
-	set {header} to "%nl%&6&lENDIN&e&lLESS%nl%&e&lTPS&e: &6%tps%"
-	set {footer} to "%nl%&7endinless.minehut.gg%nl%"
-
 every 1 second in "{@world}":
 	loop all players:
 		wipe loop-player's sidebar
-		set name of sidebar of loop-player to "  &6&lENDIN&e&lLESS&7.minehut.gg "
-		set score "    " in sidebar of loop-player to 15
-		set score " &e&lPLAYER &7(:L&769)" in sidebar of loop-player to 14
-		set score "   &7Class: &f<none>" in sidebar of loop-player to 13
-		set score "   &7Region: &f<none>" in sidebar of loop-player to 12
-		set score "   &7Gold: &f<none>" in sidebar of loop-player to 11
-		set score "   &7Gems: &f<none>" in sidebar of loop-player to 10
-		set score "   &7Medals: &f<none>" in sidebar of loop-player to 9
-		set score "   &7Tokens: &f<none>" in sidebar of loop-player to 8
-		set score "   &7Multiplier: &fx1.0" in sidebar of loop-player to 7
-		set score "   &7Speedup: &fx1.0" in sidebar of loop-player to 6
-		set score "   &7DPS: &f<none>/s" in sidebar of loop-player to 5
+		set name of sidebar of loop-player to "&6&lRe&e&lSHAFT&7²"
+		set score "    " in sidebar of loop-player to 12
+		set score " &e&lPLAYER &7(:L&769)" in sidebar of loop-player to 11
+		set score "   &7Class: &f<none>" in sidebar of loop-player to 10
+		set score "   &7Gold: &f<none>" in sidebar of loop-player to 9
+		set score "   &7Gems: &f<none>" in sidebar of loop-player to 8
+		set score "   &7Medals: &f<none>" in sidebar of loop-player to 7
+		set score "   &7Tokens: &f<none>" in sidebar of loop-player to 6
+		set score "   &7Multiplier: &fx1.0" in sidebar of loop-player to 5
 		set score "  " in sidebar of loop-player to 4
 		set score " &e&lSERVER &7(%number of all players%/10)" in sidebar of loop-player to 3
 		set score "   &7TPS: &f%tps from the last 1 minute%" in sidebar of loop-player to 2
 		set score "   &7Blessing: &f<none>%%" in sidebar of loop-player to 1
 		set score " " in sidebar of loop-player to 0
 
-#==== Staff Chat ====
+# ======== STAFF COMMANDS ======== STAFF COMMANDS ========
+# ======== STAFF COMMANDS ======== STAFF COMMANDS ========
+# ======== STAFF COMMANDS ======== STAFF COMMANDS ========
+
 command /staffchat [<text>]:
 	aliases: /sc
 	permission: sc.staffchat
@@ -184,25 +98,70 @@ command /staffchat [<text>]:
 			loop all players:
 				if loop-player has permission "sc.staffchat":
 					send colored "{@staff} %player's prefix%&r%player's display name%&7: &r%arg 1%" to loop-player
-
 on chat:
 	if {staffchat::%player%} is set:
 		cancel event
 		loop all players:
 			if loop-player has permission "sc.staffchat":
 				send colored "{@staff} %player's prefix%&r%player's display name%&7: &r%message%" to loop-player
-
 every 1 second in "{@world}":
 	loop all players:
 		if {staffchat::%loop-player%} is true:
 			send action bar "{@staff} &aEnabled" to loop-player
+on chat:
+	if player is op:
+		stop
+	else:
+		if {SkCheat::spam.m::%uuid of player%} is message:
+			add 1 to {SkCheat::spam.p::%uuid of player%}
+			if {SkCheat.spam.notify::%uuid of player%} is not set:
+				set {SkCheat.spam.notify::%uuid of player%} to now
+			if difference between {SkCheat.spam.notify::%uuid of player%} and now is more than 1 second:
+				if {SkCheat::spam.p::%uuid of player%} is greater than 6:
+					kick the player due to "{@shaft} You were spamming."
+					clear {SkCheat::spam.p::%uuid of player%}
+		else:
+			set {SkCheat::spam.m::%uuid of player%} to message	
+on join:
+	clear {SkCheat::spam.p::%uuid of player%}
+	clear {SkCheat::spam.m::%uuid of player%}
+on disconnect:
+	clear {SkCheat::spam.p::%uuid of player%}
+	clear {SkCheat::spam.m::%uuid of player%}
+command /mutechat:
+	permission: chat.mute
+	permission message: {@permission}
+	trigger:
+		if {Globalchat} is not set:
+			set {Globalchat} to true
+			broadcast "{@chat} &7Chat &cMUTED &7by %player%"
+			stop trigger
+		if {Globalchat} is set:
+			clear {Globalchat}
+			broadcast "{@chat} &7Chat &aUNMUTED &7by %player%"
+on chat:
+	if {Globalchat} is true:
+		if player has permission "chat.mute.bypass":
+			stop trigger
+		else:
+			cancel event
+			send "{@chat} &cChat is currently muted."
+command /clearchat:
+	permission: clearchat
+	permission message: {@permission}
+	aliases: /cc
+	trigger:
+		loop 100 times:
+			broadcast ""
+		send "{@chat} &aYou have cleared the chat"
 
-# ==========
+# ======== MESSAGE COUNT (ARCHIVED) ======== MESSAGE COUNT (ARCHIVED) ========
+# ======== MESSAGE COUNT (ARCHIVED) ======== MESSAGE COUNT (ARCHIVED) ========
+# ======== MESSAGE COUNT (ARCHIVED) ======== MESSAGE COUNT (ARCHIVED) ========
 
 on load:
 	if {global.message} is not set:
 		set {global.message} to 0
-
 on chat:
 	if {message::%player%} is not set:
 		set {message::%player%} to 1
@@ -210,7 +169,6 @@ on chat:
 	else:
 		add 1 to {message::%player%}
 		add 1 to {global.message}
-
 command /top:
     trigger:
         loop {message::*}:
@@ -240,7 +198,6 @@ command /top:
             if {_topnumber} > 10:
                 stop
         send "&7&m------------------------------"
-
 command /count [<offline player>] [<text>] [<integer>]:
 	trigger:
 		if arg-1 is not set:
@@ -274,8 +231,35 @@ command /count [<offline player>] [<text>] [<integer>]:
 		else:
 			send "%{message::%arg-1%}%"
 
-on chat:
+# ======== HEX/RGB ======== HEX/RGB ========
+# ======== HEX/RGB ======== HEX/RGB ========
+# ======== HEX/RGB ======== HEX/RGB ========
 
+on load:
+	set {hex::*} to split "0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|k|l|m|n|o|r" at "|"
+ 
+function rgbToHex(values: numbers) :: string:
+	loop {_values::*}:
+		set {_r} to "%{_r} ? ""<##""%%{hex::%(( (round(loop-value)) - mod((round(loop-value)), 16)) / 16 + 1)%} ? """"%%{hex::%mod((round(loop-value)), 16) + 1%} ? """"%"
+	return colored "%{_r}%>"
+
+function gradient(input: string, color-from: integers, color-to: integers) :: string:
+	loop {_color-from::*}:
+		set {_i::%loop-index%} to ({_color-to::%loop-index%} - loop-value) / length of {_input}
+	loop length of {_input} times:
+		if subtext of {_input} from indices loop-number - 1 to loop-number - 1 = "§":
+			set {_format} to "%{_format} ? """"%&%subtext of {_input} from indices loop-number to loop-number%" if {hex::*} contains subtext of {_input} from indices loop-number to loop-number
+			clear {_format} if subtext of {_input} from indices loop-number to loop-number = "r"
+			continue loop
+		set {_r} to "%{_r} ? """"%%rgbToHex({_color-from::*})%%{_format} ? """"%%subtext of {_input} from indices loop-number to loop-number%"
+		set {_color-from::*} to ({_color-from::1} + {_i::1}), ({_color-from::2} + {_i::2}) and ({_color-from::3} + {_i::3})
+	return colored {_r}
+
+# ======== CHAT FORMAT ======== CHAT FORMAT ========
+# ======== CHAT FORMAT ======== CHAT FORMAT ========
+# ======== CHAT FORMAT ======== CHAT FORMAT ========
+
+on chat:
 	set {_player} to display name of player
 	if group of player is "admin":
 		set {_prefix} to "&6&lADMIN&8]&r &8[&e%{message::%player%}%"
@@ -372,4 +356,4 @@ on chat:
 			send components {_p}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
 		send components {_p}, {_temp}, {_messages::*} and {_messageFormat::*} to console
 	else:
-		set the chat format to "%{_prefix}%%{_player}%&7: &7%message%"
+		set the chat format to colored "&8[%{_prefix}%&8] &r%{_player}%&7: &7%message%"
