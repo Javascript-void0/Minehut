@@ -149,18 +149,23 @@ on load:
 every 1 second in "{@world}":
 	loop all players:
 		wipe loop-player's sidebar
-		set name of sidebar of loop-player to "&6&lENDIN&e&lLESS"
-		set score "   " in sidebar of loop-player to 10
-		set score "&e&lPLAYER &7(:&lL&769)" in sidebar of loop-player to 9
-		set score "  &7Gold: &f<none>" in sidebar of loop-player to 8
-		set score "  &7Gems: &f<none>" in sidebar of loop-player to 7
-		set score "  &7Multiplier: &f<none>" in sidebar of loop-player to 6
-		set score "  " in sidebar of loop-player to 5
-		set score "&e&lSERVER" in sidebar of loop-player to 4
-		set score "  &7Online: &f%number of all players%/10" in sidebar of loop-player to 3
-		set score "  &7TPS: &f%tps from the last 1 minute%" in sidebar of loop-player to 2
-		set score " " in sidebar of loop-player to 1
-		set score " &7&n&oendinless.minehut.gg" in sidebar of loop-player to 0
+		set name of sidebar of loop-player to "  &6&lENDIN&e&lLESS&7.minehut.gg "
+		set score "    " in sidebar of loop-player to 15
+		set score " &e&lPLAYER &7(:L&769)" in sidebar of loop-player to 14
+		set score "   &7Class: &f<none>" in sidebar of loop-player to 13
+		set score "   &7Region: &f<none>" in sidebar of loop-player to 12
+		set score "   &7Gold: &f<none>" in sidebar of loop-player to 11
+		set score "   &7Gems: &f<none>" in sidebar of loop-player to 10
+		set score "   &7Medals: &f<none>" in sidebar of loop-player to 9
+		set score "   &7Tokens: &f<none>" in sidebar of loop-player to 8
+		set score "   &7Multiplier: &fx1.0" in sidebar of loop-player to 7
+		set score "   &7Speedup: &fx1.0" in sidebar of loop-player to 6
+		set score "   &7DPS: &f<none>/s" in sidebar of loop-player to 5
+		set score "  " in sidebar of loop-player to 4
+		set score " &e&lSERVER &7(%number of all players%/10)" in sidebar of loop-player to 3
+		set score "   &7TPS: &f%tps from the last 1 minute%" in sidebar of loop-player to 2
+		set score "   &7Blessing: &f<none>%%" in sidebar of loop-player to 1
+		set score " " in sidebar of loop-player to 0
 
 #==== Staff Chat ====
 command /staffchat [<text>]:
