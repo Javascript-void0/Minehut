@@ -273,9 +273,9 @@ on chat:
 
 	set {_player} to display name of player
 	if group of player is "admin":
-		set {_prefix} to "&8[&6&lADMIN&8]&r &8[&e%{message::%player%}%&8] &r"
+		set {_prefix} to "&6&lADMIN&8]&r &8[&e%{message::%player%}%"
 	else if group of player is "mod":
-		set {_prefix} to "&8[&e&lMOD&8]&r &8[&e%{message::%player%}%&8] &r"
+		set {_prefix} to "&e&lMOD&8]&r &8[&e%{message::%player%}%"
 	else if {message::%player%} is greater than 1000:
 		set {_prefix} to colored "%rgbToHex(153, 153, and 255)%%{message::%player%}%"
 	else if {message::%player%} is greater than 900:
@@ -343,7 +343,7 @@ on chat:
 			if {_item} is a number:
 				set {_item} to slot {_item} of player's inventory
 			if {_item} is not set:
-				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "%{_keywords::%loop-index%}%"
+				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "&7%{_keywords::%loop-index%}%"
 			else if {_item} is not air:
 				set {_name} to name of {_item}
 				if {_name} is not set:
@@ -353,7 +353,7 @@ on chat:
 				set hover event of {_itemName} to a new hover event showing {_item}
 				set {_messages::%{_itemIndexes::%loop-index%}%} to {_itemName}
 			else:
-				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "%{_keywords::%loop-index%}%"
+				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "&7%{_keywords::%loop-index%}%"
 		set {_messageFormat::*} to message format split at "[message]"
 		replace "<[player]>" with "%{_player}%&7:&r" in {_messageFormat::1}
 		replace "[" with "" in {_messageFormat::*}
@@ -361,7 +361,7 @@ on chat:
 		if message format contains message:
 			set {_messageFormat::*} to message format split at message
 		set {_temp} to a new text component of "%{_messageFormat::1}%"
-		set {_p} to a new text component of "%{_prefix}%"
+		set {_p} to a new text component of "&8[%{_prefix}%&8] &r"
 		delete {_messageFormat::1}
 		loop all players:
 			send components {_p}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
