@@ -1,0 +1,101 @@
+# ======== MESSAGE COUNT (ARCHIVED) ======== MESSAGE COUNT (ARCHIVED) ========
+# ======== MESSAGE COUNT (ARCHIVED) ======== MESSAGE COUNT (ARCHIVED) ========
+# ======== MESSAGE COUNT (ARCHIVED) ======== MESSAGE COUNT (ARCHIVED) ========
+
+on load:
+	if {global.message} is not set:
+		set {global.message} to 0
+on chat:
+	if {message::%player%} is not set:
+		set {message::%player%} to 1
+		add 1 to {global.message}
+	else:
+		add 1 to {message::%player%}
+		add 1 to {global.message}
+command /top:
+    trigger:
+        loop {message::*}:
+            add 1 to {_size}
+            if {_low.to.high.list::%loop-value%} is not set:
+                set {_low.to.high.list::%loop-value%} to loop-index
+            else:
+                set {_n} to 0
+                loop {_size} times:
+                    set {_n} to {_n}+1
+                    {_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+                    set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+                    stop loop
+        wait 1 tick
+        set {_n} to size of {_low.to.high.list::*}
+        loop {_low.to.high.list::*}:
+            set {_high.to.low.list::%{_n}%} to loop-value
+            set {_n} to {_n}-1
+        wait 1 tick
+        set {_i} to 0
+        send "&7&m-----------&8[ &e&lTOP &8]&7&m-------------"
+        loop {_high.to.low.list::*}:
+            add 1 to {_topnumber}
+            set {_player} to "%loop-value%" parsed as offlineplayer
+            send "&7%{_topnumber}%&8: &e%{_player}% &8: &7%{message::%loop-value%}% &7msgs"
+            add 1 to {_i}
+            if {_topnumber} > 10:
+                stop
+        send "&7&m------------------------------"
+command /count [<offline player>] [<text>] [<integer>]:
+	trigger:
+		if arg-1 is not set:
+			send "/count <offline player>"
+		else if arg-2 is set:
+			if player is op:
+				if arg-2 is "reset":
+					set {_o} to {message::%arg-1%}
+					set {message::%arg-1%} to 0
+					send "Reset %{_o}% Messages of %arg-1% to 0"
+				else if arg-3 is set:
+					if arg-2 is "add":
+						set {_n} to arg-3
+						add {_n} to {message::%arg-1%}
+						send "Added %{_n}% Messages to %arg-3% to %{message::%arg-1%}%"
+					if arg-2 is "remove":
+						set {_o} to {message::%arg-1%}
+						set {_n} to arg-3
+						remove {_n} from {message::%arg-1%}
+						if {message::%arg-1%} is less than 0:
+							set {message::%arg-1%} to 0
+						send "Removed %{_n}% Messages from %{_o}% to %{message::%arg-1%}%"
+					if arg-2 is "set":
+						set {_n} to arg-3
+						set {message::%arg-1%} to {_n}
+						send "Set Messages of %arg-1% to %arg-3%"
+				else:
+					send "/count <player> [option] <integer>"
+			else:
+				send "no permission"
+		else:
+			send "%{message::%arg-1%}%"
+
+
+# OLD RANK COLOR
+
+	else if {message::%player%} is greater than 1000:
+		set {_prefix} to colored "%rgbToHex(153, 153, and 255)%%{message::%player%}%"
+	else if {message::%player%} is greater than 900:
+		set {_prefix} to colored "%rgbToHex(204, 204, and 255)%%{message::%player%}%"
+	else if {message::%player%} is greater than 800:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 51)%%{message::%player%}%"
+	else if {message::%player%} is greater than 700:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 102)%%{message::%player%}%"
+	else if {message::%player%} is greater than 600:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 153)%%{message::%player%}%"
+	else if {message::%player%} is greater than 500:
+		set {_prefix} to colored "%rgbToHex(255, 255, and 204)%%{message::%player%}%"
+	else if {message::%player%} is greater than 400:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 51)%%{message::%player%}%"
+	else if {message::%player%} is greater than 300:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 102)%%{message::%player%}%"
+	else if {message::%player%} is greater than 200:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 153)%%{message::%player%}%"
+	else if {message::%player%} is greater than 100:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 204)%%{message::%player%}%"
+	else:
+		set {_prefix} to colored "%rgbToHex(204, 255, and 229)%%{message::%player%}%"

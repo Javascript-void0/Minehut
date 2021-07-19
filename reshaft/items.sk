@@ -1,0 +1,9 @@
+on load: 
+
+	set {1_helmet} to leather helmet named "test"
+	set {1_chestplate} to leather chestplate named "test1"
+	set {1_leggings} to leather leggings named "test2"
+	set {1_boots} to leather boots named "test23"
+	set {1_pickaxe} to netherite pickaxe named "test"
+	set {1_axe} to netherite axe named "tests"
+	set {1_shovel} to netherite shovel named "testoije"
