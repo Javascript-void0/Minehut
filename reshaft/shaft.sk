@@ -28,8 +28,15 @@ on inventory click:
 	if group of player is not "admin":
 		cancel event
 on break: 
+	cancel drops
+on item damage: 
+	if item is axe:
+		stop
+	else if item is pickaxe:
+		stop
+	else if item is shovel:
+		stop
 	cancel event
-	set event-block to air
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
 on disconnect:
@@ -66,6 +73,40 @@ command /pl:
 			execute console command "/sudo %player% bukkit:plugins"
 		else:
 			send "&fPlugins (4): &aNone&f, &aOf&f, &aYour&f, &aBusiness"
+
+on join:
+	set {_bossbar} to 0
+	create bossbar titled " " and id "bossbar.%player%" for player with progress 100 with colors yellow
+	while player is online:
+		if {_bossbar} is 0:
+			set bossbar "bossbar.%player%" value to 100
+			set bossbar "bossbar.%player%" color to white
+			set bossbar "bossbar.%player%" title to "&7Welcome to &6&lRe&e&lSHAFT&7²"
+		else if {_bossbar} is 1:
+			set bossbar "bossbar.%player%" value to 80
+			set bossbar "bossbar.%player%" color to white
+			set bossbar "bossbar.%player%" title to "&7IP: &6reshaft.minehut.gg"
+		else if {_bossbar} is 2:
+			set bossbar "bossbar.%player%" value to 60
+			set bossbar "bossbar.%player%" color to yellow
+			set bossbar "bossbar.%player%" title to "&7Join Our &eDiscord &7with &e/discord"
+		else if {_bossbar} is 3:
+			set bossbar "bossbar.%player%" value to 40
+			set bossbar "bossbar.%player%" color to yellow
+			set bossbar "bossbar.%player%" title to "&7Access the &6items &7in your &6hotbar"
+		else if {_bossbar} is 4:
+			set bossbar "bossbar.%player%" value to 20
+			set bossbar "bossbar.%player%" color to red
+			set bossbar "bossbar.%player%" title to "&eRevive &7to collect &ebonuses &7and &egear"
+		else if {_bossbar} is 5:
+			set bossbar "bossbar.%player%" value to 0
+			set bossbar "bossbar.%player%" color to red
+			set bossbar "bossbar.%player%" title to "&7Help us &cdestroy &7this world"
+		wait 3 seconds
+		add 1 to {_bossbar}
+		if {_bossbar} is 6:
+			set {_bossbar} to 0
+	remove bossbar "bossbar.%player%"
 
 every 1 second in "{@world}":
 	loop all players:
@@ -236,7 +277,9 @@ function new(p: player):
 	set slot 0 of {_p} to {1_pickaxe}
 	set slot 1 of {_p} to {1_axe}
 	set slot 2 of {_p} to {1_shovel}
-	set slot 6 of {_p} to chest named "&e&lARMOR &7Upgrades" with lore "&7Right Click To Upgrade Armor With &dTokens" and "&7 > Armor upgrades are permanent"
+	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
+	set slot 5 of {_p} to anvil named "&6&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
+	set slot 6 of {_p} to smithing table named "&e&lUPGRADES" with lore "&7Right Click To Upgrade Armor With &dTokens" and "&7 > Armor upgrades are permanent"
 	set slot 7 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
 	set slot 8 of {_p} to elytra named "&e&lWARPS" with lore "&7Right Click To Open Avaiable Warps"
 
@@ -329,6 +372,7 @@ on chat:
 
 on right click:
 	if player's tool is pickaxe or axe or shovel:
+		cancel event
 		open virtual chest inventory with size 1 named "%name of player's tool% &8Menu" to player
 	if name of player's tool is "&e&lSTATISTICS":
 		cancel event
@@ -336,10 +380,13 @@ on right click:
 	if name of player's tool is "&e&lWARPS": 
 		cancel event
 		open virtual chest inventory with size 1 named "%name of player's tool% &8Menu" to player
-	if name of player's tool contains "&e&lARMOR &7Upgrades":
+	if name of player's tool is "&e&lUPGRADES":
 		cancel event
-		open virtual chest inventory with size 4 named "&e&lARMOR &8Upgrades" to player
+		open virtual chest inventory with size 4 named "&e&lUPGRADES &8Menu" to player
 		format gui slot 0 of player with player's helmet
 		format gui slot 9 of player with player's chestplate
 		format gui slot 18 of player with player's leggings
 		format gui slot 27 of player with player's boots
+	if name of player's tool is "&6&lSETTINGS":
+		cancel event
+		open virtual chest inventory with size 1 named "&6&lSETTINGS &8Menu" to player
