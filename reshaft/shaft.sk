@@ -21,9 +21,15 @@ on portal create:
 on drop:
     if group of player is not "admin":
         cancel event
+on place:
+	if group of player is not "admin":
+		cancel event
 on inventory click:
 	if group of player is not "admin":
 		cancel event
+on break: 
+	cancel event
+	set event-block to air
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
 on disconnect:
@@ -66,13 +72,13 @@ every 1 second in "{@world}":
 		wipe loop-player's sidebar
 		set name of sidebar of loop-player to "&6&lRe&e&lSHAFT&7²"
 		set score "    " in sidebar of loop-player to 12
-		set score " &e&lPLAYER &7(:L&7%{stats.%loop-player%::level}%)" in sidebar of loop-player to 11
+		set score " &e&lPLAYER &7(:L&7%{level::%loop-player%}%)" in sidebar of loop-player to 11
 		set score "   &7Class: &f<none>" in sidebar of loop-player to 10
-		set score "   &7Gold: &f%{stats.%loop-player%::gold}%" in sidebar of loop-player to 9
-		set score "   &7Gems: &f%{stats.%loop-player%::gem}%" in sidebar of loop-player to 8
-		set score "   &7Medals: &f%{stats.%loop-player%::medal}%" in sidebar of loop-player to 7
-		set score "   &7Tokens: &f%{stats.%loop-player%::token}%" in sidebar of loop-player to 6
-		set score "   &7Multiplier: &fx%{stats.%loop-player%::multiplier}%" in sidebar of loop-player to 5
+		set score "   &7Gold: &f%{gold::%loop-player%}%" in sidebar of loop-player to 9
+		set score "   &7Gems: &f%{gem::%loop-player%}%" in sidebar of loop-player to 8
+		set score "   &7Medals: &f%{medal::%loop-player%}%" in sidebar of loop-player to 7
+		set score "   &7Tokens: &f%{token::%loop-player%}%" in sidebar of loop-player to 6
+		set score "   &7Multiplier: &fx%{multiplier::%loop-player%}%" in sidebar of loop-player to 5
 		set score "  " in sidebar of loop-player to 4
 		set score " &e&lSERVER &7(%number of all players%/10)" in sidebar of loop-player to 3
 		set score "   &7TPS: &f%tps from the last 1 minute%" in sidebar of loop-player to 2
@@ -200,19 +206,24 @@ command /blessing [<integer>]:
 # ======== PLAYER STATS ======== PLAYER STATS ========
 
 on join:
-	if {stats.%player%::*} is not set:
-		set {stats.%player%::level} to 1
-		set {stats.%player%::gold} to 0
-		set {stats.%player%::gem} to 0
-		set {stats.%player%::medal} to 0
-		set {stats.%player%::token} to 0
-		set {stats.%player%::multiplier} to 0
+	if {level::%player%} is not set:
+		set {level::%player%} to 1
+	if {gold::%player%} is not set:
+		set {gold::%player%} to 0
+	if {gem::%player%} is not set:
+		set {gem::%player%} to 0
+	if {medal::%player%} is not set:
+		set {medal::%player%} to 0
+	if {token::%player%} is not set:
+		set {token::%player%} to 0
+	if {multiplier::%player%} is not set:
+		set {multiplier::%player%} to 0
 
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
 
-command /test:
+command /new:
 	trigger:
 		new(player)
 
@@ -221,7 +232,13 @@ function new(p: player):
 	set chestplate of {_p} to {1_chestplate}
 	set leggings of {_p} to {1_leggings}
 	set boots of {_p} to {1_boots}
-	set {stats.%{_p}%::gold} to 0
+	set {gold::%{_p}%} to 0
+	set slot 0 of {_p} to {1_pickaxe}
+	set slot 1 of {_p} to {1_axe}
+	set slot 2 of {_p} to {1_shovel}
+	set slot 6 of {_p} to chest named "&e&lARMOR &7Upgrades" with lore "&7Right Click To Upgrade Armor With &dTokens" and "&7 > Armor upgrades are permanent"
+	set slot 7 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
+	set slot 8 of {_p} to elytra named "&e&lWARPS" with lore "&7Right Click To Open Avaiable Warps"
 
 # ======== CHAT FORMAT ======== CHAT FORMAT ========
 # ======== CHAT FORMAT ======== CHAT FORMAT ========
@@ -230,11 +247,11 @@ function new(p: player):
 on chat:
 	set {_player} to display name of player
 	if group of player is "admin":
-		set {_prefix} to "&6&lADMIN&8]&r &8[&e:L%{stats.%player%::level}%"
+		set {_prefix} to "&6&lADMIN&8]&r &8[&e:L%{level::%player%}%"
 	else if group of player is "mod":
-		set {_prefix} to "&e&lMOD&8]&r &8[&e:L%{stats.%player%::level}%"
+		set {_prefix} to "&e&lMOD&8]&r &8[&e:L%{level::%player%}%"
 	else:
-		set {_prefix} to "&7:L%{stats.%player%::level}%"
+		set {_prefix} to "&7:L%{level::%player%}%"
 
 	set {_slotList::hand} to index of player's hotbar slot
 	set {_keywordList::hand::*} to "[hand]", "[item]" and "[i]"
@@ -305,3 +322,24 @@ on chat:
 		send components {_p}, {_temp}, {_messages::*} and {_messageFormat::*} to console
 	else:
 		set the chat format to colored "&8[%{_prefix}%&8] &r%{_player}%&7: &7%message%"
+
+# ======== HOTBAR MENU ======== HOTBAR MENU ========
+# ======== HOTBAR MENU ======== HOTBAR MENU ========
+# ======== HOTBAR MENU ======== HOTBAR MENU ========
+
+on right click:
+	if player's tool is pickaxe or axe or shovel:
+		open virtual chest inventory with size 1 named "%name of player's tool% &8Menu" to player
+	if name of player's tool is "&e&lSTATISTICS":
+		cancel event
+		open virtual chest inventory with size 6 named "&e&lSTATS: &8%player%" to player
+	if name of player's tool is "&e&lWARPS": 
+		cancel event
+		open virtual chest inventory with size 1 named "%name of player's tool% &8Menu" to player
+	if name of player's tool contains "&e&lARMOR &7Upgrades":
+		cancel event
+		open virtual chest inventory with size 4 named "&e&lARMOR &8Upgrades" to player
+		format gui slot 0 of player with player's helmet
+		format gui slot 9 of player with player's chestplate
+		format gui slot 18 of player with player's leggings
+		format gui slot 27 of player with player's boots

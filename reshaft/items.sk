@@ -1,9 +1,54 @@
 on load: 
 
-	set {1_helmet} to leather helmet named "test"
-	set {1_chestplate} to leather chestplate named "test1"
-	set {1_leggings} to leather leggings named "test2"
-	set {1_boots} to leather boots named "test23"
+# ★
+
+	set {1_helmet} to light gray stained glass named "&8(&f★&e★&7★★★&8) &7Common"
+	set {1_chestplate} to leather chestplate named "&8(&f★&e★&7★★★&8) &7Chestplate"
+	dye {1_chestplate} light gray
+	set {1_leggings} to leather leggings named "&8(&f★&e★&7★★★&8) &7Leggings"
+	dye {1_leggings} light gray
+	set {1_boots} to leather boots named "&8(&f★&e★&7★★★&8) &7Boots"
+	dye {1_boots} light gray
+
+#  ★★
+
+	set {2_helmet} to lime stained glass named "&8(&f★&e★★&7★★&8) &aUncommon"
+	set {2_chestplate} to leather chestplate named "&8(&f★&e★★&7★★&8) &aChestplate"
+	dye {2_chestplate} lime
+	set {2_leggings} to leather leggings named "&8(&f★&e★★&7★★&8) &aLeggings"
+	dye {2_leggings} lime
+	set {2_boots} to leather boots named "&8(&f★&e★★&7★★&8) &aBoots"
+	dye {2_boots} lime
+
+#  ★★★
+
+	set {3_helmet} to light blue stained glass named "&8(&f★&e★★★&7★&8) &bRare"
+	set {3_chestplate} to leather chestplate named "&8(&f★&e★★★&7★&8) &bChestplate"
+	dye {3_chestplate} light blue
+	set {3_leggings} to leather leggings named "&8(&f★&e★★★&7★&8) &bLeggings"
+	dye {3_leggings} light blue
+	set {3_boots} to leather boots named "&8(&f★&e★★★&7★&8) &bBoots"
+	dye {3_boots} light blue
+
+# ★★★★
+
+	set {4_helmet} to orange stained glass named "&8(&f★&e★★★★&8) &6Epic"
+	set {4_chestplate} to leather chestplate named "&8(&f★&e★★★★&8) &6Chestplate"
+	dye {4_chestplate} orange
+	set {4_leggings} to leather leggings named "&8(&f★&e★★★★&8) &6Leggings"
+	dye {4_leggings} orange
+	set {4_boots} to leather boots named "&8(&f★&e★★★★&8) &6Boots"
+	dye {4_boots} orange
+
+# ★★★★★
+
+	set {5_helmet} to black stained glass named "&8(&6★&e★★★★&8) &cLegendary"
+	set {5_chestplate} to netherite chestplate named "&8(&6★&e★★★★&8) &cChestplate"
+	set {5_leggings} to netherite leggings named "&8(&6★&e★★★★&8) &cLeggings"
+	set {5_boots} to netherite boots named "&8(&6★&e★★★★&8) &cBoots"
+
+# ==== TOOLS ====
+
 	set {1_pickaxe} to netherite pickaxe named "test"
 	set {1_axe} to netherite axe named "tests"
 	set {1_shovel} to netherite shovel named "testoije"
