@@ -1,0 +1,63 @@
+options: 
+	admin: &8[&6&lADMIN&8]&f
+	permission: &7Insufficient Permissions
+
+command /modify [<offline player>] [<text>] [<text>] [<integer>]:
+    trigger:
+        if player is op:
+            if arg-1 is not set:
+                send "{@admin} &f/modify &f<player>"
+                stop
+            else if arg-2 is not "level" or "gold" or "gem" or "medal" or "token" or "all":
+                send "{@admin} &f/modify <%arg-1%> &f<level gold gem medal token all>"
+                stop
+            else if arg-3 is not "add" or "remove" or "set" or "reset":
+                if arg-2 is "reset":
+                    send "{@admin} &f/modify <%arg-1%> <%arg-2%> &f<reset>"
+                else:
+                    send "{@admin} &f/modify <%arg-1%> <%arg-2%> &f<add remove set reset>"
+                stop
+            else if arg-4 is not set:
+                if arg-3 is not "reset":
+                    send "{@admin} &f/modify <%arg-1%> <%arg-2%> <%arg-3%> &f<integer>"
+                    stop
+            if arg-3 is "add":
+                add arg-4 to {%arg-2%::%arg-1%}
+                send "{@admin} &fAdded %arg-4% to %arg-1%'s %arg-2%"
+            else if arg-3 is "remove":
+                if arg-2 is "level":
+                    if arg-4 is greater than {level::%arg-1%} - 1:
+                        set {_n} to {level::%arg-1%} - 1
+                else if arg-4 is greater than {%arg-2%::%arg-1%}:
+                    set {_n} to {%arg-2%::%arg-1%}
+                else:
+                    set {_n} to arg-4
+                remove {_n} from {%arg-2%::%arg-1%}
+                send "{@admin} &fRemoved %{_n}% from %arg-1%'s %arg-2%"
+            else if arg-3 is "set":
+                if arg-2 is "level":
+                    if arg-4 is less than 1:
+                        set {_n} to 1
+                else if arg-4 is less than 0:
+                    set {_n} to 0
+                else:
+                    set {_n} to arg-4
+                set {%arg-2%::%arg-1%} to {_n}
+                send "{@admin} &fSet %arg-1%'s %arg-2% to %{_n}%"
+            else if arg-3 is "reset":
+                if arg-2 is "level":
+                    set {_n} to 1
+                else if arg-2 is "all":
+                    set {level::%arg-1%} to 1
+                    set {gold::%arg-1%} to 0
+                    set {gem::%arg-1%} to 0
+                    set {medal::%arg-1%} to 0
+                    set {token::%arg-1%} to 0
+                    send "{@admin} &fReset all for %arg-1%"
+                    stop
+                else:
+                    set {_n} to 0
+                set {%arg-2%::%arg-1%} to {_n}
+                send "{@admin} &fReset %arg-1%'s %arg-2%"
+        else:
+            send "{@admin} {@permission}"
