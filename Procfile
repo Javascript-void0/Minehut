@@ -1,2 +1,2 @@
-farminfarm: python bot1.py
-shaft: python bot2.py
+farminfarm: python discord/bot1.py
+shaft: python discord/bot2.py
