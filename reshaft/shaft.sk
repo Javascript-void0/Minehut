@@ -24,10 +24,11 @@ on drop:
 on place:
 	if group of player is not "admin":
 		cancel event
-on break: 
-	cancel drops
 on item damage: 
-	if item is axe:
+	if durability of event-item is greater than 2029:
+		broadcast "%durability of player's tool%"
+		cancel event
+	else if item is axe:
 		stop
 	else if item is pickaxe:
 		stop
@@ -257,38 +258,6 @@ on join:
 	if {multiplier::%player%} is not set:
 		set {multiplier::%player%} to 0
 
-# ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
-# ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
-# ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
-
-command /new:
-	trigger:
-		new(player)
-
-function new(p: player):
-	set helmet of {_p} to {1_helmet}
-	set chestplate of {_p} to {1_chestplate}
-	set leggings of {_p} to {1_leggings}
-	set boots of {_p} to {1_boots}
-	set {gold::%{_p}%} to 0
-	set slot 0 of {_p} to {1_pickaxe}
-	set slot 1 of {_p} to {1_axe}
-	set slot 2 of {_p} to {1_shovel}
-	set slot 12 of {_p} to elytra named "&8(&7★★★&8) &eZeus" with lore "&7> Use w/ &eFeather &7for:" and "&7+ Speed &b2" and "&7+ Haste &b2" and "&7> &bMax level &7to gain perm access"
-	set slot 13 of {_p} to feather named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &bMax level &7to gain perm access"
-	set slot 14 of {_p} to totem of undying named "&8(&7★★★&8) &eKronos" with lore "&7<non>"
-	set slot 21 of {_p} to enchanted golden apple named "&8(&7★★★&8) &bApollo"
-	set slot 22 of {_p} to leather boots named "&8(&7★★★&8) &bHermes"
-	set slot 23 of {_p} to bone named "&8(&7★★★&8) &bHades"
-	set slot 30 of {_p} to end rod named "&8(&7★★★&8) &7Pegasus"
-	set slot 31 of {_p} to lead named "&8(&7★★★&8) &7Athena"
-	set slot 32 of {_p} to raw cod named "&8(&7★★★&8) &7Poseiden"
-	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
-	set slot 5 of {_p} to anvil named "&6&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
-	set slot 6 of {_p} to smithing table named "&e&lUPGRADES" with lore "&7Right Click To Upgrade Armor With &dTokens" and "&7 > Armor upgrades are permanent"
-	set slot 7 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
-	set slot 8 of {_p} to elytra named "&e&lWARPS" with lore "&7Right Click To Open Avaiable Warps"
-
 # ======== CHAT FORMAT ======== CHAT FORMAT ========
 # ======== CHAT FORMAT ======== CHAT FORMAT ========
 # ======== CHAT FORMAT ======== CHAT FORMAT ========
@@ -372,6 +341,38 @@ on chat:
 	else:
 		set the chat format to colored "&8[%{_prefix}%&8] &r%{_player}%&7: &7%message%"
 
+# ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
+# ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
+# ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
+
+command /new:
+	trigger:
+		if player is op:
+			new(player)
+
+function new(p: player):
+	set helmet of {_p} to {1_helmet}
+	set chestplate of {_p} to {1_chestplate}
+	set leggings of {_p} to {1_leggings}
+	set boots of {_p} to {1_boots}
+	set slot 0 of {_p} to {1_pickaxe}
+	set slot 1 of {_p} to {1_axe}
+	set slot 2 of {_p} to {1_shovel}
+	set slot 12 of {_p} to elytra named "&8(&7★★★&8) &eZeus" with lore "&7> Use w/ &eFeather &7for:" and "&7+ Speed &b2" and "&7+ Haste &b2" and "&7> &bMax level &7to gain perm access"
+	set slot 13 of {_p} to feather named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &bMax level &7to gain perm access"
+	set slot 14 of {_p} to totem of undying named "&8(&7★★★&8) &eKronos" with lore "&7<non>"
+	set slot 21 of {_p} to enchanted golden apple named "&8(&7★★★&8) &bApollo"
+	set slot 22 of {_p} to leather boots named "&8(&7★★★&8) &bHermes"
+	set slot 23 of {_p} to bone named "&8(&7★★★&8) &bHades"
+	set slot 30 of {_p} to end rod named "&8(&7★★★&8) &7Pegasus"
+	set slot 31 of {_p} to lead named "&8(&7★★★&8) &7Athena"
+	set slot 32 of {_p} to raw cod named "&8(&7★★★&8) &7Poseiden"
+	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
+	set slot 5 of {_p} to smithing table named "&e&lARMOR" with lore "&7Right Click To Upgrade &eArmor &7With &dTokens" and "&7 > &eArmor &7upgrades are permanent"
+	set slot 6 of {_p} to anvil named "&e&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
+	set slot 7 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
+	set slot 8 of {_p} to spruce boat named "&e&lWARPS" with lore "&7Right Click To Open Avaiable Warps"
+
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
@@ -381,6 +382,39 @@ function hat(p: player, i: item, s: integer):
 	set helmet of {_p} to {_i}
 	set slot {_s} of {_p} to {_cur}
 
+function hatreset(p: player):
+	set {_13} to slot 13 of {_p}
+	if {_13} is light gray stained glass:
+		set {_item} to {_13}
+		set {_slot} to 13
+	set {_14} to slot 14 of {_p}
+	if {_14} is light gray stained glass:
+		set {_item} to {_14}
+		set {_slot} to 14
+	set {_21} to slot 21 of {_p}
+	if {_21} is light gray stained glass:
+		set {_item} to {_21}
+		set {_slot} to 21
+	set {_23} to slot 23 of {_p}
+	if {_23} is light gray stained glass:
+		set {_item} to {_23}
+		set {_slot} to 23
+	set {_30} to slot 30 of {_p}
+	if {_30} is light gray stained glass:
+		set {_item} to {_30}
+		set {_slot} to 30
+	set {_31} to slot 31 of {_p}
+	if {_31} is light gray stained glass:
+		set {_item} to {_31}
+		set {_slot} to 31
+	set {_32} to slot 32 of {_p}
+	if {_32} is light gray stained glass:
+		set {_item} to {_32}
+		set {_slot} to 32
+	set {_cur} to helmet of {_p}
+	if {_cur} is not light gray stained glass:
+		hat({_p}, {_item}, {_slot})
+
 on inventory click:
 	if clicked slot is 12:
 		cancel event
@@ -388,20 +422,54 @@ on inventory click:
 		set {_new} to event-item
 		set chestplate of player to {_new}
 		set slot 12 of player to {_cur}
+	else if clicked slot is 22:
+		cancel event
+		set {_cur} to boots of player
+		set {_new} to event-item
+		set boots of player to {_new}
+		set slot 22 of player to {_cur}
 	else if clicked slot is 13:
 		cancel event
+		if event-item is not light gray stained glass:
+			hatreset(player)
 		hat(player, event-item, 13)
 	else if clicked slot is 14:
 		cancel event
+		if event-item is not light gray stained glass:
+			hatreset(player)
 		hat(player, event-item, 14)
-	else if clicked slot is 15:
+	else if clicked slot is 21:
 		cancel event
-		hat(player, event-item, 15)
+		if event-item is not light gray stained glass:
+			hatreset(player)
+		hat(player, event-item, 21)
+	else if clicked slot is 23:
+		cancel event
+		if event-item is not light gray stained glass:
+			hatreset(player)
+		hat(player, event-item, 23)
+	else if clicked slot is 30:
+		cancel event
+		if event-item is not light gray stained glass:
+			hatreset(player)
+		hat(player, event-item, 30)
+	else if clicked slot is 31:
+		cancel event
+		if event-item is not light gray stained glass:
+			hatreset(player)
+		hat(player, event-item, 31)
+	else if clicked slot is 32:
+		cancel event
+		if event-item is not light gray stained glass:
+			hatreset(player)
+		hat(player, event-item, 32)
 	if group of player is not "admin":
 		cancel event
 
 on right click:
 	if player's tool is pickaxe or axe or shovel:
+		if player's tool is wooden axe:
+			stop
 		cancel event
 		open virtual chest inventory with size 1 named "%name of player's tool% &8Menu" to player
 	if name of player's tool is "&e&lSTATISTICS":
@@ -410,13 +478,27 @@ on right click:
 	if name of player's tool is "&e&lWARPS": 
 		cancel event
 		open virtual chest inventory with size 1 named "%name of player's tool% &8Menu" to player
-	if name of player's tool is "&e&lUPGRADES":
+	if name of player's tool is "&e&lARMOR":
 		cancel event
-		open virtual chest inventory with size 4 named "&e&lUPGRADES &8Menu" to player
+		open virtual chest inventory with size 4 named "&e&lARMOR &8Upgrades" to player
 		format gui slot 0 of player with player's helmet
 		format gui slot 9 of player with player's chestplate
 		format gui slot 18 of player with player's leggings
 		format gui slot 27 of player with player's boots
-	if name of player's tool is "&6&lSETTINGS":
+	if name of player's tool is "&e&lSETTINGS":
 		cancel event
-		open virtual chest inventory with size 1 named "&6&lSETTINGS &8Menu" to player
+		open virtual chest inventory with size 1 named "&e&lSETTINGS &8Menu" to player
+	else if group of player is not "admin":
+		cancel event
+
+# ======== GAME PLAY? ======== GAME PLAY? ========
+# ======== GAME PLAY? ======== GAME PLAY? ========
+# ======== GAME PLAY? ======== GAME PLAY? ========
+
+on break: 
+	cancel drops
+	if durability of player's tool is greater than 2029:
+		cancel event
+		set action bar of player to "%name of player's tool% &7is &c&lBROKEN"
+	else if event-block is stone:
+		add 1 to {gold::%player%}
