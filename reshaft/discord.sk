@@ -1,0 +1,27 @@
+options:
+	discord: &8[&3&lDISCORD&8]&f
+
+on load:
+	login to "Nzc5MTExNDQ5MzQzMTY0NDE4.X7byFA.hIo0NDj7aUo-F85ZmnbbPeFdhH0" with the name "ReShaft"
+
+discord command list:
+	prefixes: "."
+	executable in: guild
+	trigger:
+		set {_} to a message builder
+		append line "```Online: %size of all players% - %all players%```"
+		reply with {_}
+
+discord command tps:
+	prefixes: "."
+	executable in: guild
+	trigger:
+		set {_} to a message builder
+		append line "```TPS: %tps%```"
+		reply with {_}
+
+command /login:
+	trigger:
+		if player is op:
+			login to "{@token}" with the name "{@bot}"
+			send "{@discord} &fDone"
