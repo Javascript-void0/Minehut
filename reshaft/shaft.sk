@@ -24,9 +24,6 @@ on drop:
 on place:
 	if group of player is not "admin":
 		cancel event
-on inventory click:
-	if group of player is not "admin":
-		cancel event
 on break: 
 	cancel drops
 on item damage: 
@@ -277,6 +274,15 @@ function new(p: player):
 	set slot 0 of {_p} to {1_pickaxe}
 	set slot 1 of {_p} to {1_axe}
 	set slot 2 of {_p} to {1_shovel}
+	set slot 12 of {_p} to elytra named "&8(&7★★★&8) &eZeus" with lore "&7> Use w/ &eFeather &7for:" and "&7+ Speed &b2" and "&7+ Haste &b2" and "&7> &bMax level &7to gain perm access"
+	set slot 13 of {_p} to feather named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &bMax level &7to gain perm access"
+	set slot 14 of {_p} to totem of undying named "&8(&7★★★&8) &eKronos" with lore "&7<non>"
+	set slot 21 of {_p} to enchanted golden apple named "&8(&7★★★&8) &bApollo"
+	set slot 22 of {_p} to leather boots named "&8(&7★★★&8) &bHermes"
+	set slot 23 of {_p} to bone named "&8(&7★★★&8) &bHades"
+	set slot 30 of {_p} to end rod named "&8(&7★★★&8) &7Pegasus"
+	set slot 31 of {_p} to lead named "&8(&7★★★&8) &7Athena"
+	set slot 32 of {_p} to raw cod named "&8(&7★★★&8) &7Poseiden"
 	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
 	set slot 5 of {_p} to anvil named "&6&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
 	set slot 6 of {_p} to smithing table named "&e&lUPGRADES" with lore "&7Right Click To Upgrade Armor With &dTokens" and "&7 > Armor upgrades are permanent"
@@ -369,6 +375,30 @@ on chat:
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
+
+function hat(p: player, i: item, s: integer):
+	set {_cur} to helmet of {_p}
+	set helmet of {_p} to {_i}
+	set slot {_s} of {_p} to {_cur}
+
+on inventory click:
+	if clicked slot is 12:
+		cancel event
+		set {_cur} to chestplate of player
+		set {_new} to event-item
+		set chestplate of player to {_new}
+		set slot 12 of player to {_cur}
+	else if clicked slot is 13:
+		cancel event
+		hat(player, event-item, 13)
+	else if clicked slot is 14:
+		cancel event
+		hat(player, event-item, 14)
+	else if clicked slot is 15:
+		cancel event
+		hat(player, event-item, 15)
+	if group of player is not "admin":
+		cancel event
 
 on right click:
 	if player's tool is pickaxe or axe or shovel:
