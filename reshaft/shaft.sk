@@ -107,6 +107,8 @@ on damage:
 				if {pvp::%attacker%} is set:
 					cancel event
 					set action bar of attacker to "{@shaft} &7Your PvP is &c&lDISABLED"
+	else:
+		cancel event
 
 on join:
 	set {_bossbar} to 0
@@ -131,7 +133,7 @@ on join:
 		else if {_bossbar} is 4:
 			set bossbar "bossbar.%player%" value to 20
 			set bossbar "bossbar.%player%" color to red
-			set bossbar "bossbar.%player%" title to "&eRevive &7to collect &ebonuses &7and &egear"
+			set bossbar "bossbar.%player%" title to "&eRebirth &7to collect &ebonuses &7and &egear"
 		else if {_bossbar} is 5:
 			set bossbar "bossbar.%player%" value to 0
 			set bossbar "bossbar.%player%" color to red
@@ -153,7 +155,7 @@ every 1 second in "{@world}":
 		set score "   &7Gems: &f%{gem::%loop-player%}%" in sidebar of loop-player to 8
 		set score "   &7Medals: &f%{medal::%loop-player%}%" in sidebar of loop-player to 7
 		set score "   &7Tokens: &f%{token::%loop-player%}%" in sidebar of loop-player to 6
-		set score "   &7Multiplier: &fx%{multiplier::%loop-player%}%" in sidebar of loop-player to 5
+		set score "   &7Bonus: &f%{bonus::%loop-player%}%%%" in sidebar of loop-player to 5
 		set score "  " in sidebar of loop-player to 4
 		set score " &e&lSERVER &7(%number of all players%/10)" in sidebar of loop-player to 3
 		set score "   &7TPS: &f%tps from the last 1 minute%" in sidebar of loop-player to 2
@@ -214,8 +216,12 @@ on join:
 		set {medal::%player%} to 0
 	if {token::%player%} is not set:
 		set {token::%player%} to 0
-	if {multiplier::%player%} is not set:
-		set {multiplier::%player%} to 0
+	if {bonus::%player%} is not set:
+		set {bonus::%player%} to 100
+	if {block::%player%} is not set:
+		set {block::%player%} to 0
+	if {totalblock::%player%} is not set:
+		set {totalblock::%player%} to 0
 
 # ======== /TOP ======== /TOP ========
 # ======== /TOP ======== /TOP ========
@@ -365,12 +371,12 @@ function new(p: player):
 	set slot 0 of {_p} to {1_pickaxe}
 	set slot 1 of {_p} to {1_axe}
 	set slot 2 of {_p} to {1_shovel}
-	set slot 12 of {_p} to elytra named "&8(&7★★★&8) &eZeus" with lore "&7> Use w/ &eFeather &7for:" and "&7+ Speed &b2" and "&7+ Haste &b2" and "&7> &bMax level &7to gain perm access"
-	set slot 13 of {_p} to feather named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &bMax level &7to gain perm access"
-	set slot 14 of {_p} to totem of undying named "&8(&7★★★&8) &eKronos" with lore "&7<non>"
+	set slot 12 of {_p} to feather named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b100 &7fragments to gain perm access" and "&f> 0&7/100 Fragments"
+	set slot 13 of {_p} to elytra named "&8(&7★★★&8) &eZeus" with lore "&7+ Speed &b2 &7while wearing" and "&7+ Haste &b2 &7while wearing" and "&7> &7Collect &b100 &7fragments to gain perm access" and "&f> 0&7/100 Fragments"
+	set slot 14 of {_p} to {hermes}
 	set slot 21 of {_p} to enchanted golden apple named "&8(&7★★★&8) &bApollo"
-	set slot 22 of {_p} to leather boots named "&8(&7★★★&8) &bHermes"
-	set slot 23 of {_p} to bone named "&8(&7★★★&8) &bHades"
+	set slot 22 of {_p} to bone named "&8(&7★★★&8) &bHades"
+	set slot 23 of {_p} to totem of undying named "&8(&7★★★&8) &bKronos" with lore "&7<non>"
 	set slot 30 of {_p} to end rod named "&8(&7★★★&8) &7Pegasus"
 	set slot 31 of {_p} to lead named "&8(&7★★★&8) &7Athena"
 	set slot 32 of {_p} to raw cod named "&8(&7★★★&8) &7Poseiden"
@@ -390,14 +396,10 @@ function hat(p: player, i: item, s: integer):
 	set slot {_s} of {_p} to {_cur}
 
 function hatreset(p: player):
-	set {_13} to slot 13 of {_p}
+	set {_13} to slot 12 of {_p}
 	if {_13} is light gray stained glass:
 		set {_item} to {_13}
-		set {_slot} to 13
-	set {_14} to slot 14 of {_p}
-	if {_14} is light gray stained glass:
-		set {_item} to {_14}
-		set {_slot} to 14
+		set {_slot} to 12
 	set {_21} to slot 21 of {_p}
 	if {_21} is light gray stained glass:
 		set {_item} to {_21}
@@ -406,6 +408,10 @@ function hatreset(p: player):
 	if {_23} is light gray stained glass:
 		set {_item} to {_23}
 		set {_slot} to 23
+	set {_14} to slot 22 of {_p}
+	if {_14} is light gray stained glass:
+		set {_item} to {_14}
+		set {_slot} to 22
 	set {_30} to slot 30 of {_p}
 	if {_30} is light gray stained glass:
 		set {_item} to {_30}
@@ -428,31 +434,34 @@ on inventory click:
 		stop
 	if clicked slot is 12:
 		cancel event
+		if event-item is not light gray stained glass:
+			set player's flight mode to true
+			hatreset(player)
+		else:
+			set player's flight mode to false
+		hat(player, event-item, 12)
+	else if clicked slot is 13:
+		cancel event
 		set {_cur} to chestplate of player
 		set {_new} to event-item
 		set chestplate of player to {_new}
-		set slot 12 of player to {_cur}
-	else if clicked slot is 22:
+		set slot 13 of player to {_cur}
+	else if clicked slot is 14:
 		cancel event
 		set {_cur} to boots of player
 		set {_new} to event-item
 		set boots of player to {_new}
-		set slot 22 of player to {_cur}
-	else if clicked slot is 13:
-		cancel event
-		if event-item is not light gray stained glass:
-			hatreset(player)
-		hat(player, event-item, 13)
-	else if clicked slot is 14:
-		cancel event
-		if event-item is not light gray stained glass:
-			hatreset(player)
-		hat(player, event-item, 14)
+		set slot 14 of player to {_cur}
 	else if clicked slot is 21:
 		cancel event
 		if event-item is not light gray stained glass:
 			hatreset(player)
 		hat(player, event-item, 21)
+	else if clicked slot is 22:
+		cancel event
+		if event-item is not light gray stained glass:
+			hatreset(player)
+		hat(player, event-item, 22)
 	else if clicked slot is 23:
 		cancel event
 		if event-item is not light gray stained glass:
@@ -500,6 +509,9 @@ function stats(p: player):
 	format gui slot 31 of {_p} with sunflower named "&6Tokens: &f%{token::%{_p}%}%"
 	format gui slot 32 of {_p} with bell named "&6Medals: &f%{medal::%{_p}%}%"
 	format gui slot 40 of {_p} with emerald named "&6Gems: &f%{gem::%{_p}%}%"
+	format gui slot 41 of {_p} with grass block named "&6Total Blocks: &f%{totalblock::%{_p}%}%" with lore "&7 > The total blocks altogether"
+	format gui slot 42 of {_p} with stone named "&6Blocks This Rebirth: &f%{block::%{_p}%}%" with lore "&7 > The total since last rebirth"
+	format gui slot 43 of {_p} with cookie named "&6Current Bonus: &f%{bonus::%{_p}%}%%%" with lore "&7 > Depends on your current gear"
 
 function removeLoreLabel(t: text) :: number:
 	set {_n} to uncolored {_t}
@@ -531,18 +543,18 @@ function bonusUpgrade(p: player, c: number):
 
 function tool(p: player):
 	if tool of {_p} is pickaxe:
-		open virtual chest inventory with size 3 named "&e&lPICKAXE &8Menu" to {_p}
+		open virtual chest inventory with size 1 named "&e&lPICKAXE &8Menu" to {_p}
 	else if tool of {_p} is axe:
-		open virtual chest inventory with size 3 named "&e&lAXE &8Menu" to {_p}
+		open virtual chest inventory with size 1 named "&e&lAXE &8Menu" to {_p}
 	else if tool of {_p} is shovel:
-		open virtual chest inventory with size 3 named "&e&lSHOVEL &8Menu" to {_p}
-	format gui slot 10 of {_p} with held item of {_p}
+		open virtual chest inventory with size 1 named "&e&lSHOVEL &8Menu" to {_p}
 	set {_1} to removeLoreLabel(line 1 of lore of tool of {_p})
 	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
 	set {_cost1} to {_1}^2
 	set {_cost2} to ({_2} * 10000)^2
-	format gui slot 14 of {_p} with bell named "&eMedals: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost1}% &eMedals" to run function medalUpgrade({_p}, {_cost1})
-	format gui slot 15 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost2}% &eGold" to run function bonusUpgrade({_p}, {_cost2})
+	format gui slot 1 of {_p} with bell named "&eMedals: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost1}% &eMedals" to run function medalUpgrade({_p}, {_cost1})
+	format gui slot 3 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost2}% &eGold" to run function bonusUpgrade({_p}, {_cost2})
+	format gui slot 7 of {_p} with nether star named "&bRebirth" with lore "&7 > Click to &bRebirth &7and Gain Medals" and "&7 > 12 &b+120 (%{bonus::%{_p}%}%%%) &e +120 (%{blessing}%%%) &eMedals"
 
 on right click:
 	if player's tool is pickaxe or axe or shovel:
@@ -582,6 +594,8 @@ on break:
 		set action bar of player to "%name of player's tool% &7is &c&lBROKEN"
 	else if event-block is stone:
 		add 1 to {gold::%player%}
+		add 1 to {totalblock::%player%}
+		add 1 to {block::%player%}
 
 # ======== STAFF COMMANDS ======== STAFF COMMANDS ========
 # ======== STAFF COMMANDS ======== STAFF COMMANDS ========

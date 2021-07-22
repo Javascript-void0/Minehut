@@ -52,3 +52,18 @@ on load:
 	set {1_pickaxe} to netherite pickaxe named "&8(&f★&e★&7★★★&8) &7Pickaxe" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
 	set {1_axe} to netherite axe named "&8(&f★&e★&7★★★&8) &7Axe" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
 	set {1_shovel} to netherite shovel named "&8(&f★&e★&7★★★&8) &7Shovel" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
+
+# ==== HERMES ====
+
+	set {hermes} to leather boots named "&8(&e★★★&8) &eHermes"
+	enchant {hermes} with soul speed 3
+	enchant {hermes} with depth strider 3
+	enchant {hermes} with feather falling 3
+	enchant {hermes} with thorns 5
+	enchant {hermes} with protection 5
+	enchant {hermes} with fire protection 5
+	enchant {hermes} with blast protection 5
+	enchant {hermes} with projectile protection 5
+	enchant {hermes} with fire protection 5
+	enchant {hermes} with unbreaking 5
+	enchant {hermes} with mending
