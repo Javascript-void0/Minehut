@@ -1,8 +1,9 @@
 options:
+	token: Nzc5MTExNDQ5MzQzMTY0NDE4.X7byFA.hIo0NDj7aUo-F85ZmnbbPeFdhH0
 	discord: &8[&3&lDISCORD&8]&f
 
 on load:
-	login to "Nzc5MTExNDQ5MzQzMTY0NDE4.X7byFA.hIo0NDj7aUo-F85ZmnbbPeFdhH0" with the name "ReShaft"
+	login to "{@token}" with the name "ReShaft"
 
 discord command list:
 	prefixes: "."
@@ -23,5 +24,52 @@ discord command tps:
 command /login:
 	trigger:
 		if player is op:
-			login to "{@token}" with the name "{@bot}"
+			login to "{@token}" with the name "ReShaft"
 			send "{@discord} &fDone"
+
+discord command top [<text>]:
+	prefixes: "."
+	executable in: guild
+	trigger:
+		set {_} to a message builder
+		if arg-1 is not "level" or "gold" or "gem" or "medal" or "token":
+			append line "```.top <level gold gem medal token>```"
+			reply with {_}
+		else:
+			loop {%arg-1%::*}:
+				add 1 to {_size}
+				if {_low.to.high.list::%loop-value%} is not set:
+					set {_low.to.high.list::%loop-value%} to loop-index
+				else:
+					set {_n} to 0
+					loop {_size} times:
+						set {_n} to {_n}+1
+						{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+						set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+						stop loop
+			wait 1 tick
+			set {_n} to size of {_low.to.high.list::*}
+			loop {_low.to.high.list::*}:
+				set {_high.to.low.list::%{_n}%} to loop-value
+				set {_n} to {_n}-1
+			wait 1 tick
+			set {_i} to 0
+			append line "`----------- [ TOP ] -------------`"
+			loop {_high.to.low.list::*}:
+				if arg-1 is "level":
+					set {_label} to ":L%{%arg-1%::%loop-value%}%"
+				else if arg-1 is "gold":
+					set {_label} to "%{%arg-1%::%loop-value%}% gold"
+				else if arg-1 is "gem":
+					set {_label} to "%{%arg-1%::%loop-value%}% gems"
+				else if arg-1 is "medal":
+					set {_label} to "%{%arg-1%::%loop-value%}% medals"
+				else if arg-1 is "token":
+					set {_label} to "%{%arg-1%::%loop-value%}% tokens"
+				add 1 to {_topnumber}
+				set {_player} to "%loop-value%" parsed as offline player
+				append line "%{_topnumber}%. %{_player}% : %{_label}%"
+				add 1 to {_i}
+				if {_topnumber} > 10:
+					stop
+			reply with {_}
