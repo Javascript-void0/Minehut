@@ -5,6 +5,10 @@ options:
 	broadcast: &8[&e&lBROADCAST&8]&f
 	rule: &8[&e&lRULE&8]&f
 	permission: &7Insufficient Permissions
+	gold: &7Insufficient &eGold
+	gems: &7Insufficient &bGems
+	medals: &7Insufficient &cMedals
+	tokens: &7Insufficient &dTokens
 	staff: &8[&e&lSTAFF&8]&f
 	admin: &8[&6&lADMIN&8]&f
 	world: build
@@ -496,12 +500,56 @@ function stats(p: player):
 	format gui slot 31 of {_p} with sunflower named "&6Tokens: &f%{token::%{_p}%}%"
 	format gui slot 32 of {_p} with bell named "&6Medals: &f%{medal::%{_p}%}%"
 	format gui slot 40 of {_p} with emerald named "&6Gems: &f%{gem::%{_p}%}%"
+
+function removeLoreLabel(t: text) :: number:
+	set {_n} to uncolored {_t}
+	replace "Medals: [+" with "" in {_n}
+	replace "]" with "" in {_n}
+	replace "%% Bonus" with "" in {_n}
+	set {_r} to {_n} parsed as number
+	return {_r}
+
+function medalUpgrade(p: player, c: number):
+	set {_1} to removeLoreLabel(line 1 of lore of tool of {_p})
+	if {medal::%{_p}%} is greater than {_c}:
+		remove {_c} from {medal::%{_p}%}
+		add 1 to {_1}
+		set line 1 of lore of tool of {_p} to "&eMedals: &8[&e+%{_1}%&8]"
+		tool({_p})
+	else:
+		send "{@shaft} {@medals}" to {_p}
+
+function bonusUpgrade(p: player, c: number):
+	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
+	if {gold::%{_p}%} is greater than {_c}:
+		remove {_cost2} from {gold::%{_p}%}
+		set {_n2} to {_2} * 2
+		set line 2 of lore of tool of {_p} to "&b%{_n2}%%% &7Bonus"
+		tool({_p})
+	else:
+		send "{@shaft} {@gold}" to {_p}
+
+function tool(p: player):
+	if tool of {_p} is pickaxe:
+		open virtual chest inventory with size 3 named "&e&lPICKAXE &8Menu" to {_p}
+	else if tool of {_p} is axe:
+		open virtual chest inventory with size 3 named "&e&lAXE &8Menu" to {_p}
+	else if tool of {_p} is shovel:
+		open virtual chest inventory with size 3 named "&e&lSHOVEL &8Menu" to {_p}
+	format gui slot 10 of {_p} with held item of {_p}
+	set {_1} to removeLoreLabel(line 1 of lore of tool of {_p})
+	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
+	set {_cost1} to {_1}^2
+	set {_cost2} to ({_2} * 10000)^2
+	format gui slot 14 of {_p} with bell named "&eMedals: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost1}% &eMedals" to run function medalUpgrade({_p}, {_cost1})
+	format gui slot 15 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost2}% &eGold" to run function bonusUpgrade({_p}, {_cost2})
+
 on right click:
 	if player's tool is pickaxe or axe or shovel:
 		if player's tool is wooden axe:
 			stop
 		cancel event
-		open virtual chest inventory with size 1 named "%name of player's tool% &8Menu" to player
+		tool(player)
 	if name of player's tool is "&e&lSTATISTICS":
 		cancel event
 		stats(player)
