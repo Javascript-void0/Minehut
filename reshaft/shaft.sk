@@ -1,5 +1,5 @@
 options:
-	shaft: &8[&6&lRe&e&lSHAFT&8]&7²&f
+	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
 	chat: &8[&6&lCHAT&8]&f
 	discord: &8[&e&lDISCORD&8]&f
 	broadcast: &8[&e&lBROADCAST&8]&f
@@ -12,8 +12,6 @@ options:
 on hunger meter change:
 	cancel event
 on death: 
-	cancel event
-on damage: 
 	cancel event
 on portal create: 
 	if group of player is not "admin":
@@ -41,6 +39,18 @@ on disconnect:
 	broadcast "&8[&c-&8] &7%player%"
 on first join:
 	broadcast "&8[&a+&8] &e%player% &8[&f##%size of all offline players%&8]"
+
+command /spawn:
+	trigger:
+		teleport player to {spawn}
+
+command /setspawn:
+	trigger:
+		if player is op:
+			set {spawn} to player's position
+			send "{@admin} Spawn Set to %player's position%"
+		else:
+			send "{@admin} {@permission}"
 
 command /bc [<text>]:
 	aliases: /broadcast
@@ -71,6 +81,28 @@ command /pl:
 			execute console command "/sudo %player% bukkit:plugins"
 		else:
 			send "&fPlugins (4): &aNone&f, &aOf&f, &aYour&f, &aBusiness"
+
+command /pvp:
+	trigger:
+		if {pvp::%player%} is not set:
+			set {pvp::%player%} to false
+			send "{@shaft} &7PvP &c&lDISABLED"
+		else:
+			delete {pvp::%player%}
+			send "{@shaft} &7PvP &a&lENABLED."
+on damage:
+	if attacker is a player:
+		if victim is set:
+			if victim is a player:
+				if {pvp::%victim%} is set:
+					cancel event
+					set action bar of attacker to "{@shaft} &7PvP is &c&lDISABLED &7 for %victim%"
+	else if attacker is set:
+		if attacker is a player:
+			if victim is a player:
+				if {pvp::%attacker%} is set:
+					cancel event
+					set action bar of attacker to "{@shaft} &7Your PvP is &c&lDISABLED"
 
 on join:
 	set {_bossbar} to 0
@@ -123,83 +155,6 @@ every 1 second in "{@world}":
 		set score "   &7TPS: &f%tps from the last 1 minute%" in sidebar of loop-player to 2
 		set score "   &7Blessing: &f%{blessing}%%%" in sidebar of loop-player to 1
 		set score " " in sidebar of loop-player to 0
-
-# ======== STAFF COMMANDS ======== STAFF COMMANDS ========
-# ======== STAFF COMMANDS ======== STAFF COMMANDS ========
-# ======== STAFF COMMANDS ======== STAFF COMMANDS ========
-
-command /staffchat [<text>]:
-	aliases: /sc
-	permission: staff
-	permission message: {@staff} {@permission}
-	trigger:
-		if arg-1 is not set:
-			if {staffchat::%player%} is not set:
-				set {staffchat::%player%} to true
-				send "{@staff} &7Toggle &aENABLED"
-			else:
-				delete {staffchat::%player%}
-				send "{@staff} &7Toggle &cDISABLED"
-		else:
-			loop all players:
-				if loop-player has permission "sc.staffchat":
-					send colored "{@staff} %player's prefix%&r%player's display name%&7: &r%arg 1%" to loop-player
-on chat:
-	if {staffchat::%player%} is set:
-		cancel event
-		loop all players:
-			if loop-player has permission "sc.staffchat":
-				send colored "{@staff} %player's prefix%&r%player's display name%&7: &r%message%" to loop-player
-every 1 second in "{@world}":
-	loop all players:
-		if {staffchat::%loop-player%} is true:
-			send action bar "{@staff} &aEnabled" to loop-player
-on chat:
-	if player is op:
-		stop
-	else:
-		if {SkCheat::spam.m::%uuid of player%} is message:
-			add 1 to {SkCheat::spam.p::%uuid of player%}
-			if {SkCheat.spam.notify::%uuid of player%} is not set:
-				set {SkCheat.spam.notify::%uuid of player%} to now
-			if difference between {SkCheat.spam.notify::%uuid of player%} and now is more than 1 second:
-				if {SkCheat::spam.p::%uuid of player%} is greater than 6:
-					kick the player due to "{@shaft} You were spamming."
-					clear {SkCheat::spam.p::%uuid of player%}
-		else:
-			set {SkCheat::spam.m::%uuid of player%} to message	
-on join:
-	clear {SkCheat::spam.p::%uuid of player%}
-	clear {SkCheat::spam.m::%uuid of player%}
-on disconnect:
-	clear {SkCheat::spam.p::%uuid of player%}
-	clear {SkCheat::spam.m::%uuid of player%}
-command /mutechat:
-	permission: staff
-	permission message: {@staff} {@permission}
-	trigger:
-		if {Globalchat} is not set:
-			set {Globalchat} to true
-			broadcast "{@chat} &7Chat &cMUTED &7by %player%"
-			stop trigger
-		if {Globalchat} is set:
-			clear {Globalchat}
-			broadcast "{@chat} &7Chat &aUNMUTED &7by %player%"
-on chat:
-	if {Globalchat} is true:
-		if player has permission "chat.mute.bypass":
-			stop trigger
-		else:
-			cancel event
-			send "{@chat} &cChat is currently muted."
-command /clearchat:
-	permission: staff
-	permission message: {@staff} {@permission}
-	aliases: /cc
-	trigger:
-		loop 100 times:
-			broadcast ""
-		send "{@chat} &aYou have cleared the chat"
 
 # ======== HEX/RGB ======== HEX/RGB ========
 # ======== HEX/RGB ======== HEX/RGB ========
@@ -257,6 +212,54 @@ on join:
 		set {token::%player%} to 0
 	if {multiplier::%player%} is not set:
 		set {multiplier::%player%} to 0
+
+# ======== /TOP ======== /TOP ========
+# ======== /TOP ======== /TOP ========
+# ======== /TOP ======== /TOP ========
+
+command /top [<text>]:
+	trigger:
+		if arg-1 is not "level" or "gold" or "gem" or "medal" or "token":
+			send "{@shaft} /top <level gold gem medal token>"
+		else:
+			loop {%arg-1%::*}:
+				add 1 to {_size}
+				if {_low.to.high.list::%loop-value%} is not set:
+					set {_low.to.high.list::%loop-value%} to loop-index
+				else:
+					set {_n} to 0
+					loop {_size} times:
+						set {_n} to {_n}+1
+						{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+						set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+						stop loop
+			wait 1 tick
+			set {_n} to size of {_low.to.high.list::*}
+			loop {_low.to.high.list::*}:
+				set {_high.to.low.list::%{_n}%} to loop-value
+				set {_n} to {_n}-1
+			wait 1 tick
+			set {_i} to 0
+			send ""
+			send "&7&m-----------&r &8[ &e&lTOP &8] &7&m-------------"
+			loop {_high.to.low.list::*}:
+				if arg-1 is "level":
+					set {_label} to "&7:L%{%arg-1%::%loop-value%}%"
+				else if arg-1 is "gold":
+					set {_label} to "&7%{%arg-1%::%loop-value%}% gold"
+				else if arg-1 is "gem":
+					set {_label} to "&7%{%arg-1%::%loop-value%}% gems"
+				else if arg-1 is "medal":
+					set {_label} to "&7%{%arg-1%::%loop-value%}% medals"
+				else if arg-1 is "token":
+					set {_label} to "&7%{%arg-1%::%loop-value%}% tokens"
+				add 1 to {_topnumber}
+				set {_player} to "%loop-value%" parsed as offline player
+				send "&7%{_topnumber}%. &e%{_player}% &8: %{_label}%"
+				add 1 to {_i}
+				if {_topnumber} > 10:
+					stop
+			send "&7&m--------------------------------"
 
 # ======== CHAT FORMAT ======== CHAT FORMAT ========
 # ======== CHAT FORMAT ======== CHAT FORMAT ========
@@ -416,6 +419,9 @@ function hatreset(p: player):
 		hat({_p}, {_item}, {_slot})
 
 on inventory click:
+	if name of event-inventory is not "Crafting":
+		cancel event
+		stop
 	if clicked slot is 12:
 		cancel event
 		set {_cur} to chestplate of player
@@ -466,6 +472,30 @@ on inventory click:
 	if group of player is not "admin":
 		cancel event
 
+# ======== HOTBAR FUNCTIONS ======== HOTBAR FUNCTIONS ========
+# ======== HOTBAR FUNCTIONS ======== HOTBAR FUNCTIONS ========
+# ======== HOTBAR FUNCTIONS ======== HOTBAR FUNCTIONS ========
+
+function settings(p: player):
+	open virtual chest inventory with size 1 named "&e&lSETTINGS &8Menu" to {_p}
+	if {pvp::%{_p}%} is false:
+		format gui slot 0 of {_p} with red dye named "&7&lPvP &c&lDISABLED" with lore "&7 > Click to Enable (/pvp)" to run:
+			delete {pvp::%{_p}%}
+			settings({_p})
+	else:
+		format gui slot 0 of {_p} with lime dye named "&7&lPvP &a&lENABLED" with lore "&7 > Click to Disable (/pvp)" to run:
+			set {pvp::%{_p}%} to false
+			settings({_p})
+
+function stats(p: player):
+	open virtual chest inventory with size 6 named "&e&lSTATS: &8%{_p}%" to {_p}
+	format gui slot 11 of {_p} with compass named "&6Position: &f%location of {_p}%" with lore "&7 > For those without F3...?"
+	format gui slot 13 of {_p} with head of {_p} named "&7:L%{level::%{_p}%}%&8: &e%display name of {_p}%"
+	format gui slot 15 of {_p} with clock named "&6Playtime: &f%time played of {_p}%" with lore "&7 > Total time spent online"
+	format gui slot 30 of {_p} with gold ingot named "&6Gold: &f%{gold::%{_p}%}%"
+	format gui slot 31 of {_p} with sunflower named "&6Tokens: &f%{token::%{_p}%}%"
+	format gui slot 32 of {_p} with bell named "&6Medals: &f%{medal::%{_p}%}%"
+	format gui slot 40 of {_p} with emerald named "&6Gems: &f%{gem::%{_p}%}%"
 on right click:
 	if player's tool is pickaxe or axe or shovel:
 		if player's tool is wooden axe:
@@ -474,10 +504,12 @@ on right click:
 		open virtual chest inventory with size 1 named "%name of player's tool% &8Menu" to player
 	if name of player's tool is "&e&lSTATISTICS":
 		cancel event
-		open virtual chest inventory with size 6 named "&e&lSTATS: &8%player%" to player
+		stats(player)
 	if name of player's tool is "&e&lWARPS": 
 		cancel event
 		open virtual chest inventory with size 1 named "%name of player's tool% &8Menu" to player
+		format gui slot 1 of player with nether star named "&e&lSPAWN" with lore "&7 > Click to teleport" to run:
+			teleport player to {spawn}
 	if name of player's tool is "&e&lARMOR":
 		cancel event
 		open virtual chest inventory with size 4 named "&e&lARMOR &8Upgrades" to player
@@ -487,7 +519,7 @@ on right click:
 		format gui slot 27 of player with player's boots
 	if name of player's tool is "&e&lSETTINGS":
 		cancel event
-		open virtual chest inventory with size 1 named "&e&lSETTINGS &8Menu" to player
+		settings(player)
 	else if group of player is not "admin":
 		cancel event
 
@@ -502,3 +534,144 @@ on break:
 		set action bar of player to "%name of player's tool% &7is &c&lBROKEN"
 	else if event-block is stone:
 		add 1 to {gold::%player%}
+
+# ======== STAFF COMMANDS ======== STAFF COMMANDS ========
+# ======== STAFF COMMANDS ======== STAFF COMMANDS ========
+# ======== STAFF COMMANDS ======== STAFF COMMANDS ========
+
+command /staffchat [<text>]:
+	aliases: /sc
+	permission: staff
+	permission message: {@staff} {@permission}
+	trigger:
+		if arg-1 is not set:
+			if {staffchat::%player%} is not set:
+				set {staffchat::%player%} to true
+				send "{@staff} &7Toggle &aENABLED"
+			else:
+				delete {staffchat::%player%}
+				send "{@staff} &7Toggle &cDISABLED"
+		else:
+			loop all players:
+				if loop-player has permission "sc.staffchat":
+					send colored "{@staff} %player's prefix%&r%player's display name%&7: &r%arg 1%" to loop-player
+on chat:
+	if {staffchat::%player%} is set:
+		cancel event
+		loop all players:
+			if loop-player has permission "sc.staffchat":
+				send colored "{@staff} %player's prefix%&r%player's display name%&7: &r%message%" to loop-player
+every 1 second in "{@world}":
+	loop all players:
+		if {staffchat::%loop-player%} is true:
+			send action bar "{@staff} &aEnabled" to loop-player
+on chat:
+	if player is op:
+		stop
+	else:
+		if {SkCheat::spam.m::%uuid of player%} is message:
+			add 1 to {SkCheat::spam.p::%uuid of player%}
+			if {SkCheat.spam.notify::%uuid of player%} is not set:
+				set {SkCheat.spam.notify::%uuid of player%} to now
+			if difference between {SkCheat.spam.notify::%uuid of player%} and now is more than 1 second:
+				if {SkCheat::spam.p::%uuid of player%} is greater than 6:
+					kick the player due to "{@shaft} You were spamming."
+					clear {SkCheat::spam.p::%uuid of player%}
+		else:
+			set {SkCheat::spam.m::%uuid of player%} to message	
+on join:
+	clear {SkCheat::spam.p::%uuid of player%}
+	clear {SkCheat::spam.m::%uuid of player%}
+on disconnect:
+	clear {SkCheat::spam.p::%uuid of player%}
+	clear {SkCheat::spam.m::%uuid of player%}
+command /mutechat:
+	permission: staff
+	permission message: {@staff} {@permission}
+	trigger:
+		if {Globalchat} is not set:
+			set {Globalchat} to true
+			broadcast "{@chat} &7Chat &cMUTED &7by %player%"
+			stop trigger
+		if {Globalchat} is set:
+			clear {Globalchat}
+			broadcast "{@chat} &7Chat &aUNMUTED &7by %player%"
+on chat:
+	if {Globalchat} is true:
+		if player has permission "chat.mute.bypass":
+			stop trigger
+		else:
+			cancel event
+			send "{@chat} &cChat is currently muted."
+command /clearchat:
+	permission: staff
+	permission message: {@staff} {@permission}
+	aliases: /cc
+	trigger:
+		loop 100 times:
+			broadcast ""
+		send "{@chat} &aYou have cleared the chat"
+
+# ======== ADMIN ======== ADMIN ========
+# ======== ADMIN ======== ADMIN ========
+# ======== ADMIN ======== ADMIN ========
+
+command /modify [<offline player>] [<text>] [<text>] [<integer>]:
+    trigger:
+        if player is op:
+            if arg-1 is not set:
+                send "{@admin} &f/modify &f<player>"
+                stop
+            else if arg-2 is not "level" or "gold" or "gem" or "medal" or "token" or "all":
+                send "{@admin} &f/modify <%arg-1%> &f<level gold gem medal token all>"
+                stop
+            else if arg-3 is not "add" or "remove" or "set" or "reset":
+                if arg-2 is "reset":
+                    send "{@admin} &f/modify <%arg-1%> <%arg-2%> &f<reset>"
+                else:
+                    send "{@admin} &f/modify <%arg-1%> <%arg-2%> &f<add remove set reset>"
+                stop
+            else if arg-4 is not set:
+                if arg-3 is not "reset":
+                    send "{@admin} &f/modify <%arg-1%> <%arg-2%> <%arg-3%> &f<integer>"
+                    stop
+            if arg-3 is "add":
+                add arg-4 to {%arg-2%::%arg-1%}
+                send "{@admin} &fAdded %arg-4% to %arg-1%'s %arg-2%"
+            else if arg-3 is "remove":
+                if arg-2 is "level":
+                    if arg-4 is greater than {level::%arg-1%} - 1:
+                        set {_n} to {level::%arg-1%} - 1
+                else if arg-4 is greater than {%arg-2%::%arg-1%}:
+                    set {_n} to {%arg-2%::%arg-1%}
+                else:
+                    set {_n} to arg-4
+                remove {_n} from {%arg-2%::%arg-1%}
+                send "{@admin} &fRemoved %{_n}% from %arg-1%'s %arg-2%"
+            else if arg-3 is "set":
+                if arg-2 is "level":
+                    if arg-4 is less than 1:
+                        set {_n} to 1
+                else if arg-4 is less than 0:
+                    set {_n} to 0
+                else:
+                    set {_n} to arg-4
+                set {%arg-2%::%arg-1%} to {_n}
+                send "{@admin} &fSet %arg-1%'s %arg-2% to %{_n}%"
+            else if arg-3 is "reset":
+                if arg-2 is "level":
+                    set {_n} to 1
+                else if arg-2 is "all":
+                    set {level::%arg-1%} to 1
+                    set {gold::%arg-1%} to 0
+                    set {gem::%arg-1%} to 0
+                    set {medal::%arg-1%} to 0
+                    set {token::%arg-1%} to 0
+                    send "{@admin} &fReset all for %arg-1%"
+                    stop
+                else:
+                    set {_n} to 0
+                set {%arg-2%::%arg-1%} to {_n}
+                send "{@admin} &fReset %arg-1%'s %arg-2%"
+        else:
+            send "{@admin} {@permission}"
