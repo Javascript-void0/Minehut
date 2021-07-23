@@ -151,9 +151,11 @@ every 1 second in "{@world}":
 		set score "    " in sidebar of loop-player to 12
 		set score " &e&lPLAYER &7(:L&7%{level::%loop-player%}%)" in sidebar of loop-player to 11
 		set score "   &7Class: &f<none>" in sidebar of loop-player to 10
-		set score "   &7Gold: &f%{gold::%loop-player%}%" in sidebar of loop-player to 9
+		set {_gold} to format({gold::%loop-player%})
+		set score "   &7Gold: &f%{_gold}%" in sidebar of loop-player to 9
 		set score "   &7Gems: &f%{gem::%loop-player%}%" in sidebar of loop-player to 8
-		set score "   &7Medals: &f%{medal::%loop-player%}%" in sidebar of loop-player to 7
+		set {_medal} to format({medal::%loop-player%})
+		set score "   &7Medals: &f%{_medal}%" in sidebar of loop-player to 7
 		set score "   &7Tokens: &f%{token::%loop-player%}%" in sidebar of loop-player to 6
 		set score "   &7Bonus: &f%{bonus::%loop-player%}%%%" in sidebar of loop-player to 5
 		set score "  " in sidebar of loop-player to 4
@@ -354,6 +356,22 @@ on chat:
 	else:
 		set the chat format to colored "&8[%{_prefix}%&8] &r%{_player}%&7: &7%message%"
 
+# ======== NUMBER FORMAT ======== NUMBER FORMAT ========
+# ======== NUMBER FORMAT ======== NUMBER FORMAT ========
+# ======== NUMBER FORMAT ======== NUMBER FORMAT ========
+
+function roundto(n: number, to: number) :: number:
+   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
+
+function format(n: number) :: text:
+	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
+	loop split {_data} at "|":
+		set {_s::*} to split loop-value at ","
+		{_n} >= 10 ^ {_s::2} parsed as number
+		set {_nn} to roundto({_n} / 10 ^ {_s::2} parsed as number, 1)
+		return "%{_nn}%%{_s::1}%"
+	return "%{_n}%"
+
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
@@ -505,12 +523,16 @@ function stats(p: player):
 	format gui slot 11 of {_p} with compass named "&6Position: &f%location of {_p}%" with lore "&7 > For those without F3...?"
 	format gui slot 13 of {_p} with head of {_p} named "&7:L%{level::%{_p}%}%&8: &e%display name of {_p}%"
 	format gui slot 15 of {_p} with clock named "&6Playtime: &f%time played of {_p}%" with lore "&7 > Total time spent online"
-	format gui slot 30 of {_p} with gold ingot named "&6Gold: &f%{gold::%{_p}%}%"
+	set {_gold} to format({gold::%{_p}%})
+	format gui slot 30 of {_p} with gold ingot named "&6Gold: &f%{_gold}%"
 	format gui slot 31 of {_p} with sunflower named "&6Tokens: &f%{token::%{_p}%}%"
-	format gui slot 32 of {_p} with bell named "&6Medals: &f%{medal::%{_p}%}%"
+	set {_medal} to format({medal::%{_p}%})
+	format gui slot 32 of {_p} with bell named "&6Medals: &f%{_medal}%"
 	format gui slot 40 of {_p} with emerald named "&6Gems: &f%{gem::%{_p}%}%"
-	format gui slot 41 of {_p} with grass block named "&6Total Blocks: &f%{totalblock::%{_p}%}%" with lore "&7 > The total blocks altogether"
-	format gui slot 42 of {_p} with stone named "&6Blocks This Rebirth: &f%{block::%{_p}%}%" with lore "&7 > The total since last rebirth"
+	set {_total} to format({totalblock::%{_p}%})
+	format gui slot 41 of {_p} with grass block named "&6Total Blocks: &f%{_total}%" with lore "&7 > The total blocks altogether"
+	set {_block} to format({block::%{_p}%})
+	format gui slot 42 of {_p} with stone named "&6Blocks This Rebirth: &f%{_block}%" with lore "&7 > The total since last rebirth"
 	format gui slot 43 of {_p} with cookie named "&6Current Bonus: &f%{bonus::%{_p}%}%%%" with lore "&7 > Depends on your current gear"
 
 function removeLoreLabel(t: text) :: number:
@@ -551,10 +573,58 @@ function tool(p: player):
 	set {_1} to removeLoreLabel(line 1 of lore of tool of {_p})
 	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
 	set {_cost1} to {_1}^2
+	set {_cost11} to format({_cost1})
 	set {_cost2} to ({_2} * 10000)^2
-	format gui slot 1 of {_p} with bell named "&eMedals: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost1}% &eMedals" to run function medalUpgrade({_p}, {_cost1})
-	format gui slot 3 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost2}% &eGold" to run function bonusUpgrade({_p}, {_cost2})
+	set {_cost22} to format({_cost2})
+	format gui slot 1 of {_p} with bell named "&eMedals: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost11}% &eMedals" to run function medalUpgrade({_p}, {_cost1})
+	format gui slot 3 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost22}% &eGold" to run function bonusUpgrade({_p}, {_cost2})
 	format gui slot 7 of {_p} with nether star named "&bRebirth" with lore "&7 > Click to &bRebirth &7and Gain Medals" and "&7 > 12 &b+120 (%{bonus::%{_p}%}%%%) &e +120 (%{blessing}%%%) &eMedals"
+
+function isGlass(p: player, s: integer) :: boolean:
+	if slot {_s} of {_p} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
+		return true
+	return false
+
+function armor(p: player):
+	open virtual chest inventory with size 4 named "&e&lARMOR &8Upgrades" to {_p}
+	if helmet of {_p} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
+		format gui slot 0 of {_p} with helmet of {_p}
+		set {_helmet} to helmet of {_p}
+	else if isGlass({_p}, 12) is true:
+		format gui slot 0 of {_p} with slot 12 of {_p}
+		set {_helmet} to slot 12 of {_p}
+	else if isGlass({_p}, 21) is true:
+		format gui slot 0 of {_p} with slot 21 of {_p}
+		set {_helmet} to slot 21 of {_p}
+	else if isGlass({_p}, 22) is true:
+		format gui slot 0 of {_p} with slot 22 of {_p}
+		set {_helmet} to slot 22 of {_p}
+	else if isGlass({_p}, 23) is true:
+		format gui slot 0 of {_p} with slot 23 of {_p}
+		set {_helmet} to slot 23 of {_p}
+	else if isGlass({_p}, 30) is true:
+		format gui slot 0 of {_p} with slot 30 of {_p}
+		set {_helmet} to slot 30 of {_p}
+	else if isGlass({_p}, 31) is true:
+		format gui slot 0 of {_p} with slot 31 of {_p}
+		set {_helmet} to slot 31 of {_p}
+	else if isGlass({_p}, 32) is true:
+		format gui slot 0 of {_p} with slot 32 of {_p}
+		set {_helmet} to slot 32 of {_p}
+	if chestplate of {_p} is chestplate:
+		format gui slot 9 of {_p} with chestplate of {_p}
+		set {_chestplate} to chestplate of {_p}
+	else:
+		format gui slot 9 of {_p} with slot 13 of {_p}
+		set {_chestplate} to slot 13 of {_p}
+	format gui slot 18 of {_p} with leggings of {_p}
+	set {_leggings} to leggings of {_p}
+	if boots of {_p} is not {hermes}:
+		format gui slot 27 of {_p} with boots of {_p}
+		set {_boots} to boots of {_p}
+	else:
+		format gui slot 27 of {_p} with slot 14 of {_p}
+		set {_boots} to slot 14 of {_p}
 
 on right click:
 	if player's tool is pickaxe or axe or shovel:
@@ -572,11 +642,7 @@ on right click:
 			teleport player to {spawn}
 	if name of player's tool is "&e&lARMOR":
 		cancel event
-		open virtual chest inventory with size 4 named "&e&lARMOR &8Upgrades" to player
-		format gui slot 0 of player with player's helmet
-		format gui slot 9 of player with player's chestplate
-		format gui slot 18 of player with player's leggings
-		format gui slot 27 of player with player's boots
+		armor(player)
 	if name of player's tool is "&e&lSETTINGS":
 		cancel event
 		settings(player)
