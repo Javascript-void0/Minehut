@@ -11,7 +11,7 @@ options:
 	tokens: &7Insufficient &dTokens
 	staff: &8[&e&lSTAFF&8]&f
 	admin: &8[&6&lADMIN&8]&f
-	world: build
+	world: world
 
 on hunger meter change:
 	cancel event
@@ -376,10 +376,13 @@ function format(n: number) :: text:
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
 
-command /new:
+command /new [<text>]:
 	trigger:
 		if player is op:
-			new(player)
+			if arg-1 is "lock" or "locked":
+				newlock(player)
+			else if arg-1 is "unlock" or "unlocked":
+				new(player)
 
 function new(p: player):
 	set helmet of {_p} to {1_helmet}
@@ -403,6 +406,32 @@ function new(p: player):
 	set slot 6 of {_p} to anvil named "&e&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
 	set slot 7 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
 	set slot 8 of {_p} to spruce boat named "&e&lWARPS" with lore "&7Right Click To Open Avaiable Warps"
+
+function newlock(p: player):
+	set helmet of {_p} to {1_helmet}
+	set chestplate of {_p} to {1_chestplate}
+	set leggings of {_p} to {1_leggings}
+	set boots of {_p} to {1_boots}
+	set slot 0 of {_p} to {1_pickaxe}
+	set slot 1 of {_p} to {1_axe}
+	set slot 2 of {_p} to {1_shovel}
+	set slot 12 of {_p} to feather named "&8(&7★★★&8) &eTalaria &7- &c&lLOCKED" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b100 &7fragments to gain perm access" and "&f> 0&7/100 Fragments"
+	set slot 13 of {_p} to elytra named "&8(&7★★★&8) &eZeus &7- &c&lLOCKED" with lore "&7+ Speed &b2 &7while wearing" and "&7+ Haste &b2 &7while wearing" and "&7> &7Collect &b100 &7fragments to gain perm access" and "&f> 0&7/100 Fragments"
+	set {_hermes} to {hermes}
+	set name of {_hermes} to "&8(&e★★★&8) &eHermes &7- &c&lLOCKED"
+	set slot 14 of {_p} to {_hermes}
+	set slot 21 of {_p} to enchanted golden apple named "&8(&7★★★&8) &bApollo &7- &c&lLOCKED"
+	set slot 22 of {_p} to bone named "&8(&7★★★&8) &bHades &7- &c&lLOCKED"
+	set slot 23 of {_p} to totem of undying named "&8(&7★★★&8) &bKronos &7- &c&lLOCKED" with lore "&7<non>"
+	set slot 30 of {_p} to end rod named "&8(&7★★★&8) &7Pegasus &7- &c&lLOCKED"
+	set slot 31 of {_p} to lead named "&8(&7★★★&8) &7Athena &7- &c&lLOCKED"
+	set slot 32 of {_p} to raw cod named "&8(&7★★★&8) &7Poseiden &7- &c&lLOCKED"
+	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
+	set slot 5 of {_p} to smithing table named "&e&lARMOR" with lore "&7Right Click To Upgrade &eArmor &7With &dTokens" and "&7 > &eArmor &7upgrades are permanent"
+	set slot 6 of {_p} to anvil named "&e&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
+	set slot 7 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
+	set slot 8 of {_p} to spruce boat named "&e&lWARPS" with lore "&7Right Click To Open Avaiable Warps"
+
 
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
@@ -452,6 +481,8 @@ on inventory click:
 		stop
 	if clicked slot is 12:
 		cancel event
+		if name of event-item contains "&c&lLOCKED":
+			stop
 		if event-item is not light gray stained glass:
 			set player's flight mode to true
 			hatreset(player)
@@ -460,43 +491,59 @@ on inventory click:
 		hat(player, event-item, 12)
 	else if clicked slot is 13:
 		cancel event
+		if name of event-item contains "&c&lLOCKED":
+			stop
 		set {_cur} to chestplate of player
 		set {_new} to event-item
 		set chestplate of player to {_new}
 		set slot 13 of player to {_cur}
 	else if clicked slot is 14:
 		cancel event
+		if name of event-item contains "&c&lLOCKED":
+			stop
 		set {_cur} to boots of player
 		set {_new} to event-item
 		set boots of player to {_new}
 		set slot 14 of player to {_cur}
 	else if clicked slot is 21:
 		cancel event
+		if name of event-item contains "&c&lLOCKED":
+			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
 		hat(player, event-item, 21)
 	else if clicked slot is 22:
 		cancel event
+		if name of event-item contains "&c&lLOCKED":
+			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
 		hat(player, event-item, 22)
 	else if clicked slot is 23:
 		cancel event
+		if name of event-item contains "&c&lLOCKED":
+			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
 		hat(player, event-item, 23)
 	else if clicked slot is 30:
 		cancel event
+		if name of event-item contains "&c&lLOCKED":
+			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
 		hat(player, event-item, 30)
 	else if clicked slot is 31:
 		cancel event
+		if name of event-item contains "&c&lLOCKED":
+			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
 		hat(player, event-item, 31)
 	else if clicked slot is 32:
 		cancel event
+		if name of event-item contains "&c&lLOCKED":
+			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
 		hat(player, event-item, 32)
@@ -563,6 +610,48 @@ function bonusUpgrade(p: player, c: number):
 	else:
 		send "{@shaft} {@gold}" to {_p}
 
+function rebirth(p: player):
+	if {block::%{_p}%} is less than 2000:
+		set {_m} to 2000 - {block::%{_p}%}
+		send "{@shaft} &7You need to mine &c%{_m}% &7more blocks before rebirth" to {_p}
+	else:
+		set {_level} to floor({block::%{_p}%} / 1000)
+		set {_before} to {level::%{_p}%}
+		if {_before} is less than {_level}:
+			set {level::%{_p}%} to {_level}
+			set {_dif} to {_level} - {_before}
+			send "{@shaft} &7Player Level increased from &e%{_before}% &7to &e%{_level}% &7(&e+{%{_dif}%&7)" to {_p}
+		rebirthnew({_p})
+		set {_blessing} to {blessing} / 100
+		set {_medals} to {block::%{_p}%} * {_blessing}
+		add {_medals} to {medal::%{_p}%}
+		set {block::%{_p}%} to 0
+		set {gold::%{_p}%} to 0
+		set {_m} to format({_medals})
+		send "{@shaft} &7You rebirthed and gained &e%{_m}% &7medals" to {_p}
+
+command /test [<integer>]:
+	trigger:
+		if player is op:
+			set {block::%player%} to arg-1
+
+function rebirthnew(p: player):
+	set {_item} to slot 0 of {_p}
+	disenchant {_item}
+	repair {_item}
+	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+	set slot 0 of {_p} to {_item}
+	set {_item} to slot 1 of {_p}
+	disenchant {_item}
+	repair {_item}
+	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+	set slot 1 of {_p} to {_item}
+	set {_item} to slot 2 of {_p}
+	disenchant {_item}
+	repair {_item}
+	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+	set slot 2 of {_p} to {_item}
+
 function tool(p: player):
 	if tool of {_p} is pickaxe:
 		open virtual chest inventory with size 1 named "&e&lPICKAXE &8Menu" to {_p}
@@ -578,7 +667,7 @@ function tool(p: player):
 	set {_cost22} to format({_cost2})
 	format gui slot 1 of {_p} with bell named "&eMedals: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost11}% &eMedals" to run function medalUpgrade({_p}, {_cost1})
 	format gui slot 3 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost22}% &eGold" to run function bonusUpgrade({_p}, {_cost2})
-	format gui slot 7 of {_p} with nether star named "&bRebirth" with lore "&7 > Click to &bRebirth &7and Gain Medals" and "&7 > 12 &b+120 (%{bonus::%{_p}%}%%%) &e +120 (%{blessing}%%%) &eMedals"
+	format gui slot 7 of {_p} with nether star named "&bRebirth" with lore "&7 > Click to &bRebirth &7and Gain Medals" and "&7 > 12 &b+120 (%{bonus::%{_p}%}%%%) &e +120 (%{blessing}%%%) &eMedals" to run function rebirth({_p})
 
 function isGlass(p: player, s: integer) :: boolean:
 	if slot {_s} of {_p} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
