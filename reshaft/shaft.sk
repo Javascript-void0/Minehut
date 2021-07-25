@@ -673,79 +673,171 @@ function rebirth(p: player):
 
 function rebirthnew(p: player):
 	set {_item} to slot 0 of {_p}
-	disenchant {_item}
+	set {_bind} to level of curse of binding on {_item}
+	if {_bind} is 0:
+		disenchant {_item}
 	repair {_item}
 	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 0 of {_p} to {_item}
+	set {_bind} to level of curse of binding on {_item}
+	if {_bind} is 0:
+		disenchant {_item}
 	set {_item} to slot 1 of {_p}
 	disenchant {_item}
 	repair {_item}
 	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 1 of {_p} to {_item}
+	set {_bind} to level of curse of binding on {_item}
+	if {_bind} is 0:
+		disenchant {_item}
 	set {_item} to slot 2 of {_p}
 	disenchant {_item}
 	repair {_item}
 	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 2 of {_p} to {_item}
 
-function setEnchant(p: player, t: text, enchant: text, max: integer, cost: integer, current: integer):
-	if {_current} >= {_max}:
-		send "{@shaft} &cMax Enchant" to {_p}
-		stop
-	else if {%{_t}%::%{_p}%} is greater than {_cost}:
-		set {_new} to {_current} + 1
-		enchant tool of {_p} with "%{_enchant}% %{_new}%" parsed as enchantment type
-		remove {_cost} from {%{_t}%::%{_p}%}
-	else if {_t} is "gold":
-		send "{@shaft} {@gold}" to {_p}
-	else if {_t} is "gem":
-		send "{@shaft} {@gems}" to {_p}
-
 function enchants(p: player):
 	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
-	set {_l} to level of efficiency of held item of {_p}
-	if {_l} is not set:
-		set {_l} to 0
-	set {_c} to {_l} * 100000
-	format gui slot 1 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Efficiency" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f25" and "&eCost: &f%{_c}% &eGold" to run function setEnchant({_p}, gold, efficiency, 25, {_c}, {_l})
-	delete {_l}
 	set {_l} to level of unbreaking of held item of {_p}
 	if {_l} is not set:
 		set {_l} to 0
-	set {_c} to {_l} * 500000
-	format gui slot 2 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Unbreaking" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f%{level::%{_p}%}%" and "&eCost: &f%{_c}% &eGold" to run function setEnchant({_p}, gold, unbreaking, {level::%{_p}%}, {_c}, {_l})
+	set {_c} to ({_l} + 1) * 500000
+	set {_cf} to format({_c})
+	if {_l} is greater or equal to {level::%{_p}%}:
+		set {_c} to "&c&lMAX"
+	format gui slot 1 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Unbreaking" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f%{level::%{_p}%}%" and "&eCost: &f%{_cf}% &eGold" to run:
+		if {_l} is greater or equal to {level::%{_p}%}:
+			send "{@shaft} &cMax Level" to {_p}
+			stop
+		if {gold::%{_p}%} is greater than {_c}:
+			set {_new} to {_l} + 1
+			enchant held item of {_p} with "unbreaking %{_new}%" parsed as enchantment type
+			remove {_c} from {gold::%{_p}%}
+			send "{@shaft} &7Upgraded &eUnbreaking &7to &e%{_new}%" to {_p}
+		else:
+			send "{@shaft} {@gold}" to {_p}
+		enchants({_p})
+	delete {_l}
+	set {_l} to level of efficiency of held item of {_p}
+	if {_l} is not set:
+		set {_l} to 0
+	set {_c} to ({_l} + 1) * 100000
+	set {_cf} to format({_c})
+	if {_l} is greater or equal to 15:
+		set {_c} to "&c&lMAX"
+	format gui slot 2 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Efficiency" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f15" and "&eCost: &f%{_cf}% &eGold" to run: 
+		if {_l} is greater or equal to 15:
+			send "{@shaft} &cMax Level" to {_p}
+			stop
+		if {gold::%{_p}%} is greater than {_c}:
+			set {_new} to {_l} + 1
+			enchant held item of {_p} with "efficiency %{_new}%" parsed as enchantment type
+			remove {_c} from {gold::%{_p}%}
+			send "{@shaft} &7Upgraded &eEfficiency &7to &e%{_new}%" to {_p}
+		else:
+			send "{@shaft} {@gold}" to {_p}
+		enchants({_p})
 	delete {_l}
 	set {_l} to level of silk touch of held item of {_p}
 	if {_l} is not set:
 		set {_l} to 0
-	set {_c} to {_l} * 50000
-	format gui slot 3 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Silk Touch" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f10" and "&eCost: &f%{_c}% &eGold" to run function setEnchant({_p}, gold, silk touch, 10, {_c}, {_l})
+	set {_c} to ({_l} + 1) * 50000
+	set {_cf} to format({_c})
+	if {_l} is greater or equal to 10:
+		set {_c} to "&c&lMAX"
+	format gui slot 3 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Silk Touch" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f10" and "&eCost: &f%{_cf}% &eGold" to run:
+		if {_l} is greater or equal to 10:
+			send "{@shaft} &cMax Level" to {_p}
+			stop
+		if {gold::%{_p}%} is greater than {_c}:
+			set {_new} to {_l} + 1
+			enchant held item of {_p} with "silk touch %{_new}%" parsed as enchantment type
+			remove {_c} from {gold::%{_p}%}
+			send "{@shaft} &7Upgraded &eSilk Touch &7to &e%{_new}%" to {_p}
+		else:
+			send "{@shaft} {@gold}" to {_p}
+		enchants({_p})
 	delete {_l}
 	set {_l} to level of fortune of held item of {_p}
 	if {_l} is not set:
 		set {_l} to 0
-	set {_c} to {_l} * 50000
-	format gui slot 4 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Fortune" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f10" and "&eCost: &f%{_c}% &eGold" to run function setEnchant({_p}, gold, fortune, 10, {_c}, {_l})
+	set {_c} to ({_l} + 1) * 50000
+	set {_cf} to format({_c})
+	if {_l} is greater or equal to 10:
+		set {_c} to "&c&lMAX"
+	format gui slot 4 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Fortune" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f10" and "&eCost: &f%{_cf}% &eGold" to run:
+		if {_l} is greater or equal to 10:
+			send "{@shaft} &cMax Level" to {_p}
+			stop
+		if {gold::%{_p}%} is greater than {_c}:
+			set {_new} to {_l} + 1
+			enchant held item of {_p} with "fortune %{_new}%" parsed as enchantment type
+			remove {_c} from {gold::%{_p}%}
+			send "{@shaft} &7Upgraded &eFortune &7to &e%{_new}%" to {_p}
+		else:
+			send "{@shaft} {@gold}" to {_p}
+		enchants({_p})
 	delete {_l}
 	set {_l} to level of mending of held item of {_p}
 	if {_l} is not set:
 		set {_l} to 0
-	set {_c} to {_l} * 100000
-	format gui slot 5 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Mending" and "&7&o+1 20%% Repair for every level" and  "&7&o(Activates when tool is broken)" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f5" and "&eCost: &f%{_c}% &eGold" to run function setEnchant({_p}, gold, mending, 5, {_c}, {_l})
+	set {_c} to ({_l} + 1) * 100000
+	set {_cf} to format({_c})
+	if {_l} is greater or equal to 5:
+		set {_c} to "&c&lMAX"
+	format gui slot 5 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Mending" and "&7&o+1 20%% Repair for every level" and  "&7&o(Activates when tool is broken)" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f5" and "&eCost: &f%{_cf}% &eGold" to run: 
+		if {_l} is greater or equal to 5:
+			send "{@shaft} &cMax Level" to {_p}
+			stop
+		if {gold::%{_p}%} is greater than {_c}:
+			set {_new} to {_l} + 1
+			enchant held item of {_p} with "mending %{_new}%" parsed as enchantment type
+			remove {_c} from {gold::%{_p}%}
+			send "{@shaft} &7Upgraded &eMending &7to &e%{_new}%" to {_p}
+		else:
+			send "{@shaft} {@gold}" to {_p}
+		enchants({_p})
 	delete {_l}
 	set {_l} to level of curse of vanishing of held item of {_p}
 	if {_l} is not set:
 		set {_l} to 0
 	set {_c} to 15000
-	format gui slot 6 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&cCurse of Vanishing" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f1" and "&eCost: &f%{_c}% &bGems" to run function setEnchant({_p}, gem, curse of vanishing, 1, {_c}, {_l})
+	set {_cf} to spaced("%{_c}%")
+	if {_l} is greater or equal to 1:
+		set {_c} to "&c&lMAX"
+	format gui slot 6 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&cCurse of Vanishing" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f1" and "&eCost: &f%{_cf}% &bGems" to run: 
+		if {_l} is greater or equal to 1:
+			send "{@shaft} &cMax Level" to {_p}
+			stop
+		if {gold::%{_p}%} is greater than {_c}:
+			set {_new} to {_l} + 1
+			enchant held item of {_p} with "curse of vanishing %{_new}%" parsed as enchantment type
+			remove {_c} from {gold::%{_p}%}
+			send "{@shaft} &7Upgraded &eCurse of Vanishing &7to &e%{_new}%" to {_p}
+		else:
+			send "{@shaft} {@gems}" to {_p}
+		enchants({_p})
 	delete {_l}
 	set {_l} to level of curse of binding of held item of {_p}
 	if {_l} is not set:
 		set {_l} to 0
 	set {_c} to 15000
-	format gui slot 7 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&cCurse of Binding" and "&7&oKeep Enchantments After &bRebirth" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f1" and "&eCost: &f%{_c}% &bGems" to run function setEnchant({_p}, gem, curse of binding, 1, {_c}, {_l})
-	delete {_l}
+	set {_cf} to spaced("%{_c}%")
+	if {_l} is greater or equal to 1:
+		set {_c} to "&c&lMAX"
+	format gui slot 7 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&cCurse of Binding" and "&7&oKeep Enchantments After &bRebirth" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f1" and "&eCost: &f%{_cf}% &bGems" to run: 
+		if {_l} is greater or equal to 1:
+			send "{@shaft} &cMax Level" to {_p}
+			stop
+		if {gold::%{_p}%} is greater than {_c}:
+			set {_new} to {_l} + 1
+			enchant held item of {_p} with "curse of binding %{_new}%" parsed as enchantment type
+			remove {_c} from {gold::%{_p}%}
+			send "{@shaft} &7Upgraded &eCurse of Binding &7to &e%{_new}%" to {_p}
+		else:
+			send "{@shaft} {@gems}" to {_p}
+		enchants({_p})
 	format gui slot 8 of {_p} with arrow named "&7 < &cBack" with lore "&7Click to go back" to run function tool({_p})
 
 function tool(p: player):
@@ -935,61 +1027,64 @@ command /clearchat:
 # ======== ADMIN ======== ADMIN ========
 
 command /modify [<offline player>] [<text>] [<text>] [<integer>]:
-    trigger:
-        if player is op:
-            if arg-1 is not set:
-                send "{@admin} &f/modify &f<player>"
-                stop
-            else if arg-2 is not "level" or "gold" or "gem" or "medal" or "token" or "block" or "all":
-                send "{@admin} &f/modify <%arg-1%> &f<level gold gem medal token block all>"
-                stop
-            else if arg-3 is not "add" or "remove" or "set" or "reset":
-                if arg-2 is "reset":
-                    send "{@admin} &f/modify <%arg-1%> <%arg-2%> &f<reset>"
-                else:
-                    send "{@admin} &f/modify <%arg-1%> <%arg-2%> &f<add remove set reset>"
-                stop
-            else if arg-4 is not set:
-                if arg-3 is not "reset":
-                    send "{@admin} &f/modify <%arg-1%> <%arg-2%> <%arg-3%> &f<integer>"
-                    stop
-            if arg-3 is "add":
-                add arg-4 to {%arg-2%::%arg-1%}
-                send "{@admin} &fAdded %arg-4% to %arg-1%'s %arg-2%"
-            else if arg-3 is "remove":
-                if arg-2 is "level":
-                    if arg-4 is greater than {level::%arg-1%} - 1:
-                        set {_n} to {level::%arg-1%} - 1
-                else if arg-4 is greater than {%arg-2%::%arg-1%}:
-                    set {_n} to {%arg-2%::%arg-1%}
-                else:
-                    set {_n} to arg-4
-                remove {_n} from {%arg-2%::%arg-1%}
-                send "{@admin} &fRemoved %{_n}% from %arg-1%'s %arg-2%"
-            else if arg-3 is "set":
-                if arg-2 is "level":
-                    if arg-4 is less than 1:
-                        set {_n} to 1
-                else if arg-4 is less than 0:
-                    set {_n} to 0
-                else:
-                    set {_n} to arg-4
-                set {%arg-2%::%arg-1%} to {_n}
-                send "{@admin} &fSet %arg-1%'s %arg-2% to %{_n}%"
-            else if arg-3 is "reset":
-                if arg-2 is "level":
-                    set {_n} to 1
-                else if arg-2 is "all":
-                    set {level::%arg-1%} to 1
-                    set {gold::%arg-1%} to 0
-                    set {gem::%arg-1%} to 0
-                    set {medal::%arg-1%} to 0
-                    set {token::%arg-1%} to 0
-                    send "{@admin} &fReset all for %arg-1%"
-                    stop
-                else:
-                    set {_n} to 0
-                set {%arg-2%::%arg-1%} to {_n}
-                send "{@admin} &fReset %arg-1%'s %arg-2%"
-        else:
-            send "{@admin} {@permission}"
+	trigger:
+		if player is op:
+			if arg-1 is not set:
+				send "{@admin} &f/modify &f<player>"
+				stop
+			else if arg-2 is not "level" or "gold" or "gem" or "medal" or "token" or "block" or "all":
+				send "{@admin} &f/modify <%arg-1%> &f<level gold gem medal token block all>"
+				stop
+			else if arg-3 is not "add" or "remove" or "set" or "reset":
+				if arg-2 is "reset":
+					send "{@admin} &f/modify <%arg-1%> <%arg-2%> &f<reset>"
+				else:
+					send "{@admin} &f/modify <%arg-1%> <%arg-2%> &f<add remove set reset>"
+				stop
+			else if arg-4 is not set:
+				if arg-3 is not "reset":
+					send "{@admin} &f/modify <%arg-1%> <%arg-2%> <%arg-3%> &f<integer>"
+					stop
+			if arg-3 is "add":
+				add arg-4 to {%arg-2%::%arg-1%}
+				set {_nn} to format(arg-4)
+				send "{@admin} &7Added &e%{_nn}% &7to &e%arg-1%&e's &7%arg-2%"
+			else if arg-3 is "remove":
+				if arg-2 is "level":
+					if arg-4 is greater than {level::%arg-1%} - 1:
+						set {_n} to {level::%arg-1%} - 1
+				else if arg-4 is greater than {%arg-2%::%arg-1%}:
+					set {_n} to {%arg-2%::%arg-1%}
+				else:
+					set {_n} to arg-4
+				remove {_n} from {%arg-2%::%arg-1%}
+				set {_nn} to format({_n})
+				send "{@admin} &7Removed &e%{_nn}% &7from &e%arg-1%&e's &7%arg-2%"
+			else if arg-3 is "set":
+				if arg-2 is "level":
+					if arg-4 is less than 1:
+						set {_n} to 1
+				else if arg-4 is less than 0:
+					set {_n} to 0
+				else:
+					set {_n} to arg-4
+				set {%arg-2%::%arg-1%} to {_n}
+				set {_nn} to format({_n})
+				send "{@admin} &7Set &e%arg-1%&e's &7%arg-2% to &e%{_nn}%"
+			else if arg-3 is "reset":
+				if arg-2 is "level":
+					set {_n} to 1
+				else if arg-2 is "all":
+					set {level::%arg-1%} to 1
+					set {gold::%arg-1%} to 0
+					set {gem::%arg-1%} to 0
+					set {medal::%arg-1%} to 0
+					set {token::%arg-1%} to 0
+					send "{@admin} &7Reset all for &e%arg-1%"
+					stop
+				else:
+					set {_n} to 0
+				set {%arg-2%::%arg-1%} to {_n}
+				send "{@admin} &7Reset &e%arg-1%'s &7%arg-2%"
+		else:
+			send "{@admin} {@permission}"
