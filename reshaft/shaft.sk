@@ -1,6 +1,5 @@
 options:
 	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
-	chat: &8[&6&lCHAT&8]&f
 	discord: &8[&e&lDISCORD&8]&f
 	broadcast: &8[&e&lBROADCAST&8]&f
 	rule: &8[&e&lRULE&8]&f
@@ -55,6 +54,17 @@ command /setspawn:
 			send "{@admin} Spawn Set to %player's position%"
 		else:
 			send "{@admin} {@permission}"
+
+command /tps:
+	trigger:
+		set {_tps} to tps from the last 1 minute
+		set {_t} to roundto({_tps}, 2)
+		if {_t} >= 19:
+			send "{@shaft} &a%{_t}% &7TPS"
+		else if {_t} >= 16:
+			send "{@shaft} &e%{_t}% &7TPS"
+		else:
+			send "{@shaft} &c%{_t}% &7TPS"
 
 command /bc [<text>]:
 	aliases: /broadcast
@@ -163,7 +173,9 @@ every 1 second in "{@world}":
 		set score "   &7Bonus: &f%{bonus::%loop-player%}%%%" in sidebar of loop-player to 5
 		set score "  " in sidebar of loop-player to 4
 		set score " &e&lSERVER &7(%number of all players%/10)" in sidebar of loop-player to 3
-		set score "   &7TPS: &f%tps from the last 1 minute%" in sidebar of loop-player to 2
+		set {_tps} to tps from the last 1 minute
+		set {_t} to roundto({_tps}, 2)
+		set score "   &7TPS: &f%{_t}%" in sidebar of loop-player to 2
 		set score "   &7Blessing: &f%{blessing}%%%" in sidebar of loop-player to 1
 		set score " " in sidebar of loop-player to 0
 
@@ -659,11 +671,6 @@ function rebirth(p: player):
 		set {_m} to format({_medals})
 		send "{@shaft} &7You rebirthed and gained &e%{_m}% &7medals" to {_p}
 
-command /test [<integer>]:
-	trigger:
-		if player is op:
-			set {block::%player%} to arg-1
-
 function rebirthnew(p: player):
 	set {_item} to slot 0 of {_p}
 	disenchant {_item}
@@ -681,22 +688,64 @@ function rebirthnew(p: player):
 	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 2 of {_p} to {_item}
 
-function getEnchant(p: player):
-	stop
-
-function setEnchant(p: player):
-	stop
+function setEnchant(p: player, t: text, enchant: text, max: integer, cost: integer, current: integer):
+	if {_current} >= {_max}:
+		send "{@shaft} &cMax Enchant" to {_p}
+		stop
+	else if {%{_t}%::%{_p}%} is greater than {_cost}:
+		set {_new} to {_current} + 1
+		enchant tool of {_p} with "%{_enchant}% %{_new}%" parsed as enchantment type
+		remove {_cost} from {%{_t}%::%{_p}%}
+	else if {_t} is "gold":
+		send "{@shaft} {@gold}" to {_p}
+	else if {_t} is "gem":
+		send "{@shaft} {@gems}" to {_p}
 
 function enchants(p: player):
 	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
-	format gui slot 1 of {_p} with enchanted book named "&bEfficiency &7I-XV" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
-	format gui slot 2 of {_p} with enchanted book named "&bUnbreaking &7I-C" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
-	format gui slot 3 of {_p} with enchanted book named "&bSilk Touch &7I-X" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
-	format gui slot 4 of {_p} with enchanted book named "&bFortune &7I-X" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
-	format gui slot 5 of {_p} with enchanted book named "&bMending &7I-V" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
-	format gui slot 6 of {_p} with enchanted book named "&bCurse of Vanishing &7I" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
-	format gui slot 7 of {_p} with enchanted book named "&bCurse of Binding" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
+	set {_l} to level of efficiency of held item of {_p}
+	if {_l} is not set:
+		set {_l} to 0
+	set {_c} to {_l} * 100000
+	format gui slot 1 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Efficiency" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f25" and "&eCost: &f%{_c}% &eGold" to run function setEnchant({_p}, gold, efficiency, 25, {_c}, {_l})
+	delete {_l}
+	set {_l} to level of unbreaking of held item of {_p}
+	if {_l} is not set:
+		set {_l} to 0
+	set {_c} to {_l} * 500000
+	format gui slot 2 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Unbreaking" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f%{level::%{_p}%}%" and "&eCost: &f%{_c}% &eGold" to run function setEnchant({_p}, gold, unbreaking, {level::%{_p}%}, {_c}, {_l})
+	delete {_l}
+	set {_l} to level of silk touch of held item of {_p}
+	if {_l} is not set:
+		set {_l} to 0
+	set {_c} to {_l} * 50000
+	format gui slot 3 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Silk Touch" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f10" and "&eCost: &f%{_c}% &eGold" to run function setEnchant({_p}, gold, silk touch, 10, {_c}, {_l})
+	delete {_l}
+	set {_l} to level of fortune of held item of {_p}
+	if {_l} is not set:
+		set {_l} to 0
+	set {_c} to {_l} * 50000
+	format gui slot 4 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Fortune" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f10" and "&eCost: &f%{_c}% &eGold" to run function setEnchant({_p}, gold, fortune, 10, {_c}, {_l})
+	delete {_l}
+	set {_l} to level of mending of held item of {_p}
+	if {_l} is not set:
+		set {_l} to 0
+	set {_c} to {_l} * 100000
+	format gui slot 5 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Mending" and "&7&o+1 20%% Repair for every level" and  "&7&o(Activates when tool is broken)" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f5" and "&eCost: &f%{_c}% &eGold" to run function setEnchant({_p}, gold, mending, 5, {_c}, {_l})
+	delete {_l}
+	set {_l} to level of curse of vanishing of held item of {_p}
+	if {_l} is not set:
+		set {_l} to 0
+	set {_c} to 15000
+	format gui slot 6 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&cCurse of Vanishing" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f1" and "&eCost: &f%{_c}% &bGems" to run function setEnchant({_p}, gem, curse of vanishing, 1, {_c}, {_l})
+	delete {_l}
+	set {_l} to level of curse of binding of held item of {_p}
+	if {_l} is not set:
+		set {_l} to 0
+	set {_c} to 15000
+	format gui slot 7 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&cCurse of Binding" and "&7&oKeep Enchantments After &bRebirth" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f1" and "&eCost: &f%{_c}% &bGems" to run function setEnchant({_p}, gem, curse of binding, 1, {_c}, {_l})
+	delete {_l}
 	format gui slot 8 of {_p} with arrow named "&7 < &cBack" with lore "&7Click to go back" to run function tool({_p})
 
 function tool(p: player):
@@ -860,18 +909,18 @@ command /mutechat:
 	trigger:
 		if {Globalchat} is not set:
 			set {Globalchat} to true
-			broadcast "{@chat} &7Chat &cMUTED &7by %player%"
+			broadcast "{@shaft} &7Chat &cMUTED &7by %player%"
 			stop trigger
 		if {Globalchat} is set:
 			clear {Globalchat}
-			broadcast "{@chat} &7Chat &aUNMUTED &7by %player%"
+			broadcast "{@shaft} &7Chat &aUNMUTED &7by %player%"
 on chat:
 	if {Globalchat} is true:
 		if player has permission "chat.mute.bypass":
 			stop trigger
 		else:
 			cancel event
-			send "{@chat} &cChat is currently muted."
+			send "{@shaft} &cChat is currently muted."
 command /clearchat:
 	permission: staff
 	permission message: {@staff} {@permission}
@@ -879,7 +928,7 @@ command /clearchat:
 	trigger:
 		loop 100 times:
 			broadcast ""
-		send "{@chat} &aYou have cleared the chat"
+		send "{@shaft} &aYou have cleared the chat"
 
 # ======== ADMIN ======== ADMIN ========
 # ======== ADMIN ======== ADMIN ========
