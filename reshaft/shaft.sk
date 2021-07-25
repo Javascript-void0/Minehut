@@ -234,8 +234,8 @@ on join:
 
 command /top [<text>]:
 	trigger:
-		if arg-1 is not "level" or "gold" or "gem" or "medal" or "token":
-			send "{@shaft} /top <level gold gem medal token>"
+		if arg-1 is not "level" or "gold" or "gem" or "medal" or "token" or "totalblock":
+			send "{@shaft} /top <level gold gem medal token totalblock>"
 		else:
 			loop {%arg-1%::*}:
 				add 1 to {_size}
@@ -255,22 +255,28 @@ command /top [<text>]:
 				set {_n} to {_n}-1
 			wait 1 tick
 			set {_i} to 0
-			send ""
 			send "&7&m-----------&r &8[ &e&lTOP &8] &7&m-------------"
 			loop {_high.to.low.list::*}:
 				if arg-1 is "level":
-					set {_label} to "&7:L%{%arg-1%::%loop-value%}%"
+					set {_label} to "&e:L%{%arg-1%::%loop-value%}%"
 				else if arg-1 is "gold":
-					set {_label} to "&7%{%arg-1%::%loop-value%}% gold"
+					set {_gold} to format({%arg-1%::%loop-value%})
+					set {_label} to "&e%{_gold}% &7gold"
 				else if arg-1 is "gem":
-					set {_label} to "&7%{%arg-1%::%loop-value%}% gems"
+					set {_gem} to spaced("%{%arg-1%::%loop-value%}%")
+					set {_label} to "&e%{_gem}% &7gems"
 				else if arg-1 is "medal":
-					set {_label} to "&7%{%arg-1%::%loop-value%}% medals"
+					set {_medal} to format({%arg-1%::%loop-value%})
+					set {_label} to "&e%{_medal}% &7medals"
 				else if arg-1 is "token":
-					set {_label} to "&7%{%arg-1%::%loop-value%}% tokens"
+					set {_token} to spaced("%{%arg-1%::%loop-value%}%")
+					set {_label} to "&e%{_token}% &7tokens"
+				else if arg-1 is "totalblock":
+					set {_block} to format({%arg-1%::%loop-value%})
+					set {_label} to "&e%{_block}% &7blocks"
 				add 1 to {_topnumber}
 				set {_player} to "%loop-value%" parsed as offline player
-				send "&7%{_topnumber}%. &e%{_player}% &8: %{_label}%"
+				send "&7%{_topnumber}%&7. %{_player}%: %{_label}%"
 				add 1 to {_i}
 				if {_topnumber} > 10:
 					stop
@@ -581,6 +587,13 @@ function settings(p: player):
 			set {pvp::%{_p}%} to false
 			settings({_p})
 
+command /stats [<offline player>]:
+	trigger:
+		if arg-1 is not set:
+			stats(player)
+		else:
+			stats(arg-1)
+
 function stats(p: player):
 	open virtual chest inventory with size 6 named "&e&lSTATS: &8%{_p}%" to {_p}
 	format gui slot 11 of {_p} with compass named "&6Position: &f%location of {_p}%" with lore "&7 > For those without F3...?"
@@ -668,6 +681,24 @@ function rebirthnew(p: player):
 	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 2 of {_p} to {_item}
 
+function getEnchant(p: player):
+	stop
+
+function setEnchant(p: player):
+	stop
+
+function enchants(p: player):
+	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
+	format gui slot 0 of {_p} with held item of {_p}
+	format gui slot 1 of {_p} with enchanted book named "&bEfficiency &7I-XV" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
+	format gui slot 2 of {_p} with enchanted book named "&bUnbreaking &7I-C" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
+	format gui slot 3 of {_p} with enchanted book named "&bSilk Touch &7I-X" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
+	format gui slot 4 of {_p} with enchanted book named "&bFortune &7I-X" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
+	format gui slot 5 of {_p} with enchanted book named "&bMending &7I-V" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
+	format gui slot 6 of {_p} with enchanted book named "&bCurse of Vanishing &7I" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
+	format gui slot 7 of {_p} with enchanted book named "&bCurse of Binding" with lore "&eCost: &f &eGold" to run function setEnchant({_p})
+	format gui slot 8 of {_p} with arrow named "&7 < &cBack" with lore "&7Click to go back" to run function tool({_p})
+
 function tool(p: player):
 	if tool of {_p} is pickaxe:
 		open virtual chest inventory with size 1 named "&e&lPICKAXE &8Menu" to {_p}
@@ -683,6 +714,7 @@ function tool(p: player):
 	set {_cost22} to format({_cost2})
 	format gui slot 1 of {_p} with bell named "&eMedals: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost11}% &eMedals" to run function medalUpgrade({_p}, {_cost1})
 	format gui slot 3 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost22}% &eGold" to run function bonusUpgrade({_p}, {_cost2})
+	format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function enchants({_p})
 	set {_block} to {block::%{_p}%}
 	set {_blockk} to format({block::%{_p}%})
 	set {_bonus} to format((({bonus::%{_p}%} / 100) - 1) * {_block})
