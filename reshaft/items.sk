@@ -67,3 +67,16 @@ on load:
 	enchant {hermes} with fire protection 5
 	enchant {hermes} with unbreaking 5
 	enchant {hermes} with mending
+
+	set {hermeslock} to leather boots named "&8(&e★★★&8) &eHermes &7- &c&lLOCKED" with lore "&eUnlock: &b10,000 &7Gems"
+	enchant {hermeslock} with soul speed 3
+	enchant {hermeslock} with depth strider 3
+	enchant {hermeslock} with feather falling 3
+	enchant {hermeslock} with thorns 5
+	enchant {hermeslock} with protection 5
+	enchant {hermeslock} with fire protection 5
+	enchant {hermeslock} with blast protection 5
+	enchant {hermeslock} with projectile protection 5
+	enchant {hermeslock} with fire protection 5
+	enchant {hermeslock} with unbreaking 5
+	enchant {hermeslock} with mending

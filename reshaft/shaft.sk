@@ -392,8 +392,8 @@ function new(p: player):
 	set slot 0 of {_p} to {1_pickaxe}
 	set slot 1 of {_p} to {1_axe}
 	set slot 2 of {_p} to {1_shovel}
-	set slot 12 of {_p} to feather named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b100 &7fragments to gain perm access" and "&f> 0&7/100 Fragments"
-	set slot 13 of {_p} to elytra named "&8(&7★★★&8) &eZeus" with lore "&7+ Speed &b2 &7while wearing" and "&7+ Haste &b2 &7while wearing" and "&7> &7Collect &b100 &7fragments to gain perm access" and "&f> 0&7/100 Fragments"
+	set slot 12 of {_p} to feather named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b100 &7fragments to gain perm access" and "&eUnlock: &f0&7/100 Fragments"
+	set slot 13 of {_p} to elytra named "&8(&7★★★&8) &eZeus" with lore "&eUnlock: &b5,000 &7Gems"
 	set slot 14 of {_p} to {hermes}
 	set slot 21 of {_p} to enchanted golden apple named "&8(&7★★★&8) &bApollo"
 	set slot 22 of {_p} to bone named "&8(&7★★★&8) &bHades"
@@ -415,17 +415,15 @@ function newlock(p: player):
 	set slot 0 of {_p} to {1_pickaxe}
 	set slot 1 of {_p} to {1_axe}
 	set slot 2 of {_p} to {1_shovel}
-	set slot 12 of {_p} to feather named "&8(&7★★★&8) &eTalaria &7- &c&lLOCKED" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b100 &7fragments to gain perm access" and "&f> 0&7/100 Fragments"
-	set slot 13 of {_p} to elytra named "&8(&7★★★&8) &eZeus &7- &c&lLOCKED" with lore "&7+ Speed &b2 &7while wearing" and "&7+ Haste &b2 &7while wearing" and "&7> &7Collect &b100 &7fragments to gain perm access" and "&f> 0&7/100 Fragments"
-	set {_hermes} to {hermes}
-	set name of {_hermes} to "&8(&e★★★&8) &eHermes &7- &c&lLOCKED"
-	set slot 14 of {_p} to {_hermes}
-	set slot 21 of {_p} to enchanted golden apple named "&8(&7★★★&8) &bApollo &7- &c&lLOCKED"
-	set slot 22 of {_p} to bone named "&8(&7★★★&8) &bHades &7- &c&lLOCKED"
-	set slot 23 of {_p} to totem of undying named "&8(&7★★★&8) &bKronos &7- &c&lLOCKED" with lore "&7<non>"
-	set slot 30 of {_p} to end rod named "&8(&7★★★&8) &7Pegasus &7- &c&lLOCKED"
-	set slot 31 of {_p} to lead named "&8(&7★★★&8) &7Athena &7- &c&lLOCKED"
-	set slot 32 of {_p} to raw cod named "&8(&7★★★&8) &7Poseiden &7- &c&lLOCKED"
+	set slot 12 of {_p} to feather named "&8(&e★★★&8) &eTalaria &7- &c&lLOCKED" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b100 &7fragments to gain perm access" and "&7> &b0&7/100 Fragments" and "&eUnlock: &b15,000 &7Gams"
+	set slot 13 of {_p} to elytra named "&8(&e★★★&8) &eZeus &7- &c&lLOCKED" with lore "&7> &bSky's the Limit" and "&7> Fly in Fashion...?" and "&eUnlock: &b5,000 &7Gems"
+	set slot 14 of {_p} to {hermeslock}
+	set slot 21 of {_p} to enchanted golden apple named "&8(&e★★&7★&8) &bApollo &7- &c&lLOCKED"
+	set slot 22 of {_p} to bone named "&8(&e★★&7★&8) &bHades &7- &c&lLOCKED"
+	set slot 23 of {_p} to totem of undying named "&8(&e★★&7★&8) &bKronos &7- &c&lLOCKED" with lore "&7<non>"
+	set slot 30 of {_p} to end rod named "&8(&e★&7★★&8) &7Pegasus &7- &c&lLOCKED"
+	set slot 31 of {_p} to lead named "&8(&e★&7★★&8) &7Athena &7- &c&lLOCKED"
+	set slot 32 of {_p} to raw cod named "&8(&e★&7★★&8) &7Poseiden &7- &c&lLOCKED"
 	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
 	set slot 5 of {_p} to smithing table named "&e&lARMOR" with lore "&7Right Click To Upgrade &eArmor &7With &dTokens" and "&7 > &eArmor &7upgrades are permanent"
 	set slot 6 of {_p} to anvil named "&e&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
@@ -500,6 +498,9 @@ on inventory click:
 	else if clicked slot is 14:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
+			if {gem::%player%} is greater than 10000:
+				remove 10000 from {gem::%player%}
+				set slot 14 of player to {hermes}
 			stop
 		set {_cur} to boots of player
 		set {_new} to event-item
