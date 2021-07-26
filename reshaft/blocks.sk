@@ -1,3 +1,6 @@
+options:
+	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+
 function blockAdd(p: player, n: integer):
 		add {_n} to {gold::%{_p}%}
 		add {_n} to {totalblock::%{_p}%}
@@ -10,3 +13,16 @@ on break:
 		set action bar of player to "%name of player's tool% &7is &c&lBROKEN &7- &bRebirth &7to reset"
 	else if event-block is stone:
 		blockAdd(player, 1)
+	set {_12} to slot 12 of player
+	set {_name} to name of slot 12 of player
+	if {_name} does not contain "&c&lLOCKED":
+		if line 4 of lore of slot 12 of player is not "&eFragments: &b64&7/64" and if item amount of slot 12 of player is greater than 63:
+			set line 4 of lore of slot 12 of player to "&eFragments: &b64&7/64"
+			set item amount of slot 12 of player to 1
+			send "{@shaft} &bTalaria &7Fully Unlocked"
+		else:
+			chance of 99%:
+				set line 4 of lore of slot 12 of player to "&eFragments: &f%item amount of slot 12 of player + 1%&7/64"
+				set {_12a} to slot 12 of player
+				give player 1 of {_12a}
+				send "{@shaft} &7Found &b1 Talaria &7Fragment"

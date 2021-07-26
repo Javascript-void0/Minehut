@@ -55,7 +55,7 @@ on load:
 
 # ==== HERMES ====
 
-	set {hermes} to leather boots named "&8(&e★★★&8) &eHermes"
+	set {hermes} to leather boots named "&8(&e★★★&8) &eHermes" with lore "&eUnlock: &b10,000 &7Gems"
 	enchant {hermes} with soul speed 3
 	enchant {hermes} with depth strider 3
 	enchant {hermes} with feather falling 3
@@ -67,16 +67,31 @@ on load:
 	enchant {hermes} with fire protection 5
 	enchant {hermes} with unbreaking 5
 	enchant {hermes} with mending
+	set {hermeslock} to {hermes} named "&8(&e★★★&8) &eHermes &7- &c&lLOCKED"
 
-	set {hermeslock} to leather boots named "&8(&e★★★&8) &eHermes &7- &c&lLOCKED" with lore "&eUnlock: &b10,000 &7Gems"
-	enchant {hermeslock} with soul speed 3
-	enchant {hermeslock} with depth strider 3
-	enchant {hermeslock} with feather falling 3
-	enchant {hermeslock} with thorns 5
-	enchant {hermeslock} with protection 5
-	enchant {hermeslock} with fire protection 5
-	enchant {hermeslock} with blast protection 5
-	enchant {hermeslock} with projectile protection 5
-	enchant {hermeslock} with fire protection 5
-	enchant {hermeslock} with unbreaking 5
-	enchant {hermeslock} with mending
+# ====  OTHER  ====
+
+	set {talaria} to feather named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b15,000 &7Gems" and "&eFragments: &f1&7/64"
+	set {talarialock} to {talaria} named "&8(&7★★★&8) &eTalaria &7- &c&lLOCKED" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b15,000 &7Gems" and "&eFragments: &f0&7/64"
+	set {talariaperm} to {talaria} named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b15,000 &7Gems" and "&eFragments: &b64&7/64"
+
+	set {zeus} to elytra named "&8(&e★★★&8) &eZeus" with lore "&7> &bSky's the Limit" and "&7> Fly in Fashion...?" and "&eUnlock: &b5,000 &7Gems"
+	set {zeuslock} to {zeus} named "&8(&e★★★&8) &eZeus &7- &c&lLOCKED"
+
+	set {apollo} to golden apple named "&8(&e★★&7★&8) &bApollo" with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {apollolock} to {apollo} named "&8(&e★★&7★&8) &bApollo &7- &c&lLOCKED"
+
+	set {hades} to bone named "&8(&7★★★&8) &bHades" with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {hadeslock} to {hades} named "&8(&7★★★&8) &bHades &7- &c&lLOCKED"
+
+	set {kronos} to totem of undying named "&8(&7★★★&8) &bKronos" with lore "&7<non>" and "&eUnlock: &b5,000 &7Gems"
+	set {kronoslock} to {kronos} named "&8(&7★★★&8) &bKronos &7- &c&lLOCKED"
+
+	set {pegasus} to end rod named "&8(&7★★★&8) &7Pegasus"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {pegasuslock} to {pegasus} named "&8(&7★★★&8) &7Pegasus &7- &c&lLOCKED"
+
+	set {athena} to lead named "&8(&7★★★&8) &7Athena"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {athenalock} to {athena} named "&8(&7★★★&8) &7Athena &7- &c&lLOCKED"
+
+	set {poseidon} to raw cod named "&8(&7★★★&8) &7Poseidon"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {poseidonlock} to {poseidon} named "&8(&7★★★&8) &7Poseidon &7- &c&lLOCKED"
