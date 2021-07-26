@@ -1,0 +1,12 @@
+function blockAdd(p: player, n: integer):
+		add {_n} to {gold::%{_p}%}
+		add {_n} to {totalblock::%{_p}%}
+		add {_n} to {block::%{_p}%}
+
+on break: 
+	cancel drops
+	if durability of player's tool is greater than 2029:
+		cancel event
+		set action bar of player to "%name of player's tool% &7is &c&lBROKEN &7- &bRebirth &7to reset"
+	else if event-block is stone:
+		blockAdd(player, 1)
