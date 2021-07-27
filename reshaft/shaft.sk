@@ -311,7 +311,10 @@ on chat:
 	else:
 		set {_prefix} to "&7:L"
 
-	set {_level} to a new text component of "&e%{level::%player%}%"
+	if group of player is "admin" or "mod":
+		set {_level} to a new text component of "&e%{level::%player%}%"
+	else:
+		set {_level} to a new text component of "&7%{level::%player%}%"
 	set {_gold} to format({gold::%player%})
 	set {_gem} to spaced("%{gem::%player%}%")
 	set {_medal} to format({medal::%player%})
@@ -383,14 +386,21 @@ on chat:
 			set {_messageFormat::*} to message format split at message
 		set {_temp} to a new text component of "%{_messageFormat::1}%"
 		set {_p} to a new text component of "&8[%{_prefix}%"
-		set {_s} to new text component of "&8]&7: "
+		set {_s} to a new text component of "&8] "
+		set {_} to a new text component of "&7: "
 		delete {_messageFormat::1}
 		loop all players:
 			send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
 		send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to console
+		if group of player is "admin":
+			send "[Admin] [:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+		else if group of player is "mod":
+			send "[Mod] [:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+		else:
+			send "[:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
 	else:
 		cancel event
-		set {_message} to a new text component of the chat message
+		set {_message} to a new text component of "&7%message%"
 		set {_player} to a new text component of {_player}
 		set {_p} to a new text component of "&8[%{_prefix}%"
 		set {_s} to a new text component of "&8] &f"
@@ -398,6 +408,12 @@ on chat:
 		loop all players:
 			send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to loop-player
 		send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to console
+		if group of player is "admin":
+			send "[Admin] [:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+		else if group of player is "mod":
+			send "[Mod] [:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+		else:
+			send "[:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
 
 # ======== NUMBER FORMAT ======== NUMBER FORMAT ========
 # ======== NUMBER FORMAT ======== NUMBER FORMAT ========

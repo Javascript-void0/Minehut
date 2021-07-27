@@ -32,8 +32,8 @@ discord command top [<text>]:
 	executable in: guild
 	trigger:
 		set {_} to a message builder
-		if arg-1 is not "level" or "gold" or "gem" or "medal" or "token":
-			append line "```.top <level gold gem medal token>```"
+		if arg-1 is not "level" or "gold" or "gem" or "medal" or "token" or "totalblock": 
+			append line "```.top <level gold gem medal token totalblock>```"
 			reply with {_}
 		else:
 			loop {%arg-1%::*}:
@@ -66,6 +66,8 @@ discord command top [<text>]:
 					set {_label} to "%{%arg-1%::%loop-value%}% medals"
 				else if arg-1 is "token":
 					set {_label} to "%{%arg-1%::%loop-value%}% tokens"
+				else if arg-1 is "totalblock":
+					set {_label} to "%{%arg-1%::%loop-value%}% blocks"
 				add 1 to {_topnumber}
 				set {_player} to "%loop-value%" parsed as offline player
 				append line "%{_topnumber}%. %{_player}% : %{_label}%"
