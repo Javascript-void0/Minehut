@@ -55,6 +55,10 @@ command /setspawn:
 		else:
 			send "{@admin} {@permission}"
 
+every 10 minutes in "{@world}":
+	loop all players:
+		message "{@discord} &7Join our &eDiscord &7for events, updates, and extra features (offline bonuses)<tooltip:&6Click to join!><link:https://discord.gg/y333BGhxFP>&8[&6&lCLICK&8]<reset>" to loop-player
+
 command /tps:
 	trigger:
 		set {_tps} to tps from the last 1 minute
@@ -301,11 +305,20 @@ command /top [<text>]:
 on chat:
 	set {_player} to display name of player
 	if group of player is "admin":
-		set {_prefix} to "&6&lADMIN&8]&r &8[&e:L%{level::%player%}%"
+		set {_prefix} to "&6&lADMIN&8]&r &8[&e:L"
 	else if group of player is "mod":
-		set {_prefix} to "&e&lMOD&8]&r &8[&e:L%{level::%player%}%"
+		set {_prefix} to "&e&lMOD&8]&r &8[&e:L"
 	else:
-		set {_prefix} to "&7:L%{level::%player%}%"
+		set {_prefix} to "&7:L"
+
+	set {_level} to a new text component of "&e%{level::%player%}%"
+	set {_gold} to format({gold::%player%})
+	set {_gem} to spaced("%{gem::%player%}%")
+	set {_medal} to format({medal::%player%})
+	set {_token} to spaced("%{token::%player%}%")
+	set {_total} to format({totalblock::%player%})
+	set {_stats} to bedrock named "&8[&e:L%{level::%player%}%&8] &f%{_player}%" with lore "&eGold: &7%{_gold}%" and "&bGems: &7%{_gem}%" and "&cMedals: &7%{_medal}%" and "&dTokens: &7%{_token}%" and "&7Blocks: &7%{_total}%" and "&7Bonus: &7%{bonus::%player%}%%%"
+	set hover event of {_level} to a new hover event showing {_stats}
 
 	set {_slotList::hand} to index of player's hotbar slot
 	set {_keywordList::hand::*} to "[hand]", "[item]" and "[i]"
@@ -337,7 +350,7 @@ on chat:
 			set {_messages::*} to {_message} split at "%loop-value%"
 			set {_temp} to {_messages::1}
 			delete {_messages::1}
-			set {_message} to "%{_temp}%%loop-value%%join {_messages::*} with """"%"
+			set {_message} to "&7%{_temp}%%loop-value%&7%join {_messages::*} with """"%"
 			replace all loop-value with "{CIplaceholder}:{%loop-index%}:{CIplaceholder}" in {_message}
 		set {_messages::*} to {_message} split at "{CIplaceholder}"
 		loop {_messages::*}:
@@ -369,13 +382,22 @@ on chat:
 		if message format contains message:
 			set {_messageFormat::*} to message format split at message
 		set {_temp} to a new text component of "%{_messageFormat::1}%"
-		set {_p} to a new text component of "&8[%{_prefix}%&8] &r"
+		set {_p} to a new text component of "&8[%{_prefix}%"
+		set {_s} to new text component of "&8]&7: "
 		delete {_messageFormat::1}
 		loop all players:
-			send components {_p}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
-		send components {_p}, {_temp}, {_messages::*} and {_messageFormat::*} to console
+			send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
+		send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to console
 	else:
-		set the chat format to colored "&8[%{_prefix}%&8] &r%{_player}%&7: &7%message%"
+		cancel event
+		set {_message} to a new text component of the chat message
+		set {_player} to a new text component of {_player}
+		set {_p} to a new text component of "&8[%{_prefix}%"
+		set {_s} to a new text component of "&8] &f"
+		set {_} to a new text component of "&7: "
+		loop all players:
+			send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to loop-player
+		send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to console
 
 # ======== NUMBER FORMAT ======== NUMBER FORMAT ========
 # ======== NUMBER FORMAT ======== NUMBER FORMAT ========
@@ -652,10 +674,12 @@ function stats(p: player):
 	format gui slot 15 of {_p} with clock named "&6Playtime: &f%time played of {_p}%" with lore "&7 > Total time spent online"
 	set {_gold} to format({gold::%{_p}%})
 	format gui slot 30 of {_p} with gold ingot named "&6Gold: &f%{_gold}%"
-	format gui slot 31 of {_p} with sunflower named "&6Tokens: &f%{token::%{_p}%}%"
+	set {_token} to spaced("%{token::%{_p}%}%")
+	format gui slot 31 of {_p} with sunflower named "&6Tokens: &f%{_token}%"
 	set {_medal} to format({medal::%{_p}%})
 	format gui slot 32 of {_p} with bell named "&6Medals: &f%{_medal}%"
-	format gui slot 40 of {_p} with emerald named "&6Gems: &f%{gem::%{_p}%}%"
+	set {_gem} to spaced("%{gem::%{_p}%}%")
+	format gui slot 40 of {_p} with emerald named "&6Gems: &f%{_gem}%"
 	set {_total} to format({totalblock::%{_p}%})
 	format gui slot 41 of {_p} with grass block named "&6Total Blocks: &f%{_total}%" with lore "&7 > The total blocks altogether"
 	set {_block} to format({block::%{_p}%})
