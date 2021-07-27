@@ -16,13 +16,15 @@ on break:
 	set {_12} to slot 12 of player
 	set {_name} to name of slot 12 of player
 	if {_name} does not contain "&c&lLOCKED":
-		if line 4 of lore of slot 12 of player is not "&eFragments: &b64&7/64" and if item amount of slot 12 of player is greater than 63:
+		if line 4 of lore of slot 12 of player is "&eFragments: &b64&7/64":
+			stop
+		else if item amount of slot 12 of player is equal to 63:
 			set line 4 of lore of slot 12 of player to "&eFragments: &b64&7/64"
 			set item amount of slot 12 of player to 1
 			send "{@shaft} &bTalaria &7Fully Unlocked"
-		else:
-			chance of 99%:
-				set line 4 of lore of slot 12 of player to "&eFragments: &f%item amount of slot 12 of player + 1%&7/64"
-				set {_12a} to slot 12 of player
-				give player 1 of {_12a}
-				send "{@shaft} &7Found &b1 Talaria &7Fragment"
+			stop
+		chance of 99%:
+			set line 4 of lore of slot 12 of player to "&eFragments: &f%item amount of slot 12 of player + 1%&7/64"
+			set {_12a} to slot 12 of player
+			give player 1 of {_12a}
+			send "{@shaft} &7Found &b1 Talaria &7Fragment"
