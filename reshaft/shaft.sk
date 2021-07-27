@@ -1089,13 +1089,15 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 				if arg-2 is "level":
 					if arg-4 is less than 1:
 						set {_n} to 1
+					else:
+						set {_n} to arg-4
 				else if arg-4 is less than 0:
 					set {_n} to 0
 				else:
 					set {_n} to arg-4
 				set {%arg-2%::%arg-1%} to {_n}
 				set {_nn} to format({_n})
-				send "{@admin} &7Set &e%arg-1%&e's &7%arg-2% to &e%{_nn}%"
+				send "{@admin} &7Set &e%arg-1%&e's &7%arg-2% &7to &e%{_nn}%"
 			else if arg-3 is "reset":
 				if arg-2 is "level":
 					set {_n} to 1
@@ -1110,6 +1112,6 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 				else:
 					set {_n} to 0
 				set {%arg-2%::%arg-1%} to {_n}
-				send "{@admin} &7Reset &e%arg-1%'s &7%arg-2%"
+				send "{@admin} &7Reset &e%arg-1%&e's &7%arg-2%"
 		else:
 			send "{@admin} {@permission}"

@@ -81,17 +81,17 @@ on load:
 	set {apollo} to golden apple named "&8(&e★★&7★&8) &bApollo" with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
 	set {apollolock} to {apollo} named "&8(&e★★&7★&8) &bApollo &7- &c&lLOCKED"
 
-	set {hades} to bone named "&8(&7★★★&8) &bHades" with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
-	set {hadeslock} to {hades} named "&8(&7★★★&8) &bHades &7- &c&lLOCKED"
+	set {hades} to bone named "&8(&e★★&7★&8) &bHades" with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {hadeslock} to {hades} named "&8(&e★★&7★&8) &bHades &7- &c&lLOCKED"
 
-	set {kronos} to totem of undying named "&8(&7★★★&8) &bKronos" with lore "&7<non>" and "&eUnlock: &b5,000 &7Gems"
-	set {kronoslock} to {kronos} named "&8(&7★★★&8) &bKronos &7- &c&lLOCKED"
+	set {kronos} to totem of undying named "&8(&e★★&7★&8) &bKronos" with lore "&7<non>" and "&eUnlock: &b5,000 &7Gems"
+	set {kronoslock} to {kronos} named "&8(&e★★&7★&8) &bKronos &7- &c&lLOCKED"
 
-	set {pegasus} to end rod named "&8(&7★★★&8) &7Pegasus"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
-	set {pegasuslock} to {pegasus} named "&8(&7★★★&8) &7Pegasus &7- &c&lLOCKED"
+	set {pegasus} to end rod named "&8(&e★&7★★&8) &7Pegasus"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {pegasuslock} to {pegasus} named "&8(&e★&7★★&8) &7Pegasus &7- &c&lLOCKED"
 
-	set {athena} to lead named "&8(&7★★★&8) &7Athena"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
-	set {athenalock} to {athena} named "&8(&7★★★&8) &7Athena &7- &c&lLOCKED"
+	set {athena} to lead named "&8(&e★&7★★&8) &7Athena"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {athenalock} to {athena} named "&8(&e★&7★★&8) &7Athena &7- &c&lLOCKED"
 
-	set {poseidon} to raw cod named "&8(&7★★★&8) &7Poseidon"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
-	set {poseidonlock} to {poseidon} named "&8(&7★★★&8) &7Poseidon &7- &c&lLOCKED"
+	set {poseidon} to raw cod named "&8(&e★&7★★&8) &7Poseidon"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {poseidonlock} to {poseidon} named "&8(&e★&7★★&8) &7Poseidon &7- &c&lLOCKED"
