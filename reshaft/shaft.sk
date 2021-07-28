@@ -35,6 +35,10 @@ on item damage:
 		stop
 	else if item is shovel:
 		stop
+	else if item is sword:
+		stop
+	else if item is fishing rod:
+		stop
 	cancel event
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
@@ -460,9 +464,11 @@ function new(p: player):
 	set chestplate of {_p} to {1_chestplate}
 	set leggings of {_p} to {1_leggings}
 	set boots of {_p} to {1_boots}
-	set slot 0 of {_p} to {1_pickaxe}
-	set slot 1 of {_p} to {1_axe}
-	set slot 2 of {_p} to {1_shovel}
+	set slot 0 of {_p} to {1_sword}
+	set slot 1 of {_p} to {1_pickaxe}
+	set slot 2 of {_p} to {1_axe}
+	set slot 3 of {_p} to {1_shovel}
+	set slot 4 of {_p} to {1_rod}
 	set slot 12 of {_p} to {talaria}
 	set slot 13 of {_p} to {zeus}
 	set slot 14 of {_p} to {hermes}
@@ -483,9 +489,11 @@ function newlock(p: player):
 	set chestplate of {_p} to {1_chestplate}
 	set leggings of {_p} to {1_leggings}
 	set boots of {_p} to {1_boots}
-	set slot 0 of {_p} to {1_pickaxe}
-	set slot 1 of {_p} to {1_axe}
-	set slot 2 of {_p} to {1_shovel}
+	set slot 0 of {_p} to {1_sword}
+	set slot 1 of {_p} to {1_pickaxe}
+	set slot 2 of {_p} to {1_axe}
+	set slot 3 of {_p} to {1_shovel}
+	set slot 4 of {_p} to {1_rod}
 	set slot 12 of {_p} to {talarialock}
 	set slot 13 of {_p} to {zeuslock}
 	set slot 14 of {_p} to {hermeslock}
@@ -543,6 +551,9 @@ function hatreset(p: player):
 	set {_cur} to helmet of {_p}
 	if {_cur} is not light gray stained glass:
 		hat({_p}, {_item}, {_slot})
+	remove absorption from {_p}
+	remove resistance from {_p}
+	set flight mode of {_p} to false
 
 function unlock(p: player, c: integer, s: integer):
 	if {gem::%{_p}%} is greater than {_c}:
@@ -587,8 +598,8 @@ on inventory click:
 			unlock(player, 10000, 12)
 			stop
 		if event-item is not light gray stained glass:
-			set player's flight mode to true
 			hatreset(player)
+			set player's flight mode to true
 		else:
 			set player's flight mode to false
 		hat(player, event-item, 12)
@@ -617,6 +628,9 @@ on inventory click:
 			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
+			apply absorption 5 to player for 9999 days
+		else:
+			remove absorption from player
 		hat(player, event-item, 21)
 	else if clicked slot is 22:
 		cancel event
@@ -633,6 +647,9 @@ on inventory click:
 			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
+			apply resistance 2 to player for 9999 days
+		else:
+			remove resistance from player
 		hat(player, event-item, 23)
 	else if clicked slot is 30:
 		cancel event
@@ -919,6 +936,14 @@ function enchants(p: player):
 		enchants({_p})
 	format gui slot 8 of {_p} with arrow named "&7 < &cBack" with lore "&7Click to go back" to run function tool({_p})
 
+function swordenchants(p: player):
+	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
+	format gui slot 0 of {_p} with held item of {_p}
+
+function rodenchants(p: player):
+	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
+	format gui slot 0 of {_p} with held item of {_p}
+
 function tool(p: player):
 	if tool of {_p} is pickaxe:
 		open virtual chest inventory with size 1 named "&e&lPICKAXE &8Menu" to {_p}
@@ -926,6 +951,10 @@ function tool(p: player):
 		open virtual chest inventory with size 1 named "&e&lAXE &8Menu" to {_p}
 	else if tool of {_p} is shovel:
 		open virtual chest inventory with size 1 named "&e&lSHOVEL &8Menu" to {_p}
+	else if tool of {_p} is fishing rod:
+		open virtual chest inventory with size 1 named "&e&lFISHING &8Menu" to {_p}
+	else if tool of {_p} is sword:
+		open virtual chest inventory with size 1 named "&e&lSWORD &8Menu" to {_p}	
 	set {_1} to removeLoreLabel(line 1 of lore of tool of {_p})
 	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
 	set {_cost1} to {_1}^2
@@ -934,7 +963,12 @@ function tool(p: player):
 	set {_cost22} to format({_cost2})
 	format gui slot 1 of {_p} with bell named "&eMedals: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost11}% &eMedals" to run function medalUpgrade({_p}, {_cost1})
 	format gui slot 3 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost22}% &eGold" to run function bonusUpgrade({_p}, {_cost2})
-	format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function enchants({_p})
+	if tool of {_p} is sword:
+		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function swordenchants({_p})
+	else if tool of {_p} is fishing rod:
+		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function rodenchants({_p})
+	else:
+		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function enchants({_p})
 	set {_block} to {block::%{_p}%}
 	set {_blockk} to format({block::%{_p}%})
 	set {_bonus} to format((({bonus::%{_p}%} / 100) - 1) * {_block})
@@ -988,9 +1022,13 @@ function armor(p: player):
 		set {_boots} to slot 14 of {_p}
 
 on right click:
-	if player's tool is pickaxe or axe or shovel:
+	if player's tool is pickaxe or axe or shovel or sword:
 		if player's tool is wooden axe:
 			stop
+		cancel event
+		tool(player)
+	if player's tool is fishing rod:
+		player is sneaking
 		cancel event
 		tool(player)
 	if name of player's tool is "&e&lSTATISTICS":

@@ -49,9 +49,11 @@ on load:
 
 # ==== TOOLS ====
 
+	set {1_sword} to netherite sword named "&8(&f★&e★&7★★★&8) &7Sword" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
 	set {1_pickaxe} to netherite pickaxe named "&8(&f★&e★&7★★★&8) &7Pickaxe" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
 	set {1_axe} to netherite axe named "&8(&f★&e★&7★★★&8) &7Axe" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
 	set {1_shovel} to netherite shovel named "&8(&f★&e★&7★★★&8) &7Shovel" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
+	set {1_rod} to fishing rod named "&8(&f★&e★&7★★★&8) &7Fishing Rod" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus" and "&7Shift + Right Click to Open Menu"
 
 # ==== HERMES ====
 
@@ -78,14 +80,18 @@ on load:
 	set {zeus} to elytra named "&8(&e★★★&8) &eZeus" with lore "&7> &bSky's the Limit" and "&7> Fly in Fashion...?" and "&eUnlock: &b5,000 &7Gems"
 	set {zeuslock} to {zeus} named "&8(&e★★★&8) &eZeus &7- &c&lLOCKED"
 
-	set {apollo} to golden apple named "&8(&e★★&7★&8) &bApollo" with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {apollo} to enchanted golden apple named "&8(&e★★&7★&8) &bApollo" with lore "&7> Gain &eAbsorption V &7 while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &f1&7/64"
 	set {apollolock} to {apollo} named "&8(&e★★&7★&8) &bApollo &7- &c&lLOCKED"
+	set {apolloperm} to {apollo} named "&8(&e★★&7★&8) &bApollo" with lore "&7> Gain &eAbsorption V &7 while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &b64&7/64"
 
-	set {hades} to bone named "&8(&e★★&7★&8) &bHades" with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {hades} to bone named "&8(&e★★&7★&8) &bHades" with lore "&7> &b+100%% &7Rewards from Kills (PvP + PvE)" and "&7> &7Collect fragments to upgrade" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &f1&7/64"
+	enchant {hades} with thorns 5
 	set {hadeslock} to {hades} named "&8(&e★★&7★&8) &bHades &7- &c&lLOCKED"
+	set {hadesperm} to {hades} named "&8(&e★★&7★&8) &bHades" with lore "&7> &b+100%% &7Rewards from Kills (PvP + PvE)" and "&7> &7Collect fragments to upgrade" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &b64&7/64"
 
-	set {kronos} to totem of undying named "&8(&e★★&7★&8) &bKronos" with lore "&7<non>" and "&eUnlock: &b5,000 &7Gems"
+	set {kronos} to totem of undying named "&8(&e★★&7★&8) &bKronos" with lore "&7> Gain &6Resistance II &7 while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &f1&7/64"
 	set {kronoslock} to {kronos} named "&8(&e★★&7★&8) &bKronos &7- &c&lLOCKED"
+	set {kronosperm} to {kronos} named "&8(&e★★&7★&8) &bKronos" with lore "&7> Gain &6Resistance II &7 while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &b64&7/64"
 
 	set {pegasus} to end rod named "&8(&e★&7★★&8) &7Pegasus"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
 	set {pegasuslock} to {pegasus} named "&8(&e★&7★★&8) &7Pegasus &7- &c&lLOCKED"
@@ -93,5 +99,11 @@ on load:
 	set {athena} to lead named "&8(&e★&7★★&8) &7Athena"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
 	set {athenalock} to {athena} named "&8(&e★&7★★&8) &7Athena &7- &c&lLOCKED"
 
-	set {poseidon} to raw cod named "&8(&e★&7★★&8) &7Poseidon"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {poseidon} to raw cod named "&8(&e★&7★★&8) &7Poseidon"  with lore "&7> &b+100%% &7Rewards from Fishing" and "&7> &7Collect fragments to upgrade" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &f1&7/64"
+	enchant {poseidon} with luck of the sea 3
+	enchant {poseidon} with lure 3
+	enchant {poseidon} with mending 3
+	enchant {poseidon} with unbreaking 3
+	enchant {poseidon} with curse of vanishing 3
 	set {poseidonlock} to {poseidon} named "&8(&e★&7★★&8) &7Poseidon &7- &c&lLOCKED"
+	set {poseidonperm} to {poseidon} named "&8(&e★&7★★&8) &7Poseidon"  with lore "&7> &b+100%% &7Rewards from Fishing" and "&7> &7Collect fragments to upgrade" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &b64&7/64"

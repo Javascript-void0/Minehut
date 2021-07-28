@@ -3,8 +3,8 @@ options:
 
 function blockAdd(p: player, n: integer):
 		add {_n} to {gold::%{_p}%}
-		add {_n} to {totalblock::%{_p}%}
-		add {_n} to {block::%{_p}%}
+		add 1 to {totalblock::%{_p}%}
+		add 1 to {block::%{_p}%}
 
 on break: 
 	cancel drops
@@ -13,6 +13,37 @@ on break:
 		set action bar of player to "%name of player's tool% &7is &c&lBROKEN &7- &bRebirth &7to reset"
 	else if event-block is stone:
 		blockAdd(player, 1)
+	else if event-block is grass block:
+		blockAdd(player, 1)
+	else if event-block is dirt:
+		blockAdd(player, 1)
+	else if event-block is andesite:
+		blockAdd(player, 1)
+	else if event-block is granite:
+		blockAdd(player, 1)
+	else if event-block is diorite:
+		blockAdd(player, 1)
+	else if event-block is gravel:
+		blockAdd(player, 1)
+	else if event-block is sand:
+		blockAdd(player, 1)
+	else if event-block is coal ore:
+		blockAdd(player, 2)
+	else if event-block is iron ore:
+		blockAdd(player, 10)
+	else if event-block is gold ore:
+		blockAdd(player, 20)
+	else if event-block is lapis ore:
+		blockAdd(player, 20)
+	else if event-block is redstone ore:
+		blockAdd(player, 20)
+	else if event-block is diamond ore:
+		blockAdd(player, 500)
+	else if event-block is emerald ore:
+		blockAdd(player, 1000)
+	else if event-block is obsidian:
+		blockAdd(player, 1000)
+
 	set {_12} to slot 12 of player
 	set {_name} to name of slot 12 of player
 	if {_name} does not contain "&c&lLOCKED":
@@ -23,7 +54,7 @@ on break:
 			set item amount of slot 12 of player to 1
 			send "{@shaft} &bTalaria &7Fully Unlocked"
 			stop
-		chance of 99%:
+		chance of 1%: # CHANGE
 			set line 4 of lore of slot 12 of player to "&eFragments: &f%item amount of slot 12 of player + 1%&7/64"
 			set {_12a} to slot 12 of player
 			give player 1 of {_12a}
