@@ -23,6 +23,8 @@ on drop:
 on place:
 	if group of player is not "admin":
 		cancel event
+on pickup:
+	cancel event
 on item damage: 
 	if durability of event-item is greater than 2029:
 		broadcast "%durability of player's tool%"
@@ -34,6 +36,13 @@ on item damage:
 	else if item is shovel:
 		stop
 	cancel event
+on shoot:
+	set {_p} to held item of shooter
+	if {_p} is trident:
+		set slot 5 of shooter to {_p}
+	if projectile is set:
+		set slot 25 of shooter to 64 of arrow named "&e&lARROW &7Shop" with lore "&7> Click to Open"
+
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
 on disconnect:
@@ -475,10 +484,11 @@ function new(p: player):
 	set slot 30 of {_p} to {pegasus}
 	set slot 31 of {_p} to {athena}
 	set slot 32 of {_p} to {poseidon}
-	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
+	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
 	set slot 6 of {_p} to smithing table named "&e&lARMOR" with lore "&7Right Click To Upgrade &eArmor &7With &dTokens" and "&7 > &eArmor &7upgrades are permanent"
 	set slot 7 of {_p} to anvil named "&e&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
 	set slot 8 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
+	set slot 25 of {_p} to 64 of arrow named "&e&lARROW &7Shop" with lore "&7> Click to Open"
 
 function newlock(p: player):
 	set helmet of {_p} to {1_helmet}
@@ -500,11 +510,11 @@ function newlock(p: player):
 	set slot 30 of {_p} to {pegasuslock}
 	set slot 31 of {_p} to {athenalock}
 	set slot 32 of {_p} to {poseidonlock}
-	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
+	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
 	set slot 6 of {_p} to smithing table named "&e&lARMOR" with lore "&7Right Click To Upgrade &eArmor &7With &dTokens" and "&7 > &eArmor &7upgrades are permanent"
 	set slot 7 of {_p} to anvil named "&e&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
 	set slot 8 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
-
+	set slot 25 of {_p} to 64 of arrow named "&e&lARROW &7Shop" with lore "&7> Click to Open"
 
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
@@ -584,10 +594,40 @@ function unlock(p: player, c: integer, s: integer):
 	else:
 		send "{@shaft} {@gems}" to {_p}
 
+function arrowShop(p: player):
+	open virtual chest inventory with size 1 named "&e&lARROW &8Shop" to {_p}
+	format gui slot 0 of {_p} with arrow
+
 on inventory click:
 	if name of event-inventory is not "Crafting":
 		cancel event
 		stop
+	if clicked slot is 0:
+		set {_i} to slot 0 of player
+		set slot 40 of player to {_i}
+	if clicked slot is 1:
+		set {_i} to slot 1 of player
+		set slot 40 of player to {_i}
+	if clicked slot is 2:
+		set {_i} to slot 2 of player
+		set slot 40 of player to {_i}
+	if clicked slot is 25:
+		close player's inventory
+		arrowShop(player)
+	if clicked slot is 36:
+		close player's inventory
+		armor(player)
+	if clicked slot is 37:
+		close player's inventory
+		armor(player)
+	if clicked slot is 38:
+		close player's inventory
+		armor(player)
+	if clicked slot is 39:
+		close player's inventory
+		armor(player)
+	if clicked slot is 40:
+		delete slot 40 of player
 	if clicked slot is 12:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
@@ -755,7 +795,7 @@ function rebirth(p: player):
 		if {_before} is less than {_level}:
 			set {level::%{_p}%} to {_level}
 			set {_dif} to {_level} - {_before}
-			send "{@shaft} &7Player Level increased from &e%{_before}% &7to &e%{_level}% &7(&e+{%{_dif}%&7)" to {_p}
+			send "{@shaft} &7Player Level increased from &e%{_before}% &7to &e%{_level}% &7(&e+%{_dif}%&7)" to {_p}
 		rebirthnew({_p})
 		set {_blessing} to {blessing} / 100
 		set {_medals} to {block::%{_p}%} * {_blessing}
@@ -768,24 +808,24 @@ function rebirth(p: player):
 function rebirthnew(p: player):
 	set {_item} to slot 0 of {_p}
 	set {_bind} to level of curse of binding on {_item}
-	if {_bind} is 0:
+	if {_bind} is not set:
 		disenchant {_item}
 	repair {_item}
 	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 0 of {_p} to {_item}
-	set {_bind} to level of curse of binding on {_item}
-	if {_bind} is 0:
-		disenchant {_item}
+
 	set {_item} to slot 1 of {_p}
-	disenchant {_item}
+	set {_bind} to level of curse of binding on {_item}
+	if {_bind} is not set:
+		disenchant {_item}
 	repair {_item}
 	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 1 of {_p} to {_item}
-	set {_bind} to level of curse of binding on {_item}
-	if {_bind} is 0:
-		disenchant {_item}
+
 	set {_item} to slot 2 of {_p}
-	disenchant {_item}
+	set {_bind} to level of curse of binding on {_item}
+	if {_bind} is not set:
+		disenchant {_item}
 	repair {_item}
 	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 2 of {_p} to {_item}
@@ -1028,6 +1068,7 @@ function armor(p: player):
 		set {_boots} to slot 14 of {_p}
 
 on right click:
+	set slot 25 of player to 64 of arrow named "&e&lARROW &7Shop" with lore "&7> Click to Open"
 	if player's tool is pickaxe or axe or shovel or sword:
 		if player's tool is wooden axe:
 			stop
