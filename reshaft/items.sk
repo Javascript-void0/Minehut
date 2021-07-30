@@ -49,11 +49,13 @@ on load:
 
 # ==== TOOLS ====
 
-	set {1_sword} to netherite sword named "&8(&f★&e★&7★★★&8) &7Sword" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
 	set {1_pickaxe} to netherite pickaxe named "&8(&f★&e★&7★★★&8) &7Pickaxe" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
 	set {1_axe} to netherite axe named "&8(&f★&e★&7★★★&8) &7Axe" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
 	set {1_shovel} to netherite shovel named "&8(&f★&e★&7★★★&8) &7Shovel" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
-	set {1_rod} to fishing rod named "&8(&f★&e★&7★★★&8) &7Fishing Rod" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus" and "&7Shift + Right Click to Open Menu"
+
+	set {1_bow} to bow named "&8(&f★&e★&7★★★&8) &e&lSOl&6&lAR" with lore "&eMedals: &8[&e+0&8]" and "&60.3125%% &7Bonus" and "&7Shift + Right Click to Open Menu"
+	set {1_crossbow} to crossbow named "&8(&f★&a★&7★★★&8) &a&lTERRE&2&lSTRIAl" with lore "&aMedals: &8[&a+0&8]" and "&20.3125%% &7Bonus" and "&7Shift + Right Click to Open Menu"
+	set {1_trident} to trident named "&8(&f★&b★&7★★★&8) &b&llUN&3&lAR" with lore "&bMedals: &8[&b+0&8]" and "&30.3125%% &7Bonus" and "&7Shift + Right Click to Open Menu"
 
 # ==== HERMES ====
 

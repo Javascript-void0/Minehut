@@ -14,8 +14,6 @@ options:
 
 on hunger meter change:
 	cancel event
-on death: 
-	cancel event
 on portal create: 
 	if group of player is not "admin":
 		cancel event
@@ -34,10 +32,6 @@ on item damage:
 	else if item is pickaxe:
 		stop
 	else if item is shovel:
-		stop
-	else if item is sword:
-		stop
-	else if item is fishing rod:
 		stop
 	cancel event
 on connect:
@@ -113,7 +107,11 @@ command /pvp:
 			delete {pvp::%player%}
 			send "{@shaft} &7PvP &a&lENABLED."
 on damage:
-	if attacker is a player:
+	if victim is not a player:
+		stop
+	if attacker is not a player:
+		stop
+	else if attacker is a player:
 		if victim is set:
 			if victim is a player:
 				if {pvp::%victim%} is set:
@@ -125,8 +123,6 @@ on damage:
 				if {pvp::%attacker%} is set:
 					cancel event
 					set action bar of attacker to "{@shaft} &7Your PvP is &c&lDISABLED"
-	else:
-		cancel event
 
 on join:
 	set {_bossbar} to 0
@@ -464,11 +460,12 @@ function new(p: player):
 	set chestplate of {_p} to {1_chestplate}
 	set leggings of {_p} to {1_leggings}
 	set boots of {_p} to {1_boots}
-	set slot 0 of {_p} to {1_sword}
-	set slot 1 of {_p} to {1_pickaxe}
-	set slot 2 of {_p} to {1_axe}
-	set slot 3 of {_p} to {1_shovel}
-	set slot 4 of {_p} to {1_rod}
+	set slot 0 of {_p} to {1_pickaxe}
+	set slot 1 of {_p} to {1_axe}
+	set slot 2 of {_p} to {1_shovel}
+	set slot 3 of {_p} to {1_bow}
+	set slot 4 of {_p} to {1_crossbow}
+	set slot 5 of {_p} to {1_trident}
 	set slot 12 of {_p} to {talaria}
 	set slot 13 of {_p} to {zeus}
 	set slot 14 of {_p} to {hermes}
@@ -479,21 +476,21 @@ function new(p: player):
 	set slot 31 of {_p} to {athena}
 	set slot 32 of {_p} to {poseidon}
 	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
-	set slot 5 of {_p} to smithing table named "&e&lARMOR" with lore "&7Right Click To Upgrade &eArmor &7With &dTokens" and "&7 > &eArmor &7upgrades are permanent"
-	set slot 6 of {_p} to anvil named "&e&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
-	set slot 7 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
-	set slot 8 of {_p} to spruce boat named "&e&lWARPS" with lore "&7Right Click To Open Avaiable Warps"
+	set slot 6 of {_p} to smithing table named "&e&lARMOR" with lore "&7Right Click To Upgrade &eArmor &7With &dTokens" and "&7 > &eArmor &7upgrades are permanent"
+	set slot 7 of {_p} to anvil named "&e&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
+	set slot 8 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
 
 function newlock(p: player):
 	set helmet of {_p} to {1_helmet}
 	set chestplate of {_p} to {1_chestplate}
 	set leggings of {_p} to {1_leggings}
 	set boots of {_p} to {1_boots}
-	set slot 0 of {_p} to {1_sword}
-	set slot 1 of {_p} to {1_pickaxe}
-	set slot 2 of {_p} to {1_axe}
-	set slot 3 of {_p} to {1_shovel}
-	set slot 4 of {_p} to {1_rod}
+	set slot 0 of {_p} to {1_pickaxe}
+	set slot 1 of {_p} to {1_axe}
+	set slot 2 of {_p} to {1_shovel}
+	set slot 3 of {_p} to {1_bow}
+	set slot 4 of {_p} to {1_crossbow}
+	set slot 5 of {_p} to {1_trident}
 	set slot 12 of {_p} to {talarialock}
 	set slot 13 of {_p} to {zeuslock}
 	set slot 14 of {_p} to {hermeslock}
@@ -504,10 +501,9 @@ function newlock(p: player):
 	set slot 31 of {_p} to {athenalock}
 	set slot 32 of {_p} to {poseidonlock}
 	set slot 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
-	set slot 5 of {_p} to smithing table named "&e&lARMOR" with lore "&7Right Click To Upgrade &eArmor &7With &dTokens" and "&7 > &eArmor &7upgrades are permanent"
-	set slot 6 of {_p} to anvil named "&e&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
-	set slot 7 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
-	set slot 8 of {_p} to spruce boat named "&e&lWARPS" with lore "&7Right Click To Open Avaiable Warps"
+	set slot 6 of {_p} to smithing table named "&e&lARMOR" with lore "&7Right Click To Upgrade &eArmor &7With &dTokens" and "&7 > &eArmor &7upgrades are permanent"
+	set slot 7 of {_p} to anvil named "&e&lSETTINGS" with lore "&7Right Click To Disable or Enable Options"
+	set slot 8 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore "&7Right Click To View Your Stats"
 
 
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
@@ -692,6 +688,8 @@ function settings(p: player):
 		format gui slot 0 of {_p} with lime dye named "&7&lPvP &a&lENABLED" with lore "&7 > Click to Disable (/pvp)" to run:
 			set {pvp::%{_p}%} to false
 			settings({_p})
+	format gui slot 1 of {_p} with nether star named "&e&lSPAWN" with lore "&7 > Click to teleport" to run:
+		teleport {_p} to {spawn}
 
 command /stats [<offline player>]:
 	trigger:
@@ -936,11 +934,15 @@ function enchants(p: player):
 		enchants({_p})
 	format gui slot 8 of {_p} with arrow named "&7 < &cBack" with lore "&7Click to go back" to run function tool({_p})
 
-function swordenchants(p: player):
+function bowenchant(p: player):
 	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
 
-function rodenchants(p: player):
+function crossbowenchant(p: player):
+	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
+	format gui slot 0 of {_p} with held item of {_p}
+
+function trident(p: player):
 	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
 
@@ -951,10 +953,12 @@ function tool(p: player):
 		open virtual chest inventory with size 1 named "&e&lAXE &8Menu" to {_p}
 	else if tool of {_p} is shovel:
 		open virtual chest inventory with size 1 named "&e&lSHOVEL &8Menu" to {_p}
-	else if tool of {_p} is fishing rod:
-		open virtual chest inventory with size 1 named "&e&lFISHING &8Menu" to {_p}
-	else if tool of {_p} is sword:
-		open virtual chest inventory with size 1 named "&e&lSWORD &8Menu" to {_p}	
+	else if tool of {_p} is bow:
+		open virtual chest inventory with size 1 named "&e&lSOl&6&lAR &8Menu" to {_p}
+	else if tool of {_p} is crossbow:
+		open virtual chest inventory with size 1 named "&a&lTERRE&2&lSTRIAl &8Menu" to {_p}	
+	else if tool of {_p} is trident:
+		open virtual chest inventory with size 1 named "&b&llUN&3&lAR &8Menu" to {_p}	
 	set {_1} to removeLoreLabel(line 1 of lore of tool of {_p})
 	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
 	set {_cost1} to {_1}^2
@@ -963,10 +967,12 @@ function tool(p: player):
 	set {_cost22} to format({_cost2})
 	format gui slot 1 of {_p} with bell named "&eMedals: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost11}% &eMedals" to run function medalUpgrade({_p}, {_cost1})
 	format gui slot 3 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost22}% &eGold" to run function bonusUpgrade({_p}, {_cost2})
-	if tool of {_p} is sword:
-		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function swordenchants({_p})
-	else if tool of {_p} is fishing rod:
-		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function rodenchants({_p})
+	if tool of {_p} is bow:
+		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function bowenchants({_p})
+	else if tool of {_p} is crossbow:
+		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function crossbownchants({_p})
+	else if tool of {_p} is trident:
+		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function tridentenchants({_p})
 	else:
 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function enchants({_p})
 	set {_block} to {block::%{_p}%}
@@ -1027,18 +1033,13 @@ on right click:
 			stop
 		cancel event
 		tool(player)
-	if player's tool is fishing rod:
+	if player's tool is bow or crossbow or trident:
 		player is sneaking
 		cancel event
 		tool(player)
 	if name of player's tool is "&e&lSTATISTICS":
 		cancel event
 		stats(player)
-	if name of player's tool is "&e&lWARPS": 
-		cancel event
-		open virtual chest inventory with size 1 named "%name of player's tool% &8Menu" to player
-		format gui slot 1 of player with nether star named "&e&lSPAWN" with lore "&7 > Click to teleport" to run:
-			teleport player to {spawn}
 	if name of player's tool is "&e&lARMOR":
 		cancel event
 		armor(player)
