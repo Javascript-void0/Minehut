@@ -57,16 +57,6 @@ async def find(ctx, player):
     else:
         await ctx.send(f'```DATABASE: No data for {player}```')
 
-@client.command(aliases=['self'], help='Shows Your Stats')
-async def me(ctx):
-    global db
-    player = ctx.message.author
-    data = await get_data(player)
-    if data:
-        await ctx.send(f'```[:L{data[0]}] {player}: \n  Gold: {data[1]}\n  Gems: {data[2]}\nMedals: {data[3]}\nTokens: {data[4]}\nBlocks: {data[5]}\n Total: {data[6]}\nLinked: {data[7]}```')
-    else:
-        await ctx.send(f'```DATABASE: No data for {player}```')
-
 async def modify_data(player, currency, action, num):
     global log
     data = None
@@ -88,7 +78,7 @@ async def modify_data(player, currency, action, num):
         index = 6
     for i in range(len(lines)):
         if str(player) in lines[i]:
-            data = get_data(player)
+            data = await get_data(player)
             if action == 'add':
                 x = int(data[index]) + num
                 await log.send(f'```DATABASE: Added {num} to {player}```')
@@ -97,7 +87,7 @@ async def modify_data(player, currency, action, num):
                 await log.send(f'```DATABASE: Removed {num} from {player}```')
             elif action == 'reset':
                 x = 0
-                await log.send(f'```DATABASE: Reset{player} to 0```')
+                await log.send(f'```DATABASE: Reset {player} to 0```')
             elif action == 'set':
                 x = num
                 await log.send(f'```DATABASE: Set {player} to {num}```')
