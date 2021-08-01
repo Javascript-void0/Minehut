@@ -231,7 +231,9 @@ async def register(player):
         f = open('./discord/data.txt')
         f = f.read()
         lines = f.splitlines(True)
-        lines.append(f'{player}: 0:0:0:0:0:0:0\n')
+        n = 16 - len(player)
+        p = player.rjust(n)
+        lines.append(f'{p}: 0:0:0:0:0:0:0\n')
         with open(f'./discord/data.txt', 'w') as file:
             file.writelines(lines)
             file.close()
