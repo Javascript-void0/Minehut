@@ -103,20 +103,22 @@ async def modify_data(player, currency, action, num):
                 await log.send(f'```DATABASE: Set {player} to {num}```')
             if x < 0:
                 x = 0
+            n = 16 - len(player)
+            p = player.rjust(n)
             if currency == 'level':
-                lines[i] = f'{player}: {x}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
+                lines[i] = f'{p}: {x}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
             if currency == 'gold':
-                lines[i] = f'{player}: {data[0]}:{x}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
+                lines[i] = f'{p}: {data[0]}:{x}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
             if currency == 'gem':
-                lines[i] = f'{player}: {data[0]}:{data[1]}:{x}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
+                lines[i] = f'{p}: {data[0]}:{data[1]}:{x}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
             if currency == 'medal':
-                lines[i] = f'{player}: {data[0]}:{data[1]}:{data[2]}:{x}:{data[4]}:{data[5]}:{data[6]}\n'
+                lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{x}:{data[4]}:{data[5]}:{data[6]}\n'
             if currency == 'token':
-                lines[i] = f'{player}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{x}:{data[5]}:{data[6]}\n'
+                lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{x}:{data[5]}:{data[6]}\n'
             if currency == 'block':
-                lines[i] = f'{player}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{x}:{data[6]}\n'
+                lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{x}:{data[6]}\n'
             if currency == 'total':
-                lines[i] = f'{player}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}, {x}\n'
+                lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}, {x}\n'
             with open(f'./discord/data.txt', 'w') as file:
                 file.writelines(lines)
 
