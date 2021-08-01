@@ -107,7 +107,7 @@ async def modify_data(player, currency, action, num):
             if currency == 'block':
                 lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{x}:{data[6]}\n'
             if currency == 'total':
-                lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}, {x}\n'
+                lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{x}\n'
             with open(f'./discord/data.txt', 'w') as file:
                 file.writelines(lines)
 
