@@ -6,6 +6,7 @@ from discord.utils import get
 from mcstatus import MinecraftServer
 
 client = commands.Bot(command_prefix='.')
+client.remove_command('help')
 TOKEN = os.getenv("CHAT")
 guild = None
 online = False
