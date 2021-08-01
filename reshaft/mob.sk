@@ -1,0 +1,29 @@
+on damage: 
+	if victim is not a player:
+		if attacker is a player:
+			set name of victim to "&8[&7:L12&8] &f%victim% &7(&c%health of victim%&7)"
+			set action bar of attacker to name of victim
+
+# every 10 seconds in "world":
+# 	loop all players:
+# 		loop all entities:
+# 			if loop-entity-2 is not player:
+# 				if distance between loop-entity-1 and loop-entity-2 is greater than 100:
+# 					delete loop-entity-2
+
+on combust:
+	if event-entity is zombie or skeleton:
+		cancel event
+
+every 2 seconds: 
+	set {mobLevel} to random integer between 1 and 10
+on spawn:
+	if number of entities in "world" is greater than 300:
+		cancel event
+	if block below event-location is not grass block:
+		cancel event
+	set max health of event-entity to {mobLevel} * 10
+	set health of event-entity to {mobLevel} * 10
+	set name of event-entity to "&8[&7:L%{mobLevel}%&8] &f%entity% &7(&c%health of entity%&7)"
+	if {mobLevel} is greater than 5:
+		equip event-entity with leather helmet, leather chestplate, leather leggings, and leather boots
