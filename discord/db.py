@@ -103,8 +103,7 @@ async def modify_data(player, currency, action, num):
                 await log.send(f'```DATABASE: Set {player} to {num}```')
             if x < 0:
                 x = 0
-            n = 16 - len(player)
-            p = player.rjust(n)
+            p = player.rjust(16)
             if currency == 'level':
                 lines[i] = f'{p}: {x}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
             if currency == 'gold':
@@ -233,8 +232,7 @@ async def register(player):
         f = open('./discord/data.txt')
         f = f.read()
         lines = f.splitlines(True)
-        n = 16 - len(player)
-        p = player.rjust(n)
+        p = player.rjust(16)
         lines.append(f'{p}: 0:0:0:0:0:0:0\n')
         with open(f'./discord/data.txt', 'w') as file:
             file.writelines(lines)
