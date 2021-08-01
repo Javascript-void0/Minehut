@@ -72,19 +72,19 @@ async def modify_data(player, currency, action, num):
     data = None
     f = open(f'./discord/data.txt').read()
     lines = f.splitlines(True)
-    if currency is 'level':
+    if currency == 'level':
         index = 0
-    if currency is 'gold':
+    if currency == 'gold':
         index = 1
-    if currency is 'gem':
+    if currency == 'gem':
         index = 2
-    if currency is 'medal':
+    if currency == 'medal':
         index = 3
-    if currency is 'token':
+    if currency == 'token':
         index = 4
-    if currency is 'block':
+    if currency == 'block':
         index = 5
-    if currency is 'total':
+    if currency == 'total':
         index = 6
     for i in range(len(lines)):
         if str(player) in lines[i]:
@@ -103,19 +103,19 @@ async def modify_data(player, currency, action, num):
                 await log.send(f'```DATABASE: Set {player} to {num}```')
             if x < 0:
                 x = 0
-            if currency is 'level':
+            if currency == 'level':
                 lines[i] = f'{player}: {x}, {data[1]}, {data[2]}, {data[3]}, {data[4]}, {data[5]}, {data[6]}\n'
-            if currency is 'gold':
+            if currency == 'gold':
                 lines[i] = f'{player}: {data[0]}, {x}, {data[2]}, {data[3]}, {data[4]}, {data[5]}, {data[6]}\n'
-            if currency is 'gem':
+            if currency == 'gem':
                 lines[i] = f'{player}: {data[0]}, {data[1]}, {x}, {data[3]}, {data[4]}, {data[5]}, {data[6]}\n'
-            if currency is 'medal':
+            if currency == 'medal':
                 lines[i] = f'{player}: {data[0]}, {data[1]}, {data[2]}, {x}, {data[4]}, {data[5]}, {data[6]}\n'
-            if currency is 'token':
+            if currency == 'token':
                 lines[i] = f'{player}: {data[0]}, {data[1]}, {data[2]}, {data[3]}, {x}, {data[5]}, {data[6]}\n'
-            if currency is 'block':
+            if currency == 'block':
                 lines[i] = f'{player}: {data[0]}, {data[1]}, {data[2]}, {data[3]}, {data[4]}, {x}, {data[6]}\n'
-            if currency is 'total':
+            if currency == 'total':
                 lines[i] = f'{player}: {data[0]}, {data[1]}, {data[2]}, {data[3]}, {data[4]}, {data[5]}, {x}\n'
             with open(f'./discord/data.txt', 'w') as file:
                 file.writelines(lines)
