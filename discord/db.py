@@ -51,9 +51,9 @@ async def find(ctx, player):
     data = await get_data(player)
     if data:
         if len(data) == 8:
-            await ctx.send(f'```[:L{data[0]}] {player} - {data[1]}{data[2]}{data[3]}{data[4]}{data[5]}{data[6]}\nLinked: {data[7]}```')
+            await ctx.send(f'```[:L{data[0]}] {player}: \n  Gold: {data[1]}\n  Gems: {data[2]}\nMedals: {data[3]}\nTokens: {data[4]}\nBlocks: {data[5]}\n Total: {data[6]}\nLinked: {data[7]}```')
         else:
-            await ctx.send(f'```[:L{data[0]}] {player} - {data[1]}{data[2]}{data[3]}{data[4]}{data[5]}{data[6]}```')
+            await ctx.send(f'```[:L{data[0]}] {player}: \n  Gold: {data[1]}\n  Gems: {data[2]}\nMedals: {data[3]}\nTokens: {data[4]}\nBlocks: {data[5]}\n Total: {data[6]}```')
     else:
         await ctx.send(f'```DATABASE: No data for {player}```')
 
@@ -63,7 +63,7 @@ async def me(ctx):
     player = ctx.message.author
     data = await get_data(player)
     if data:
-        await ctx.send(f'```[:L{data[0]}] {player} - {data[1]}{data[2]}{data[3]}{data[4]}{data[5]}{data[6]}\nLinked: {data[7]}```')
+        await ctx.send(f'```[:L{data[0]}] {player}: \n  Gold: {data[1]}\n  Gems: {data[2]}\nMedals: {data[3]}\nTokens: {data[4]}\nBlocks: {data[5]}\n Total: {data[6]}\nLinked: {data[7]}```')
     else:
         await ctx.send(f'```DATABASE: No data for {player}```')
 
