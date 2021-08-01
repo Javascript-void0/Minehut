@@ -185,33 +185,33 @@ async def databaseclear(ctx):
 
 @client.command(help='Add')
 @commands.has_permissions(administrator=True)
-async def add(ctx, player, num : int):
+async def add(ctx, player, currency, num : int):
     if num > 0:
-        await modify_data(player, 'add', num)
+        await modify_data(player, currency, 'add', num)
         await ctx.send(f'```DATABASE: Added {num} to {player}```')
     else:
         await ctx.send(f'```DATABASE: Integer must be positive```')
 
 @client.command(help='Remove')
 @commands.has_permissions(administrator=True)
-async def remove(ctx, player, num : int):
+async def remove(ctx, player, currency, num : int):
     if num > 0:
-        await modify_data(player, 'remove', num)
+        await modify_data(player, currency, 'remove', num)
         await ctx.send(f'```DATABASE: Removed {num} from {player}```')
     else:
         await ctx.send(f'```DATABASE: Integer must be positive```')
         
 @client.command(help='Reset Player Data')
 @commands.has_permissions(administrator=True)
-async def reset(ctx, player):
-    await modify_data(player, 'reset', 0)
+async def reset(ctx, player, currency):
+    await modify_data(player, currency, 'reset', 0)
     await ctx.send(f'```DATABASE: Reset {player} to 0```')
 
 @client.command(help='Set Player Data')
 @commands.has_permissions(administrator=True)
-async def set(ctx, player, num : int):
+async def set(ctx, player, currency, num : int):
     if num > 0:
-        await modify_data(player, 'set', num)
+        await modify_data(player, currency, 'set', num)
         await ctx.send(f'```DATABASE: Set {player} to {num}```')
     else:
         await ctx.send(f'```DATABASE: Integer must be positive```')
