@@ -40,7 +40,7 @@ async def get_data(player):
     for i in range(len(lines)):
         if str(player) in lines[i]:
             data = lines[i].split(': ')
-            split = data[1].split(', ')
+            split = data[1].split(':')
             return split
     if not data:
         return False
@@ -104,19 +104,19 @@ async def modify_data(player, currency, action, num):
             if x < 0:
                 x = 0
             if currency == 'level':
-                lines[i] = f'{player}: {x}, {data[1]}, {data[2]}, {data[3]}, {data[4]}, {data[5]}, {data[6]}\n'
+                lines[i] = f'{player}: {x}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
             if currency == 'gold':
-                lines[i] = f'{player}: {data[0]}, {x}, {data[2]}, {data[3]}, {data[4]}, {data[5]}, {data[6]}\n'
+                lines[i] = f'{player}: {data[0]}:{x}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
             if currency == 'gem':
-                lines[i] = f'{player}: {data[0]}, {data[1]}, {x}, {data[3]}, {data[4]}, {data[5]}, {data[6]}\n'
+                lines[i] = f'{player}: {data[0]}:{data[1]}:{x}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
             if currency == 'medal':
-                lines[i] = f'{player}: {data[0]}, {data[1]}, {data[2]}, {x}, {data[4]}, {data[5]}, {data[6]}\n'
+                lines[i] = f'{player}: {data[0]}:{data[1]}:{data[2]}:{x}:{data[4]}:{data[5]}:{data[6]}\n'
             if currency == 'token':
-                lines[i] = f'{player}: {data[0]}, {data[1]}, {data[2]}, {data[3]}, {x}, {data[5]}, {data[6]}\n'
+                lines[i] = f'{player}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{x}:{data[5]}:{data[6]}\n'
             if currency == 'block':
-                lines[i] = f'{player}: {data[0]}, {data[1]}, {data[2]}, {data[3]}, {data[4]}, {x}, {data[6]}\n'
+                lines[i] = f'{player}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{x}:{data[6]}\n'
             if currency == 'total':
-                lines[i] = f'{player}: {data[0]}, {data[1]}, {data[2]}, {data[3]}, {data[4]}, {data[5]}, {x}\n'
+                lines[i] = f'{player}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}, {x}\n'
             with open(f'./discord/data.txt', 'w') as file:
                 file.writelines(lines)
 
@@ -231,7 +231,7 @@ async def register(player):
         f = open('./discord/data.txt')
         f = f.read()
         lines = f.splitlines(True)
-        lines.append(f'{player}: 0, 0, 0, 0, 0, 0, 0\n')
+        lines.append(f'{player}: 0:0:0:0:0:0:0\n')
         with open(f'./discord/data.txt', 'w') as file:
             file.writelines(lines)
             file.close()
