@@ -1,7 +1,8 @@
 on damage: 
 	if victim is not a player:
 		if attacker is a player:
-			set name of victim to "&8[&7:L12&8] &f%victim% &7(&c%health of victim%&7)"
+			set {_name::*} to name of victim split at " "
+			set name of victim to "%{_name::1}% %{_name::2}% &7(&c%health of victim%&7)"
 			set action bar of attacker to name of victim
 
 # every 10 seconds in "world":
@@ -15,15 +16,107 @@ on combust:
 	if event-entity is zombie or skeleton:
 		cancel event
 
-every 2 seconds: 
-	set {mobLevel} to random integer between 1 and 10
+function boneWarrior(l: location):
+	spawn skeleton at {_l}
+	set name of last spawned entity to "&8[&e:L100&8] &fBone:Warrior &7(&c1200&7)"
+	set max health of last spawned entity to 1200
+	set health of last spawned entity to 1200
+	set {_helmet} to bone
+	set {_chestplate} to iron chestplate
+	set {_leggings} to leather leggings
+	dye {_leggings} white
+	set {_boots} to iron boots
+	set {_weapon} to bone
+	enchant {_helmet} with thorns
+	enchant {_chestplate} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_leggings} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_boots} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_weapon} with sharpness 7
+	equip last spawned entity with {_chestplate}, {_leggings}, and {_boots}
+	set helmet of last spawned entity to {_helmet}
+	set held item of last spawned entity to {_weapon}
+
+function boneArcher(l: location):
+	spawn skeleton at {_l}
+	set name of last spawned entity to "&8[&e:L100&8] &fBone:Archer &7(&c600&7)"
+	set max health of last spawned entity to 600
+	set health of last spawned entity to 600
+	set {_helmet} to feather
+	set {_chestplate} to iron chestplate
+	set {_leggings} to leather leggings
+	dye {_leggings} white
+	set {_boots} to iron boots
+	set {_weapon} to bow
+	enchant {_helmet} with thorns
+	enchant {_chestplate} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_leggings} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_boots} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_weapon} with power 7
+	equip last spawned entity with {_chestplate}, {_leggings}, and {_boots}
+	set helmet of last spawned entity to {_helmet}
+	set held item of last spawned entity to {_weapon}
+
+function orcCaptain(l: location):
+	spawn zombie at {_l}
+	set name of last spawned entity to "&8[&e:L100&8] &fOrc:Captain &7(&c600&7)"
+	set max health of last spawned entity to 600
+	set health of last spawned entity to 600
+	set {_helmet} to banner
+	dye {_helmet} green
+	set {_chestplate} to leather chestplate
+	dye {_chestplate} green
+	set {_leggings} to netherite leggings
+	set {_boots} to leather boots
+	dye {_boots} lime
+	set {_weapon} to iron sword
+	enchant {_helmet} with thorns
+	enchant {_chestplate} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_leggings} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_boots} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_weapon} with power 7
+	equip last spawned entity with {_chestplate}, {_leggings}, and {_boots}
+	set helmet of last spawned entity to {_helmet}
+	set held item of last spawned entity to {_weapon}
+
+function orcWarrior(l: location):
+	spawn zombie at {_l}
+	set name of last spawned entity to "&8[&e:L100&8] &fOrc:Warrior &7(&c1200&7)"
+	set max health of last spawned entity to 1200
+	set health of last spawned entity to 1200
+	set {_helmet} to dark prismarine slab
+	set {_chestplate} to leather chestplate
+	dye {_chestplate} green
+	set {_leggings} to netherite leggings
+	set {_boots} to leather boots
+	dye {_boots} lime
+	set {_weapon} to stone sword
+	enchant {_helmet} with thorns
+	enchant {_chestplate} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_leggings} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_boots} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant {_weapon} with power 7
+	equip last spawned entity with {_chestplate}, {_leggings}, and {_boots}
+	set helmet of last spawned entity to {_helmet}
+	set held item of last spawned entity to {_weapon}
+
 on spawn:
-	if number of entities in "world" is greater than 300:
+	set {_p} to number of players
+	set {_d} to number of entities in "world" - {_p}
+	if {_d} is greater than 10:
 		cancel event
 	if block below event-location is not grass block:
 		cancel event
-	set max health of event-entity to {mobLevel} * 10
-	set health of event-entity to {mobLevel} * 10
-	set name of event-entity to "&8[&7:L%{mobLevel}%&8] &f%entity% &7(&c%health of entity%&7)"
-	if {mobLevel} is greater than 5:
-		equip event-entity with leather helmet, leather chestplate, leather leggings, and leather boots
+on spawn of skeleton:
+	boneArcher(event-location)
+	boneWarrior(event-location)
+	delete event-entities
+on spawn of zombie:
+	orcCaptain(event-location)
+	orcWarrior(event-location)
+	delete event-entities
+
+every 10 seconds in "world":
+	loop all entities:
+		loop-entity is not a player
+		if "%region at loop-entity%" does not contain "spawn":
+			delete loop-entity

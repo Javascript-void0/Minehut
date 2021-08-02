@@ -64,7 +64,7 @@ command /setspawn:
 
 every 10 minutes in "{@world}":
 	loop all players:
-		message "{@discord} &7Join our &eDiscord &7for events, updates, and extra features (offline bonuses)<tooltip:&6Click to join!><link:https://discord.gg/y333BGhxFP>&8[&6&lCLICK&8]<reset>" to loop-player
+		message "{@discord} &7Join our &eDiscord &7for events, updates, and extra features (offline bonuses) <tooltip:&6Click to join!><link:https://discord.gg/y333BGhxFP>&8[&6&lCLICK&8]<reset>" to loop-player
 
 command /tps:
 	trigger:
@@ -603,30 +603,39 @@ on inventory click:
 		cancel event
 		stop
 	if clicked slot is 0:
+		gamemode of player is survival
 		set {_i} to slot 0 of player
 		set slot 40 of player to {_i}
 	if clicked slot is 1:
+		gamemode of player is survival
 		set {_i} to slot 1 of player
 		set slot 40 of player to {_i}
 	if clicked slot is 2:
+		gamemode of player is survival
 		set {_i} to slot 2 of player
 		set slot 40 of player to {_i}
 	if clicked slot is 25:
+		gamemode of player is survival
 		close player's inventory
 		arrowShop(player)
 	if clicked slot is 36:
+		gamemode of player is survival
 		close player's inventory
 		armor(player)
 	if clicked slot is 37:
+		gamemode of player is survival
 		close player's inventory
 		armor(player)
 	if clicked slot is 38:
+		gamemode of player is survival
 		close player's inventory
 		armor(player)
 	if clicked slot is 39:
+		gamemode of player is survival
 		close player's inventory
 		armor(player)
 	if clicked slot is 40:
+		gamemode of player is survival
 		delete slot 40 of player
 	if clicked slot is 12:
 		cancel event
@@ -1068,7 +1077,6 @@ function armor(p: player):
 		set {_boots} to slot 14 of {_p}
 
 on right click:
-	set slot 25 of player to 64 of arrow named "&e&lARROW &7Shop" with lore "&7> Click to Open"
 	if player's tool is pickaxe or axe or shovel or sword:
 		if player's tool is wooden axe:
 			stop
@@ -1077,6 +1085,7 @@ on right click:
 	if player's tool is bow or crossbow or trident:
 		player is sneaking
 		cancel event
+		set slot 25 of player to 64 of arrow named "&e&lARROW &7Shop" with lore "&7> Click to Open"
 		tool(player)
 	if name of player's tool is "&e&lSTATISTICS":
 		cancel event
@@ -1087,8 +1096,6 @@ on right click:
 	if name of player's tool is "&e&lSETTINGS":
 		cancel event
 		settings(player)
-	else if group of player is not "admin":
-		cancel event
 
 # ======== STAFF COMMANDS ======== STAFF COMMANDS ========
 # ======== STAFF COMMANDS ======== STAFF COMMANDS ========
@@ -1166,6 +1173,13 @@ command /clearchat:
 		loop 100 times:
 			broadcast ""
 		send "{@shaft} &aYou have cleared the chat"
+command /clearlag:
+	permission: staff
+	permission message: {@staff} {@permission}
+	trigger:
+		set {_n} to size of all entities in "world"
+		delete all entities in "world"
+		broadcast "{@shaft} &7Cleared &c%{_n}% &7entities"
 
 # ======== ADMIN ======== ADMIN ========
 # ======== ADMIN ======== ADMIN ========
