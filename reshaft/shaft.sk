@@ -160,31 +160,32 @@ on join:
 	while player is online:
 		if {_bossbar} is 0:
 			set bossbar "bossbar.%player%" value to 100
-			set bossbar "bossbar.%player%" color to white
+			set bossbar "bossbar.%player%" color to yellow
 			set bossbar "bossbar.%player%" title to "&7Welcome to &6&lRe&e&lSHAFT&7²"
 		else if {_bossbar} is 1:
-			set bossbar "bossbar.%player%" value to 80
-			set bossbar "bossbar.%player%" color to white
+			set bossbar "bossbar.%player%" value to 66
+			set bossbar "bossbar.%player%" color to yellow
 			set bossbar "bossbar.%player%" title to "&7IP: &6reshaft.minehut.gg"
 		else if {_bossbar} is 2:
-			set bossbar "bossbar.%player%" value to 60
+			set bossbar "bossbar.%player%" value to 33
 			set bossbar "bossbar.%player%" color to yellow
 			set bossbar "bossbar.%player%" title to "&7Join Our &eDiscord &7with &e/discord"
 		else if {_bossbar} is 3:
-			set bossbar "bossbar.%player%" value to 40
-			set bossbar "bossbar.%player%" color to yellow
-			set bossbar "bossbar.%player%" title to "&7Access the &6items &7in your &6hotbar"
-		else if {_bossbar} is 4:
-			set bossbar "bossbar.%player%" value to 20
-			set bossbar "bossbar.%player%" color to red
-			set bossbar "bossbar.%player%" title to "&eRebirth &7to collect &ebonuses &7and &egear"
-		else if {_bossbar} is 5:
+			set {_format} to timeFormat({worldtime})
 			set bossbar "bossbar.%player%" value to 0
-			set bossbar "bossbar.%player%" color to red
-			set bossbar "bossbar.%player%" title to "&7Help us &cdestroy &7this world"
+			set bossbar "bossbar.%player%" color to yellow
+			set bossbar "bossbar.%player%" title to "&6World Time: &e%{_format}% &7(&e%{worldtime}%&et&7)"
+		# else if {_bossbar} is 4:
+		# 	set bossbar "bossbar.%player%" value to 20
+		# 	set bossbar "bossbar.%player%" color to red
+		# 	set bossbar "bossbar.%player%" title to "&eRebirth &7to collect &ebonuses &7and &egear"
+		# else if {_bossbar} is 5:
+		# 	set bossbar "bossbar.%player%" value to 0
+		# 	set bossbar "bossbar.%player%" color to red
+		# 	set bossbar "bossbar.%player%" title to "&7Help us &cdestroy &7this world"
 		wait 3 seconds
 		add 1 to {_bossbar}
-		if {_bossbar} is 6:
+		if {_bossbar} is 4:
 			set {_bossbar} to 0
 	remove bossbar "bossbar.%player%"
 
@@ -749,18 +750,18 @@ on inventory click:
 	if name of event-inventory is not "Crafting":
 		cancel event
 		stop
-	if clicked slot is 0:
-		gamemode of player is survival
-		set {_i} to slot 0 of player
-		set slot 40 of player to {_i}
-	if clicked slot is 1:
-		gamemode of player is survival
-		set {_i} to slot 1 of player
-		set slot 40 of player to {_i}
-	if clicked slot is 2:
-		gamemode of player is survival
-		set {_i} to slot 2 of player
-		set slot 40 of player to {_i}
+	# if clicked slot is 0:
+	# 	gamemode of player is survival
+	# 	set {_i} to slot 0 of player
+	# 	set slot 40 of player to {_i}
+	# if clicked slot is 1:
+	# 	gamemode of player is survival
+	# 	set {_i} to slot 1 of player
+	# 	set slot 40 of player to {_i}
+	# if clicked slot is 2:
+	# 	gamemode of player is survival
+	# 	set {_i} to slot 2 of player
+	# 	set slot 40 of player to {_i}
 	if clicked slot is 25:
 		gamemode of player is survival
 		close player's inventory
