@@ -95,17 +95,81 @@ on load:
 	set {kronoslock} to {kronos} named "&8(&e★★&7★&8) &bKronos &7- &c&lLOCKED"
 	set {kronosperm} to {kronos} named "&8(&e★★&7★&8) &bKronos" with lore "&7> Gain &6Resistance II &7 while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &b64&7/64"
 
-	set {pegasus} to end rod named "&8(&e★&7★★&8) &7Pegasus"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
+	set {pegasus} to end rod named "&8(&e★&7★★&8) &6Pegasus" with lore "&7> &e+300%% &7from &e&lSOl&6&lAR" and "&7> &7Collect fragments to upgrade" and "&6Unlock: &e5,000 &7Gems" and "&6Fragments: &e1&7/64"
+	enchant {pegasus} with feather falling 3, piercing 3, and curse of vanishing 3
 	set {pegasuslock} to {pegasus} named "&8(&e★&7★★&8) &7Pegasus &7- &c&lLOCKED"
+	set {pegasusperm} to end rod named "&8(&e★&7★★&8) &6Pegasus" with lore "&7> &e+300%% &7from &e&lSOl&6&lAR" and "&7> &7Collect fragments to upgrade" and "&6Unlock: &e5,000 &7Gems" and "&6Fragments: &e64&7/64"
 
-	set {athena} to lead named "&8(&e★&7★★&8) &7Athena"  with lore "&7&ndoes nothing yet" and "&eUnlock: &b5,000 &7Gems"
-	set {athenalock} to {athena} named "&8(&e★&7★★&8) &7Athena &7- &c&lLOCKED"
+	set {athena} to lead named "&8(&a★&7★★&8) &2Athena" with lore "&7> &a+300%% &7from &a&lTERRE&2&lSTRIAl" and "&7> &7Collect fragments to upgrade" and "&2Unlock: &a5,000 &7Gems" and "&2Fragments: &a1&7/64"
+	enchant {athena} with infinity 3, fortune 3, and curse of vanishing 3
+	set {athenalock} to {athena} named "&8(&a★&7★★&8) &2Athena &7- &c&lLOCKED"
+	set {athenaperm} to lead named "&8(&a★&7★★&8) &2Athena" with lore "&7> &a+300%% &7from &a&lTERRE&2&lSTRIAl" and "&7> &7Collect fragments to upgrade" and "&2Unlock: &a5,000 &7Gems" and "&2Fragments: &a64&7/64"
 
-	set {poseidon} to raw cod named "&8(&e★&7★★&8) &7Poseidon"  with lore "&7> &b+100%% &7Rewards from Fishing" and "&7> &7Collect fragments to upgrade" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &f1&7/64"
-	enchant {poseidon} with luck of the sea 3
-	enchant {poseidon} with lure 3
-	enchant {poseidon} with mending 3
-	enchant {poseidon} with unbreaking 3
-	enchant {poseidon} with curse of vanishing 3
-	set {poseidonlock} to {poseidon} named "&8(&e★&7★★&8) &7Poseidon &7- &c&lLOCKED"
-	set {poseidonperm} to {poseidon} named "&8(&e★&7★★&8) &7Poseidon"  with lore "&7> &b+100%% &7Rewards from Fishing" and "&7> &7Collect fragments to upgrade" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &b64&7/64"
+	set {poseidon} to raw cod named "&8(&b★&7★★&8) &3Poseidon" with lore "&7> &b+300%% &7from &b&llUN&3&lAR" and "&7> &7Collect fragments to upgrade" and "&3Unlock: &b5,000 &7Gems" and "&3Fragments: &b1&7/64"
+	enchant {poseidon} with luck of the sea 3, lure 3, and curse of vanishing 3
+	set {poseidonlock} to {poseidon} named "&8(&b★&7★★&8) &3Poseidon &7- &c&lLOCKED"
+	set {poseidonperm} to {poseidon} named "&8(&b★&7★★&8) &3Poseidon"  with lore "7> &b+300%% &7from &b&llUN&3&lAR" and "&7> &7Collect fragments to upgrade" and "&3Unlock: &b5,000 &7Gems" and "&3Fragments: &b64&7/64"
+
+# ==== MOBS ====
+
+function boneWarrior(e: entity):
+	set max health of {_e} to 1024
+	set health of {_e} to 1024
+	set helmet of {_e} to bone
+	set chestplate of {_e} to iron chestplate
+	set leggings of {_e} to leather leggings
+	dye leggings of {_e} white
+	set boots of {_e} to iron boots
+	set held item of {_e} to bone
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant held item of {_e} with sharpness 7
+
+function boneArcher(e: entity):
+	set max health of {_e} to 1024
+	set health of {_e} to 1024
+	set helmet of {_e} to feather
+	set chestplate of {_e} to iron chestplate
+	set leggings of {_e} to leather leggings
+	dye leggings of {_e} white
+	set boots of {_e} to iron boots
+	set held item of {_e} to bow
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant held item of {_e} with power 7
+
+function orcCaptain(e: entity):
+	set max health of {_e} to 1024
+	set health of {_e} to 1024
+	set helmet of {_e} to fern
+	set chestplate of {_e} to leather chestplate
+	dye chestplate of {_e} green
+	set leggings of {_e} to netherite leggings
+	set boots of {_e} to leather boots
+	dye boots of {_e} lime
+	set held item of {_e} to iron sword
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant held item of {_e} with power 7
+
+function orcWarrior(e: entity):
+	set max health of {_e} to 1024
+	set health of {_e} to 1024
+	set helmet of {_e} to dark prismarine slab
+	set chestplate of {_e} to leather chestplate
+	dye chestplate of {_e} green
+	set leggings of {_e} to netherite leggings
+	set boots of {_e} to leather boots
+	dye boots of {_e} lime
+	set held item of {_e} to stone sword
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant held item of {_e} with power 7

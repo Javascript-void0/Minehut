@@ -115,6 +115,27 @@ command /pvp:
 		else:
 			delete {pvp::%player%}
 			send "{@shaft} &7PvP &a&lENABLED."
+
+on death of player:
+	if attacker is not a player:
+		victim is player
+		if projectile is set:
+			set the death message to "&8[&f☠&8] &7%player's display name% &7was shot by %attacker's display name%"
+		else:
+			set the death message to "&8[&f☠&8] &7%player's display name% &7was killed by %attacker's display name%"
+	else if attacker is a player:
+		victim is player
+		if projectile is set:
+			set {_msg} to new text component of "&8[&f☠&8] &7%player's display name% &7was shot by %attacker's display name% using "
+		else:
+			set {_msg} to new text component of "&8[&f☠&8] &7%player's display name% &7was killed by %attacker's display name% using "
+		set {_weapon} to new text component of "&8[&f%name of tool of attacker%&8]"
+		set {_info} to tool of attacker
+		set hover event of {_weapon} to a new hover event showing {_info}
+		set the death message to ""
+		loop all players:
+			send components {_msg} and {_weapon} to loop-player
+
 on damage:
 	if victim is not a player:
 		stop
@@ -167,30 +188,67 @@ on join:
 			set {_bossbar} to 0
 	remove bossbar "bossbar.%player%"
 
+# ==== WORLD TIME ====
+
+function timeFormat(t: integer) :: text: 
+	set {_h} to floor({_t} / 60)
+	set {_m} to {_t} - ({_h} * 60)
+	if {_h} is less than 10:
+		set {_h} to "0%{_h}%"
+	if {_m} is 0:
+		set {_m} to "00"
+	else if {_m} is less than 10:
+		set {_m} to "0%{_m}%"
+	set {_time} to "%{_h}%:%{_m}%"
+	return {_time}
+
+command /worldtime [<integer>]:
+	trigger:
+		if player is op:
+			if arg-1 is greater than 1440:
+				set {_time} to 1440
+			else:
+				set {_time} to arg-1
+			set {worldtime} to {_time}
+			set {_format} to timeFormat({_time})
+			send "{@admin} &7World time set to &e%{_format}% &7(&e%{worldtime}%&et&7)"
+		else:
+			send "{@admin} {@permission}"
+
+every 1 minute in "{@world}":
+	add 1 to {worldtime}
+	if {worldtime} is greater than 1440:
+		set {worldtime} to 0
+	if mod({worldtime}, 60) is 0:
+		set {_format} to timeFormat({worldtime})
+		broadcast "{@shaft} &7World Time: &e%{_format}% &7(&e%{worldtime}%t&7)"
+
 every 1 second in "{@world}":
 	loop all players:
 		wipe loop-player's sidebar
 		set name of sidebar of loop-player to "&6&lRe&e&lSHAFT&7²"
-		set score "    " in sidebar of loop-player to 12
-		set score " &e&lPLAYER &7(:L&7%{level::%loop-player%}%)" in sidebar of loop-player to 11
+		set score "    " in sidebar of loop-player to 14
+		set score " &e&lPLAYER &7(:L&7%{level::%loop-player%}%)" in sidebar of loop-player to 13
 		set {_block} to format({block::%loop-player%})
-		set score "   &7Blocks: &f%{_block}%" in sidebar of loop-player to 10
+		set score "   &7Blocks: &f%{_block}%" in sidebar of loop-player to 12
 		set {_gold} to format({gold::%loop-player%})
-		set score "   &7Gold: &f%{_gold}%" in sidebar of loop-player to 9
+		set score "   &7Gold: &f%{_gold}%" in sidebar of loop-player to 11
 		set {_gem} to spaced("%{gem::%loop-player%}%")
-		set score "   &7Gems: &f%{_gem}%" in sidebar of loop-player to 8
+		set score "   &7Gems: &f%{_gem}%" in sidebar of loop-player to 10
 		set {_medal} to format({medal::%loop-player%})
-		set score "   &7Medals: &f%{_medal}%" in sidebar of loop-player to 7
+		set score "   &7Medals: &f%{_medal}%" in sidebar of loop-player to 9
 		set {_token} to spaced("%{token::%loop-player%}%")
-		set score "   &7Tokens: &f%{_token}%" in sidebar of loop-player to 6
-		set score "   &7Bonus: &f%{bonus::%loop-player%}%%%" in sidebar of loop-player to 5
-		set score "  " in sidebar of loop-player to 4
-		set score " &e&lSERVER &7(%number of all players%/10)" in sidebar of loop-player to 3
+		set score "   &7Tokens: &f%{_token}%" in sidebar of loop-player to 8
+		set score "   &7Bonus: &f%{bonus::%loop-player%}%%%" in sidebar of loop-player to 7
+		set score "  " in sidebar of loop-player to 6
+		set score " &e&lSERVER &7(%number of all players%/10)" in sidebar of loop-player to 5
 		set {_tps} to tps from the last 1 minute
 		set {_t} to roundto({_tps}, 2)
-		set score "   &7TPS: &f%{_t}%" in sidebar of loop-player to 2
-		set score "   &7Blessing: &f%{blessing}%%%" in sidebar of loop-player to 1
-		set score " " in sidebar of loop-player to 0
+		set score "   &7TPS: &f%{_t}%" in sidebar of loop-player to 4
+		set {_time} to timeFormat({worldtime})
+		set score "   &7World Time: &f%{_time}%" in sidebar of loop-player to 3
+		set score "   &7Blessing: &f%{blessing}%%%" in sidebar of loop-player to 2
+		set score " " in sidebar of loop-player to 1
 
 # ======== HEX/RGB ======== HEX/RGB ========
 # ======== HEX/RGB ======== HEX/RGB ========
@@ -215,6 +273,95 @@ function gradient(input: string, color-from: integers, color-to: integers) :: st
 		set {_r} to "%{_r} ? """"%%rgbToHex({_color-from::*})%%{_format} ? """"%%subtext of {_input} from indices loop-number to loop-number%"
 		set {_color-from::*} to ({_color-from::1} + {_i::1}), ({_color-from::2} + {_i::2}) and ({_color-from::3} + {_i::3})
 	return colored {_r}
+
+# ======== MOB SPAWN ======== MOB SPAWN ========
+# ======== MOB SPAWN ======== MOB SPAWN ========
+# ======== MOB SPAWN ======== MOB SPAWN ========
+
+on damage: 
+	if victim is not a player:
+		set {_name::*} to name of victim split at " "
+		set name of victim to "%{_name::1}% %{_name::2}% &7(&c%health of victim%&7)"
+		set action bar of attacker to name of victim
+
+on combust:
+	if event-entity is zombie or skeleton:
+		cancel event
+
+command /setmobspawn [<text>]:
+	trigger:
+		if player is op:
+			if arg-1 is "add":
+				add player's location to {mobSpawn::*}
+				send "{@admin} &7Added &e%player's location% &7 to Mob Spawn Points"
+			if arg-1 is "reset":
+				delete {mobSpawn::*}
+				send "{@admin} &7Cleared Mob Spawn Points"
+			if arg-1 is "list":
+				loop {mobSpawn::*}:
+					send "{@admin} &7%{mobSpawn::%loop-value%}%"
+		else:
+			send "{@admin} {@permission}"
+
+on spawn of zombie:
+	set {_n} to random integer between 1 and 2
+	if {mobcap} is true:
+		cancel event
+	else if block below event-location is not grass block:
+		cancel event
+	else if {_n} is 1:
+		set name of event-entity to "&8[&e:L100&8] &fOrc:Captain &7(&c1024&7)"
+		orcCaptain(event-entity)
+	else if {_n} is 2:
+		set name of event-entity to "&8[&e:L100&8] &fOrc:Warrior &7(&c1024&7)"
+		orcWarrior(event-entity)
+on spawn of skeleton:
+	set {_n} to random integer between 1 and 2
+	if {mobcap} is true:
+		cancel event
+	else if block below event-location is not grass block:
+		cancel event
+	else if {_n} is 1:
+		set name of event-entity to "&8[&e:L100&8] &fBone:Warrior &7(&c1024&7)"
+		boneWarrior(event-entity)
+	else if {_n} is 2:
+		set name of event-entity to "&8[&e:L100&8] &fBone:Archer &7(&c1024&7)"
+		boneArcher(event-entity)
+on spawn of creeper:
+#	if {mobcap} is false:
+	cancel event
+on spawn of enderman:
+#	if {mobcap} is false:
+	cancel event
+on spawn of witch:
+#	if {mobcap} is false:
+	cancel event
+on spawn of spider:
+#	if {mobcap} is false:
+	cancel event
+on spawn of chicken:
+	cancel event
+on spawn of pig:
+#	if {mobcap} is false:
+	cancel event
+on spawn of cow:
+#	if {mobcap} is false:
+	cancel event
+on spawn of sheep:
+#	if {mobcap} is false:
+	cancel event
+
+every 10 seconds in "{@world}":
+	loop all entities:
+		loop-entity is not a player
+		if "%region at loop-entity%" does not contain "spawn":
+			delete loop-entity
+	set {_p} to number of players
+	set {_d} to number of entities in "{@world}" - {_p}
+	if {_d} is greater than 50:
+		set {mobcap} to true
+	else:
+		set {mobcap} to false
 
 # ======== BLESSING  ======== BLESSING  ========
 # ======== BLESSING  ======== BLESSING  ========
@@ -381,8 +528,7 @@ on chat:
 				set {_name} to name of {_item}
 				if {_name} is not set:
 					set {_name} to a new translate component from {_item}
-				set {_itemName} to "&8[&r%{_name}%&8]&r"
-				set {_itemName} to a new text component of "%{_itemName}%"
+				set {_itemName} to a new text component of "&8[&r%{_name}%&8]&r"
 				set hover event of {_itemName} to a new hover event showing {_item}
 				set {_messages::%{_itemIndexes::%loop-index%}%} to {_itemName}
 			else:
