@@ -1264,13 +1264,13 @@ command /staffchat [<text>]:
 		else:
 			loop all players:
 				if loop-player has permission "sc.staffchat":
-					send colored "{@staff} %player's prefix%&r%player's display name%&7: &r%arg 1%" to loop-player
+					send formatted "{@staff} %player's prefix%&r%player's display name%&7: &r%arg 1%" to loop-player
 on chat:
 	if {staffchat::%player%} is set:
 		cancel event
 		loop all players:
 			if loop-player has permission "sc.staffchat":
-				send colored "{@staff} %player's prefix%&r%player's display name%&7: &r%message%" to loop-player
+				send formatted "{@staff} %player's prefix%&r%player's display name%&7: &r%message%" to loop-player
 every 1 second in "{@world}":
 	loop all players:
 		if {staffchat::%loop-player%} is true:
