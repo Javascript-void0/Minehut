@@ -1,6 +1,5 @@
 import discord
 import os
-import datetime
 from discord.ext import commands
 from discord.utils import get
 from mcstatus import MinecraftServer
@@ -32,7 +31,7 @@ async def on_ready():
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | reshaft.minehut.gg"))
         await role.edit(color=discord.Color(0x91caad))
     else:
-        await client.change_presence(activity=discord.Game(name="Server Offline | reshaft.minehut.gg"), status=discord.Status.dnd)
+        await client.change_presence(activity=discord.Game(name="Server Offline | reshaft.minehut.gg"), status=discord.Status.do_not_disturb)
         await role.edit(color=discord.Color(0xf7a982))
 
 @client.event
@@ -51,7 +50,7 @@ async def on_guild_channel_update(before, after):
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | reshaft.minehut.gg"))
         await role.edit(color=discord.Color(0x91caad))
     else:
-        await client.change_presence(activity=discord.Game(name="Server Offline | reshaft.minehut.gg"), status=discord.Status.dnd)
+        await client.change_presence(activity=discord.Game(name="Server Offline | reshaft.minehut.gg"), status=discord.Status.do_not_disturb)
         await role.edit(color=discord.Color(0xf7a982))
 
 if __name__ == '__main__':
