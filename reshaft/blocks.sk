@@ -2,9 +2,10 @@ options:
 	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
 
 function blockAdd(p: player, n: integer):
-		add {_n} to {gold::%{_p}%}
-		add 1 to {totalblock::%{_p}%}
-		add 1 to {block::%{_p}%}
+	add {_n} to {gold::%{_p}%}
+	add {_n} to {totalgold::%{_p}%}
+	add 1 to {totalblock::%{_p}%}
+	add 1 to {block::%{_p}%}
 
 on break:
 	if xp of player is less than 996:

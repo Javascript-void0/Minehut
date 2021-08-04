@@ -123,8 +123,11 @@ on death of player:
 			set the death message to "&8[&f☠&8] &7%player's display name% &7was shot by %attacker's display name%"
 		else:
 			set the death message to "&8[&f☠&8] &7%player's display name% &7was killed by %attacker's display name%"
+		add 1 to {mdeath::%victim%}
 	else if attacker is a player:
 		victim is player
+		add 1 to {pkill::%attacker%}
+		add 1 to {pdeath::%victim%}
 		if projectile is set:
 			set {_msg} to new text component of "&8[&f☠&8] &7%player's display name% &7was shot by %attacker's display name% using "
 		else:
@@ -135,6 +138,13 @@ on death of player:
 		set the death message to ""
 		loop all players:
 			send components {_msg} and {_weapon} to loop-player
+
+on death of zombie:
+	if attacker is a player:
+		add 1 to {mkill::%attacker%}
+on death of skeleton:
+	if attacker is a player:
+		add 1 to {mkill::%attacker%}
 
 on damage:
 	if victim is not a player:
@@ -401,6 +411,20 @@ on join:
 		set {block::%player%} to 0
 	if {totalblock::%player%} is not set:
 		set {totalblock::%player%} to 0
+	if {totalgold::%player%} is not set:
+		set {totalgold::%player%} to 0
+	if {totalmedal::%player%} is not set:
+		set {totalmedal::%player%} to 0
+	if {mkill::%player%} is not set:
+		set {mkill::%player%} to 0
+	if {mdeath::%player%} is not set:
+		set {mdeath::%player%} to 0
+	if {pkill::%player%} is not set:
+		set {pkill::%player%} to 0
+	if {pdeath::%player%} is not set:
+		set {pdeath::%player%} to 0
+	if {rebirth::%player%} is not set:
+		set {rebirth::%player%} to 0
 
 # ======== /TOP ======== /TOP ========
 # ======== /TOP ======== /TOP ========
@@ -408,8 +432,8 @@ on join:
 
 command /top [<text>]:
 	trigger:
-		if arg-1 is not "level" or "gold" or "gem" or "medal" or "token" or "totalblock":
-			send "{@shaft} /top <level gold gem medal token totalblock>"
+		if arg-1 is not "level" or "gold" or "totalgold" or "gem" or "medal" or "token" or "totaltoken" or "totalblock" or "pkill" or "mkill" or "rebirth":
+			send "{@shaft} /top <level gold total gold gem medal token totaltoken totalblock pkill mkill rebirth>"
 		else:
 			loop {%arg-1%::*}:
 				add 1 to {_size}
@@ -433,13 +457,13 @@ command /top [<text>]:
 			loop {_high.to.low.list::*}:
 				if arg-1 is "level":
 					set {_label} to "&e:L%{%arg-1%::%loop-value%}%"
-				else if arg-1 is "gold":
+				else if arg-1 is "gold" or "totalgold":
 					set {_gold} to format({%arg-1%::%loop-value%})
 					set {_label} to "&e%{_gold}% &7gold"
 				else if arg-1 is "gem":
 					set {_gem} to spaced("%{%arg-1%::%loop-value%}%")
 					set {_label} to "&e%{_gem}% &7gems"
-				else if arg-1 is "medal":
+				else if arg-1 is "medal" or "totalmedal":
 					set {_medal} to format({%arg-1%::%loop-value%})
 					set {_label} to "&e%{_medal}% &7medals"
 				else if arg-1 is "token":
@@ -448,6 +472,10 @@ command /top [<text>]:
 				else if arg-1 is "totalblock":
 					set {_block} to format({%arg-1%::%loop-value%})
 					set {_label} to "&e%{_block}% &7blocks"
+				else if arg-1 is "mkill" or "pkill":
+					set {_label} to "&e%{%arg-1%::%loop-value%}% kills"
+				else if arg-1 is "rebirth":
+					set {_label} to "&e%{%arg-1%::%loop-value%}% times"
 				add 1 to {_topnumber}
 				set {_player} to "%loop-value%" parsed as offline player
 				send "&7%{_topnumber}%&7. %{_player}%: %{_label}%"
@@ -887,6 +915,32 @@ function settings(p: player):
 			settings({_p})
 	format gui slot 1 of {_p} with nether star named "&e&lSPAWN" with lore "&7 > Click to teleport" to run:
 		teleport {_p} to {spawn}
+	set {_waited} to difference between {daily.%{_p}%.lastused} and now
+	set {_next} to 1 day after {daily.%{_p}%.lastused}
+	if {_waited} is less than 24 hours:
+		format gui slot 8 of {_p} with minecart named "&7&lDAILY &e&lREWARD" with lore "&7Next Avaiable: %{_next}%" and "&7> &7Already &cClaimed " and "&7> &b+100 &7Gems" to run:
+			send "{@shaft} &7Your daily reward was already claimed at &e%{daily.%{_p}%.lastused}%" to {_p}
+			settings({_p})
+	else:
+		if {_waited} is not set:
+			set {_m} to "Never Used"
+		else:
+			set {_m} to "%{daily.%{_p}%.lastused}%"
+		format gui slot 8 of {_p} with minecart with chest named "&7&lDAILY &e&lREWARD" with lore "&7Last Used: %{_m}%" and "&7> &7Ready to &aClaim" and "&7> &b+100 &7Gems" to run:
+			set {daily.%{_p}%.lastused} to now
+			send "{@shaft} &7You claimed your daily reward at &e%now%" to {_p}
+			add 100 to {gem.%{_p}%}
+			settings({_p})
+	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
+
+command /dailyreset [<offline player>]:
+	trigger:
+		if command executor is op:
+			clear {daily.%arg-1%.lastused}
+			send "{@admin} &7Reset daily reward of &e%arg-1%"
+			send "{@shaft} &7Your daily reward has neen reset" to arg-1
+		else:
+			send "{@admin} {@permission}"
 
 command /stats [<offline player>]:
 	trigger:
@@ -896,23 +950,27 @@ command /stats [<offline player>]:
 			stats(arg-1)
 
 function stats(p: player):
-	open virtual chest inventory with size 6 named "&e&lSTATS: &8%{_p}%" to {_p}
-	format gui slot 11 of {_p} with compass named "&6Position: &f%location of {_p}%" with lore "&7 > For those without F3...?"
-	format gui slot 13 of {_p} with head of {_p} named "&7:L%{level::%{_p}%}%&8: &e%display name of {_p}%"
-	format gui slot 15 of {_p} with clock named "&6Playtime: &f%time played of {_p}%" with lore "&7 > Total time spent online"
+	open virtual chest inventory with size 3 named "&e&lSTATS: &8%{_p}%" to {_p}
+	format gui slot 2 of {_p} with compass named "&6Position: &f%location of {_p}%" with lore "&7 > For those without F3...?"
+	format gui slot 4 of {_p} with head of {_p} named "&7:L%{level::%{_p}%}%&8: &e%display name of {_p}%"
+	format gui slot 6 of {_p} with clock named "&6Playtime: &f%time played of {_p}%" with lore "&7 > Total time spent online"
 	set {_gold} to format({gold::%{_p}%})
-	format gui slot 30 of {_p} with gold ingot named "&6Gold: &f%{_gold}%"
+	set {_totalgold} to format({totalgold::%{_p}%})
+	format gui slot 10 of {_p} with gold ingot named "&6&lGOLD" with lore "&7Current: &6%{_gold}% &7gold" and "&7Total: &6%{_totalgold}% &7gold"
 	set {_token} to spaced("%{token::%{_p}%}%")
-	format gui slot 31 of {_p} with sunflower named "&6Tokens: &f%{_token}%"
+	format gui slot 11 of {_p} with sunflower named "&d&lTOKENS" with lore "&7Total: &d%{_token}% &7tokens"
 	set {_medal} to format({medal::%{_p}%})
-	format gui slot 32 of {_p} with bell named "&6Medals: &f%{_medal}%"
+	set {_totalmedal} to format({totalmedal::%{_p}%})
+	format gui slot 12 of {_p} with bell named "&c&lMEDALS" with lore "&7Current: &c%{_medal}% &7medals" and "&7Total: &c%{_totalmedal}% &7medals"
 	set {_gem} to spaced("%{gem::%{_p}%}%")
-	format gui slot 40 of {_p} with emerald named "&6Gems: &f%{_gem}%"
+	format gui slot 13 of {_p} with emerald named "&b&lGEMS" with lore "&7Total: &b%{_gem}% &7gems"
 	set {_total} to format({totalblock::%{_p}%})
-	format gui slot 41 of {_p} with grass block named "&6Total Blocks: &f%{_total}%" with lore "&7 > The total blocks altogether"
 	set {_block} to format({block::%{_p}%})
-	format gui slot 42 of {_p} with stone named "&6Blocks This Rebirth: &f%{_block}%" with lore "&7 > The total since last rebirth"
-	format gui slot 43 of {_p} with cookie named "&6Current Bonus: &f%{bonus::%{_p}%}%%%" with lore "&7 > Depends on your current gear"
+	format gui slot 14 of {_p} with grass block named "&a&lBLOCKS" with lore "&7Since Last Rebirth: &a%{_block}% &7blocks" and "&7Total: &a%{_total}% &7blocks"
+	format gui slot 15 of {_p} with cookie named "&b&lBONUS" with lore "&7Current: &b%{bonus::%{_p}%}%%%" and "&7 > Depends on your current gear"
+	format gui slot 16 of {_p} with nether star named "&b&lREBIRTH" with lore "&7Total: &b%{rebirth::%{_p}%}% &7times"
+	format gui slot 19 of {_p} with zombie skull named "&c&lPvE" with lore "&7Kills: &c%{mkill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{mdeath::%{_p}%}% &7deaths"
+	format gui slot 20 of {_p} with skeleton skull named "&c&lPvP" with lore "&7Kills: &c%{pkill::%{_p}%}% &7players killed" and "&7Deaths: &c%{pdeath::%{_p}%}% &7deaths"
 
 function removeLoreLabel(t: text) :: number:
 	set {_n} to uncolored {_t}
@@ -957,9 +1015,11 @@ function rebirth(p: player):
 		set {_blessing} to {blessing} / 100
 		set {_medals} to {block::%{_p}%} * {_blessing}
 		add {_medals} to {medal::%{_p}%}
+		add {_medals} to {totalmedal::%{_p}%}
 		set {block::%{_p}%} to 0
 		set {gold::%{_p}%} to 0
 		set {_m} to format({_medals})
+		add 1 to {rebirth::%{_p}%}
 		send "{@shaft} &7You rebirthed and gained &e%{_m}% &7medals" to {_p}
 
 function rebirthnew(p: player):
@@ -1339,8 +1399,8 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 			if arg-1 is not set:
 				send "{@admin} &f/modify &f<player>"
 				stop
-			else if arg-2 is not "level" or "gold" or "gem" or "medal" or "token" or "block" or "all":
-				send "{@admin} &f/modify <%arg-1%> &f<level gold gem medal token block all>"
+			else if arg-2 is not "level" or "gold" or "totalgold" or "gem" or "medal" or "totalmedal" or "token" or "block" or "totalblock" or "mkill" or "mdeath" or "pkill" or "pdeath" or "rebirth" or "all":
+				send "{@admin} &f/modify <%arg-1%> &f<level gold totalgold gem medal totalmedal token block totalblock mkill mdeath pkill pdeath rebirth all>"
 				stop
 			else if arg-3 is not "add" or "remove" or "set" or "reset":
 				if arg-2 is "reset":
@@ -1386,9 +1446,18 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 				else if arg-2 is "all":
 					set {level::%arg-1%} to 1
 					set {gold::%arg-1%} to 0
+					set {totalgold::%arg-1%} to 0
 					set {gem::%arg-1%} to 0
 					set {medal::%arg-1%} to 0
+					set {totalmedal::%arg-1%} to 0
 					set {token::%arg-1%} to 0
+					set {block::%arg-1%} to 0
+					set {totalblock::%arg-1%} to 0
+					set {mkill::%arg-1%} to 0
+					set {mdeath::%arg-1%} to 0
+					set {pkill::%arg-1%} to 0
+					set {pdeath::%arg-1%} to 0
+					set {rebirth::%arg-1%} to 0
 					send "{@admin} &7Reset all for &e%arg-1%"
 					stop
 				else:
