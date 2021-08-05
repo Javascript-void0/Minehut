@@ -14,9 +14,9 @@ role = None
 @client.event
 async def on_ready():
     global guild, online, channel, role
-    guild = client.get_guild(747233433511788637)
-    channel = guild.get_channel(798198506878795797)
-    role = get(guild.roles, id=862498099406438430)
+    guild = client.get_guild(872657348299227218)
+    channel = guild.get_channel(872657350316687362)
+    role = get(guild.roles, id=872657348299227218)
     print('[ + ] Started {0.user}'.format(client))
     await client.wait_until_ready()
     server = MinecraftServer.lookup("reshaft.minehut.gg:25565")
@@ -39,7 +39,7 @@ async def on_guild_channel_update(before, after):
     global online, role
     server = MinecraftServer.lookup("reshaft.minehut.gg:25565")
     mc_status = server.status()
-    if before.id == 798198506878795797:
+    if before.id == 872657350316687362:
         if 'online' in after.topic:
             print('online')
             online = True
