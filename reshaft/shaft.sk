@@ -578,11 +578,11 @@ on chat:
 			send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
 		send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to console
 		if group of player is "admin":
-			send "[Admin] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[Admin] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 		else if group of player is "mod":
-			send "[Mod] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[Mod] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 		else:
-			send "[:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 	else:
 		cancel event
 		set {_message} to a new text component of "&7%message%"
@@ -594,11 +594,11 @@ on chat:
 			send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to loop-player
 		send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to console
 		if group of player is "admin":
-			send "[Admin] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[Admin] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 		else if group of player is "mod":
-			send "[Mod] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[Mod] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 		else:
-			send "[:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 
 # ======== NUMBER FORMAT ======== NUMBER FORMAT ========
 # ======== NUMBER FORMAT ======== NUMBER FORMAT ========

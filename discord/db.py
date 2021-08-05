@@ -10,6 +10,7 @@ client = commands.Bot(command_prefix='.', intents=intents)
 TOKEN = os.getenv("CHAT")
 
 db = None
+test = None
 guild = None
 log = None
 file_log = None
@@ -18,9 +19,10 @@ file_log = None
 async def on_ready():
     global db, guild, log, file_log
     guild = client.get_guild(747233433511788637)
-    db = guild.get_channel(871179843264466995)
-    log = guild.get_channel(871179925250506752)
-    file_log = guild.get_channel(871180111582470154)
+    test = client.get_guild(805299220935999509)
+    db = guild.get_channel(872657351461732395)
+    log = guild.get_channel(872829816624271381)
+    file_log = guild.get_channel(872829900485193758)
     print('[ + ] Started {0.user}'.format(client))
     print(f'[ + ] Connected to database...')
     await log.send('```DATABASE: Started {0.user}```'.format(client))

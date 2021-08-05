@@ -16,7 +16,7 @@ async def on_ready():
     global guild, online, channel, role
     guild = client.get_guild(872657348299227218)
     channel = guild.get_channel(872657350316687362)
-    role = get(guild.roles, id=872657348299227218)
+    role = get(guild.roles, id=872657348408258618)
     print('[ + ] Started {0.user}'.format(client))
     await client.wait_until_ready()
     server = MinecraftServer.lookup("reshaft.minehut.gg:25565")

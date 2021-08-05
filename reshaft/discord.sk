@@ -33,7 +33,7 @@ discord command top [<text>]:
 	trigger:
 		set {_} to a message builder
 		if arg-1 is not "level" or "gold" or "totalgold" or "gem" or "medal" or "token" or "totaltoken" or "totalblock" or "pkill" or "mkill" or "rebirth":
-			append line "```.top <level gold total gold gem medal token totaltoken totalblock pkill mkill rebirth>```"
+			append line "```.top <level gold totalgold gem medal token totaltoken totalblock pkill mkill rebirth>```"
 			reply with {_}
 		else:
 			loop {%arg-1%::*}:
@@ -54,7 +54,7 @@ discord command top [<text>]:
 				set {_n} to {_n}-1
 			wait 1 tick
 			set {_i} to 0
-			append line "`----------- [ TOP ] -------------`"
+			append line "```----------- [ TOP ] -------------"
 			loop {_high.to.low.list::*}:
 				if arg-1 is "level":
 					set {_label} to ":L%{p_%arg-1%::%loop-value%}%"
@@ -82,5 +82,663 @@ discord command top [<text>]:
 				append line "%{_topnumber}%. %{_player}% : %{_label}%"
 				add 1 to {_i}
 				if {_topnumber} > 10:
+					append line "```"
 					stop
 			reply with {_}
+
+			# if arg-1 is "level":
+			# 	set {_label} to ":L%{p_%arg-1%::%loop-value%}%"
+			# else if arg-1 is "gold" or "totalgold":
+			# 	set {_gold} to format({p_%arg-1%::%loop-value%})
+			# 	set {_label} to "%{_gold}% gold"
+			# else if arg-1 is "gem":
+			# 	set {_gem} to spaced("%{p_%arg-1%::%loop-value%}%")
+			# 	set {_label} to "%{_gem}% gems"
+			# else if arg-1 is "medal" or "totalmedal":
+			# 	set {_medal} to format({p_%arg-1%::%loop-value%})
+			# 	set {_label} to "%{_medal}% medals"
+			# else if arg-1 is "token":
+			# 	set {_token} to spaced("%{p_%arg-1%::%loop-value%}%")
+			# 	set {_label} to "%{_token}% tokens"
+			# else if arg-1 is "totalblock":
+			# 	set {_block} to format({p_%arg-1%::%loop-value%})
+			# 	set {_label} to "%{_block}% blocks"
+			# else if arg-1 is "mkill" or "pkill":
+			# 	set {_label} to "%{p_%arg-1%::%loop-value%}% kills"
+			# else if arg-1 is "rebirth":
+			# 	set {_label} to "%{p_%arg-1%::%loop-value%}% times"
+
+discord command .init:
+	executable in: guild
+	trigger:
+		set {_} to a message builder
+
+		loop {p_level::*}:
+			add 1 to {_size}
+			if {_low.to.high.list::%loop-value%} is not set:
+				set {_low.to.high.list::%loop-value%} to loop-index
+			else:
+				set {_n} to 0
+				loop {_size} times:
+					set {_n} to {_n}+1
+					{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+					set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+					stop loop
+		wait 1 tick
+		set {_n} to size of {_low.to.high.list::*}
+		loop {_low.to.high.list::*}:
+			set {_high.to.low.list::%{_n}%} to loop-value
+			set {_n} to {_n}-1
+		wait 1 tick
+		set {_i} to 0
+		append line "``` LEVELS"
+		loop {_high.to.low.list::*}:
+			add 1 to {_topnumber}
+			set {_player} to "%loop-value%" parsed as offline player
+			add 1 to {_i}
+			append line "%{_topnumber}%. %{_player}% : :L%{p_level::%loop-value%}%"
+			if {_topnumber} > 10:
+				stop
+		clear {_low.to.high.list::*}
+		clear {_high.to.low.list::*}
+		clear {_label}
+		clear {_topnumber}
+
+# =================================================================================
+
+		loop {p_gold::*}:
+			add 1 to {_size}
+			if {_low.to.high.list::%loop-value%} is not set:
+				set {_low.to.high.list::%loop-value%} to loop-index
+			else:
+				set {_n} to 0
+				loop {_size} times:
+					set {_n} to {_n}+1
+					{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+					set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+					stop loop
+		wait 1 tick
+		set {_n} to size of {_low.to.high.list::*}
+		loop {_low.to.high.list::*}:
+			set {_high.to.low.list::%{_n}%} to loop-value
+			set {_n} to {_n}-1
+		wait 1 tick
+		set {_i} to 0
+		append line " GOLD"
+		loop {_high.to.low.list::*}:
+			add 1 to {_topnumber}
+			set {_gold} to format({p_gold::%loop-value%})
+			set {_label} to "%{_gold}% gold"
+			set {_player} to "%loop-value%" parsed as offline player
+			add 1 to {_i}
+			append line "%{_topnumber}%. %{_player}% : %{_label}%"
+			if {_topnumber} > 10:
+				stop
+		clear {_low.to.high.list::*}
+		clear {_high.to.low.list::*}
+		clear {_label}
+		clear {_topnumber}
+
+# =================================================================================
+
+		loop {p_totalgold::*}:
+			add 1 to {_size}
+			if {_low.to.high.list::%loop-value%} is not set:
+				set {_low.to.high.list::%loop-value%} to loop-index
+			else:
+				set {_n} to 0
+				loop {_size} times:
+					set {_n} to {_n}+1
+					{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+					set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+					stop loop
+		wait 1 tick
+		set {_n} to size of {_low.to.high.list::*}
+		loop {_low.to.high.list::*}:
+			set {_high.to.low.list::%{_n}%} to loop-value
+			set {_n} to {_n}-1
+		wait 1 tick
+		set {_i} to 0
+		append line " TOTAL GOLD"
+		loop {_high.to.low.list::*}:
+			add 1 to {_topnumber}
+			set {_gold} to format({p_totalgold::%loop-value%})
+			set {_label} to "%{_gold}% gold"
+			set {_player} to "%loop-value%" parsed as offline player
+			add 1 to {_i}
+			append line "%{_topnumber}%. %{_player}% : %{_label}%"
+			if {_topnumber} > 10:
+				stop
+		clear {_low.to.high.list::*}
+		clear {_high.to.low.list::*}
+		clear {_label}
+		clear {_topnumber}
+
+# =================================================================================
+
+		loop {p_gem::*}:
+			add 1 to {_size}
+			if {_low.to.high.list::%loop-value%} is not set:
+				set {_low.to.high.list::%loop-value%} to loop-index
+			else:
+				set {_n} to 0
+				loop {_size} times:
+					set {_n} to {_n}+1
+					{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+					set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+					stop loop
+		wait 1 tick
+		set {_n} to size of {_low.to.high.list::*}
+		loop {_low.to.high.list::*}:
+			set {_high.to.low.list::%{_n}%} to loop-value
+			set {_n} to {_n}-1
+		wait 1 tick
+		set {_i} to 0
+		append line " GEMS"
+		loop {_high.to.low.list::*}:
+			add 1 to {_topnumber}
+			set {_gem} to format({p_gem::%loop-value%})
+			set {_label} to "%{_gem}% gems"
+			set {_player} to "%loop-value%" parsed as offline player
+			add 1 to {_i}
+			append line "%{_topnumber}%. %{_player}% : %{_label}%"
+			if {_topnumber} > 10:
+				stop
+		clear {_low.to.high.list::*}
+		clear {_high.to.low.list::*}
+		clear {_label}
+		clear {_topnumber}
+
+# =================================================================================
+
+		loop {p_medal::*}:
+			add 1 to {_size}
+			if {_low.to.high.list::%loop-value%} is not set:
+				set {_low.to.high.list::%loop-value%} to loop-index
+			else:
+				set {_n} to 0
+				loop {_size} times:
+					set {_n} to {_n}+1
+					{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+					set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+					stop loop
+		wait 1 tick
+		set {_n} to size of {_low.to.high.list::*}
+		loop {_low.to.high.list::*}:
+			set {_high.to.low.list::%{_n}%} to loop-value
+			set {_n} to {_n}-1
+		wait 1 tick
+		set {_i} to 0
+		append line " MEDALS"
+		loop {_high.to.low.list::*}:
+			add 1 to {_topnumber}
+			set {_medal} to format({p_medal::%loop-value%})
+			set {_label} to "%{_medal}% medals"
+			set {_player} to "%loop-value%" parsed as offline player
+			add 1 to {_i}
+			append line "%{_topnumber}%. %{_player}% : %{_label}%"
+			if {_topnumber} > 10:
+				stop
+		clear {_low.to.high.list::*}
+		clear {_high.to.low.list::*}
+		clear {_label}
+		clear {_topnumber}
+
+# =================================================================================
+
+		loop {p_totalmedal::*}:
+			add 1 to {_size}
+			if {_low.to.high.list::%loop-value%} is not set:
+				set {_low.to.high.list::%loop-value%} to loop-index
+			else:
+				set {_n} to 0
+				loop {_size} times:
+					set {_n} to {_n}+1
+					{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+					set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+					stop loop
+		wait 1 tick
+		set {_n} to size of {_low.to.high.list::*}
+		loop {_low.to.high.list::*}:
+			set {_high.to.low.list::%{_n}%} to loop-value
+			set {_n} to {_n}-1
+		wait 1 tick
+		set {_i} to 0
+		append line " TOTAL MEDALS"
+		loop {_high.to.low.list::*}:
+			add 1 to {_topnumber}
+			set {_medal} to format({p_medal::%loop-value%})
+			set {_label} to "%{_medal}% medals"
+			set {_player} to "%loop-value%" parsed as offline player
+			add 1 to {_i}
+			append line "%{_topnumber}%. %{_player}% : %{_label}%"
+			if {_topnumber} > 10:
+				stop
+		clear {_low.to.high.list::*}
+		clear {_high.to.low.list::*}
+		clear {_label}
+		clear {_topnumber}
+
+# =================================================================================
+
+		loop {p_token::*}:
+			add 1 to {_size}
+			if {_low.to.high.list::%loop-value%} is not set:
+				set {_low.to.high.list::%loop-value%} to loop-index
+			else:
+				set {_n} to 0
+				loop {_size} times:
+					set {_n} to {_n}+1
+					{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+					set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+					stop loop
+		wait 1 tick
+		set {_n} to size of {_low.to.high.list::*}
+		loop {_low.to.high.list::*}:
+			set {_high.to.low.list::%{_n}%} to loop-value
+			set {_n} to {_n}-1
+		wait 1 tick
+		set {_i} to 0
+		append line " TOKENS"
+		loop {_high.to.low.list::*}:
+			add 1 to {_topnumber}
+			set {_token} to format({p_token::%loop-value%})
+			set {_label} to "%{_token}% tokens"
+			set {_player} to "%loop-value%" parsed as offline player
+			add 1 to {_i}
+			append line "%{_topnumber}%. %{_player}% : %{_label}%"
+			if {_topnumber} > 10:
+				stop
+		clear {_low.to.high.list::*}
+		clear {_high.to.low.list::*}
+		clear {_label}
+		clear {_topnumber}
+
+# =================================================================================
+
+		loop {p_block::*}:
+			add 1 to {_size}
+			if {_low.to.high.list::%loop-value%} is not set:
+				set {_low.to.high.list::%loop-value%} to loop-index
+			else:
+				set {_n} to 0
+				loop {_size} times:
+					set {_n} to {_n}+1
+					{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+					set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+					stop loop
+		wait 1 tick
+		set {_n} to size of {_low.to.high.list::*}
+		loop {_low.to.high.list::*}:
+			set {_high.to.low.list::%{_n}%} to loop-value
+			set {_n} to {_n}-1
+		wait 1 tick
+		set {_i} to 0
+		append line " BLOCKS"
+		loop {_high.to.low.list::*}:
+			add 1 to {_topnumber}
+			set {_block} to format({p_block::%loop-value%})
+			set {_label} to "%{_block}% blocks"
+			set {_player} to "%loop-value%" parsed as offline player
+			add 1 to {_i}
+			append line "%{_topnumber}%. %{_player}% : %{_label}%"
+			if {_topnumber} > 10:
+				stop
+		clear {_low.to.high.list::*}
+		clear {_high.to.low.list::*}
+		clear {_label}
+		clear {_topnumber}
+
+# =================================================================================
+
+		loop {p_totalblock::*}:
+			add 1 to {_size}
+			if {_low.to.high.list::%loop-value%} is not set:
+				set {_low.to.high.list::%loop-value%} to loop-index
+			else:
+				set {_n} to 0
+				loop {_size} times:
+					set {_n} to {_n}+1
+					{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+					set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+					stop loop
+		wait 1 tick
+		set {_n} to size of {_low.to.high.list::*}
+		loop {_low.to.high.list::*}:
+			set {_high.to.low.list::%{_n}%} to loop-value
+			set {_n} to {_n}-1
+		wait 1 tick
+		set {_i} to 0
+		append line " TOTAL BLOCKS"
+		loop {_high.to.low.list::*}:
+			add 1 to {_topnumber}
+			set {_block} to format({p_totalblock::%loop-value%})
+			set {_label} to "%{_block}% blocks"
+			set {_player} to "%loop-value%" parsed as offline player
+			add 1 to {_i}
+			append line "%{_topnumber}%. %{_player}% : %{_label}%"
+			if {_topnumber} > 10:
+				stop
+		clear {_low.to.high.list::*}
+		clear {_high.to.low.list::*}
+		clear {_label}
+		clear {_topnumber}
+
+		reply with {_} and store it in {ruling}
+		
+every minute in "world":
+	set {_} to a message builder
+
+	loop {p_level::*}:
+		add 1 to {_size}
+		if {_low.to.high.list::%loop-value%} is not set:
+			set {_low.to.high.list::%loop-value%} to loop-index
+		else:
+			set {_n} to 0
+			loop {_size} times:
+				set {_n} to {_n}+1
+				{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+				set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+				stop loop
+	wait 1 tick
+	set {_n} to size of {_low.to.high.list::*}
+	loop {_low.to.high.list::*}:
+		set {_high.to.low.list::%{_n}%} to loop-value
+		set {_n} to {_n}-1
+	wait 1 tick
+	set {_i} to 0
+	append line " LEVELS"
+	loop {_high.to.low.list::*}:
+		add 1 to {_topnumber}
+		set {_player} to "%loop-value%" parsed as offline player
+		add 1 to {_i}
+		append line "%{_topnumber}%. %{_player}% : :L%{p_level::%loop-value%}%"
+		if {_topnumber} > 10:
+			stop
+	clear {_low.to.high.list::*}
+	clear {_high.to.low.list::*}
+	clear {_label}
+	clear {_topnumber}
+
+# =================================================================================
+
+	loop {p_gold::*}:
+		add 1 to {_size}
+		if {_low.to.high.list::%loop-value%} is not set:
+			set {_low.to.high.list::%loop-value%} to loop-index
+		else:
+			set {_n} to 0
+			loop {_size} times:
+				set {_n} to {_n}+1
+				{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+				set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+				stop loop
+	wait 1 tick
+	set {_n} to size of {_low.to.high.list::*}
+	loop {_low.to.high.list::*}:
+		set {_high.to.low.list::%{_n}%} to loop-value
+		set {_n} to {_n}-1
+	wait 1 tick
+	set {_i} to 0
+	append line " GOLD"
+	loop {_high.to.low.list::*}:
+		add 1 to {_topnumber}
+		set {_gold} to format({p_gold::%loop-value%})
+		set {_label} to "%{_gold}% gold"
+		set {_player} to "%loop-value%" parsed as offline player
+		add 1 to {_i}
+		append line "%{_topnumber}%. %{_player}% : %{_label}%"
+		if {_topnumber} > 10:
+			stop
+	clear {_low.to.high.list::*}
+	clear {_high.to.low.list::*}
+	clear {_label}
+	clear {_topnumber}
+
+# =================================================================================
+
+	loop {p_totalgold::*}:
+		add 1 to {_size}
+		if {_low.to.high.list::%loop-value%} is not set:
+			set {_low.to.high.list::%loop-value%} to loop-index
+		else:
+			set {_n} to 0
+			loop {_size} times:
+				set {_n} to {_n}+1
+				{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+				set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+				stop loop
+	wait 1 tick
+	set {_n} to size of {_low.to.high.list::*}
+	loop {_low.to.high.list::*}:
+		set {_high.to.low.list::%{_n}%} to loop-value
+		set {_n} to {_n}-1
+	wait 1 tick
+	set {_i} to 0
+	append line " TOTAL GOLD"
+	loop {_high.to.low.list::*}:
+		add 1 to {_topnumber}
+		set {_gold} to format({p_totalgold::%loop-value%})
+		set {_label} to "%{_gold}% gold"
+		set {_player} to "%loop-value%" parsed as offline player
+		add 1 to {_i}
+		append line "%{_topnumber}%. %{_player}% : %{_label}%"
+		if {_topnumber} > 10:
+			stop
+	clear {_low.to.high.list::*}
+	clear {_high.to.low.list::*}
+	clear {_label}
+	clear {_topnumber}
+
+# =================================================================================
+
+	loop {p_gem::*}:
+		add 1 to {_size}
+		if {_low.to.high.list::%loop-value%} is not set:
+			set {_low.to.high.list::%loop-value%} to loop-index
+		else:
+			set {_n} to 0
+			loop {_size} times:
+				set {_n} to {_n}+1
+				{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+				set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+				stop loop
+	wait 1 tick
+	set {_n} to size of {_low.to.high.list::*}
+	loop {_low.to.high.list::*}:
+		set {_high.to.low.list::%{_n}%} to loop-value
+		set {_n} to {_n}-1
+	wait 1 tick
+	set {_i} to 0
+	append line " GEMS"
+	loop {_high.to.low.list::*}:
+		add 1 to {_topnumber}
+		set {_gem} to format({p_gem::%loop-value%})
+		set {_label} to "%{_gem}% gems"
+		set {_player} to "%loop-value%" parsed as offline player
+		add 1 to {_i}
+		append line "%{_topnumber}%. %{_player}% : %{_label}%"
+		if {_topnumber} > 10:
+			stop
+	clear {_low.to.high.list::*}
+	clear {_high.to.low.list::*}
+	clear {_label}
+	clear {_topnumber}
+
+# =================================================================================
+
+	loop {p_medal::*}:
+		add 1 to {_size}
+		if {_low.to.high.list::%loop-value%} is not set:
+			set {_low.to.high.list::%loop-value%} to loop-index
+		else:
+			set {_n} to 0
+			loop {_size} times:
+				set {_n} to {_n}+1
+				{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+				set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+				stop loop
+	wait 1 tick
+	set {_n} to size of {_low.to.high.list::*}
+	loop {_low.to.high.list::*}:
+		set {_high.to.low.list::%{_n}%} to loop-value
+		set {_n} to {_n}-1
+	wait 1 tick
+	set {_i} to 0
+	append line " MEDALS"
+	loop {_high.to.low.list::*}:
+		add 1 to {_topnumber}
+		set {_medal} to format({p_medal::%loop-value%})
+		set {_label} to "%{_medal}% medals"
+		set {_player} to "%loop-value%" parsed as offline player
+		add 1 to {_i}
+		append line "%{_topnumber}%. %{_player}% : %{_label}%"
+		if {_topnumber} > 10:
+			stop
+	clear {_low.to.high.list::*}
+	clear {_high.to.low.list::*}
+	clear {_label}
+	clear {_topnumber}
+
+# =================================================================================
+
+	loop {p_totalmedal::*}:
+		add 1 to {_size}
+		if {_low.to.high.list::%loop-value%} is not set:
+			set {_low.to.high.list::%loop-value%} to loop-index
+		else:
+			set {_n} to 0
+			loop {_size} times:
+				set {_n} to {_n}+1
+				{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+				set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+				stop loop
+	wait 1 tick
+	set {_n} to size of {_low.to.high.list::*}
+	loop {_low.to.high.list::*}:
+		set {_high.to.low.list::%{_n}%} to loop-value
+		set {_n} to {_n}-1
+	wait 1 tick
+	set {_i} to 0
+	append line " TOTAL MEDALS"
+	loop {_high.to.low.list::*}:
+		add 1 to {_topnumber}
+		set {_medal} to format({p_medal::%loop-value%})
+		set {_label} to "%{_medal}% medals"
+		set {_player} to "%loop-value%" parsed as offline player
+		add 1 to {_i}
+		append line "%{_topnumber}%. %{_player}% : %{_label}%"
+		if {_topnumber} > 10:
+			stop
+	clear {_low.to.high.list::*}
+	clear {_high.to.low.list::*}
+	clear {_label}
+	clear {_topnumber}
+
+# =================================================================================
+
+	loop {p_token::*}:
+		add 1 to {_size}
+		if {_low.to.high.list::%loop-value%} is not set:
+			set {_low.to.high.list::%loop-value%} to loop-index
+		else:
+			set {_n} to 0
+			loop {_size} times:
+				set {_n} to {_n}+1
+				{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+				set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+				stop loop
+	wait 1 tick
+	set {_n} to size of {_low.to.high.list::*}
+	loop {_low.to.high.list::*}:
+		set {_high.to.low.list::%{_n}%} to loop-value
+		set {_n} to {_n}-1
+	wait 1 tick
+	set {_i} to 0
+	append line " TOKENS"
+	loop {_high.to.low.list::*}:
+		add 1 to {_topnumber}
+		set {_token} to format({p_token::%loop-value%})
+		set {_label} to "%{_token}% tokens"
+		set {_player} to "%loop-value%" parsed as offline player
+		add 1 to {_i}
+		append line "%{_topnumber}%. %{_player}% : %{_label}%"
+		if {_topnumber} > 10:
+			stop
+	clear {_low.to.high.list::*}
+	clear {_high.to.low.list::*}
+	clear {_label}
+	clear {_topnumber}
+
+# =================================================================================
+
+	loop {p_block::*}:
+		add 1 to {_size}
+		if {_low.to.high.list::%loop-value%} is not set:
+			set {_low.to.high.list::%loop-value%} to loop-index
+		else:
+			set {_n} to 0
+			loop {_size} times:
+				set {_n} to {_n}+1
+				{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+				set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+				stop loop
+	wait 1 tick
+	set {_n} to size of {_low.to.high.list::*}
+	loop {_low.to.high.list::*}:
+		set {_high.to.low.list::%{_n}%} to loop-value
+		set {_n} to {_n}-1
+	wait 1 tick
+	set {_i} to 0
+	append line " BLOCKS"
+	loop {_high.to.low.list::*}:
+		add 1 to {_topnumber}
+		set {_block} to format({p_block::%loop-value%})
+		set {_label} to "%{_block}% blocks"
+		set {_player} to "%loop-value%" parsed as offline player
+		add 1 to {_i}
+		append line "%{_topnumber}%. %{_player}% : %{_label}%"
+		if {_topnumber} > 10:
+			stop
+	clear {_low.to.high.list::*}
+	clear {_high.to.low.list::*}
+	clear {_label}
+	clear {_topnumber}
+
+# =================================================================================
+
+	loop {p_totalblock::*}:
+		add 1 to {_size}
+		if {_low.to.high.list::%loop-value%} is not set:
+			set {_low.to.high.list::%loop-value%} to loop-index
+		else:
+			set {_n} to 0
+			loop {_size} times:
+				set {_n} to {_n}+1
+				{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+				set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+				stop loop
+	wait 1 tick
+	set {_n} to size of {_low.to.high.list::*}
+	loop {_low.to.high.list::*}:
+		set {_high.to.low.list::%{_n}%} to loop-value
+		set {_n} to {_n}-1
+	wait 1 tick
+	set {_i} to 0
+	append line " TOTAL BLOCKS"
+	loop {_high.to.low.list::*}:
+		add 1 to {_topnumber}
+		set {_block} to format({p_totalblock::%loop-value%})
+		set {_label} to "%{_block}% blocks"
+		set {_player} to "%loop-value%" parsed as offline player
+		add 1 to {_i}
+		append line "%{_topnumber}%. %{_player}% : %{_label}%"
+		if {_topnumber} > 10:
+			stop
+	clear {_low.to.high.list::*}
+	clear {_high.to.low.list::*}
+	clear {_label}
+	clear {_topnumber}
+
+	append line " Last Updated: %now%```"
+	edit {ruling} to show {_}
