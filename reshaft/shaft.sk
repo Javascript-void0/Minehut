@@ -123,11 +123,11 @@ on death of player:
 			set the death message to "&8[&f☠&8] &7%player's display name% &7was shot by %attacker's display name%"
 		else:
 			set the death message to "&8[&f☠&8] &7%player's display name% &7was killed by %attacker's display name%"
-		add 1 to {mdeath::%victim%}
+		add 1 to {p_mdeath::%victim%}
 	else if attacker is a player:
 		victim is player
-		add 1 to {pkill::%attacker%}
-		add 1 to {pdeath::%victim%}
+		add 1 to {p_pkill::%attacker%}
+		add 1 to {p_pdeath::%victim%}
 		if projectile is set:
 			set {_msg} to new text component of "&8[&f☠&8] &7%player's display name% &7was shot by %attacker's display name% using "
 		else:
@@ -141,10 +141,10 @@ on death of player:
 
 on death of zombie:
 	if attacker is a player:
-		add 1 to {mkill::%attacker%}
+		add 1 to {p_mkill::%attacker%}
 on death of skeleton:
 	if attacker is a player:
-		add 1 to {mkill::%attacker%}
+		add 1 to {p_mkill::%attacker%}
 
 on damage:
 	if victim is not a player:
@@ -239,18 +239,18 @@ every 1 second in "{@world}":
 		wipe loop-player's sidebar
 		set name of sidebar of loop-player to "&6&lRe&e&lSHAFT&7²"
 		set score "    " in sidebar of loop-player to 14
-		set score " &e&lPLAYER &7(:L&7%{level::%loop-player%}%)" in sidebar of loop-player to 13
-		set {_block} to format({block::%loop-player%})
+		set score " &e&lPLAYER &7(:L&7%{p_level::%loop-player%}%)" in sidebar of loop-player to 13
+		set {_block} to format({p_block::%loop-player%})
 		set score "   &7Blocks: &f%{_block}%" in sidebar of loop-player to 12
-		set {_gold} to format({gold::%loop-player%})
+		set {_gold} to format({p_gold::%loop-player%})
 		set score "   &7Gold: &f%{_gold}%" in sidebar of loop-player to 11
-		set {_gem} to spaced("%{gem::%loop-player%}%")
+		set {_gem} to spaced("%{p_gem::%loop-player%}%")
 		set score "   &7Gems: &f%{_gem}%" in sidebar of loop-player to 10
-		set {_medal} to format({medal::%loop-player%})
+		set {_medal} to format({p_medal::%loop-player%})
 		set score "   &7Medals: &f%{_medal}%" in sidebar of loop-player to 9
-		set {_token} to spaced("%{token::%loop-player%}%")
+		set {_token} to spaced("%{p_token::%loop-player%}%")
 		set score "   &7Tokens: &f%{_token}%" in sidebar of loop-player to 8
-		set score "   &7Bonus: &f%{bonus::%loop-player%}%%%" in sidebar of loop-player to 7
+		set score "   &7Bonus: &f%{p_bonus::%loop-player%}%%%" in sidebar of loop-player to 7
 		set score "  " in sidebar of loop-player to 6
 		set score " &e&lSERVER &7(%number of all players%/10)" in sidebar of loop-player to 5
 		set {_tps} to tps from the last 1 minute
@@ -395,36 +395,36 @@ command /blessing [<integer>]:
 # ======== PLAYER STATS ======== PLAYER STATS ========
 
 on join:
-	if {level::%player%} is not set:
-		set {level::%player%} to 1
-	if {gold::%player%} is not set:
-		set {gold::%player%} to 0
-	if {gem::%player%} is not set:
-		set {gem::%player%} to 0
-	if {medal::%player%} is not set:
-		set {medal::%player%} to 0
-	if {token::%player%} is not set:
-		set {token::%player%} to 0
-	if {bonus::%player%} is not set:
-		set {bonus::%player%} to 100
-	if {block::%player%} is not set:
-		set {block::%player%} to 0
-	if {totalblock::%player%} is not set:
-		set {totalblock::%player%} to 0
-	if {totalgold::%player%} is not set:
-		set {totalgold::%player%} to 0
-	if {totalmedal::%player%} is not set:
-		set {totalmedal::%player%} to 0
-	if {mkill::%player%} is not set:
-		set {mkill::%player%} to 0
-	if {mdeath::%player%} is not set:
-		set {mdeath::%player%} to 0
-	if {pkill::%player%} is not set:
-		set {pkill::%player%} to 0
-	if {pdeath::%player%} is not set:
-		set {pdeath::%player%} to 0
-	if {rebirth::%player%} is not set:
-		set {rebirth::%player%} to 0
+	if {p_level::%player%} is not set:
+		set {p_level::%player%} to 1
+	if {p_gold::%player%} is not set:
+		set {p_gold::%player%} to 0
+	if {p_gem::%player%} is not set:
+		set {p_gem::%player%} to 0
+	if {p_medal::%player%} is not set:
+		set {p_medal::%player%} to 0
+	if {p_token::%player%} is not set:
+		set {p_token::%player%} to 0
+	if {p_bonus::%player%} is not set:
+		set {p_bonus::%player%} to 100
+	if {p_block::%player%} is not set:
+		set {p_block::%player%} to 0
+	if {p_totalblock::%player%} is not set:
+		set {p_totalblock::%player%} to 0
+	if {p_totalgold::%player%} is not set:
+		set {p_totalgold::%player%} to 0
+	if {p_totalmedal::%player%} is not set:
+		set {p_totalmedal::%player%} to 0
+	if {p_mkill::%player%} is not set:
+		set {p_mkill::%player%} to 0
+	if {p_mdeath::%player%} is not set:
+		set {p_mdeath::%player%} to 0
+	if {p_pkill::%player%} is not set:
+		set {p_pkill::%player%} to 0
+	if {p_pdeath::%player%} is not set:
+		set {p_pdeath::%player%} to 0
+	if {p_rebirth::%player%} is not set:
+		set {p_rebirth::%player%} to 0
 
 # ======== /TOP ======== /TOP ========
 # ======== /TOP ======== /TOP ========
@@ -456,26 +456,26 @@ command /top [<text>]:
 			send "&7&m-----------&r &8[ &e&lTOP &8] &7&m-------------"
 			loop {_high.to.low.list::*}:
 				if arg-1 is "level":
-					set {_label} to "&e:L%{%arg-1%::%loop-value%}%"
+					set {_label} to "&e:L%{p_%arg-1%::%loop-value%}%"
 				else if arg-1 is "gold" or "totalgold":
-					set {_gold} to format({%arg-1%::%loop-value%})
+					set {_gold} to format({p_%arg-1%::%loop-value%})
 					set {_label} to "&e%{_gold}% &7gold"
 				else if arg-1 is "gem":
-					set {_gem} to spaced("%{%arg-1%::%loop-value%}%")
+					set {_gem} to spaced("%{p_%arg-1%::%loop-value%}%")
 					set {_label} to "&e%{_gem}% &7gems"
 				else if arg-1 is "medal" or "totalmedal":
-					set {_medal} to format({%arg-1%::%loop-value%})
+					set {_medal} to format({p_%arg-1%::%loop-value%})
 					set {_label} to "&e%{_medal}% &7medals"
 				else if arg-1 is "token":
-					set {_token} to spaced("%{%arg-1%::%loop-value%}%")
+					set {_token} to spaced("%{p_%arg-1%::%loop-value%}%")
 					set {_label} to "&e%{_token}% &7tokens"
 				else if arg-1 is "totalblock":
-					set {_block} to format({%arg-1%::%loop-value%})
+					set {_block} to format({p_%arg-1%::%loop-value%})
 					set {_label} to "&e%{_block}% &7blocks"
 				else if arg-1 is "mkill" or "pkill":
-					set {_label} to "&e%{%arg-1%::%loop-value%}% kills"
+					set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7kills"
 				else if arg-1 is "rebirth":
-					set {_label} to "&e%{%arg-1%::%loop-value%}% times"
+					set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7times"
 				add 1 to {_topnumber}
 				set {_player} to "%loop-value%" parsed as offline player
 				send "&7%{_topnumber}%&7. %{_player}%: %{_label}%"
@@ -498,15 +498,15 @@ on chat:
 		set {_prefix} to "&7:L"
 
 	if group of player is "admin" or "mod":
-		set {_level} to a new text component of "&e%{level::%player%}%"
+		set {_level} to a new text component of "&e%{p_level::%player%}%"
 	else:
-		set {_level} to a new text component of "&7%{level::%player%}%"
-	set {_gold} to format({gold::%player%})
-	set {_gem} to spaced("%{gem::%player%}%")
-	set {_medal} to format({medal::%player%})
-	set {_token} to spaced("%{token::%player%}%")
-	set {_total} to format({totalblock::%player%})
-	set {_stats} to bedrock named "&8[&e:L%{level::%player%}%&8] &f%{_player}%" with lore "&eGold: &7%{_gold}%" and "&bGems: &7%{_gem}%" and "&cMedals: &7%{_medal}%" and "&dTokens: &7%{_token}%" and "&7Blocks: &7%{_total}%" and "&7Bonus: &7%{bonus::%player%}%%%"
+		set {_level} to a new text component of "&7%{p_level::%player%}%"
+	set {_gold} to format({p_gold::%player%})
+	set {_gem} to spaced("%{p_gem::%player%}%")
+	set {_medal} to format({p_medal::%player%})
+	set {_token} to spaced("%{p_token::%player%}%")
+	set {_total} to format({p_totalblock::%player%})
+	set {_stats} to bedrock named "&8[&e:L%{p_level::%player%}%&8] &f%{_player}%" with lore "&eGold: &7%{_gold}%" and "&bGems: &7%{_gem}%" and "&cMedals: &7%{_medal}%" and "&dTokens: &7%{_token}%" and "&7Blocks: &7%{_total}%" and "&7Bonus: &7%{p_bonus::%player%}%%%"
 	set hover event of {_level} to a new hover event showing {_stats}
 
 	set {_slotList::hand} to index of player's hotbar slot
@@ -578,11 +578,11 @@ on chat:
 			send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
 		send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to console
 		if group of player is "admin":
-			send "[Admin] [:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[Admin] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
 		else if group of player is "mod":
-			send "[Mod] [:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[Mod] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
 		else:
-			send "[:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
 	else:
 		cancel event
 		set {_message} to a new text component of "&7%message%"
@@ -594,11 +594,11 @@ on chat:
 			send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to loop-player
 		send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to console
 		if group of player is "admin":
-			send "[Admin] [:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[Admin] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
 		else if group of player is "mod":
-			send "[Mod] [:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[Mod] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
 		else:
-			send "[:L%{level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
+			send "[:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "798198506878795797" with "ReShaft"
 
 # ======== NUMBER FORMAT ======== NUMBER FORMAT ========
 # ======== NUMBER FORMAT ======== NUMBER FORMAT ========
@@ -738,8 +738,8 @@ function hatreset(p: player):
 	set flight mode of {_p} to false
 
 function unlock(p: player, c: integer, s: integer):
-	if {gem::%{_p}%} is greater than {_c}:
-		remove {_c} from {gem::%{_p}%}
+	if {p_gem::%{_p}%} is greater than {_c}:
+		remove {_c} from {p_gem::%{_p}%}
 		if {_s} is 12:
 			set slot 12 of {_p} to {talaria}
 			send "{@shaft} &7Unlocked &bTalaria" to {_p}
@@ -952,25 +952,25 @@ command /stats [<offline player>]:
 function stats(p: player):
 	open virtual chest inventory with size 3 named "&e&lSTATS: &8%{_p}%" to {_p}
 	format gui slot 2 of {_p} with compass named "&6Position: &f%location of {_p}%" with lore "&7 > For those without F3...?"
-	format gui slot 4 of {_p} with head of {_p} named "&7:L%{level::%{_p}%}%&8: &e%display name of {_p}%"
+	format gui slot 4 of {_p} with head of {_p} named "&7:L%{p_level::%{_p}%}%&8: &e%display name of {_p}%"
 	format gui slot 6 of {_p} with clock named "&6Playtime: &f%time played of {_p}%" with lore "&7 > Total time spent online"
-	set {_gold} to format({gold::%{_p}%})
-	set {_totalgold} to format({totalgold::%{_p}%})
+	set {_gold} to format({p_gold::%{_p}%})
+	set {_totalgold} to format({p_totalgold::%{_p}%})
 	format gui slot 10 of {_p} with gold ingot named "&6&lGOLD" with lore "&7Current: &6%{_gold}% &7gold" and "&7Total: &6%{_totalgold}% &7gold"
-	set {_token} to spaced("%{token::%{_p}%}%")
+	set {_token} to spaced("%{p_token::%{_p}%}%")
 	format gui slot 11 of {_p} with sunflower named "&d&lTOKENS" with lore "&7Total: &d%{_token}% &7tokens"
-	set {_medal} to format({medal::%{_p}%})
-	set {_totalmedal} to format({totalmedal::%{_p}%})
+	set {_medal} to format({p_medal::%{_p}%})
+	set {_totalmedal} to format({p_totalmedal::%{_p}%})
 	format gui slot 12 of {_p} with bell named "&c&lMEDALS" with lore "&7Current: &c%{_medal}% &7medals" and "&7Total: &c%{_totalmedal}% &7medals"
-	set {_gem} to spaced("%{gem::%{_p}%}%")
+	set {_gem} to spaced("%{p_gem::%{_p}%}%")
 	format gui slot 13 of {_p} with emerald named "&b&lGEMS" with lore "&7Total: &b%{_gem}% &7gems"
-	set {_total} to format({totalblock::%{_p}%})
-	set {_block} to format({block::%{_p}%})
+	set {_total} to format({p_totalblock::%{_p}%})
+	set {_block} to format({p_block::%{_p}%})
 	format gui slot 14 of {_p} with grass block named "&a&lBLOCKS" with lore "&7Since Last Rebirth: &a%{_block}% &7blocks" and "&7Total: &a%{_total}% &7blocks"
-	format gui slot 15 of {_p} with cookie named "&b&lBONUS" with lore "&7Current: &b%{bonus::%{_p}%}%%%" and "&7 > Depends on your current gear"
-	format gui slot 16 of {_p} with nether star named "&b&lREBIRTH" with lore "&7Total: &b%{rebirth::%{_p}%}% &7times"
-	format gui slot 19 of {_p} with zombie skull named "&c&lPvE" with lore "&7Kills: &c%{mkill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{mdeath::%{_p}%}% &7deaths"
-	format gui slot 20 of {_p} with skeleton skull named "&c&lPvP" with lore "&7Kills: &c%{pkill::%{_p}%}% &7players killed" and "&7Deaths: &c%{pdeath::%{_p}%}% &7deaths"
+	format gui slot 15 of {_p} with cookie named "&b&lBONUS" with lore "&7Current: &b%{p_bonus::%{_p}%}%%%" and "&7 > Depends on your current gear"
+	format gui slot 16 of {_p} with nether star named "&b&lREBIRTH" with lore "&7Total: &b%{p_rebirth::%{_p}%}% &7times"
+	format gui slot 19 of {_p} with zombie skull named "&c&lPvE" with lore "&7Kills: &c%{p_mkill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{p_mdeath::%{_p}%}% &7deaths"
+	format gui slot 20 of {_p} with skeleton skull named "&c&lPvP" with lore "&7Kills: &c%{p_pkill::%{_p}%}% &7players killed" and "&7Deaths: &c%{p_pdeath::%{_p}%}% &7deaths"
 
 function removeLoreLabel(t: text) :: number:
 	set {_n} to uncolored {_t}
@@ -982,8 +982,8 @@ function removeLoreLabel(t: text) :: number:
 
 function medalUpgrade(p: player, c: number):
 	set {_1} to removeLoreLabel(line 1 of lore of tool of {_p})
-	if {medal::%{_p}%} is greater than {_c}:
-		remove {_c} from {medal::%{_p}%}
+	if {p_medal::%{_p}%} is greater than {_c}:
+		remove {_c} from {p_medal::%{_p}%}
 		add 1 to {_1}
 		set line 1 of lore of tool of {_p} to "&eMedals: &8[&e+%{_1}%&8]"
 		tool({_p})
@@ -992,8 +992,8 @@ function medalUpgrade(p: player, c: number):
 
 function bonusUpgrade(p: player, c: number):
 	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
-	if {gold::%{_p}%} is greater than {_c}:
-		remove {_c} from {gold::%{_p}%}
+	if {p_gold::%{_p}%} is greater than {_c}:
+		remove {_c} from {p_gold::%{_p}%}
 		set {_n2} to {_2} * 2
 		set line 2 of lore of tool of {_p} to "&b%{_n2}%%% &7Bonus"
 		tool({_p})
@@ -1001,25 +1001,25 @@ function bonusUpgrade(p: player, c: number):
 		send "{@shaft} {@gold}" to {_p}
 
 function rebirth(p: player):
-	if {block::%{_p}%} is less than 2000:
-		set {_m} to 2000 - {block::%{_p}%}
+	if {p_block::%{_p}%} is less than 2000:
+		set {_m} to 2000 - {p_block::%{_p}%}
 		send "{@shaft} &7You need to mine &c%{_m}% &7more blocks before rebirth" to {_p}
 	else:
-		set {_level} to floor({block::%{_p}%} / 1000)
-		set {_before} to {level::%{_p}%}
+		set {_level} to floor({p_block::%{_p}%} / 1000)
+		set {_before} to {p_level::%{_p}%}
 		if {_before} is less than {_level}:
-			set {level::%{_p}%} to {_level}
+			set {p_level::%{_p}%} to {_level}
 			set {_dif} to {_level} - {_before}
 			send "{@shaft} &7Player Level increased from &e%{_before}% &7to &e%{_level}% &7(&e+%{_dif}%&7)" to {_p}
 		rebirthnew({_p})
 		set {_blessing} to {blessing} / 100
-		set {_medals} to {block::%{_p}%} * {_blessing}
-		add {_medals} to {medal::%{_p}%}
-		add {_medals} to {totalmedal::%{_p}%}
-		set {block::%{_p}%} to 0
-		set {gold::%{_p}%} to 0
+		set {_medals} to {p_block::%{_p}%} * {_blessing}
+		add {_medals} to {p_medal::%{_p}%}
+		add {_medals} to {p_totalmedal::%{_p}%}
+		set {p_block::%{_p}%} to 0
+		set {p_gold::%{_p}%} to 0
 		set {_m} to format({_medals})
-		add 1 to {rebirth::%{_p}%}
+		add 1 to {p_rebirth::%{_p}%}
 		send "{@shaft} &7You rebirthed and gained &e%{_m}% &7medals" to {_p}
 
 function rebirthnew(p: player):
@@ -1055,16 +1055,16 @@ function enchants(p: player):
 		set {_l} to 0
 	set {_c} to ({_l} + 1) * 500000
 	set {_cf} to format({_c})
-	if {_l} is greater or equal to {level::%{_p}%}:
+	if {_l} is greater or equal to {p_level::%{_p}%}:
 		set {_c} to "&c&lMAX"
-	format gui slot 1 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Unbreaking" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f%{level::%{_p}%}%" and "&eCost: &f%{_cf}% &eGold" to run:
-		if {_l} is greater or equal to {level::%{_p}%}:
+	format gui slot 1 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Unbreaking" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f%{p_level::%{_p}%}%" and "&eCost: &f%{_cf}% &eGold" to run:
+		if {_l} is greater or equal to {p_level::%{_p}%}:
 			send "{@shaft} &cMax Level" to {_p}
 			stop
-		if {gold::%{_p}%} is greater than {_c}:
+		if {p_gold::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
 			enchant held item of {_p} with "unbreaking %{_new}%" parsed as enchantment type
-			remove {_c} from {gold::%{_p}%}
+			remove {_c} from {p_gold::%{_p}%}
 			send "{@shaft} &7Upgraded &eUnbreaking &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@gold}" to {_p}
@@ -1081,10 +1081,10 @@ function enchants(p: player):
 		if {_l} is greater or equal to 15:
 			send "{@shaft} &cMax Level" to {_p}
 			stop
-		if {gold::%{_p}%} is greater than {_c}:
+		if {p_gold::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
 			enchant held item of {_p} with "efficiency %{_new}%" parsed as enchantment type
-			remove {_c} from {gold::%{_p}%}
+			remove {_c} from {p_gold::%{_p}%}
 			send "{@shaft} &7Upgraded &eEfficiency &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@gold}" to {_p}
@@ -1101,10 +1101,10 @@ function enchants(p: player):
 		if {_l} is greater or equal to 10:
 			send "{@shaft} &cMax Level" to {_p}
 			stop
-		if {gold::%{_p}%} is greater than {_c}:
+		if {p_gold::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
 			enchant held item of {_p} with "silk touch %{_new}%" parsed as enchantment type
-			remove {_c} from {gold::%{_p}%}
+			remove {_c} from {p_gold::%{_p}%}
 			send "{@shaft} &7Upgraded &eSilk Touch &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@gold}" to {_p}
@@ -1121,10 +1121,10 @@ function enchants(p: player):
 		if {_l} is greater or equal to 10:
 			send "{@shaft} &cMax Level" to {_p}
 			stop
-		if {gold::%{_p}%} is greater than {_c}:
+		if {p_gold::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
 			enchant held item of {_p} with "fortune %{_new}%" parsed as enchantment type
-			remove {_c} from {gold::%{_p}%}
+			remove {_c} from {p_gold::%{_p}%}
 			send "{@shaft} &7Upgraded &eFortune &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@gold}" to {_p}
@@ -1141,10 +1141,10 @@ function enchants(p: player):
 		if {_l} is greater or equal to 5:
 			send "{@shaft} &cMax Level" to {_p}
 			stop
-		if {gold::%{_p}%} is greater than {_c}:
+		if {p_gold::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
 			enchant held item of {_p} with "mending %{_new}%" parsed as enchantment type
-			remove {_c} from {gold::%{_p}%}
+			remove {_c} from {p_gold::%{_p}%}
 			send "{@shaft} &7Upgraded &eMending &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@gold}" to {_p}
@@ -1161,10 +1161,10 @@ function enchants(p: player):
 		if {_l} is greater or equal to 1:
 			send "{@shaft} &cMax Level" to {_p}
 			stop
-		if {gold::%{_p}%} is greater than {_c}:
+		if {p_gold::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
 			enchant held item of {_p} with "curse of vanishing %{_new}%" parsed as enchantment type
-			remove {_c} from {gold::%{_p}%}
+			remove {_c} from {p_gold::%{_p}%}
 			send "{@shaft} &7Upgraded &eCurse of Vanishing &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@gems}" to {_p}
@@ -1181,10 +1181,10 @@ function enchants(p: player):
 		if {_l} is greater or equal to 1:
 			send "{@shaft} &cMax Level" to {_p}
 			stop
-		if {gold::%{_p}%} is greater than {_c}:
+		if {p_gold::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
 			enchant held item of {_p} with "curse of binding %{_new}%" parsed as enchantment type
-			remove {_c} from {gold::%{_p}%}
+			remove {_c} from {p_gold::%{_p}%}
 			send "{@shaft} &7Upgraded &eCurse of Binding &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@gems}" to {_p}
@@ -1232,11 +1232,11 @@ function tool(p: player):
 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function tridentenchants({_p})
 	else:
 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &egold" to run function enchants({_p})
-	set {_block} to {block::%{_p}%}
-	set {_blockk} to format({block::%{_p}%})
-	set {_bonus} to format((({bonus::%{_p}%} / 100) - 1) * {_block})
+	set {_block} to {p_block::%{_p}%}
+	set {_blockk} to format({p_block::%{_p}%})
+	set {_bonus} to format((({p_bonus::%{_p}%} / 100) - 1) * {_block})
 	set {_blessing} to format((({blessing} / 100) - 1) * {_block})
-	format gui slot 7 of {_p} with nether star named "&bRebirth" with lore "&7 > Click to &bRebirth &7and Gain Medals" and "&7 > %{_blockk}% &b+%{_bonus}% (%{bonus::%{_p}%}%%%) &e+%{_blessing}% (%{blessing}%%%) &7Medals" to run function rebirth({_p})
+	format gui slot 7 of {_p} with nether star named "&bRebirth" with lore "&7 > Click to &bRebirth &7and Gain Medals" and "&7 > %{_blockk}% &b+%{_bonus}% (%{p_bonus::%{_p}%}%%%) &e+%{_blessing}% (%{blessing}%%%) &7Medals" to run function rebirth({_p})
 
 function isGlass(p: player, s: integer) :: boolean:
 	if slot {_s} of {_p} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
@@ -1413,18 +1413,18 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					send "{@admin} &f/modify <%arg-1%> <%arg-2%> <%arg-3%> &f<integer>"
 					stop
 			if arg-3 is "add":
-				add arg-4 to {%arg-2%::%arg-1%}
+				add arg-4 to {p_%arg-2%::%arg-1%}
 				set {_nn} to format(arg-4)
 				send "{@admin} &7Added &e%{_nn}% &7to &e%arg-1%&e's &7%arg-2%"
 			else if arg-3 is "remove":
 				if arg-2 is "level":
-					if arg-4 is greater than {level::%arg-1%} - 1:
-						set {_n} to {level::%arg-1%} - 1
-				else if arg-4 is greater than {%arg-2%::%arg-1%}:
-					set {_n} to {%arg-2%::%arg-1%}
+					if arg-4 is greater than {p_level::%arg-1%} - 1:
+						set {_n} to {p_level::%arg-1%} - 1
+				else if arg-4 is greater than {p_%arg-2%::%arg-1%}:
+					set {_n} to {p_%arg-2%::%arg-1%}
 				else:
 					set {_n} to arg-4
-				remove {_n} from {%arg-2%::%arg-1%}
+				remove {_n} from {p_%arg-2%::%arg-1%}
 				set {_nn} to format({_n})
 				send "{@admin} &7Removed &e%{_nn}% &7from &e%arg-1%&e's &7%arg-2%"
 			else if arg-3 is "set":
@@ -1437,32 +1437,32 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to 0
 				else:
 					set {_n} to arg-4
-				set {%arg-2%::%arg-1%} to {_n}
+				set {p_%arg-2%::%arg-1%} to {_n}
 				set {_nn} to format({_n})
 				send "{@admin} &7Set &e%arg-1%&e's &7%arg-2% &7to &e%{_nn}%"
 			else if arg-3 is "reset":
 				if arg-2 is "level":
 					set {_n} to 1
 				else if arg-2 is "all":
-					set {level::%arg-1%} to 1
-					set {gold::%arg-1%} to 0
-					set {totalgold::%arg-1%} to 0
-					set {gem::%arg-1%} to 0
-					set {medal::%arg-1%} to 0
-					set {totalmedal::%arg-1%} to 0
-					set {token::%arg-1%} to 0
-					set {block::%arg-1%} to 0
-					set {totalblock::%arg-1%} to 0
-					set {mkill::%arg-1%} to 0
-					set {mdeath::%arg-1%} to 0
-					set {pkill::%arg-1%} to 0
-					set {pdeath::%arg-1%} to 0
-					set {rebirth::%arg-1%} to 0
+					set {p_level::%arg-1%} to 1
+					set {p_gold::%arg-1%} to 0
+					set {p_totalgold::%arg-1%} to 0
+					set {p_gem::%arg-1%} to 0
+					set {p_medal::%arg-1%} to 0
+					set {p_totalmedal::%arg-1%} to 0
+					set {p_token::%arg-1%} to 0
+					set {p_block::%arg-1%} to 0
+					set {p_totalblock::%arg-1%} to 0
+					set {p_mkill::%arg-1%} to 0
+					set {p_mdeath::%arg-1%} to 0
+					set {p_pkill::%arg-1%} to 0
+					set {p_pdeath::%arg-1%} to 0
+					set {p_rebirth::%arg-1%} to 0
 					send "{@admin} &7Reset all for &e%arg-1%"
 					stop
 				else:
 					set {_n} to 0
-				set {%arg-2%::%arg-1%} to {_n}
+				set {p_%arg-2%::%arg-1%} to {_n}
 				send "{@admin} &7Reset &e%arg-1%&e's &7%arg-2%"
 		else:
 			send "{@admin} {@permission}"
