@@ -53,5 +53,31 @@ async def on_guild_channel_update(before, after):
         await client.change_presence(activity=discord.Game(name="Server Offline | reshaft.minehut.gg"), status=discord.Status.do_not_disturb)
         await role.edit(color=discord.Color(0xf7a982))
 
+@client.command(help='ReShaft Server Status')
+async def status(ctx):
+    global guild, online, role
+    server = MinecraftServer.lookup("reshaft.minehut.gg:25565")
+    mc_status = server.status()
+    if online:
+        embed = discord.Embed(title='⚒     ReShaft Server Status', description=f'```       [ ONLINE ]```', color=discord.Color.green())
+        embed.add_field(name=f'Players online: {mc_status.players.online}/20', value=f" - `Ping: {mc_status.latency} ms`")
+        embed.set_footer(text='reshaft.minehut.gg')
+        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | reshaft.minehut.gg"))
+        await role.edit(color=discord.Color(0x91caad))
+    else:
+        embed = discord.Embed(title='⚒     ReShaft Server Status', description=f'```       [ OFFLINE ]```', color=discord.Color.red())
+        embed.add_field(name=f'Players online: 0/10', value=f" - `Ping: {mc_status.latency} ms`")
+        embed.set_footer(text='reshaft.minehut.gg')
+        await client.change_presence(activity=discord.Game(name="Server Offline | reshaft.minehut.gg"), status=discord.Status.dnd)
+        await role.edit(color=discord.Color(0xf7a982))
+    await ctx.send(embed=embed)
+
+@client.event
+async def on_message(message):
+    if "discord.gg/" in message.content or "discord.com/invite/" in message.content:
+        if not message.author.id == '594352318464524289':
+            await message.delete()
+    await client.process_commands(message)
+
 if __name__ == '__main__':
     client.run(TOKEN, reconnect=True)
