@@ -64,7 +64,7 @@ command /setspawn:
 
 every 10 minutes in "{@world}":
 	loop all players:
-		message "{@discord} &7Join our &eDiscord &7for events, updates, and extra features (offline bonuses) <tooltip:&6Click to join!><link:https://discord.gg/y333BGhxFP>&8[&6&lCLICK&8]<reset>" to loop-player
+		message "{@discord} &7Join our &eDiscord &7for events, updates, and extra features (offline bonuses) <tooltip:&6Click to join!><link:https://discord.gg/y333BGhxFP>&8[&6&lCLICK HERE&8]<reset>" to loop-player
 
 command /tps:
 	trigger:
@@ -181,10 +181,10 @@ on join:
 			set bossbar "bossbar.%player%" color to yellow
 			set bossbar "bossbar.%player%" title to "&7Join Our &eDiscord &7with &e/discord"
 		else if {_bossbar} is 3:
-			set {_format} to timeFormat({worldtime})
+			set {_format} to timeFormat({servertime})
 			set bossbar "bossbar.%player%" value to 0
 			set bossbar "bossbar.%player%" color to yellow
-			set bossbar "bossbar.%player%" title to "&6World Time: &e%{_format}% &7(&e%{worldtime}%&et&7)"
+			set bossbar "bossbar.%player%" title to "&6Server Time: &e%{_format}% &7(&e%{servertime}%&et&7)"
 		# else if {_bossbar} is 4:
 		# 	set bossbar "bossbar.%player%" value to 20
 		# 	set bossbar "bossbar.%player%" color to red
@@ -199,7 +199,7 @@ on join:
 			set {_bossbar} to 0
 	remove bossbar "bossbar.%player%"
 
-# ==== WORLD TIME ====
+# ==== SERVER TIME ====
 
 function timeFormat(t: integer) :: text: 
 	set {_h} to floor({_t} / 60)
@@ -213,26 +213,26 @@ function timeFormat(t: integer) :: text:
 	set {_time} to "%{_h}%:%{_m}%"
 	return {_time}
 
-command /worldtime [<integer>]:
+command /servertime [<integer>]:
 	trigger:
 		if player is op:
 			if arg-1 is greater than 1440:
 				set {_time} to 1440
 			else:
 				set {_time} to arg-1
-			set {worldtime} to {_time}
+			set {servertime} to {_time}
 			set {_format} to timeFormat({_time})
-			send "{@admin} &7World time set to &e%{_format}% &7(&e%{worldtime}%&et&7)"
+			send "{@admin} &7Server time set to &e%{_format}% &7(&e%{servertime}%&et&7)"
 		else:
 			send "{@admin} {@permission}"
 
 every 1 minute in "{@world}":
-	add 1 to {worldtime}
-	if {worldtime} is greater than 1440:
-		set {worldtime} to 0
-	if mod({worldtime}, 60) is 0:
-		set {_format} to timeFormat({worldtime})
-		broadcast "{@shaft} &7World Time: &e%{_format}% &7(&e%{worldtime}%t&7)"
+	add 1 to {servertime}
+	if {servertime} is greater than 1440:
+		set {servertime} to 0
+	if mod({servertime}, 60) is 0:
+		set {_format} to timeFormat({servertime})
+		broadcast "{@shaft} &7Server Time: &e%{_format}% &7(&e%{servertime}%t&7)"
 
 every 1 second in "{@world}":
 	loop all players:
@@ -256,10 +256,66 @@ every 1 second in "{@world}":
 		set {_tps} to tps from the last 1 minute
 		set {_t} to roundto({_tps}, 2)
 		set score "   &7TPS: &f%{_t}%" in sidebar of loop-player to 4
-		set {_time} to timeFormat({worldtime})
-		set score "   &7World Time: &f%{_time}%" in sidebar of loop-player to 3
+		set {_time} to timeFormat({servertime})
+		set score "   &7Time: &f%{_time}%" in sidebar of loop-player to 3
+		set {_blocks} to format({serverblock})
+		set score "   &7Blocks: &f%{_blocks}%" in sidebar of loop-player to 3
 		set score "   &7Blessing: &f%{blessing}%%%" in sidebar of loop-player to 2
-		set score " " in sidebar of loop-player to 1
+		set score " " in sidebar of loop-player to 0
+
+# ==== World Border ====
+
+command /serverblock [<text>] [<integer>]:
+	trigger:
+		if player is op:
+			if arg-1 is not "add" or "remove" or "set" or "reset":
+				send "{@admin} /serverblock <add remove set reset>"
+			else if arg-2 is not set:
+				arg-1 is not "reset"
+				send "{@admin} /serverblock <%arg-1%> <integer>"
+				send "{@admin} &7Added &e%arg-2% &7from server block count"
+			if arg-1 is "add":
+				add arg-2 to {serverblock}
+			else if arg-1 is "remove":
+				remove arg-2 from {serverblock}
+				send "{@admin} &7Removed &e%arg-2% &7from server block count"
+			else if arg-1 is "set":
+				set {serverblock} to arg-2
+				send "{@admin} &7Server block count set to &e%arg-2%"
+			else if arg-1 is "reset":
+				set {serverblock} to 0
+				send "{@admin} &7Server block count set to &e0"
+		else:
+			send "{@admin} {@permission}"
+
+function setWorldBorder(n: integer):
+	make console execute "/minecraft:worldborder set %{_n}%"
+	broadcast "{@shaft} &7Worldborder moved to &e%{_n}% &7blocks"
+
+every 5 seconds in "{@world}":
+	set {_border} to floor({serverblock} ^ (1/2))
+	add 102 to {_border}
+	{worldborder} is not {_border}
+	set {worldborder} to {_border}
+	setWorldBorder({worldborder})
+		
+command /worldborder [<integer>]:
+	trigger:
+		if player is op:
+			setWorldBorder(arg-1)
+			set {worldborder} to arg-1
+		else:
+			send "{@admin} {@permission}"
+
+every 1 second in "world":
+	loop all players:
+		"%regions at loop-player%" does not contain "spawn"
+		loop all blocks in radius 10 around loop-player:
+			if loop-block is water or lava:
+				delete loop-block		
+on flow:
+	if "%regions at event-block%" does not contain "spawn":
+		cancel event
 
 # ======== HEX/RGB ======== HEX/RGB ========
 # ======== HEX/RGB ======== HEX/RGB ========

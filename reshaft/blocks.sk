@@ -6,6 +6,7 @@ function blockAdd(p: player, n: integer):
 	add {_n} to {p_totalgold::%{_p}%}
 	add 1 to {p_totalblock::%{_p}%}
 	add 1 to {p_block::%{_p}%}
+	add 1 to {serverblock}
 
 on break:
 	if xp of player is less than 996:
