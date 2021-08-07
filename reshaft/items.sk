@@ -50,7 +50,7 @@ on load:
 # ==== TOOLS ====
 
 	set {1_pickaxe} to netherite pickaxe named "&8(&f★&e★&7★★★&8) &e&lPICKAXE" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
-	set {1_axe} to netherite axe named "&8(&f★&e★&7★★★&8) &e&lHACHET" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
+	set {1_axe} to netherite axe named "&8(&f★&e★&7★★★&8) &e&lHATCHET" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
 	set {1_shovel} to netherite shovel named "&8(&f★&e★&7★★★&8) &e&lSHOVEl" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
 
 	set {1_bow} to bow named "&8(&f★&e★&7★★★&8) &e&lSOl&6&lAR" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Power: &e1" and " &8┃ &7Punch: &e1" and " &8╹ &7Flame: &e1" and " " with all flags hidden
@@ -83,20 +83,20 @@ on load:
 	set {kronoslock} to {kronos} named "&8(&b★★&7★&7&8) &bKronos &7- &c&lLOCKED" with lore "&bFragments: &8[&b0&8]" and " &8┃ &bResistance &8[&bII&8] &7while wearing" and " &8┃ &7Collect &b64 &7fragments" and " &8╹ &7for permanent access" and "&7Unlock: &b10,000 &7Gems" and " " with all flags hidden
 	set {kronosperm} to {kronos} named "&8(&b★★&7★&8) &bKronos" with lore "&bFragments: &8[&b64&8]" and " &8┃ &bResistance &8[&bII&8] &7while wearing" and " &8┃ &7Collect &b64 &7fragments" and " &8╹ &7for permanent access" and " " with all flags hidden
 
-	set {pegasus} to end rod named "&8(&e★★★&8) &6Pegasus" with lore "&6Fragments: &e1" and " &8┃ &e+300%% &7from &e&lSOl&6&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
+	set {pegasus} to end rod named "&8(&e★★★&8) &6Pegasus" with lore "&6Fragments: &8[&e1&8]" and " &8┃ &e+300%% &7from &e&lSOl&6&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 	enchant {pegasus} with feather falling 3, piercing 3, and curse of vanishing 3
-	set {pegasuslock} to {pegasus} named "&8(&e★★★&8) &7Pegasus &7- &c&lLOCKED" with lore "&6Fragments: &e0" and " &8┃ &e+300%% &7from &e&lSOl&6&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and "&6Unlock: &e15,000 &7Gems" and " " with all flags hidden
-	set {pegasusperm} to end rod named "&8(&e★★★&8) &6Pegasus" with lore "&6Fragments: &e64" and " &8┃ &e+300%% &7from &e&lSOl&6&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
+	set {pegasuslock} to {pegasus} named "&8(&e★★★&8) &7Pegasus &7- &c&lLOCKED" with lore "&6Fragments: &8[&e0&8]" and " &8┃ &e+300%% &7from &e&lSOl&6&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and "&6Unlock: &e15,000 &7Gems" and " " with all flags hidden
+	set {pegasusperm} to end rod named "&8(&e★★★&8) &6Pegasus" with lore "&6Fragments: &8[&e64&8]" and " &8┃ &e+300%% &7from &e&lSOl&6&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 
-	set {athena} to lead named "&8(&a★★★&8) &2Athena" with lore "&2Fragments: &a1" and " &8┃ &a+300%% &7from &a&lTERRE&2&lSTRIAl" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
+	set {athena} to lead named "&8(&a★★★&8) &2Athena" with lore "&2Fragments: &8[&a1&8]" and " &8┃ &a+300%% &7from &a&lTERRE&2&lSTRIAl" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 	enchant {athena} with infinity 3, fortune 3, and curse of vanishing 3
-	set {athenalock} to {athena} named "&8(&a★★★&8) &2Athena &7- &c&lLOCKED" with lore "&2Fragments: &a0" and " &8┃ &a+300%% &7from &a&lTERRE&2&lSTRIAl" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and "&2Unlock: &15,000 &7Gems" and " " with all flags hidden
-	set {athenaperm} to lead named "&8(&a★★★&8) &2Athena" with lore "&2Fragments: &a64" and " &8┃ &a+300%% &7from &a&lTERRE&2&lSTRIAl" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
+	set {athenalock} to {athena} named "&8(&a★★★&8) &2Athena &7- &c&lLOCKED" with lore "&2Fragments: &8[&a0&8]" and " &8┃ &a+300%% &7from &a&lTERRE&2&lSTRIAl" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and "&2Unlock: &a15,000 &7Gems" and " " with all flags hidden
+	set {athenaperm} to lead named "&8(&a★★★&8) &2Athena" with lore "&2Fragments: &8[&a64&8]" and " &8┃ &a+300%% &7from &a&lTERRE&2&lSTRIAl" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 
-	set {poseidon} to raw cod named "&8(&b★★★&8) &3Poseidon" with lore "&3Fragments: &b1" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
+	set {poseidon} to raw cod named "&8(&b★★★&8) &3Poseidon" with lore "&3Fragments: &8[&b1&8]" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 	enchant {poseidon} with luck of the sea 3, lure 3, and curse of vanishing 3
-	set {poseidonlock} to {poseidon} named "&8(&b★★★&8) &3Poseidon &7- &c&lLOCKED" with lore "&3Fragments: &b0" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and "&3Unlock: &b15,000 &7Gems" and " " with all flags hidden
-	set {poseidonperm} to {poseidon} named "&8(&b★★★&8) &3Poseidon"  with lore "&3Fragments: &b64" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
+	set {poseidonlock} to {poseidon} named "&8(&b★★★&8) &3Poseidon &7- &c&lLOCKED" with lore "&3Fragments: &8[&b0&8]" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and "&3Unlock: &b15,000 &7Gems" and " " with all flags hidden
+	set {poseidonperm} to {poseidon} named "&8(&b★★★&8) &3Poseidon"  with lore "&3Fragments: &8[&b64&8]" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 
 # ==== MOBS ====
 

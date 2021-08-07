@@ -41,7 +41,7 @@ on shoot:
 	if {_p} is trident:
 		set slot 5 of shooter to {_p}
 	if projectile is set:
-		set slot 25 of shooter to 64 of arrow named "&e&lARROW &7Shop" with lore "&7> Click to Open"
+		set slot 16 of shooter to 64 of arrow named "&e&lARROWS" with lore " &8╹ &7Click to Open Arrow Shop"
 
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
@@ -355,21 +355,6 @@ on damage:
 on combust:
 	if event-entity is zombie or skeleton:
 		cancel event
-
-command /setmobspawn [<text>]:
-	trigger:
-		if player is op:
-			if arg-1 is "add":
-				add player's location to {mobSpawn::*}
-				send "{@admin} &7Added &e%player's location% &7 to Mob Spawn Points"
-			if arg-1 is "reset":
-				delete {mobSpawn::*}
-				send "{@admin} &7Cleared Mob Spawn Points"
-			if arg-1 is "list":
-				loop {mobSpawn::*}:
-					send "{@admin} &7%{mobSpawn::%loop-value%}%"
-		else:
-			send "{@admin} {@permission}"
 
 on spawn of zombie:
 	set {_n} to random integer between 1 and 2
@@ -756,10 +741,18 @@ function hat(p: player, i: item, s: integer):
 	set slot {_s} of {_p} to {_cur}
 
 function hatreset(p: player):
-	set {_13} to slot 12 of {_p}
-	if {_13} is light gray stained glass:
+	set {_12} to slot 12 of {_p}
+	if {_12} is light gray stained glass:
 		set {_item} to {_13}
 		set {_slot} to 12
+	set {_13} to slot 13 of {_p}
+	if {_13} is light gray stained glass:
+		set {_item} to {_13}
+		set {_slot} to 13
+	set {_14} to slot 14 of {_p}
+	if {_14} is light gray stained glass:
+		set {_item} to {_14}
+		set {_slot} to 14
 	set {_21} to slot 21 of {_p}
 	if {_21} is light gray stained glass:
 		set {_item} to {_21}
@@ -776,14 +769,6 @@ function hatreset(p: player):
 	if {_30} is light gray stained glass:
 		set {_item} to {_30}
 		set {_slot} to 30
-	set {_31} to slot 31 of {_p}
-	if {_31} is light gray stained glass:
-		set {_item} to {_31}
-		set {_slot} to 31
-	set {_32} to slot 32 of {_p}
-	if {_32} is light gray stained glass:
-		set {_item} to {_32}
-		set {_slot} to 32
 	set {_cur} to helmet of {_p}
 	if {_cur} is not light gray stained glass:
 		hat({_p}, {_item}, {_slot})
@@ -795,14 +780,14 @@ function unlock(p: player, c: integer, s: integer):
 	if {p_gem::%{_p}%} is greater than {_c}:
 		remove {_c} from {p_gem::%{_p}%}
 		if {_s} is 12:
-			set slot 12 of {_p} to {talaria}
-			send "{@shaft} &7Unlocked &bTalaria" to {_p}
+			set slot 12 of {_p} to {pegasus}
+			send "{@shaft} &7Unlocked &bPegasus" to {_p}
 		if {_s} is 13:
-			set slot 13 of {_p} to {zeus}
-			send "{@shaft} &7Unlocked &bZeus" to {_p}
+			set slot 13 of {_p} to {athena}
+			send "{@shaft} &7Unlocked &bAthena" to {_p}
 		if {_s} is 14:
-			set slot 14 of {_p} to {hermes}
-			send "{@shaft} &7Unlocked &bHermes" to {_p}
+			set slot 14 of {_p} to {poseidon}
+			send "{@shaft} &7Unlocked &bPoseidon" to {_p}
 		if {_s} is 21:
 			set slot 21 of {_p} to {apollo}
 			send "{@shaft} &7Unlocked &bApollo" to {_p}
@@ -813,36 +798,32 @@ function unlock(p: player, c: integer, s: integer):
 			set slot 23 of {_p} to {kronos}
 			send "{@shaft} &7Unlocked &bKronos" to {_p}
 		if {_s} is 30:
-			set slot 30 of {_p} to {pegasus}
-			send "{@shaft} &7Unlocked &bPegasus" to {_p}
+			set slot 30 of {_p} to {talaria}
+			send "{@shaft} &7Unlocked &bTalaria" to {_p}
 		if {_s} is 31:
-			set slot 31 of {_p} to {athena}
-			send "{@shaft} &7Unlocked &bAthena" to {_p}
+			set slot 31 of {_p} to {zeus}
+			send "{@shaft} &7Unlocked &bZeus" to {_p}
 		if {_s} is 32:
-			set slot 32 of {_p} to {poseidon}
-			send "{@shaft} &7Unlocked &bPoseidon" to {_p}
+			set slot 32 of {_p} to {hermes}
+			send "{@shaft} &7Unlocked &bHermes" to {_p}
 	else:
 		send "{@shaft} {@gems}" to {_p}
 
 function arrowShop(p: player):
-	open virtual chest inventory with size 1 named "&e&lARROW &8Shop" to {_p}
+	open virtual chest inventory with size 1 named "&8Arrow Shop" to {_p}
 	format gui slot 0 of {_p} with arrow
 
 function toolbox(p: player):
-	open virtual chest inventory with size 3 named "&&lTOOL &8Box" to {_p}
+	open virtual chest inventory with size 3 named "&8Tool Box" to {_p}
 
 on inventory click:
-	if clicked slot is 0 or 1 or 2:
-		gamemode of player is survival
-		toolbox(player)
-		stop
 	if clicked slot is 16:
 		gamemode of player is survival
 		arrowShop(player)
 		stop
 	if clicked slot is 17:
 		gamemode of player is survival
-		armor(player)
+		settings(player)
 		stop
 	if clicked slot is 26:
 		gamemode of player is survival
@@ -850,6 +831,10 @@ on inventory click:
 		stop
 	if name of event-inventory is not "Crafting":
 		cancel event
+		stop
+	if clicked slot is 0 or 1 or 2:
+		gamemode of player is survival
+		toolbox(player)
 		stop
 	# if clicked slot is 0:
 	# 	gamemode of player is survival
@@ -885,36 +870,31 @@ on inventory click:
 	if clicked slot is 12:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
-			unlock(player, 10000, 12)
+			unlock(player, 15000, 12)
 			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
-			set player's flight mode to true
-		else:
-			set player's flight mode to false
 		hat(player, event-item, 12)
 	else if clicked slot is 13:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
-			unlock(player, 5000, 13)
+			unlock(player, 15000, 13)
 			stop
-		set {_cur} to chestplate of player
-		set {_new} to event-item
-		set chestplate of player to {_new}
-		set slot 13 of player to {_cur}
+		if event-item is not light gray stained glass:
+			hatreset(player)
+		hat(player, event-item, 13)
 	else if clicked slot is 14:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
-			unlock(player, 10000, 14)
+			unlock(player, 15000, 14)
 			stop
-		set {_cur} to boots of player
-		set {_new} to event-item
-		set boots of player to {_new}
-		set slot 14 of player to {_cur}
+		if event-item is not light gray stained glass:
+			hatreset(player)
+		hat(player, event-item, 14)
 	else if clicked slot is 21:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
-			unlock(player, 5000, 21)
+			unlock(player, 10000, 21)
 			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
@@ -925,7 +905,7 @@ on inventory click:
 	else if clicked slot is 22:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
-			unlock(player, 5000, 22)
+			unlock(player, 10000, 22)
 			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
@@ -933,7 +913,7 @@ on inventory click:
 	else if clicked slot is 23:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
-			unlock(player, 5000, 23)
+			unlock(player, 10000, 23)
 			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
@@ -941,30 +921,35 @@ on inventory click:
 		else:
 			remove resistance from player
 		hat(player, event-item, 23)
-	else if clicked slot is 30:
+	if clicked slot is 30:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
 			unlock(player, 5000, 30)
 			stop
 		if event-item is not light gray stained glass:
 			hatreset(player)
+			set player's flight mode to true
+		else:
+			set player's flight mode to false
 		hat(player, event-item, 30)
 	else if clicked slot is 31:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
-			unlock(player, 5000, 31)
+			unlock(player, 3000, 31)
 			stop
-		if event-item is not light gray stained glass:
-			hatreset(player)
-		hat(player, event-item, 31)
+		set {_cur} to chestplate of player
+		set {_new} to event-item
+		set chestplate of player to {_new}
+		set slot 31 of player to {_cur}
 	else if clicked slot is 32:
 		cancel event
 		if name of event-item contains "&c&lLOCKED":
 			unlock(player, 5000, 32)
 			stop
-		if event-item is not light gray stained glass:
-			hatreset(player)
-		hat(player, event-item, 32)
+		set {_cur} to boots of player
+		set {_new} to event-item
+		set boots of player to {_new}
+		set slot 32 of player to {_cur}
 	if group of player is not "admin":
 		cancel event
 
@@ -973,13 +958,13 @@ on inventory click:
 # ======== HOTBAR FUNCTIONS ======== HOTBAR FUNCTIONS ========
 
 function settings(p: player):
-	open virtual chest inventory with size 1 named "&e&lSETTINGS &8Menu" to {_p}
+	open virtual chest inventory with size 1 named "&8Settings" to {_p}
 	if {pvp::%{_p}%} is false:
-		format gui slot 0 of {_p} with red dye named "&7&lPvP &c&lDISABLED" with lore "&7 > Click to Enable (/pvp)" to run:
+		format gui slot 0 of {_p} with red dye named "&7&lPvP &c&lDISABLED" with lore " &8╹ &7Click to Enable (/pvp)" to run:
 			delete {pvp::%{_p}%}
 			settings({_p})
 	else:
-		format gui slot 0 of {_p} with lime dye named "&7&lPvP &a&lENABLED" with lore "&7 > Click to Disable (/pvp)" to run:
+		format gui slot 0 of {_p} with lime dye named "&7&lPvP &a&lENABLED" with lore " &8╹ &7Click to Disable (/pvp)" to run:
 			set {pvp::%{_p}%} to false
 			settings({_p})
 	format gui slot 1 of {_p} with nether star named "&e&lSPAWN" with lore "&7 > Click to teleport" to run:
@@ -1117,7 +1102,7 @@ function rebirthnew(p: player):
 	set slot 2 of {_p} to {_item}
 
 function enchants(p: player):
-	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
+	open virtual chest inventory with size 1 named "&8Enchanting Library" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
 	set {_l} to level of unbreaking of held item of {_p}
 	if {_l} is not set:
@@ -1261,24 +1246,24 @@ function enchants(p: player):
 	format gui slot 8 of {_p} with arrow named "&7 < &cBack" with lore "&7Click to go back" to run function tool({_p})
 
 function bowenchant(p: player):
-	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
+	open virtual chest inventory with size 1 named "&8Enchanting Library" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
 
 function crossbowenchant(p: player):
-	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
+	open virtual chest inventory with size 1 named "&8Enchanting Library" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
 
 function trident(p: player):
-	open virtual chest inventory with size 1 named "&c&lENCHANT &8Menu" to {_p}
+	open virtual chest inventory with size 1 named "&8Enchanting Library" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
 
 function tool(p: player):
 	if tool of {_p} is pickaxe:
-		open virtual chest inventory with size 1 named "&e&lPICKAXE &8Menu" to {_p}
+		open virtual chest inventory with size 1 named "&8Pickaxe Upgrades" to {_p}
 	else if tool of {_p} is axe:
-		open virtual chest inventory with size 1 named "&e&lAXE &8Menu" to {_p}
+		open virtual chest inventory with size 1 named "&8Hatchet Upgrades" to {_p}
 	else if tool of {_p} is shovel:
-		open virtual chest inventory with size 1 named "&e&lSHOVEL &8Menu" to {_p}
+		open virtual chest inventory with size 1 named "&8Shovel Upgrades" to {_p}
 	else if tool of {_p} is bow:
 		open virtual chest inventory with size 1 named "&e&lSOl&6&lAR &8Menu" to {_p}
 	else if tool of {_p} is crossbow:
@@ -1313,7 +1298,7 @@ function isGlass(p: player, s: integer) :: boolean:
 	return false
 
 function armor(p: player):
-	open virtual chest inventory with size 4 named "&e&lARMOR &8Upgrades" to {_p}
+	open virtual chest inventory with size 4 named "&8Armor Upgrades" to {_p}
 	if helmet of {_p} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
 		format gui slot 0 of {_p} with helmet of {_p}
 		set {_helmet} to helmet of {_p}
@@ -1362,7 +1347,7 @@ on right click:
 	if player's tool is bow or crossbow or trident:
 		player is sneaking
 		cancel event
-		set slot 25 of player to 64 of arrow named "&e&lARROW &7Shop" with lore "&7> Click to Open"
+		set slot 16 of player to 64 of arrow named "&e&lARROWS" with lore " &8╹ &7Click to Open Arrow Shop"
 		tool(player)
 
 # ======== STAFF COMMANDS ======== STAFF COMMANDS ========

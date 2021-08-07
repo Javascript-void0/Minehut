@@ -61,7 +61,7 @@ async def status(ctx):
     mc_status = server.status()
     if online:
         embed = discord.Embed(title='⚒     ReShaft Server Status', description=f'```       [ ONLINE ]```', color=discord.Color.green())
-        embed.add_field(name=f'Players online: {mc_status.players.online}/20', value=f" - `Ping: {mc_status.latency} ms`")
+        embed.add_field(name=f'Players online: {mc_status.players.online}/10', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='reshaft.minehut.gg')
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online"))
         await role.edit(color=discord.Color(0x48b66c))
