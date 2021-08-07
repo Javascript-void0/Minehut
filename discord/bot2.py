@@ -17,7 +17,7 @@ async def on_ready():
     global guild, online, channel, role
     guild = client.get_guild(872657348299227218)
     channel = guild.get_channel(872657350316687362)
-    role = get(guild.roles, id=872657348408258618)
+    role = get(guild.roles, id=872657348441808936)
     print('[ + ] Started {0.user}'.format(client))
     await client.wait_until_ready()
     server = MinecraftServer.lookup("reshaft.minehut.gg:25565")
@@ -29,11 +29,11 @@ async def on_ready():
         print('offline')
         online = False
     if online:
-        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | reshaft.minehut.gg"))
-        await role.edit(color=discord.Color(0x91caad))
+        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online"))
+        await role.edit(color=discord.Color(0x48b66c))
     else:
-        await client.change_presence(activity=discord.Game(name="Server Offline | reshaft.minehut.gg"), status=discord.Status.do_not_disturb)
-        await role.edit(color=discord.Color(0xf7a982))
+        await client.change_presence(activity=discord.Game(name="Server Offline"), status=discord.Status.do_not_disturb)
+        await role.edit(color=discord.Color(0x698f75))
 
 @client.event
 async def on_guild_channel_update(before, after):
@@ -48,11 +48,11 @@ async def on_guild_channel_update(before, after):
             print('offline')
             online = False
     if online:
-        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | reshaft.minehut.gg"))
-        await role.edit(color=discord.Color(0x91caad))
+        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online"))
+        await role.edit(color=discord.Color(0x48b66c))
     else:
-        await client.change_presence(activity=discord.Game(name="Server Offline | reshaft.minehut.gg"), status=discord.Status.do_not_disturb)
-        await role.edit(color=discord.Color(0xf7a982))
+        await client.change_presence(activity=discord.Game(name="Server Offline"), status=discord.Status.do_not_disturb)
+        await role.edit(color=discord.Color(0x698f75))
 
 @client.command(help='ReShaft Server Status')
 async def status(ctx):
@@ -63,14 +63,14 @@ async def status(ctx):
         embed = discord.Embed(title='⚒     ReShaft Server Status', description=f'```       [ ONLINE ]```', color=discord.Color.green())
         embed.add_field(name=f'Players online: {mc_status.players.online}/20', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='reshaft.minehut.gg')
-        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online | reshaft.minehut.gg"))
-        await role.edit(color=discord.Color(0x91caad))
+        await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online"))
+        await role.edit(color=discord.Color(0x48b66c))
     else:
         embed = discord.Embed(title='⚒     ReShaft Server Status', description=f'```       [ OFFLINE ]```', color=discord.Color.red())
         embed.add_field(name=f'Players online: 0/10', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='reshaft.minehut.gg')
-        await client.change_presence(activity=discord.Game(name="Server Offline | reshaft.minehut.gg"), status=discord.Status.dnd)
-        await role.edit(color=discord.Color(0xf7a982))
+        await client.change_presence(activity=discord.Game(name="Server Offline"), status=discord.Status.dnd)
+        await role.edit(color=discord.Color(0x698f75))
     await ctx.send(embed=embed)
 
 async def updateDrop(message):
