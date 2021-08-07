@@ -2,113 +2,101 @@ on load:
 
 # ★
 
-	set {1_helmet} to light gray stained glass named "&8(&f★&e★&7★★★&8) &7Common"
-	set {1_chestplate} to leather chestplate named "&8(&f★&e★&7★★★&8) &7Chestplate"
+	set {1_helmet} to light gray stained glass named "&8(&f★&e★&7★★★&8) &7Common" with all flags hidden
+	set {1_chestplate} to leather chestplate named "&8(&f★&e★&7★★★&8) &7Chestplate" with all flags hidden
 	dye {1_chestplate} light gray
-	set {1_leggings} to leather leggings named "&8(&f★&e★&7★★★&8) &7Leggings"
+	set {1_leggings} to leather leggings named "&8(&f★&e★&7★★★&8) &7Leggings" with all flags hidden
 	dye {1_leggings} light gray
-	set {1_boots} to leather boots named "&8(&f★&e★&7★★★&8) &7Boots"
+	set {1_boots} to leather boots named "&8(&f★&e★&7★★★&8) &7Boots" with all flags hidden
 	dye {1_boots} light gray
 
 #  ★★
 
-	set {2_helmet} to lime stained glass named "&8(&f★&e★★&7★★&8) &aUncommon"
-	set {2_chestplate} to leather chestplate named "&8(&f★&e★★&7★★&8) &aChestplate"
+	set {2_helmet} to lime stained glass named "&8(&f★&e★★&7★★&8) &aUncommon" with all flags hidden
+	set {2_chestplate} to leather chestplate named "&8(&f★&e★★&7★★&8) &aChestplate" with all flags hidden
 	dye {2_chestplate} lime
-	set {2_leggings} to leather leggings named "&8(&f★&e★★&7★★&8) &aLeggings"
+	set {2_leggings} to leather leggings named "&8(&f★&e★★&7★★&8) &aLeggings" with all flags hidden
 	dye {2_leggings} lime
-	set {2_boots} to leather boots named "&8(&f★&e★★&7★★&8) &aBoots"
+	set {2_boots} to leather boots named "&8(&f★&e★★&7★★&8) &aBoots" with all flags hidden
 	dye {2_boots} lime
 
 #  ★★★
 
-	set {3_helmet} to light blue stained glass named "&8(&f★&e★★★&7★&8) &bRare"
-	set {3_chestplate} to leather chestplate named "&8(&f★&e★★★&7★&8) &bChestplate"
+	set {3_helmet} to light blue stained glass named "&8(&f★&e★★★&7★&8) &bRare" with all flags hidden
+	set {3_chestplate} to leather chestplate named "&8(&f★&e★★★&7★&8) &bChestplate" with all flags hidden
 	dye {3_chestplate} light blue
-	set {3_leggings} to leather leggings named "&8(&f★&e★★★&7★&8) &bLeggings"
+	set {3_leggings} to leather leggings named "&8(&f★&e★★★&7★&8) &bLeggings" with all flags hidden
 	dye {3_leggings} light blue
-	set {3_boots} to leather boots named "&8(&f★&e★★★&7★&8) &bBoots"
+	set {3_boots} to leather boots named "&8(&f★&e★★★&7★&8) &bBoots" with all flags hidden
 	dye {3_boots} light blue
 
 # ★★★★
 
-	set {4_helmet} to orange stained glass named "&8(&f★&e★★★★&8) &6Epic"
-	set {4_chestplate} to leather chestplate named "&8(&f★&e★★★★&8) &6Chestplate"
+	set {4_helmet} to orange stained glass named "&8(&f★&e★★★★&8) &6Epic" with all flags hidden
+	set {4_chestplate} to leather chestplate named "&8(&f★&e★★★★&8) &6Chestplate" with all flags hidden
 	dye {4_chestplate} orange
-	set {4_leggings} to leather leggings named "&8(&f★&e★★★★&8) &6Leggings"
+	set {4_leggings} to leather leggings named "&8(&f★&e★★★★&8) &6Leggings" with all flags hidden
 	dye {4_leggings} orange
-	set {4_boots} to leather boots named "&8(&f★&e★★★★&8) &6Boots"
+	set {4_boots} to leather boots named "&8(&f★&e★★★★&8) &6Boots" with all flags hidden
 	dye {4_boots} orange
 
 # ★★★★★
 
-	set {5_helmet} to black stained glass named "&8(&6★&e★★★★&8) &cLegendary"
-	set {5_chestplate} to netherite chestplate named "&8(&6★&e★★★★&8) &cChestplate"
-	set {5_leggings} to netherite leggings named "&8(&6★&e★★★★&8) &cLeggings"
-	set {5_boots} to netherite boots named "&8(&6★&e★★★★&8) &cBoots"
+	set {5_helmet} to black stained glass named "&8(&6★&e★★★★&8) &cLegendary" with all flags hidden
+	set {5_chestplate} to netherite chestplate named "&8(&6★&e★★★★&8) &cChestplate" with all flags hidden
+	set {5_leggings} to netherite leggings named "&8(&6★&e★★★★&8) &cLeggings" with all flags hidden
+	set {5_boots} to netherite boots named "&8(&6★&e★★★★&8) &cBoots" with all flags hidden
 
 # ==== TOOLS ====
 
-	set {1_pickaxe} to netherite pickaxe named "&8(&f★&e★&7★★★&8) &7Pickaxe" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
-	set {1_axe} to netherite axe named "&8(&f★&e★&7★★★&8) &7Axe" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
-	set {1_shovel} to netherite shovel named "&8(&f★&e★&7★★★&8) &7Shovel" with lore "&eMedals: &8[&7+0&8]" and "&b0.3125%% &7Bonus"
+	set {1_pickaxe} to netherite pickaxe named "&8(&f★&e★&7★★★&8) &e&lPICKAXE" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
+	set {1_axe} to netherite axe named "&8(&f★&e★&7★★★&8) &e&lHACHET" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
+	set {1_shovel} to netherite shovel named "&8(&f★&e★&7★★★&8) &e&lSHOVEl" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
 
-	set {1_bow} to bow named "&8(&f★&e★&7★★★&8) &e&lSOl&6&lAR" with lore "&eMedals: &8[&e+0&8]" and "&60.3125%% &7Bonus" and "&7Shift + Right Click to Open Menu"
-	set {1_crossbow} to crossbow named "&8(&f★&a★&7★★★&8) &a&lTERRE&2&lSTRIAl" with lore "&aMedals: &8[&a+0&8]" and "&20.3125%% &7Bonus" and "&7Shift + Right Click to Open Menu"
-	set {1_trident} to trident named "&8(&f★&b★&7★★★&8) &b&llUN&3&lAR" with lore "&bMedals: &8[&b+0&8]" and "&30.3125%% &7Bonus" and "&7Shift + Right Click to Open Menu"
+	set {1_bow} to bow named "&8(&f★&e★&7★★★&8) &e&lSOl&6&lAR" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Power: &e1" and " &8┃ &7Punch: &e1" and " &8╹ &7Flame: &e1" and " " with all flags hidden
+	set {1_crossbow} to crossbow named "&8(&f★&a★&7★★★&8) &a&lTERRE&2&lSTRIAl" with lore "&aMedals: &8[&a+0&8]" and " &8┃ &7Quick Charge: &a1" and " &8┃ &7Piercing: &a1" and " &8╹ &7Multishot: &a1" and " " with all flags hidden
+	set {1_trident} to trident named "&8(&f★&b★&7★★★&8) &b&llUN&3&lAR" with lore "&bMedals: &8[&b+0&8]" and " &8┃ &7Smite: &b1" and " &8┃ &7Knockback: &b1" and " &8╹ &7Channeling: &b1" and " " with all flags hidden
 
-# ==== HERMES ====
+# ====  3x3  ====
 
-	set {hermes} to leather boots named "&8(&e★★★&8) &eHermes" with lore "&eUnlock: &b10,000 &7Gems"
-	enchant {hermes} with soul speed 3
-	enchant {hermes} with depth strider 3
-	enchant {hermes} with feather falling 3
-	enchant {hermes} with thorns 5
-	enchant {hermes} with protection 5
-	enchant {hermes} with fire protection 5
-	enchant {hermes} with blast protection 5
-	enchant {hermes} with projectile protection 5
-	enchant {hermes} with fire protection 5
-	enchant {hermes} with unbreaking 5
-	enchant {hermes} with mending
-	set {hermeslock} to {hermes} named "&8(&e★★★&8) &eHermes &7- &c&lLOCKED"
+	set {talaria} to feather named "&8(&e★&7★★&8) &eTalaria" with lore "&eFragments: &8[&e1&8]" and " &8┃ &eFly &7while wearing" and " &8┃ &7Collect &e64 &7fragments" and " &8╹ &7for permanent access" and " " with all flags hidden
+	set {talarialock} to {talaria} named "&8(&e★&7★★&8) &eTalaria &7- &c&lLOCKED" with lore "&eFragments: &8[&e0&8]" and " &8┃ &eFly &7while wearing" and " &8┃ &7Collect &e64 &7fragments" and " &8╹ &7for permanent access" and "&7Unlock: &e5,000 &7Gems" and " " with all flags hidden
+	set {talariaperm} to {talaria} named "&8(&e★&7★★&8) &eTalaria" with lore "&eFragments: &8[&e64&8]" and " &8┃ &eFly &7while wearing" and " &8┃ &7Collect &e64 &7fragments" and " &8╹ &7for permanent access" and " " with all flags hidden
 
-# ====  OTHER  ====
+	set {zeus} to elytra named "&8(&e★&7★★&8) &eZeus" with all flags hidden
+	set {zeuslock} to {zeus} named "&8(&e★&7★★&8) &eZeus &7- &c&lLOCKED" with lore "&7Unlock: &e3,000 &7Gems" with all flags hidden
+	set {zeusperm} to {zeus} named "&8(&e★&7★★&8) &eZeus" with all flags hidden
 
-	set {talaria} to feather named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b15,000 &7Gems" and "&eFragments: &f1&7/64"
-	set {talarialock} to {talaria} named "&8(&7★★★&8) &eTalaria &7- &c&lLOCKED" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b15,000 &7Gems" and "&eFragments: &f0&7/64"
-	set {talariaperm} to {talaria} named "&8(&7★★★&8) &eTalaria" with lore "&7> Unlock &b/fly &7while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b15,000 &7Gems" and "&eFragments: &b64&7/64"
+	set {hermes} to leather boots named "&8(&e★&7★★&8) &eHermes" with lore " &8┃ &7Soul Speed: &e3" and " &8┃ &7Depth Strider: &e3" and " &8┃ &7Thorns: &e3" and " &8╹ &7Protection: &e5" and " " with all flags hidden
+	enchant {hermes} with soul speed 3, depth strider 3, thorns 3, and protection 5
+	set {hermeslock} to {hermes} named "&8(&e★&7★★&8) &eHermes &7- &c&lLOCKED" with lore "&7Unlock: &e10,000 &7Gems" and " &8┃ &7Soul Speed: &e3" and " &8┃ &7Depth Strider: &e3" and " &8┃ &7Thorns: &e3" and " &8╹ &7Protection: &e5" and " " with all flags hidden
 
-	set {zeus} to elytra named "&8(&e★★★&8) &eZeus" with lore "&7> &bSky's the Limit" and "&7> Fly in Fashion...?" and "&eUnlock: &b5,000 &7Gems"
-	set {zeuslock} to {zeus} named "&8(&e★★★&8) &eZeus &7- &c&lLOCKED"
+	set {apollo} to enchanted golden apple named "&8(&b★★&7★&8) &bApollo" with lore "&bFragments: &8[&b1&8]" and " &8┃ &bAbsoprtion &8[&bV&8] &7while wearing" and " &8┃ &7Collect &b64 &7fragments" and " &8╹ &7for permanent access" and " " with all flags hidden
+	set {apollolock} to {apollo} named "&8(&b★★&7★&8) &bApollo &7- &c&lLOCKED" with lore "&bFragments: &8[&b0&8]" and " &8┃ &bAbsoprtion &8[&bV&8] &7while wearing" and " &8┃ &7Collect &b64 &7fragments" and " &8╹ &7for permanent access" and "&7Unlock: &b10,000 &7Gems" and " " with all flags hidden
+	set {apolloperm} to {apollo} named "&8(&b★★&7★&8) &bApollo" with lore "&bFragments: &8[&b64&8]" and " &8┃ &bAbsoprtion &8[&bV&8] &7while wearing" and " &8┃ &7Collect &b64 &7fragments" and " &8╹ &7for permanent access" and " " with all flags hidden
 
-	set {apollo} to enchanted golden apple named "&8(&e★★&7★&8) &bApollo" with lore "&7> Gain &eAbsorption V &7 while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &f1&7/64"
-	set {apollolock} to {apollo} named "&8(&e★★&7★&8) &bApollo &7- &c&lLOCKED"
-	set {apolloperm} to {apollo} named "&8(&e★★&7★&8) &bApollo" with lore "&7> Gain &eAbsorption V &7 while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &b64&7/64"
-
-	set {hades} to bone named "&8(&e★★&7★&8) &bHades" with lore "&7> &b+100%% &7Rewards from Kills (PvP + PvE)" and "&7> &7Collect fragments to upgrade" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &f1&7/64"
+	set {hades} to bone named "&8(&b★★&7★&8) &bHades" with lore "&bFragments: &8[&b1&8]" and " &8┃ &b+100%% &7Rewards from Kills (PvP + PvE)" and " &8┃ &7Thorns: &b5" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 	enchant {hades} with thorns 5
-	set {hadeslock} to {hades} named "&8(&e★★&7★&8) &bHades &7- &c&lLOCKED"
-	set {hadesperm} to {hades} named "&8(&e★★&7★&8) &bHades" with lore "&7> &b+100%% &7Rewards from Kills (PvP + PvE)" and "&7> &7Collect fragments to upgrade" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &b64&7/64"
+	set {hadeslock} to {hades} named "&8(&b★★&7★&8) &bHades &7- &c&lLOCKED" with lore "&bFragments: &8[&b0&8]" and " &8┃ &b+100%% &7Rewards from Kills (PvP + PvE)" and " &8┃ &7Thorns: &b5" and " &8╹ &7Collect fragments to upgrade" and "&7Unlock: &b10,000 &7Gems" and " " with all flags hidden
 
-	set {kronos} to totem of undying named "&8(&e★★&7★&8) &bKronos" with lore "&7> Gain &6Resistance II &7 while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &f1&7/64"
-	set {kronoslock} to {kronos} named "&8(&e★★&7★&8) &bKronos &7- &c&lLOCKED"
-	set {kronosperm} to {kronos} named "&8(&e★★&7★&8) &bKronos" with lore "&7> Gain &6Resistance II &7 while wearing" and "&7> &7Collect &b64 &7fragments to gain perm access" and "&eUnlock: &b5,000 &7Gems" and "&eFragments: &b64&7/64"
+	set {kronos} to totem of undying named "&8(&b★★&7★&8) &bKronos" with lore "&bFragments: &8[&b1&8]" and " &8┃ &bResistance &8[&bII&8] &7while wearing" and " &8┃ &7Collect &b64 &7fragments" and " &8╹ &7for permanent access" and " " with all flags hidden
+	set {kronoslock} to {kronos} named "&8(&b★★&7★&7&8) &bKronos &7- &c&lLOCKED" with lore "&bFragments: &8[&b0&8]" and " &8┃ &bResistance &8[&bII&8] &7while wearing" and " &8┃ &7Collect &b64 &7fragments" and " &8╹ &7for permanent access" and "&7Unlock: &b10,000 &7Gems" and " " with all flags hidden
+	set {kronosperm} to {kronos} named "&8(&b★★&7★&8) &bKronos" with lore "&bFragments: &8[&b64&8]" and " &8┃ &bResistance &8[&bII&8] &7while wearing" and " &8┃ &7Collect &b64 &7fragments" and " &8╹ &7for permanent access" and " " with all flags hidden
 
-	set {pegasus} to end rod named "&8(&e★&7★★&8) &6Pegasus" with lore "&7> &e+300%% &7from &e&lSOl&6&lAR" and "&7> &7Collect fragments to upgrade" and "&6Unlock: &e5,000 &7Gems" and "&6Fragments: &e1&7/64"
+	set {pegasus} to end rod named "&8(&e★★★&8) &6Pegasus" with lore "&6Fragments: &e1" and " &8┃ &e+300%% &7from &e&lSOl&6&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 	enchant {pegasus} with feather falling 3, piercing 3, and curse of vanishing 3
-	set {pegasuslock} to {pegasus} named "&8(&e★&7★★&8) &7Pegasus &7- &c&lLOCKED"
-	set {pegasusperm} to end rod named "&8(&e★&7★★&8) &6Pegasus" with lore "&7> &e+300%% &7from &e&lSOl&6&lAR" and "&7> &7Collect fragments to upgrade" and "&6Unlock: &e5,000 &7Gems" and "&6Fragments: &e64&7/64"
+	set {pegasuslock} to {pegasus} named "&8(&e★★★&8) &7Pegasus &7- &c&lLOCKED" with lore "&6Fragments: &e0" and " &8┃ &e+300%% &7from &e&lSOl&6&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and "&6Unlock: &e15,000 &7Gems" and " " with all flags hidden
+	set {pegasusperm} to end rod named "&8(&e★★★&8) &6Pegasus" with lore "&6Fragments: &e64" and " &8┃ &e+300%% &7from &e&lSOl&6&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 
-	set {athena} to lead named "&8(&a★&7★★&8) &2Athena" with lore "&7> &a+300%% &7from &a&lTERRE&2&lSTRIAl" and "&7> &7Collect fragments to upgrade" and "&2Unlock: &a5,000 &7Gems" and "&2Fragments: &a1&7/64"
+	set {athena} to lead named "&8(&a★★★&8) &2Athena" with lore "&2Fragments: &a1" and " &8┃ &a+300%% &7from &a&lTERRE&2&lSTRIAl" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 	enchant {athena} with infinity 3, fortune 3, and curse of vanishing 3
-	set {athenalock} to {athena} named "&8(&a★&7★★&8) &2Athena &7- &c&lLOCKED"
-	set {athenaperm} to lead named "&8(&a★&7★★&8) &2Athena" with lore "&7> &a+300%% &7from &a&lTERRE&2&lSTRIAl" and "&7> &7Collect fragments to upgrade" and "&2Unlock: &a5,000 &7Gems" and "&2Fragments: &a64&7/64"
+	set {athenalock} to {athena} named "&8(&a★★★&8) &2Athena &7- &c&lLOCKED" with lore "&2Fragments: &a0" and " &8┃ &a+300%% &7from &a&lTERRE&2&lSTRIAl" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and "&2Unlock: &15,000 &7Gems" and " " with all flags hidden
+	set {athenaperm} to lead named "&8(&a★★★&8) &2Athena" with lore "&2Fragments: &a64" and " &8┃ &a+300%% &7from &a&lTERRE&2&lSTRIAl" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 
-	set {poseidon} to raw cod named "&8(&b★&7★★&8) &3Poseidon" with lore "&7> &b+300%% &7from &b&llUN&3&lAR" and "&7> &7Collect fragments to upgrade" and "&3Unlock: &b5,000 &7Gems" and "&3Fragments: &b1&7/64"
+	set {poseidon} to raw cod named "&8(&b★★★&8) &3Poseidon" with lore "&3Fragments: &b1" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 	enchant {poseidon} with luck of the sea 3, lure 3, and curse of vanishing 3
-	set {poseidonlock} to {poseidon} named "&8(&b★&7★★&8) &3Poseidon &7- &c&lLOCKED"
-	set {poseidonperm} to {poseidon} named "&8(&b★&7★★&8) &3Poseidon"  with lore "7> &b+300%% &7from &b&llUN&3&lAR" and "&7> &7Collect fragments to upgrade" and "&3Unlock: &b5,000 &7Gems" and "&3Fragments: &b64&7/64"
+	set {poseidonlock} to {poseidon} named "&8(&b★★★&8) &3Poseidon &7- &c&lLOCKED" with lore "&3Fragments: &b0" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and "&3Unlock: &b15,000 &7Gems" and " " with all flags hidden
+	set {poseidonperm} to {poseidon} named "&8(&b★★★&8) &3Poseidon"  with lore "&3Fragments: &b64" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
 
 # ==== MOBS ====
 
