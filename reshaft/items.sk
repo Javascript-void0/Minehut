@@ -101,8 +101,9 @@ on load:
 # ==== MOBS ====
 
 function boneWarrior(e: entity):
-	set max health of {_e} to 1024
-	set health of {_e} to 1024
+	set {maxhealth::%{_e}%} to 1200
+	set {damage::%{_e}%} to 1
+	set {health::%{_e}%} to 1200
 	set helmet of {_e} to bone
 	set chestplate of {_e} to iron chestplate
 	set leggings of {_e} to leather leggings
@@ -116,8 +117,9 @@ function boneWarrior(e: entity):
 	enchant held item of {_e} with sharpness 7
 
 function boneArcher(e: entity):
-	set max health of {_e} to 1024
-	set health of {_e} to 1024
+	set {maxhealth::%{_e}%} to 1200
+	set {damage::%{_e}%} to 1
+	set {health::%{_e}%} to 1200
 	set helmet of {_e} to feather
 	set chestplate of {_e} to iron chestplate
 	set leggings of {_e} to leather leggings
@@ -131,8 +133,9 @@ function boneArcher(e: entity):
 	enchant held item of {_e} with power 7
 
 function orcCaptain(e: entity):
-	set max health of {_e} to 1024
-	set health of {_e} to 1024
+	set {maxhealth::%{_e}%} to 1200
+	set {damage::%{_e}%} to 1
+	set {health::%{_e}%} to 1200
 	set helmet of {_e} to fern
 	set chestplate of {_e} to leather chestplate
 	dye chestplate of {_e} green
@@ -147,8 +150,9 @@ function orcCaptain(e: entity):
 	enchant held item of {_e} with power 7
 
 function orcWarrior(e: entity):
-	set max health of {_e} to 1024
-	set health of {_e} to 1024
+	set {maxhealth::%{_e}%} to 1200
+	set {damage::%{_e}%} to 1
+	set {health::%{_e}%} to 1200
 	set helmet of {_e} to dark prismarine slab
 	set chestplate of {_e} to leather chestplate
 	dye chestplate of {_e} green

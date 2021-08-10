@@ -116,53 +116,98 @@ command /pvp:
 			delete {pvp::%player%}
 			send "{@shaft} &7PvP &a&lENABLED."
 
-on death of player:
-	if attacker is not a player:
-		victim is player
-		if projectile is set:
-			set the death message to "&8[&f☠&8] &7%player's display name% &7was shot by %attacker's display name%"
-		else:
-			set the death message to "&8[&f☠&8] &7%player's display name% &7was killed by %attacker's display name%"
-		add 1 to {p_mdeath::%victim%}
-	else if attacker is a player:
-		victim is player
-		add 1 to {p_pkill::%attacker%}
-		add 1 to {p_pdeath::%victim%}
-		if projectile is set:
-			set {_msg} to new text component of "&8[&f☠&8] &7%player's display name% &7was shot by %attacker's display name% using "
-		else:
-			set {_msg} to new text component of "&8[&f☠&8] &7%player's display name% &7was killed by %attacker's display name% using "
-		set {_weapon} to new text component of "&8[&f%name of tool of attacker%&8]"
-		set {_info} to tool of attacker
-		set hover event of {_weapon} to a new hover event showing {_info}
-		set the death message to ""
-		loop all players:
-			send components {_msg} and {_weapon} to loop-player
+# ==== ALTERNATIVE DEATH ====
 
-on death of zombie:
-	if attacker is a player:
-		add 1 to {p_mkill::%attacker%}
-on death of skeleton:
-	if attacker is a player:
-		add 1 to {p_mkill::%attacker%}
+every 5 tick:
+	loop all players:
+		set action bar of loop-player to "&c%{health::%loop-player%}%/%{maxhealth::%loop-player%}% ❤ &8| &c+%{damage::%loop-player%}% dmg"
+		if {dead.%loop-player%} is set:
+			teleport loop-player to {spawn}
+
+function death(p: player):
+	set gamemode of {_p} to spectator
+	set {dead.%{_p}%} to true
+	apply blindness of tier 255 to {_p} for 7 seconds
+	apply weakness of tier 255 to {_p} for 7 seconds
+	apply slowness of tier 255 to {_p} for 7 seconds
+	apply wither of tier 255 to {_p} for 7 seconds
+	set {_time} to 6
+	send {_p} title "&c&lYOU DIED" with subtitle "&7You lost &e10%% &7 of your coins" for 3 seconds
+	wait 3 second
+	loop 5 times:
+		remove 1 from {_time}
+		send {_p} title "&8Grim: &7Welcome back ☠" with subtitle "&cRespawn in: %{_time}%s" for 1 second
+		wait 1 second
+	teleport {_p} to {spawn}
+	set {health::%{_p}%} to {maxhealth::%{_p}%}
+	delete {dead.%{_p}%}
+	set gamemode of {_p} to survival
+
+function deathEffect(e: entity):
+	set {_x} to x-coordinate of {_e}
+	set {_y} to y-coordinate of {_e}
+	set {_z} to z-coordinate of {_e}
+	execute console command "/particle crit %{_x}% %{_y}% %{_z}% 0.3 0.3 0.3 1 100"
+	execute console command "/particle damage_indicator %{_x}% %{_y}% %{_z}% 0.2 1.2 0.2 0 8"
 
 on damage:
+	set damage to 0
+	if {dead.%{victim}%} is set:
+		cancel event
+	else if {health::%victim%} is less than 1:
+		if victim is not a player:
+			attacker is a player
+			deathEffect(victim)
+			delete victim
+			add 1 to {p_mkill::%attacker%}
+			delete {maxhealth::%victim%}
+			delete {health::%victim%}
+			delete {damage::%victim%}
+		else:
+			cancel event
+			death(victim)
+		if attacker is not a player:
+			victim is player
+			if projectile is set:
+				broadcast "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name%"
+			else:
+				broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
+			add 1 to {p_mdeath::%victim%}
+		else if attacker is a player:
+			victim is player
+			add 1 to {p_pkill::%attacker%}
+			add 1 to {p_pdeath::%victim%}
+			if projectile is set:
+				set {_msg} to new text component of "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name% using "
+			else:
+				set {_msg} to new text component of "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name% using "
+			set {_weapon} to new text component of "&8[&f%name of tool of attacker%&8]"
+			set {_info} to tool of attacker
+			set hover event of {_weapon} to a new hover event showing {_info}
+			loop all players:
+				send components {_msg} and {_weapon} to loop-player
+
+on damage:
+	if attacker is a player:
+		victim is set
+		victim is a player
+		{pvp::%victim%} is set
+		cancel event
+		set action bar of attacker to "{@shaft} &7PvP is &c&lDISABLED &7 for %victim%"
+		stop
+	if attacker is set:
+		attacker is a player
+		victim is a player
+		{pvp::%attacker%} is set
+		cancel event
+		set action bar of attacker to "{@shaft} &7Your PvP is &c&lDISABLED"
+		stop
 	if victim is not a player:
-		stop
-	if attacker is not a player:
-		stop
-	else if attacker is a player:
-		if victim is set:
-			if victim is a player:
-				if {pvp::%victim%} is set:
-					cancel event
-					set action bar of attacker to "{@shaft} &7PvP is &c&lDISABLED &7 for %victim%"
-	else if attacker is set:
-		if attacker is a player:
-			if victim is a player:
-				if {pvp::%attacker%} is set:
-					cancel event
-					set action bar of attacker to "{@shaft} &7Your PvP is &c&lDISABLED"
+		if attacker is not a player:
+			cancel event
+		set {_name::*} to name of victim split at " "
+		set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{health::%victim%}%&c/%{maxhealth::%victim%}% ❤&7)"
+	remove {damage::%attacker%} from {health::%victim%}
 
 on join:
 	set {_bossbar} to 0
@@ -345,13 +390,6 @@ function gradient(input: string, color-from: integers, color-to: integers) :: st
 # ======== MOB SPAWN ======== MOB SPAWN ========
 # ======== MOB SPAWN ======== MOB SPAWN ========
 
-on damage: 
-	if victim is not a player:
-		set {_name::*} to name of victim split at " "
-		set {_heart} to roundto(health of victim, 1)
-		set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{_heart}% ❤&7)"
-		set action bar of attacker to name of victim
-
 on combust:
 	if event-entity is zombie or skeleton:
 		cancel event
@@ -363,11 +401,11 @@ on spawn of zombie:
 	else if block below event-location is not grass block:
 		cancel event
 	else if {_n} is 1:
-		set name of event-entity to "&8[&e:L100&8] &fOrc:Captain &7(&c1024 ❤&7)"
 		orcCaptain(event-entity)
+		set name of event-entity to "&8[&e:L100&8] &fOrc:Captain &7(&c%{health::%event-entity%}%&c/%{maxhealth::%event-entity%}% ❤&7)"
 	else if {_n} is 2:
-		set name of event-entity to "&8[&e:L100&8] &fOrc:Warrior &7(&c1024 ❤&7)"
 		orcWarrior(event-entity)
+		set name of event-entity to "&8[&e:L100&8] &fOrc:Warrior &7(&c%{health::%event-entity%}%&c/%{maxhealth::%event-entity%}% ❤&7)"
 on spawn of skeleton:
 	set {_n} to random integer between 1 and 2
 	if {mobcap} is true:
@@ -375,11 +413,11 @@ on spawn of skeleton:
 	else if block below event-location is not grass block:
 		cancel event
 	else if {_n} is 1:
-		set name of event-entity to "&8[&e:L100&8] &fBone:Warrior &7(&c1024 ❤&7)"
 		boneWarrior(event-entity)
+		set name of event-entity to "&8[&e:L100&8] &fBone:Warrior &7(&c%{health::%event-entity%}%&c/%{maxhealth::%event-entity%}% ❤&7)"
 	else if {_n} is 2:
-		set name of event-entity to "&8[&e:L100&8] &fBone:Archer &7(&c1024 ❤&7)"
 		boneArcher(event-entity)
+		set name of event-entity to "&8[&e:L100&8] &fBone:Archer &7(&c%{health::%event-entity%}%&c/%{maxhealth::%event-entity%}% ❤&7)"
 on spawn of creeper:
 #	if {mobcap} is false:
 	cancel event
@@ -466,6 +504,13 @@ on join:
 		set {p_pdeath::%player%} to 0
 	if {p_rebirth::%player%} is not set:
 		set {p_rebirth::%player%} to 0
+	if {damage::%player%} is not set:
+		set {p_rebirth::%player%} to 1
+	if {health::%player%} is not set:
+		set {p_rebirth::%player%} to 20
+	if {maxhealth::%player%} is not set:
+		set {p_rebirth::%player%} to 20
+	
 
 # ======== /TOP ======== /TOP ========
 # ======== /TOP ======== /TOP ========
@@ -473,7 +518,7 @@ on join:
 
 command /top [<text>]:
 	trigger:
-		if arg-1 is not "level" or "gold" or "totalgold" or "gem" or "medal" or "token" or "totaltoken" or "totalblock" or "pkill" or "mkill" or "rebirth":
+		if arg-1 is not "level" or "gold" or "totalgold" or "gem" or "medal" or "token" or "totaltoken" or "totalblock" or "pkill" or "mkill" or "rebirth" or "maxhealth" or "damage":
 			send "{@shaft} /top <level gold total gold gem medal token totaltoken totalblock pkill mkill rebirth>"
 		else:
 			loop {%arg-1%::*}:
@@ -517,6 +562,10 @@ command /top [<text>]:
 					set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7kills"
 				else if arg-1 is "rebirth":
 					set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7times"
+				else if arg-1 is "maxhealth":
+					set {_label} to "&c%{%arg-1%::%loop-value%}% &c❤"
+				else if arg-1 is "damage":
+					set {_label} to "&c%{%arg-1%::%loop-value%}% &cdmg"
 				add 1 to {_topnumber}
 				set {_player} to "%loop-value%" parsed as offline player
 				send "&7%{_topnumber}%&7. %{_player}%: %{_label}%"
@@ -1432,6 +1481,15 @@ command /clearlag:
 	trigger:
 		set {_n} to size of all entities in "world"
 		delete all entities in "world"
+		loop {maxhealth::*}:
+			if {maxhealth::%loop-value%} is not a player:
+				delete {maxhealth::%loop-value%}
+		loop {health::*}:
+			if {health::%loop-value%} is not a player:
+				delete {health::%loop-value%}
+		loop {damage::*}:
+			if {damage::%loop-value%} is not a player:
+				delete {damage::%loop-value%}
 		broadcast "{@shaft} &7Cleared &c%{_n}% &7entities"
 
 # ======== ADMIN ======== ADMIN ========
@@ -1444,8 +1502,8 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 			if arg-1 is not set:
 				send "{@admin} &f/modify &f<player>"
 				stop
-			else if arg-2 is not "level" or "gold" or "totalgold" or "gem" or "medal" or "totalmedal" or "token" or "block" or "totalblock" or "mkill" or "mdeath" or "pkill" or "pdeath" or "rebirth" or "all":
-				send "{@admin} &f/modify <%arg-1%> &f<level gold totalgold gem medal totalmedal token block totalblock mkill mdeath pkill pdeath rebirth all>"
+			else if arg-2 is not "level" or "gold" or "totalgold" or "gem" or "medal" or "totalmedal" or "token" or "block" or "totalblock" or "mkill" or "mdeath" or "pkill" or "pdeath" or "rebirth" or "all" or "maxhealth" or "health" or "damage":
+				send "{@admin} &f/modify <%arg-1%> &f<level gold totalgold gem medal totalmedal token block totalblock mkill mdeath pkill pdeath rebirth maxhealth health damage all>"
 				stop
 			else if arg-3 is not "add" or "remove" or "set" or "reset":
 				if arg-2 is "reset":
@@ -1458,18 +1516,41 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					send "{@admin} &f/modify <%arg-1%> <%arg-2%> <%arg-3%> &f<integer>"
 					stop
 			if arg-3 is "add":
-				add arg-4 to {p_%arg-2%::%arg-1%}
+				if arg-2 is "maxhealth" or "health" or "damage":
+					add arg-4 to {%arg-2%::%arg-1%}
+				else:
+					add arg-4 to {p_%arg-2%::%arg-1%}
 				set {_nn} to format(arg-4)
 				send "{@admin} &7Added &e%{_nn}% &7to &e%arg-1%&e's &7%arg-2%"
 			else if arg-3 is "remove":
 				if arg-2 is "level":
 					if arg-4 is greater than {p_level::%arg-1%} - 1:
 						set {_n} to {p_level::%arg-1%} - 1
+					else:
+						set {_n} to arg-4
+				else if arg-2 is "maxhealth":
+					if arg-4 is greater than {maxhealth::%arg-1%} - 20:
+						set {_n} to {maxhealth::%arg-1%} - 20
+					else:
+						set {_n} to arg-4
+				else if arg-2 is "health":
+					if arg-4 is greater than {health::%arg-1%} - 1:
+						set {_n} to {health::%arg-1%} - 1
+					else:
+						set {_n} to arg-4
+				else if arg-2 is "damage":
+					if arg-4 is greater than {damage::%arg-1%} - 20:
+						set {_n} to {damage::%arg-1%} - 20
+					else:
+						set {_n} to arg-4
 				else if arg-4 is greater than {p_%arg-2%::%arg-1%}:
 					set {_n} to {p_%arg-2%::%arg-1%}
 				else:
 					set {_n} to arg-4
-				remove {_n} from {p_%arg-2%::%arg-1%}
+				if arg-2 is "maxhealth" or "health" or "damage":
+					remove {_n} from {%arg-2%::%arg-1%}
+				else:
+					remove {_n} from {p_%arg-2%::%arg-1%}
 				set {_nn} to format({_n})
 				send "{@admin} &7Removed &e%{_nn}% &7from &e%arg-1%&e's &7%arg-2%"
 			else if arg-3 is "set":
@@ -1478,11 +1559,29 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 						set {_n} to 1
 					else:
 						set {_n} to arg-4
+				else if arg-2 is "maxhealth":
+					if arg-4 is less than 20:
+						set {_n} to 20
+					else:
+						set {_n} to arg-4
+				else if arg-2 is "health":
+					if arg-4 is less than 1:
+						set {_n} to 1
+					else:
+						set {_n} to arg-4
+				else if arg-2 is "damage":
+					if arg-4 is less than 1:
+						set {_n} to 1
+					else:
+						set {_n} to arg-4
 				else if arg-4 is less than 0:
 					set {_n} to 0
 				else:
 					set {_n} to arg-4
-				set {p_%arg-2%::%arg-1%} to {_n}
+				if arg-2 is "maxhealth" or "health" or "damage":
+					set {%arg-2%::%arg-1%} to {_n}
+				else:
+					set {p_%arg-2%::%arg-1%} to {_n}
 				set {_nn} to format({_n})
 				send "{@admin} &7Set &e%arg-1%&e's &7%arg-2% &7to &e%{_nn}%"
 			else if arg-3 is "reset":
@@ -1503,8 +1602,15 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {p_pkill::%arg-1%} to 0
 					set {p_pdeath::%arg-1%} to 0
 					set {p_rebirth::%arg-1%} to 0
+					set {maxhealth::%arg-1%} to 20
+					set {health::%arg-1%} to 20
+					set {damage::%arg-1%} to 1
 					send "{@admin} &7Reset all for &e%arg-1%"
 					stop
+				else if arg-2 is "maxhealth" or "health":
+					set {%arg-2%::%arg-1%} to 20
+				else if arg-2 is "damage":
+					set {%arg-2%::%arg-1%} to 1
 				else:
 					set {_n} to 0
 				set {p_%arg-2%::%arg-1%} to {_n}
