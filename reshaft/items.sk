@@ -52,6 +52,7 @@ on load:
 	set {1_pickaxe} to netherite pickaxe named "&8(&f★&e★&7★★★&8) &e&lPICKAXE" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
 	set {1_axe} to netherite axe named "&8(&f★&e★&7★★★&8) &e&lHATCHET" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
 	set {1_shovel} to netherite shovel named "&8(&f★&e★&7★★★&8) &e&lSHOVEl" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
+	set {1_shield} to shield named "&8(&f★&e★&7★★★&8) &e&lSHIELD" with lore "&eMedals: &8[&e+0&8]" and " " with all flags hidden
 
 	set {1_bow} to bow named "&8(&f★&e★&7★★★&8) &e&lSOl&6&lAR" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Power: &e1" and " &8┃ &7Punch: &e1" and " &8╹ &7Flame: &e1" and " " with all flags hidden
 	set {1_crossbow} to crossbow named "&8(&f★&a★&7★★★&8) &a&lTERRE&2&lSTRIAl" with lore "&aMedals: &8[&a+0&8]" and " &8┃ &7Quick Charge: &a1" and " &8┃ &7Piercing: &a1" and " &8╹ &7Multishot: &a1" and " " with all flags hidden
