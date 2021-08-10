@@ -120,7 +120,8 @@ command /pvp:
 
 every 5 tick:
 	loop all players:
-		set action bar of loop-player to "&c%{health::%loop-player%}%/%{maxhealth::%loop-player%}% ❤ &8| &c+%{damage::%loop-player%}% dmg"
+		if {staffchat::%loop-player%} is not set:
+			set action bar of loop-player to "&c%{health::%loop-player%}%/%{maxhealth::%loop-player%}% ❤ &8| &7%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| &c+%{damage::%loop-player%}% dmg"
 		if {dead.%loop-player%} is set:
 			teleport loop-player to {spawn}
 
@@ -207,7 +208,28 @@ on damage:
 			cancel event
 		set {_name::*} to name of victim split at " "
 		set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{health::%victim%}%&c/%{maxhealth::%victim%}% ❤&7)"
+	if victim is a player:
+		if victim is blocking with a shield:
+			cancel event
+			set {_shield} to slot 40 of victim
+			set slot 40 of victim to air
+			wait 0.7 second
+			set slot 40 of victim to {_shield}
+		else if damage was caused by thorns:
+			if {p_defense::%victim%} is greater than 0:
+				remove 1 from {p_defense::%victim%}
+			else:
+				remove 1 from {health::%victim%}
+			stop
+		else if {p_defense::%victim%} is greater than 0:
+			remove {damage::%attacker%} from {p_defense::%victim%}
+			stop
 	remove {damage::%attacker%} from {health::%victim%}
+
+every 3 seconds in "{@world}":
+	loop all players:
+		if {p_defense::%loop-player%} is less than {p_maxdefense::%loop-player%}:
+			add 1 to {p_defense::%loop-player%}
 
 on join:
 	set {_bossbar} to 0
@@ -505,12 +527,15 @@ on join:
 	if {p_rebirth::%player%} is not set:
 		set {p_rebirth::%player%} to 0
 	if {damage::%player%} is not set:
-		set {p_rebirth::%player%} to 1
+		set {damage::%player%} to 1
 	if {health::%player%} is not set:
-		set {p_rebirth::%player%} to 20
+		set {health::%player%} to 20
 	if {maxhealth::%player%} is not set:
-		set {p_rebirth::%player%} to 20
-	
+		set {maxhealth::%player%} to 20
+	if {p_defense::%player%} is not set:
+		set {p_defense::%player%} to 5
+	if {p_maxdefense::%player%} is not set:
+		set {p_maxdefense::%player%} to 5
 
 # ======== /TOP ======== /TOP ========
 # ======== /TOP ======== /TOP ========
@@ -750,6 +775,7 @@ function new(p: player):
 	set slot 30 of {_p} to {talaria}
 	set slot 31 of {_p} to {zeus}
 	set slot 32 of {_p} to {hermes}
+	set slot 40 of {_p} to {1_shield}
 	set slot 16 of {_p} to 64 of arrow named "&e&lARROWS" with lore " &8╹ &7Click to Open Arrow Shop"
 	set slot 17 of {_p} to anvil named "&e&lSETTINGS" with lore " &8╹ &7Click To Open Settings"
 	set slot 26 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore " &8╹ &7Click To View Your Stats"
@@ -775,6 +801,7 @@ function newlock(p: player):
 	set slot 30 of {_p} to {talarialock}
 	set slot 31 of {_p} to {zeuslock}
 	set slot 32 of {_p} to {hermeslock}
+	set slot 40 of {_p} to {1_shield}
 	set slot 16 of {_p} to 64 of arrow named "&e&lARROWS" with lore " &8╹ &7Click to Open Arrow Shop"
 	set slot 17 of {_p} to anvil named "&e&lSETTINGS" with lore " &8╹ &7Click To Open Settings"
 	set slot 26 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore " &8╹ &7Click To View Your Stats"
@@ -1387,17 +1414,17 @@ function armor(p: player):
 		format gui slot 27 of {_p} with slot 14 of {_p}
 		set {_boots} to slot 14 of {_p}
 
-on right click:
-	if player's tool is pickaxe or axe or shovel or sword:
-		if player's tool is wooden axe:
-			stop
-		cancel event
-		tool(player)
-	if player's tool is bow or crossbow or trident:
-		player is sneaking
-		cancel event
-		set slot 16 of player to 64 of arrow named "&e&lARROWS" with lore " &8╹ &7Click to Open Arrow Shop"
-		tool(player)
+# on right click:
+# 	if player's tool is pickaxe or axe or shovel or sword:
+# 		if player's tool is wooden axe:
+# 			stop
+# 		cancel event
+# 		tool(player)
+# 	if player's tool is bow or crossbow or trident:
+# 		player is sneaking
+# 		cancel event
+# 		set slot 16 of player to 64 of arrow named "&e&lARROWS" with lore " &8╹ &7Click to Open Arrow Shop"
+# 		tool(player)
 
 # ======== STAFF COMMANDS ======== STAFF COMMANDS ========
 # ======== STAFF COMMANDS ======== STAFF COMMANDS ========
@@ -1502,8 +1529,8 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 			if arg-1 is not set:
 				send "{@admin} &f/modify &f<player>"
 				stop
-			else if arg-2 is not "level" or "gold" or "totalgold" or "gem" or "medal" or "totalmedal" or "token" or "block" or "totalblock" or "mkill" or "mdeath" or "pkill" or "pdeath" or "rebirth" or "all" or "maxhealth" or "health" or "damage":
-				send "{@admin} &f/modify <%arg-1%> &f<level gold totalgold gem medal totalmedal token block totalblock mkill mdeath pkill pdeath rebirth maxhealth health damage all>"
+			else if arg-2 is not "level" or "gold" or "totalgold" or "gem" or "medal" or "totalmedal" or "token" or "block" or "totalblock" or "mkill" or "mdeath" or "pkill" or "pdeath" or "rebirth" or "all" or "maxhealth" or "health" or "damage" or "defense" or "maxdefense":
+				send "{@admin} &f/modify <%arg-1%> &f<level gold totalgold gem medal totalmedal token block totalblock mkill mdeath pkill pdeath rebirth maxhealth health damage all defense maxdefense>"
 				stop
 			else if arg-3 is not "add" or "remove" or "set" or "reset":
 				if arg-2 is "reset":
