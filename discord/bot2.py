@@ -4,6 +4,7 @@ from asyncio import TimeoutError
 from discord.ext import commands
 from discord.utils import get
 from mcstatus import MinecraftServer
+from math import floor
 
 client = commands.Bot(command_prefix='.')
 client.remove_command('help')
@@ -116,11 +117,29 @@ async def clear_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Please specify an amount of messages to delete.')
 
+def timeFormat(integer):
+    time = input('Enter an integer: ')
+    msg = str(time).replace('```', '').replace('Time: ', '')
+    h = floor(int(msg) // 60)
+    m = int(msg) % 60
+    if h < 10:
+        h = "0" + str(h)
+    if m < 10:
+        m = "0" + str(m)
+    return f'{h}:{m}'
+
 @client.event
 async def on_message(message):
     if "discord.gg/" in message.content or "discord.com/invite/" in message.content:
         if not message.author.id == '594352318464524289':
             await message.delete()
+    elif "Blessing" in message.content and message.channel == "886738161491914772":
+        channel = guild.get_channel(873434537802207273)
+        await channel.edit(name=message.content)
+    elif "Time" in message.content and message.channel == "886738161491914772":
+        channel = guild.get_channel(873434491123826689)
+        time = timeFormat(message.content)
+        await channel.edit(name=f'Time: {time}')
     await client.process_commands(message)
 
 if __name__ == '__main__':

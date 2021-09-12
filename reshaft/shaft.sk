@@ -291,6 +291,7 @@ command /servertime [<integer>]:
 			set {servertime} to {_time}
 			set {_format} to timeFormat({_time})
 			send "{@admin} &7Server time set to &e%{_format}% &7(&e%{servertime}%&et&7)"
+			send "```Time: %{servertime}%```" to channel with id "886738161491914772" with "ReShaft"
 		else:
 			send "{@admin} {@permission}"
 
@@ -301,6 +302,7 @@ every 1 minute in "{@world}":
 	if mod({servertime}, 60) is 0:
 		set {_format} to timeFormat({servertime})
 		broadcast "{@shaft} &7Server Time: &e%{_format}% &7(&e%{servertime}%t&7)"
+	send "```Time: %{servertime}%```" to channel with id "886738161491914772" with "ReShaft"
 
 every 5 seconds in "{@world}":
 	loop all players:
@@ -482,7 +484,8 @@ command /blessing [<integer>]:
 		if player is op:
 			if arg-1 is set:
 				set {blessing} to arg-1
-				send "{@admin} Set Global Blessing to %arg-1%%%"
+				send "{@admin} &7Set Global Blessing to %arg-1%%%"
+				send "```Blessing: %arg-1%%%```" to channel with id "886738161491914772" with "ReShaft"
 			else:
 				send "{@admin} /blessing <integer>"
 		else:
@@ -691,11 +694,11 @@ on chat:
 			send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
 		send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to console
 		if group of player is "admin":
-			send "[Admin] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+			send "[**ADMIN**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 		else if group of player is "mod":
-			send "[Mod] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+			send "[**MOD**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 		else:
-			send "[:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 	else:
 		cancel event
 		set {_message} to a new text component of "&7%message%"
@@ -707,11 +710,11 @@ on chat:
 			send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to loop-player
 		send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to console
 		if group of player is "admin":
-			send "[Admin] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+			send "[**ADMIN**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 		else if group of player is "mod":
-			send "[Mod] [:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+			send "[**MOD**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 		else:
-			send "[:L%{p_level::%player%}%] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 
 # ======== NUMBER FORMAT ======== NUMBER FORMAT ========
 # ======== NUMBER FORMAT ======== NUMBER FORMAT ========
