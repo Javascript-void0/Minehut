@@ -139,6 +139,7 @@ function death(p: player):
 		wait 1 second
 	teleport {_p} to {spawn}
 	set {health::%{_p}%} to {maxhealth::%{_p}%}
+	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
 	delete {dead.%{_p}%}
 	set gamemode of {_p} to survival
 
@@ -281,7 +282,9 @@ function timeFormat(t: integer) :: text:
 command /servertime [<integer>]:
 	trigger:
 		if player is op:
-			if arg-1 is greater than 1440:
+			if arg-1 is not set:
+				send "{@admin} /servertime <integer>"
+			else if arg-1 is greater than 1440:
 				set {_time} to 1440
 			else:
 				set {_time} to arg-1
@@ -299,7 +302,7 @@ every 1 minute in "{@world}":
 		set {_format} to timeFormat({servertime})
 		broadcast "{@shaft} &7Server Time: &e%{_format}% &7(&e%{servertime}%t&7)"
 
-every 1 second in "{@world}":
+every 5 seconds in "{@world}":
 	loop all players:
 		wipe loop-player's sidebar
 		set name of sidebar of loop-player to "&6&lRe&e&lSHAFT&7²"
@@ -368,7 +371,7 @@ command /worldborder [<integer>]:
 		else:
 			send "{@admin} {@permission}"
 
-every 1 second in "world":
+every 2 seconds in "world":
 	loop all players:
 		"%regions at loop-player%" does not contain "spawn"
 		loop all blocks in radius 10 around loop-player:
@@ -536,17 +539,30 @@ command /top [<text>]:
 		if arg-1 is not "level" or "coins" or "totalcoins" or "wrath" or "totalwrath" or "totalblock" or "pkill" or "mkill" or "rebirth" or "maxhealth" or "damage":
 			send "{@shaft} /top <level coins totalcoins wrath totalwrath totalblock pkill mkill rebirth>"
 		else:
-			loop {%arg-1%::*}:
-				add 1 to {_size}
-				if {_low.to.high.list::%loop-value%} is not set:
-					set {_low.to.high.list::%loop-value%} to loop-index
-				else:
-					set {_n} to 0
-					loop {_size} times:
-						set {_n} to {_n}+1
-						{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
-						set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
-						stop loop
+			if arg-1 is "coins" or "totalcoins" or "wrath" or "totalwrath":
+				loop {p_%arg-1%::*}:
+					add 1 to {_size}
+					if {_low.to.high.list::%loop-value%} is not set:
+						set {_low.to.high.list::%loop-value%} to loop-index
+					else:
+						set {_n} to 0
+						loop {_size} times:
+							set {_n} to {_n}+1
+							{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+							set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+							stop loop
+			else:
+				loop {%arg-1%::*}:
+					add 1 to {_size}
+					if {_low.to.high.list::%loop-value%} is not set:
+						set {_low.to.high.list::%loop-value%} to loop-index
+					else:
+						set {_n} to 0
+						loop {_size} times:
+							set {_n} to {_n}+1
+							{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+							set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+							stop loop
 			wait 1 tick
 			set {_n} to size of {_low.to.high.list::*}
 			loop {_low.to.high.list::*}:
@@ -560,7 +576,7 @@ command /top [<text>]:
 					set {_label} to "&e:L%{p_%arg-1%::%loop-value%}%"
 				else if arg-1 is "coins" or "totalcoins":
 					set {_coins} to format({p_%arg-1%::%loop-value%})
-					set {_label} to "&e%{_coins}% &7coinss"
+					set {_label} to "&e%{_coins}% &7coins"
 				else if arg-1 is "wrath" or "totalwrath":
 					set {_wrath} to format({p_%arg-1%::%loop-value%})
 					set {_label} to "&e%{_wrath}% &7wrath"
@@ -929,85 +945,85 @@ on inventory click:
 		delete slot 40 of player
 	if clicked slot is 12:
 		cancel event
-		if name of event-item contains "&c&lLOCKED":
+		if name of clicked item contains "&c&lLOCKED":
 			unlock(player, 15000, 12)
 			stop
-		if event-item is not light gray stained glass:
+		if clicked item is not light gray stained glass:
 			hatreset(player)
-		hat(player, event-item, 12)
+		hat(player, clicked item, 12)
 	else if clicked slot is 13:
 		cancel event
-		if name of event-item contains "&c&lLOCKED":
+		if name of clicked item contains "&c&lLOCKED":
 			unlock(player, 15000, 13)
 			stop
-		if event-item is not light gray stained glass:
+		if clicked item is not light gray stained glass:
 			hatreset(player)
-		hat(player, event-item, 13)
+		hat(player, clicked item, 13)
 	else if clicked slot is 14:
 		cancel event
-		if name of event-item contains "&c&lLOCKED":
+		if name of clicked item contains "&c&lLOCKED":
 			unlock(player, 15000, 14)
 			stop
-		if event-item is not light gray stained glass:
+		if clicked item is not light gray stained glass:
 			hatreset(player)
-		hat(player, event-item, 14)
+		hat(player, clicked item, 14)
 	else if clicked slot is 21:
 		cancel event
-		if name of event-item contains "&c&lLOCKED":
+		if name of clicked item contains "&c&lLOCKED":
 			unlock(player, 10000, 21)
 			stop
-		if event-item is not light gray stained glass:
+		if clicked item is not light gray stained glass:
 			hatreset(player)
 			apply absorption 5 to player for 9999 days
 		else:
 			remove absorption from player
-		hat(player, event-item, 21)
+		hat(player, clicked item, 21)
 	else if clicked slot is 22:
 		cancel event
-		if name of event-item contains "&c&lLOCKED":
+		if name of clicked item contains "&c&lLOCKED":
 			unlock(player, 10000, 22)
 			stop
-		if event-item is not light gray stained glass:
+		if clicked item is not light gray stained glass:
 			hatreset(player)
-		hat(player, event-item, 22)
+		hat(player, clicked item, 22)
 	else if clicked slot is 23:
 		cancel event
-		if name of event-item contains "&c&lLOCKED":
+		if name of clicked item contains "&c&lLOCKED":
 			unlock(player, 10000, 23)
 			stop
-		if event-item is not light gray stained glass:
+		if clicked item is not light gray stained glass:
 			hatreset(player)
 			apply resistance 2 to player for 9999 days
 		else:
 			remove resistance from player
-		hat(player, event-item, 23)
+		hat(player, clicked item, 23)
 	if clicked slot is 30:
 		cancel event
-		if name of event-item contains "&c&lLOCKED":
+		if name of clicked item contains "&c&lLOCKED":
 			unlock(player, 5000, 30)
 			stop
-		if event-item is not light gray stained glass:
+		if clicked item is not light gray stained glass:
 			hatreset(player)
 			set player's flight mode to true
 		else:
 			set player's flight mode to false
-		hat(player, event-item, 30)
+		hat(player, clicked item, 30)
 	else if clicked slot is 31:
 		cancel event
-		if name of event-item contains "&c&lLOCKED":
+		if name of clicked item contains "&c&lLOCKED":
 			unlock(player, 3000, 31)
 			stop
 		set {_cur} to chestplate of player
-		set {_new} to event-item
+		set {_new} to clicked item
 		set chestplate of player to {_new}
 		set slot 31 of player to {_cur}
 	else if clicked slot is 32:
 		cancel event
-		if name of event-item contains "&c&lLOCKED":
+		if name of clicked item contains "&c&lLOCKED":
 			unlock(player, 5000, 32)
 			stop
 		set {_cur} to boots of player
-		set {_new} to event-item
+		set {_new} to clicked item
 		set boots of player to {_new}
 		set slot 32 of player to {_cur}
 	if group of player is not "admin":
