@@ -118,8 +118,7 @@ async def clear_error(ctx, error):
         await ctx.send('Please specify an amount of messages to delete.')
 
 def timeFormat(integer):
-    time = input('Enter an integer: ')
-    msg = str(time).replace('```', '').replace('Time: ', '')
+    msg = str(integer).replace('```', '').replace('Time: ', '')
     h = floor(int(msg) // 60)
     m = int(msg) % 60
     if h < 10:
@@ -137,6 +136,7 @@ async def on_message(message):
         channel = guild.get_channel(873434537802207273)
         await channel.edit(name=message.content)
     elif "Time" in message.content and message.channel == "886738161491914772":
+        print('done')
         channel = guild.get_channel(873434491123826689)
         time = timeFormat(message.content)
         await channel.edit(name=f'Time: {time}')
