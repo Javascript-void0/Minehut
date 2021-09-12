@@ -134,8 +134,9 @@ async def on_message(message):
             await message.delete()
     if "Blessing" in message.content and message.channel.name == 'portal':
         channel = guild.get_channel(873434537802207273)
-        msg = message.content.replace('```', '')
-        await channel.edit(name=msg)
+        msg = message.content
+        name = msg.replace('```', '')
+        await channel.edit(name=name)
     if "Time" in message.content and message.channel.name == 'portal':
         channel = guild.get_channel(873434491123826689)
         time = timeFormat(message.content)
