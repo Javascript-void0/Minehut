@@ -132,12 +132,12 @@ async def on_message(message):
     if "discord.gg/" in message.content or "discord.com/invite/" in message.content:
         if not message.author.id == '594352318464524289':
             await message.delete()
-    elif "Blessing" in message.content and message.channel.id == "886738161491914772":
+    if "Blessing" in message.content and message.channel.name == 'portal':
         print('done')
         channel = guild.get_channel(873434537802207273)
         print('done')
         await channel.edit(name=message.content.replace('```', ''))
-    elif "Time" in message.content and message.channel.id == "886738161491914772":
+    if "Time" in message.content and message.channel.name == 'portal':
         channel = guild.get_channel(873434491123826689)
         time = timeFormat(message.content)
         await channel.edit(name=f'Time: {time}')
