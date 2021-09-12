@@ -133,8 +133,10 @@ async def on_message(message):
         if not message.author.id == '594352318464524289':
             await message.delete()
     elif "Blessing" in message.content and message.channel.id == "886738161491914772":
+        print('done')
         channel = guild.get_channel(873434537802207273)
-        await channel.edit(name=message.content)
+        print('done')
+        await channel.edit(name=message.content.replace('```', ''))
     elif "Time" in message.content and message.channel.id == "886738161491914772":
         channel = guild.get_channel(873434491123826689)
         time = timeFormat(message.content)
