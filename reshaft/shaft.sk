@@ -119,7 +119,7 @@ command /pvp:
 every 5 tick:
 	loop all players:
 		if {staffchat::%loop-player%} is not set:
-			set action bar of loop-player to "&c%{health::%loop-player%}%/%{maxhealth::%loop-player%}% ❤ &8| &7%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| &c+%{damage::%loop-player%}% dmg"
+			set action bar of loop-player to "&c%{p_health::%loop-player%}%/%{p_maxhealth::%loop-player%}% ❤ &8| &7%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| &c+%{p_damage::%loop-player%}% dmg"
 		if {dead.%loop-player%} is set:
 			teleport loop-player to {spawn}
 
@@ -138,7 +138,7 @@ function death(p: player):
 		send {_p} title "&8Grim: &7Welcome back ☠" with subtitle "&cRespawn in: %{_time}%s" for 1 second
 		wait 1 second
 	teleport {_p} to {spawn}
-	set {health::%{_p}%} to {maxhealth::%{_p}%}
+	set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
 	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
 	delete {dead.%{_p}%}
 	set gamemode of {_p} to survival
@@ -154,15 +154,15 @@ on damage:
 	set damage to 0
 	if {dead.%{victim}%} is set:
 		cancel event
-	else if {health::%victim%} is less than 1:
+	else if {m_health::%victim%} is less than 1:
 		if victim is not a player:
 			attacker is a player
 			deathEffect(victim)
 			delete victim
 			add 1 to {p_mkill::%attacker%}
-			delete {maxhealth::%victim%}
-			delete {health::%victim%}
-			delete {damage::%victim%}
+			delete {m_maxhealth::%victim%}
+			delete {m_health::%victim%}
+			delete {m_damage::%victim%}
 		else:
 			cancel event
 			death(victim)
@@ -206,7 +206,7 @@ on damage:
 		if attacker is not a player:
 			cancel event
 		set {_name::*} to name of victim split at " "
-		set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{health::%victim%}%&c/%{maxhealth::%victim%}% ❤&7)"
+		set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{m_health::%victim%}%&c/%{m_maxhealth::%victim%}% ❤&7)"
 	if victim is a player:
 		if victim is blocking with a shield:
 			cancel event
@@ -218,12 +218,18 @@ on damage:
 			if {p_defense::%victim%} is greater than 0:
 				remove 1 from {p_defense::%victim%}
 			else:
-				remove 1 from {health::%victim%}
+				remove 1 from {p_health::%victim%}
 			stop
 		else if {p_defense::%victim%} is greater than 0:
-			remove {damage::%attacker%} from {p_defense::%victim%}
+			remove {m_damage::%attacker%} from {p_defense::%victim%}
 			stop
-	remove {damage::%attacker%} from {health::%victim%}
+	if victim is a player:
+		if attacker is player:
+			remove {p_damage::%attacker%} from {p_health::%victim%}
+		if attacker is not a player:
+			remove {m_damage::%attacker%} from {p_health::%victim%}
+	if victim is not a player:
+		remove {p_damage::%attacker%} from {m_health::%victim%}
 
 every 3 seconds in "{@world}":
 	loop all players:
@@ -310,13 +316,13 @@ every 5 seconds in "{@world}":
 		set name of sidebar of loop-player to "&6&lRe&e&lSHAFT&7²"
 		set score "    " in sidebar of loop-player to 14
 		set score " &e&lPLAYER &8(&7:L&7%{p_level::%loop-player%}%&8)" in sidebar of loop-player to 13
-		set {_block} to format({p_block::%loop-player%})
-		set score " &8┃ &7Blocks: &f%{_block}%" in sidebar of loop-player to 12
+		set {_influence} to format({p_influence::%loop-player%})
+		set score " &8┃ &7Influence: &f%{_influence}%" in sidebar of loop-player to 12
 		set {_coin} to format({p_coins::%loop-player%})
-		set score " &8┃ &7Coin: &f%{_coin}%" in sidebar of loop-player to 11
+		set score " &8┃ &7Coins: &f%{_coin}%" in sidebar of loop-player to 11
 		set {_wrath} to format({p_wrath::%loop-player%})
 		set score " &8┃ &7Wrath: &f%{_wrath}%" in sidebar of loop-player to 9
-		set score " &8╹ &7Bonus: &f%{p_bonus::%loop-player%}%%%" in sidebar of loop-player to 7
+		set score " &8╹ &7Virtue: &f%{p_virtue::%loop-player%}%%%" in sidebar of loop-player to 7
 		set score "  " in sidebar of loop-player to 6
 		set score " &e&lSERVER &8(&7%number of all players%/10&8)" in sidebar of loop-player to 5
 		set {_tps} to tps from the last 1 minute
@@ -324,33 +330,33 @@ every 5 seconds in "{@world}":
 		set score " &8┃ &7TPS: &f%{_t}%" in sidebar of loop-player to 4
 		set {_time} to timeFormat({servertime})
 		set score " &8┃ &7Time: &f%{_time}%" in sidebar of loop-player to 3
-		set {_blocks} to format({serverblock})
-		set score " &8┃ &7Blocks: &f%{_blocks}%" in sidebar of loop-player to 3
+		set {_influences} to format({serverinfluence})
+		set score " &8┃ &7Influence: &f%{_influences}%" in sidebar of loop-player to 3
 		set score " &8╹ &7Blessing: &f%{blessing}%%%" in sidebar of loop-player to 2
 		set score " " in sidebar of loop-player to 0
 
 # ==== World Border ====
 
-command /serverblock [<text>] [<integer>]:
+command /serverinfluence [<text>] [<integer>]:
 	trigger:
 		if player is op:
 			if arg-1 is not "add" or "remove" or "set" or "reset":
-				send "{@admin} /serverblock <add remove set reset>"
+				send "{@admin} /serverinfluence <add remove set reset>"
 			else if arg-2 is not set:
 				arg-1 is not "reset"
-				send "{@admin} /serverblock <%arg-1%> <integer>"
-				send "{@admin} &7Added &e%arg-2% &7from server block count"
+				send "{@admin} /serverinfluence <%arg-1%> <integer>"
+				send "{@admin} &7Added &e%arg-2% &7from server influence"
 			if arg-1 is "add":
-				add arg-2 to {serverblock}
+				add arg-2 to {serverinfluence}
 			else if arg-1 is "remove":
-				remove arg-2 from {serverblock}
-				send "{@admin} &7Removed &e%arg-2% &7from server block count"
+				remove arg-2 from {serverinfluence}
+				send "{@admin} &7Removed &e%arg-2% &7from server influence"
 			else if arg-1 is "set":
-				set {serverblock} to arg-2
-				send "{@admin} &7Server block count set to &e%arg-2%"
+				set {serverinfluence} to arg-2
+				send "{@admin} &7Server influence set to &e%arg-2%"
 			else if arg-1 is "reset":
-				set {serverblock} to 0
-				send "{@admin} &7Server block count set to &e0"
+				set {serverinfluence} to 0
+				send "{@admin} &7Server influence set to &e0"
 		else:
 			send "{@admin} {@permission}"
 
@@ -359,7 +365,7 @@ function setWorldBorder(n: integer):
 	broadcast "{@shaft} &7Worldborder moved to &e%{_n}% &7blocks"
 
 every 5 seconds in "{@world}":
-	set {_border} to floor({serverblock} ^ (1/2))
+	set {_border} to floor({serverinfluence} ^ (1/2))
 	add 102 to {_border}
 	{worldborder} is not {_border}
 	set {worldborder} to {_border}
@@ -411,6 +417,72 @@ function gradient(input: string, color-from: integers, color-to: integers) :: st
 # ======== MOB SPAWN ======== MOB SPAWN ========
 # ======== MOB SPAWN ======== MOB SPAWN ========
 
+function boneWarrior(e: entity):
+	set {m_maxhealth::%{_e}%} to 1200
+	set {m_damage::%{_e}%} to 1
+	set {m_health::%{_e}%} to 1200
+	set helmet of {_e} to bone
+	set chestplate of {_e} to iron chestplate
+	set leggings of {_e} to leather leggings
+	dye leggings of {_e} white
+	set boots of {_e} to iron boots
+	set held item of {_e} to bone
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant held item of {_e} with sharpness 7
+
+function boneArcher(e: entity):
+	set {m_maxhealth::%{_e}%} to 1200
+	set {m_damage::%{_e}%} to 1
+	set {m_health::%{_e}%} to 1200
+	set helmet of {_e} to feather
+	set chestplate of {_e} to iron chestplate
+	set leggings of {_e} to leather leggings
+	dye leggings of {_e} white
+	set boots of {_e} to iron boots
+	set held item of {_e} to bow
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant held item of {_e} with power 7
+
+function orcCaptain(e: entity):
+	set {m_maxhealth::%{_e}%} to 1200
+	set {m_damage::%{_e}%} to 1
+	set {m_health::%{_e}%} to 1200
+	set helmet of {_e} to fern
+	set chestplate of {_e} to leather chestplate
+	dye chestplate of {_e} green
+	set leggings of {_e} to netherite leggings
+	set boots of {_e} to leather boots
+	dye boots of {_e} lime
+	set held item of {_e} to iron sword
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant held item of {_e} with power 7
+
+function orcWarrior(e: entity):
+	set {m_maxhealth::%{_e}%} to 1200
+	set {m_damage::%{_e}%} to 1
+	set {m_health::%{_e}%} to 1200
+	set helmet of {_e} to dark prismarine slab
+	set chestplate of {_e} to leather chestplate
+	dye chestplate of {_e} green
+	set leggings of {_e} to netherite leggings
+	set boots of {_e} to leather boots
+	dye boots of {_e} lime
+	set held item of {_e} to stone sword
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
+	enchant held item of {_e} with power 7
+
 on combust:
 	if event-entity is zombie or skeleton:
 		cancel event
@@ -423,10 +495,10 @@ on spawn of zombie:
 		cancel event
 	else if {_n} is 1:
 		orcCaptain(event-entity)
-		set name of event-entity to "&8[&e:L100&8] &fOrc:Captain &7(&c%{health::%event-entity%}%&c/%{maxhealth::%event-entity%}% ❤&7)"
+		set name of event-entity to "&8[&e:L100&8] &fOrc:Captain &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
 	else if {_n} is 2:
 		orcWarrior(event-entity)
-		set name of event-entity to "&8[&e:L100&8] &fOrc:Warrior &7(&c%{health::%event-entity%}%&c/%{maxhealth::%event-entity%}% ❤&7)"
+		set name of event-entity to "&8[&e:L100&8] &fOrc:Warrior &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
 on spawn of skeleton:
 	set {_n} to random integer between 1 and 2
 	if {mobcap} is true:
@@ -435,10 +507,10 @@ on spawn of skeleton:
 		cancel event
 	else if {_n} is 1:
 		boneWarrior(event-entity)
-		set name of event-entity to "&8[&e:L100&8] &fBone:Warrior &7(&c%{health::%event-entity%}%&c/%{maxhealth::%event-entity%}% ❤&7)"
+		set name of event-entity to "&8[&e:L100&8] &fBone:Warrior &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
 	else if {_n} is 2:
 		boneArcher(event-entity)
-		set name of event-entity to "&8[&e:L100&8] &fBone:Archer &7(&c%{health::%event-entity%}%&c/%{maxhealth::%event-entity%}% ❤&7)"
+		set name of event-entity to "&8[&e:L100&8] &fBone:Archer &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
 on spawn of creeper:
 #	if {mobcap} is false:
 	cancel event
@@ -502,12 +574,12 @@ on join:
 		set {p_coins::%player%} to 0
 	if {p_wrath::%player%} is not set:
 		set {p_wrath::%player%} to 0
-	if {p_bonus::%player%} is not set:
-		set {p_bonus::%player%} to 100
-	if {p_block::%player%} is not set:
-		set {p_block::%player%} to 0
-	if {p_totalblock::%player%} is not set:
-		set {p_totalblock::%player%} to 0
+	if {p_virtue::%player%} is not set:
+		set {p_virtue::%player%} to 100
+	if {p_influence::%player%} is not set:
+		set {p_influence::%player%} to 0
+	if {p_totalinfluence::%player%} is not set:
+		set {p_totalinfluence::%player%} to 0
 	if {p_totalcoins::%player%} is not set:
 		set {p_totalcoins::%player%} to 0
 	if {p_totalwrath::%player%} is not set:
@@ -522,12 +594,12 @@ on join:
 		set {p_pdeath::%player%} to 0
 	if {p_rebirth::%player%} is not set:
 		set {p_rebirth::%player%} to 0
-	if {damage::%player%} is not set:
-		set {damage::%player%} to 1
-	if {health::%player%} is not set:
-		set {health::%player%} to 20
-	if {maxhealth::%player%} is not set:
-		set {maxhealth::%player%} to 20
+	if {p_damage::%player%} is not set:
+		set {p_damage::%player%} to 1
+	if {p_health::%player%} is not set:
+		set {p_health::%player%} to 20
+	if {p_maxhealth::%player%} is not set:
+		set {p_maxhealth::%player%} to 20
 	if {p_defense::%player%} is not set:
 		set {p_defense::%player%} to 5
 	if {p_maxdefense::%player%} is not set:
@@ -539,68 +611,55 @@ on join:
 
 command /top [<text>]:
 	trigger:
-		if arg-1 is not "level" or "coins" or "totalcoins" or "wrath" or "totalwrath" or "totalblock" or "pkill" or "mkill" or "rebirth" or "maxhealth" or "damage":
-			send "{@shaft} /top <level coins totalcoins wrath totalwrath totalblock pkill mkill rebirth>"
+		if arg-1 is not "level" or "coins" or "totalcoins" or "wrath" or "totalwrath" or "totalinfluence" or "pkill" or "mkill" or "rebirth" or "maxhealth" or "damage":
+			send "{@shaft} /top <level coins totalcoins wrath totalwrath totalinfluence pkill mkill rebirth>"
 		else:
-			if arg-1 is "coins" or "totalcoins" or "wrath" or "totalwrath":
-				loop {p_%arg-1%::*}:
-					add 1 to {_size}
-					if {_low.to.high.list::%loop-value%} is not set:
-						set {_low.to.high.list::%loop-value%} to loop-index
-					else:
-						set {_n} to 0
-						loop {_size} times:
-							set {_n} to {_n}+1
-							{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
-							set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
-							stop loop
-			else:
-				loop {%arg-1%::*}:
-					add 1 to {_size}
-					if {_low.to.high.list::%loop-value%} is not set:
-						set {_low.to.high.list::%loop-value%} to loop-index
-					else:
-						set {_n} to 0
-						loop {_size} times:
-							set {_n} to {_n}+1
-							{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
-							set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
-							stop loop
-			wait 1 tick
-			set {_n} to size of {_low.to.high.list::*}
-			loop {_low.to.high.list::*}:
-				set {_high.to.low.list::%{_n}%} to loop-value
-				set {_n} to {_n}-1
-			wait 1 tick
-			set {_i} to 0
-			send "&7&m-----------&r &8[ &e&lTOP &8] &7&m-------------"
-			loop {_high.to.low.list::*}:
-				if arg-1 is "level":
-					set {_label} to "&e:L%{p_%arg-1%::%loop-value%}%"
-				else if arg-1 is "coins" or "totalcoins":
-					set {_coins} to format({p_%arg-1%::%loop-value%})
-					set {_label} to "&e%{_coins}% &7coins"
-				else if arg-1 is "wrath" or "totalwrath":
-					set {_wrath} to format({p_%arg-1%::%loop-value%})
-					set {_label} to "&e%{_wrath}% &7wrath"
-				else if arg-1 is "totalblock":
-					set {_block} to format({p_%arg-1%::%loop-value%})
-					set {_label} to "&e%{_block}% &7blocks"
-				else if arg-1 is "mkill" or "pkill":
-					set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7kills"
-				else if arg-1 is "rebirth":
-					set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7times"
-				else if arg-1 is "maxhealth":
-					set {_label} to "&c%{%arg-1%::%loop-value%}% &c❤"
-				else if arg-1 is "damage":
-					set {_label} to "&c%{%arg-1%::%loop-value%}% &cdmg"
-				add 1 to {_topnumber}
-				set {_player} to "%loop-value%" parsed as offline player
-				send "&7%{_topnumber}%&7. %{_player}%: %{_label}%"
-				add 1 to {_i}
-				if {_topnumber} > 10:
-					stop
-			send "&7&m--------------------------------"
+			loop {p_%arg-1%::*}:
+				add 1 to {_size}
+				if {_low.to.high.list::%loop-value%} is not set:
+					set {_low.to.high.list::%loop-value%} to loop-index
+				else:
+					set {_n} to 0
+					loop {_size} times:
+						set {_n} to {_n}+1
+						{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+						set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+						stop loop
+		wait 1 tick
+		set {_n} to size of {_low.to.high.list::*}
+		loop {_low.to.high.list::*}:
+			set {_high.to.low.list::%{_n}%} to loop-value
+			set {_n} to {_n}-1
+		wait 1 tick
+		set {_i} to 0
+		send "&7&m-----------&r &8[ &e&lTOP &8] &7&m-------------"
+		loop {_high.to.low.list::*}:
+			if arg-1 is "level":
+				set {_label} to "&e:L%{p_%arg-1%::%loop-value%}%"
+			else if arg-1 is "coins" or "totalcoins":
+				set {_coins} to format({p_%arg-1%::%loop-value%})
+				set {_label} to "&e%{_coins}% &7coins"
+			else if arg-1 is "wrath" or "totalwrath":
+				set {_wrath} to format({p_%arg-1%::%loop-value%})
+				set {_label} to "&e%{_wrath}% &7wrath"
+			else if arg-1 is "totalinfluence":
+				set {_block} to format({p_%arg-1%::%loop-value%})
+				set {_label} to "&e%{_influence}% &7influence"
+			else if arg-1 is "mkill" or "pkill":
+				set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7kills"
+			else if arg-1 is "rebirth":
+				set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7times"
+			else if arg-1 is "maxhealth":
+				set {_label} to "&c%{%arg-1%::%loop-value%}% &c❤"
+			else if arg-1 is "damage":
+				set {_label} to "&c%{%arg-1%::%loop-value%}% &cdmg"
+			add 1 to {_topnumber}
+			set {_player} to "%loop-value%" parsed as offline player
+			send "&7%{_topnumber}%&7. %{_player}%: %{_label}%"
+			add 1 to {_i}
+			if {_topnumber} > 10:
+				stop
+		send "&7&m--------------------------------"
 
 # ======== CHAT FORMAT ======== CHAT FORMAT ========
 # ======== CHAT FORMAT ======== CHAT FORMAT ========
@@ -620,8 +679,8 @@ on chat:
 	else:
 		set {_level} to a new text component of "&7%{p_level::%player%}%"
 	set {_wrath} to format({p_totalwrath::%player%})
-	set {_total} to format({p_totalblock::%player%})
-	set {_stats} to bedrock named "&8[&e:L%{p_level::%player%}%&8] &f%{_player}%" with lore " &8┃ &7Wrath: &e%{_wrath}%" and " &8╹ &7Blocks: &e%{_total}%"
+	set {_total} to format({p_totalinfluence::%player%})
+	set {_stats} to bedrock named "&8[&e:L%{p_level::%player%}%&8] &f%{_player}%" with lore " &8┃ &7Wrath: &e%{_wrath}%" and " &8╹ &7Influence: &e%{_total}%"
 	set hover event of {_level} to a new hover event showing {_stats}
 
 	set {_slotList::hand} to index of player's hotbar slot
@@ -683,6 +742,7 @@ on chat:
 		replace "world" with "" in {_messageFormat::*}
 		replace "[" with "" in {_messageFormat::*}
 		replace "]" with "" in {_messageFormat::*}
+		replace "build" with "" in {_messageFormat::*}
 		if message format contains message:
 			set {_messageFormat::*} to message format split at message
 		set {_temp} to a new text component of "%{_messageFormat::1}%"
@@ -911,10 +971,30 @@ on inventory click:
 	if name of event-inventory is not "Crafting":
 		cancel event
 		stop
-	if clicked slot is 0 or 1 or 2:
-		gamemode of player is survival
-		toolbox(player)
-		stop
+	if clicked slot is 0 or 1 or 2 or 3 or 4 or 5:
+		if clicked slot is 0:
+			set {_slot} to 0
+		else if clicked slot is 1:
+			set {_slot} to 1
+		else if clicked slot is 2:
+			set {_slot} to 2
+		else if clicked slot is 3:
+			set {_slot} to 3
+		else if clicked slot is 4:
+			set {_slot} to 4
+		else if clicked slot is 5:
+			set {_slot} to 5
+		if clicked type is left mouse button:
+			enchants(player, clicked item, {_slot})
+		if clicked type is left mouse button with shift:
+			wrathUpgrade(player, clicked item, {_slot})
+		else if clicked type is right mouse button:
+			if clicked slot is 0 or 1 or 2:
+				gamemode of player is survival
+				toolbox(player)
+				stop
+			else:
+				cancel event
 	# if clicked slot is 0:
 	# 	gamemode of player is survival
 	# 	set {_i} to slot 0 of player
@@ -927,25 +1007,16 @@ on inventory click:
 	# 	gamemode of player is survival
 	# 	set {_i} to slot 2 of player
 	# 	set slot 40 of player to {_i}
-	if clicked slot is 36:
+	if clicked slot is 36 or 37 or 38 or 39:
 		gamemode of player is survival
-		close player's inventory
-		armor(player)
-	if clicked slot is 37:
-		gamemode of player is survival
-		close player's inventory
-		armor(player)
-	if clicked slot is 38:
-		gamemode of player is survival
-		close player's inventory
-		armor(player)
-	if clicked slot is 39:
-		gamemode of player is survival
-		close player's inventory
-		armor(player)
-	if clicked slot is 40:
-		gamemode of player is survival
-		delete slot 40 of player
+		if clicked type is left mouse button:
+			armorUpgrade(player)
+		else if clicked type is right mouse button:
+			wardrobe(player)
+	# shield
+	# if clicked slot is 40:
+	# 	gamemode of player is survival
+	# 	delete slot 40 of player
 	if clicked slot is 12:
 		cancel event
 		if name of clicked item contains "&c&lLOCKED":
@@ -1093,10 +1164,10 @@ function stats(p: player):
 	set {_wrath} to format({p_wrath::%{_p}%})
 	set {_totalwrath} to format({p_totalwrath::%{_p}%})
 	format gui slot 12 of {_p} with bell named "&c&lWRATH" with lore "&7Current: &c%{_wrath}% &7wrath" and "&7Total: &c%{_totalwrath}% &7wrath"
-	set {_total} to format({p_totalblock::%{_p}%})
-	set {_block} to format({p_block::%{_p}%})
-	format gui slot 14 of {_p} with grass block named "&a&lBLOCKS" with lore "&7Since Last Rebirth: &a%{_block}% &7blocks" and "&7Total: &a%{_total}% &7blocks"
-	format gui slot 15 of {_p} with cookie named "&b&lBONUS" with lore "&7Current: &b%{p_bonus::%{_p}%}%%%" and "&7 > Depends on your current gear"
+	set {_total} to format({p_totalinfluence::%{_p}%})
+	set {_influence} to format({p_influence::%{_p}%})
+	format gui slot 14 of {_p} with grass block named "&a&lINFLUENCE" with lore "&7Since Last Rebirth: &a%{_influence}% &7influence" and "&7Total: &a%{_total}% &7influence"
+	format gui slot 15 of {_p} with cookie named "&b&lVIRTUE" with lore "&7Current: &b%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
 	format gui slot 16 of {_p} with nether star named "&b&lREBIRTH" with lore "&7Total: &b%{p_rebirth::%{_p}%}% &7times"
 	format gui slot 19 of {_p} with zombie skull named "&c&lPvE" with lore "&7Kills: &c%{p_mkill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{p_mdeath::%{_p}%}% &7deaths"
 	format gui slot 20 of {_p} with skeleton skull named "&c&lPvP" with lore "&7Kills: &c%{p_pkill::%{_p}%}% &7players killed" and "&7Deaths: &c%{p_pdeath::%{_p}%}% &7deaths"
@@ -1105,36 +1176,39 @@ function removeLoreLabel(t: text) :: number:
 	set {_n} to uncolored {_t}
 	replace "Wrath: [+" with "" in {_n}
 	replace "]" with "" in {_n}
-	replace "%% Bonus" with "" in {_n}
 	set {_r} to {_n} parsed as number
 	return {_r}
 
-function wrathUpgrade(p: player, c: number):
-	set {_1} to removeLoreLabel(line 1 of lore of tool of {_p})
-	if {p_wrath::%{_p}%} is greater than {_c}:
-		remove {_c} from {p_wrath::%{_p}%}
+# changed tool function?
+function wrathUpgrade(p: player, i: item, s: integer):
+	set {_1} to removeLoreLabel(line 1 of lore of {_i})
+	set {_cost} to {_1}^2
+	# set {_costFormat} to format({_cost})
+	if {p_wrath::%{_p}%} is greater than {_cost}:
+		remove {_cost} from {p_wrath::%{_p}%}
 		add 1 to {_1}
-		set line 1 of lore of tool of {_p} to "&eWrath: &8[&e+%{_1}%&8]"
-		tool({_p})
+		set line 1 of lore of {_i} to "&eWrath: &8[&e+%{_1}%&8]"
+		set slot {_s} of inventory of {_p} to {_i}
+		#tool({_p}, tool of {_p})
 	else:
 		send "{@shaft} {@wrath}" to {_p}
 
-function bonusUpgrade(p: player, c: number):
-	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
-	if {p_coins::%{_p}%} is greater than {_c}:
-		remove {_c} from {p_coins::%{_p}%}
-		set {_n2} to {_2} * 2
-		set line 2 of lore of tool of {_p} to "&b%{_n2}%%% &7Bonus"
-		tool({_p})
-	else:
-		send "{@shaft} {@coins}" to {_p}
+# function bonusUpgrade(p: player, c: number):
+# 	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
+# 	if {p_coins::%{_p}%} is greater than {_c}:
+# 		remove {_c} from {p_coins::%{_p}%}
+# 		set {_n2} to {_2} * 2
+# 		set line 2 of lore of tool of {_p} to "&b%{_n2}%%% &7Bonus"
+# 		tool({_p}, tool of {_p})
+# 	else:
+# 		send "{@shaft} {@coins}" to {_p}
 
 function rebirth(p: player):
 	if {p_block::%{_p}%} is less than 2000:
 		set {_m} to 2000 - {p_block::%{_p}%}
-		send "{@shaft} &7You need to mine &c%{_m}% &7more blocks before rebirth" to {_p}
+		send "{@shaft} &7You need &c%{_m}% &7more influence before rebirth" to {_p}
 	else:
-		set {_level} to floor({p_block::%{_p}%} / 1000)
+		set {_level} to floor({p_influence::%{_p}%} / 1000)
 		set {_before} to {p_level::%{_p}%}
 		if {_before} is less than {_level}:
 			set {p_level::%{_p}%} to {_level}
@@ -1142,10 +1216,10 @@ function rebirth(p: player):
 			send "{@shaft} &7Player Level increased from &e%{_before}% &7to &e%{_level}% &7(&e+%{_dif}%&7)" to {_p}
 		rebirthnew({_p})
 		set {_blessing} to {blessing} / 100
-		set {_wrath} to {p_block::%{_p}%} * {_blessing}
+		set {_wrath} to {p_influence::%{_p}%} * {_blessing}
 		add {_wrath} to {p_wrath::%{_p}%}
 		add {_wrath} to {p_totalwrath::%{_p}%}
-		set {p_block::%{_p}%} to 0
+		set {p_influence::%{_p}%} to 0
 		set {p_coins::%{_p}%} to 0
 		set {_m} to format({_wrath})
 		add 1 to {p_rebirth::%{_p}%}
@@ -1157,7 +1231,7 @@ function rebirthnew(p: player):
 	if {_bind} is not set:
 		disenchant {_item}
 	repair {_item}
-	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 0 of {_p} to {_item}
 
 	set {_item} to slot 1 of {_p}
@@ -1165,7 +1239,7 @@ function rebirthnew(p: player):
 	if {_bind} is not set:
 		disenchant {_item}
 	repair {_item}
-	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 1 of {_p} to {_item}
 
 	set {_item} to slot 2 of {_p}
@@ -1173,15 +1247,15 @@ function rebirthnew(p: player):
 	if {_bind} is not set:
 		disenchant {_item}
 	repair {_item}
-	set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
 	set slot 2 of {_p} to {_item}
 
-function enchants(p: player):
-	open virtual chest inventory with size 1 named "&8Enchanting Library" to {_p}
-	format gui slot 0 of {_p} with held item of {_p}
-	set {_l} to level of unbreaking of held item of {_p}
+function enchants(p: player, i: item, s: integer):
+	open virtual chest inventory with size 1 named "&8Library" to {_p}
+	format gui slot 0 of {_p} with {_i}
+	set {_l} to level of unbreaking of {_i}
 	if {_l} is not set:
-		set {_l} to 0
+		set {_l} to 1
 	set {_c} to ({_l} + 1) * 500000
 	set {_cf} to format({_c})
 	if {_l} is greater or equal to {p_level::%{_p}%}:
@@ -1192,16 +1266,17 @@ function enchants(p: player):
 			stop
 		if {p_coins::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
-			enchant held item of {_p} with "unbreaking %{_new}%" parsed as enchantment type
+			enchant {_i} with "unbreaking %{_new}%" parsed as enchantment type
+			set line 2 of lore of {_i} to " &8┃ &7Unbreaking: &e%{_new}%"
 			remove {_c} from {p_coins::%{_p}%}
 			send "{@shaft} &7Upgraded &eUnbreaking &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@coins}" to {_p}
-		enchants({_p})
+		enchants({_p}, {_i}, {_s})
 	delete {_l}
-	set {_l} to level of efficiency of held item of {_p}
+	set {_l} to level of efficiency of {_i}
 	if {_l} is not set:
-		set {_l} to 0
+		set {_l} to 1
 	set {_c} to ({_l} + 1) * 100000
 	set {_cf} to format({_c})
 	if {_l} is greater or equal to 15:
@@ -1212,56 +1287,59 @@ function enchants(p: player):
 			stop
 		if {p_coins::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
-			enchant held item of {_p} with "efficiency %{_new}%" parsed as enchantment type
+			enchant {_i} with "efficiency %{_new}%" parsed as enchantment type
+			set line 3 of lore of {_i} to " &8┃ &7Efficiency: &e%{_new}%"
 			remove {_c} from {p_coins::%{_p}%}
 			send "{@shaft} &7Upgraded &eEfficiency &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@coins}" to {_p}
-		enchants({_p})
+		enchants({_p}, {_i}, {_s})
 	delete {_l}
-	set {_l} to level of silk touch of held item of {_p}
+	set {_l} to level of fortune of {_i}
 	if {_l} is not set:
-		set {_l} to 0
+		set {_l} to 1
 	set {_c} to ({_l} + 1) * 50000
 	set {_cf} to format({_c})
 	if {_l} is greater or equal to 10:
 		set {_c} to "&c&lMAX"
-	format gui slot 3 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Silk Touch" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f10" and "&eCost: &f%{_cf}% &eCoins" to run:
+	format gui slot 3 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Fortune" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f10" and "&eCost: &f%{_cf}% &eCoins" to run:
 		if {_l} is greater or equal to 10:
 			send "{@shaft} &cMax Level" to {_p}
 			stop
 		if {p_coins::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
-			enchant held item of {_p} with "silk touch %{_new}%" parsed as enchantment type
-			remove {_c} from {p_coins::%{_p}%}
-			send "{@shaft} &7Upgraded &eSilk Touch &7to &e%{_new}%" to {_p}
-		else:
-			send "{@shaft} {@coins}" to {_p}
-		enchants({_p})
-	delete {_l}
-	set {_l} to level of fortune of held item of {_p}
-	if {_l} is not set:
-		set {_l} to 0
-	set {_c} to ({_l} + 1) * 50000
-	set {_cf} to format({_c})
-	if {_l} is greater or equal to 10:
-		set {_c} to "&c&lMAX"
-	format gui slot 4 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Fortune" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f10" and "&eCost: &f%{_cf}% &eCoins" to run:
-		if {_l} is greater or equal to 10:
-			send "{@shaft} &cMax Level" to {_p}
-			stop
-		if {p_coins::%{_p}%} is greater than {_c}:
-			set {_new} to {_l} + 1
-			enchant held item of {_p} with "fortune %{_new}%" parsed as enchantment type
+			enchant {_i} with "fortune %{_new}%" parsed as enchantment type
+			set line 4 of lore of {_i} to " &8┃ &7Fortune: &e%{_new}%"
 			remove {_c} from {p_coins::%{_p}%}
 			send "{@shaft} &7Upgraded &eFortune &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@coins}" to {_p}
-		enchants({_p})
+		enchants({_p}, {_i}, {_s})
 	delete {_l}
-	set {_l} to level of mending of held item of {_p}
+	set {_l} to level of silk touch of {_i}
 	if {_l} is not set:
-		set {_l} to 0
+		set {_l} to 1
+	set {_c} to ({_l} + 1) * 50000
+	set {_cf} to format({_c})
+	if {_l} is greater or equal to 10:
+		set {_c} to "&c&lMAX"
+	format gui slot 4 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Silk Touch" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f10" and "&eCost: &f%{_cf}% &eCoins" to run:
+		if {_l} is greater or equal to 10:
+			send "{@shaft} &cMax Level" to {_p}
+			stop
+		if {p_coins::%{_p}%} is greater than {_c}:
+			set {_new} to {_l} + 1
+			enchant {_i} with "silk touch %{_new}%" parsed as enchantment type
+			set line 5 of lore of {_i} to " &8┃ &7Excavate: &e%{_new}%"
+			remove {_c} from {p_coins::%{_p}%}
+			send "{@shaft} &7Upgraded &eSilk Touch &7to &e%{_new}%" to {_p}
+		else:
+			send "{@shaft} {@coins}" to {_p}
+		enchants({_p}, {_i}, {_s})
+	delete {_l}
+	set {_l} to level of mending of {_i}
+	if {_l} is not set:
+		set {_l} to 1
 	set {_c} to ({_l} + 1) * 100000
 	set {_cf} to format({_c})
 	if {_l} is greater or equal to 5:
@@ -1272,36 +1350,17 @@ function enchants(p: player):
 			stop
 		if {p_coins::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
-			enchant held item of {_p} with "mending %{_new}%" parsed as enchantment type
+			enchant {_i} with "mending %{_new}%" parsed as enchantment type
+			set line 6 of lore of {_i} to " &8┃ &7Mending: &e%{_new}%"
 			remove {_c} from {p_coins::%{_p}%}
 			send "{@shaft} &7Upgraded &eMending &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@coins}" to {_p}
-		enchants({_p})
+		enchants({_p}, {_i}, {_s})
 	delete {_l}
-	set {_l} to level of curse of vanishing of held item of {_p}
+	set {_l} to level of curse of binding of {_i}
 	if {_l} is not set:
-		set {_l} to 0
-	set {_c} to 15000
-	set {_cf} to spaced("%{_c}%")
-	if {_l} is greater or equal to 1:
-		set {_c} to "&c&lMAX"
-	format gui slot 6 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&cCurse of Vanishing" and "&7&o<none>" and "&7 > Current: &f%{_l}%" and "&7 > Max: &f1" and "&eCost: &f%{_cf}% &bWrath" to run: 
-		if {_l} is greater or equal to 1:
-			send "{@shaft} &cMax Level" to {_p}
-			stop
-		if {p_coins::%{_p}%} is greater than {_c}:
-			set {_new} to {_l} + 1
-			enchant held item of {_p} with "curse of vanishing %{_new}%" parsed as enchantment type
-			remove {_c} from {p_coins::%{_p}%}
-			send "{@shaft} &7Upgraded &eCurse of Vanishing &7to &e%{_new}%" to {_p}
-		else:
-			send "{@shaft} {@wrath}" to {_p}
-		enchants({_p})
-	delete {_l}
-	set {_l} to level of curse of binding of held item of {_p}
-	if {_l} is not set:
-		set {_l} to 0
+		set {_l} to 1
 	set {_c} to 15000
 	set {_cf} to spaced("%{_c}%")
 	if {_l} is greater or equal to 1:
@@ -1312,68 +1371,77 @@ function enchants(p: player):
 			stop
 		if {p_coins::%{_p}%} is greater than {_c}:
 			set {_new} to {_l} + 1
-			enchant held item of {_p} with "curse of binding %{_new}%" parsed as enchantment type
+			enchant {_i} with "curse of binding %{_new}%" parsed as enchantment type
+			set line 7 of lore of {_i} to " &8╹ &7Binding: &e%{_new}%"
 			remove {_c} from {p_coins::%{_p}%}
 			send "{@shaft} &7Upgraded &eCurse of Binding &7to &e%{_new}%" to {_p}
 		else:
 			send "{@shaft} {@wrath}" to {_p}
-		enchants({_p})
-	format gui slot 8 of {_p} with arrow named "&7 < &cBack" with lore "&7Click to go back" to run function tool({_p})
+		enchants({_p}, {_i}, {_s})
+	set slot {_s} of {_p} to {_i}
+	#format gui slot 8 of {_p} with arrow named "&7 < &cBack" with lore "&7Click to go back" to run function tool({_p}, {_i})
 
 function bowenchant(p: player):
-	open virtual chest inventory with size 1 named "&8Enchanting Library" to {_p}
+	open virtual chest inventory with size 1 named "&8Library" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
 
 function crossbowenchant(p: player):
-	open virtual chest inventory with size 1 named "&8Enchanting Library" to {_p}
+	open virtual chest inventory with size 1 named "&8Library" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
 
 function trident(p: player):
-	open virtual chest inventory with size 1 named "&8Enchanting Library" to {_p}
+	open virtual chest inventory with size 1 named "&8Library" to {_p}
 	format gui slot 0 of {_p} with held item of {_p}
 
-function tool(p: player):
-	if tool of {_p} is pickaxe:
-		open virtual chest inventory with size 1 named "&8Pickaxe Upgrades" to {_p}
-	else if tool of {_p} is axe:
-		open virtual chest inventory with size 1 named "&8Hatchet Upgrades" to {_p}
-	else if tool of {_p} is shovel:
-		open virtual chest inventory with size 1 named "&8Shovel Upgrades" to {_p}
-	else if tool of {_p} is bow:
-		open virtual chest inventory with size 1 named "&e&lSOl&6&lAR &8Menu" to {_p}
-	else if tool of {_p} is crossbow:
-		open virtual chest inventory with size 1 named "&a&lTERRE&2&lSTRIAl &8Menu" to {_p}	
-	else if tool of {_p} is trident:
-		open virtual chest inventory with size 1 named "&b&llUN&3&lAR &8Menu" to {_p}	
-	set {_1} to removeLoreLabel(line 1 of lore of tool of {_p})
-	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
-	set {_cost1} to {_1}^2
-	set {_cost11} to format({_cost1})
-	set {_cost2} to ({_2} * 10000)^2
-	set {_cost22} to format({_cost2})
-	format gui slot 1 of {_p} with bell named "&eWrath: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost11}% &eWrath" to run function wrathUpgrade({_p}, {_cost1})
-	format gui slot 3 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost22}% &eCoins" to run function bonusUpgrade({_p}, {_cost2})
-	if tool of {_p} is bow:
-		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function bowenchants({_p})
-	else if tool of {_p} is crossbow:
-		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function crossbownchants({_p})
-	else if tool of {_p} is trident:
-		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function tridentenchants({_p})
-	else:
-		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function enchants({_p})
-	set {_block} to {p_block::%{_p}%}
-	set {_blockk} to format({p_block::%{_p}%})
-	set {_bonus} to format((({p_bonus::%{_p}%} / 100) - 1) * {_block})
-	set {_blessing} to format((({blessing} / 100) - 1) * {_block})
-	format gui slot 7 of {_p} with nether star named "&bRebirth" with lore "&7 > Click to &bRebirth &7and Gain Wrath" and "&7 > %{_blockk}% &b+%{_bonus}% (%{p_bonus::%{_p}%}%%%) &e+%{_blessing}% (%{blessing}%%%) &7Wrath" to run function rebirth({_p})
+# function tool(p: player, i: item):
+# 	if {_i} is pickaxe:
+# 		open virtual chest inventory with size 1 named "&8Pickaxe Upgrades" to {_p}
+# 	else if {_i} is axe:
+# 		open virtual chest inventory with size 1 named "&8Hatchet Upgrades" to {_p}
+# 	else if {_i} is shovel:
+# 		open virtual chest inventory with size 1 named "&8Shovel Upgrades" to {_p}
+# 	else if {_i} is bow:
+# 		open virtual chest inventory with size 1 named "&e&lSOl&6&lAR &8Menu" to {_p}
+# 	else if {_i} is crossbow:
+# 		open virtual chest inventory with size 1 named "&a&lTERRE&2&lSTRIAl &8Menu" to {_p}	
+# 	else if {_i} is trident:
+# 		open virtual chest inventory with size 1 named "&b&llUN&3&lAR &8Menu" to {_p}	
+# 	set {_1} to removeLoreLabel(line 1 of lore of {_i})
+# 	set {_2} to removeLoreLabel(line 2 of lore of {_i})
+# 	set {_cost1} to {_1}^2
+# 	set {_cost11} to format({_cost1})
+# 	set {_cost2} to ({_2} * 10000)^2
+# 	set {_cost22} to format({_cost2})
+# 	format gui slot 1 of {_p} with bell named "&eWrath: &8[&e+%{_1}%&8]" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost11}% &eWrath" to run function wrathUpgrade({_p}, {_cost1})
+# 	# format gui slot 3 of {_p} with emerald named "&b%{_2}%%% &7Bonus" with lore "&7 > Click to Upgrade:" and "&eCost: &f%{_cost22}% &eCoins" to run function bonusUpgrade({_p}, {_cost2})
+# 	if tool of {_p} is bow:
+# 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function bowenchants({_p}, {_i}, {_s})
+# 	else if tool of {_p} is crossbow:
+# 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function crossbownchants({_p})
+# 	else if tool of {_p} is trident:
+# 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function tridentenchants({_p}, {_i}, {_s})
+# 	else:
+# 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function enchants({_p}, {_i}, {_s})
+# 	set {_influence} to {p_influence::%{_p}%}
+# 	set {_influence2} to format({p_influence::%{_p}%})
+# 	set {_virtue} to format((({p_virtue::%{_p}%} / 100) - 1) * {_influence})
+# 	set {_blessing} to format((({blessing} / 100) - 1) * {_influence})
+# 	format gui slot 7 of {_p} with nether star named "&bRebirth" with lore "&7 > Click to &bRebirth &7and Gain Wrath" and "&7 > %{_influence2}% &b+%{_virtue}% (%{p_virtue::%{_p}%}%%%) &e+%{_blessing}% (%{blessing}%%%) &7Wrath" to run function rebirth({_p})
 
 function isGlass(p: player, s: integer) :: boolean:
 	if slot {_s} of {_p} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
 		return true
 	return false
 
-function armor(p: player):
+function armorUpgrade(p: player):
 	open virtual chest inventory with size 4 named "&8Armor Upgrades" to {_p}
+	format gui slot 0 of {_p} with helmet of {_p}
+	format gui slot 9 of {_p} with chestplate of {_p}
+	format gui slot 18 of {_p} with leggings of {_p}
+	format gui slot 27 of {_p} with boots of {_p}
+
+function wardrobe(p: player):
+	open virtual chest inventory with size 4 named "&8Wardrobe" to {_p}
 	format gui slot 2 of {_p} with {2_helmet}
 	format gui slot 4 of {_p} with {3_helmet}
 	format gui slot 6 of {_p} with {4_helmet}
@@ -1430,11 +1498,11 @@ function armor(p: player):
 		set {_boots} to slot 14 of {_p}
 
 # on right click:
-# 	if player's tool is pickaxe or axe or shovel or sword:
+# 	if player's tool is pickaxe or axe or shovel:
 # 		if player's tool is wooden axe:
 # 			stop
+# 		enchants(player, player's tool)
 # 		cancel event
-# 		tool(player)
 # 	if player's tool is bow or crossbow or trident:
 # 		player is sneaking
 # 		cancel event
@@ -1523,15 +1591,15 @@ command /clearlag:
 	trigger:
 		set {_n} to size of all entities in "world"
 		delete all entities in "world"
-		loop {maxhealth::*}:
-			if {maxhealth::%loop-value%} is not a player:
-				delete {maxhealth::%loop-value%}
-		loop {health::*}:
-			if {health::%loop-value%} is not a player:
-				delete {health::%loop-value%}
-		loop {damage::*}:
-			if {damage::%loop-value%} is not a player:
-				delete {damage::%loop-value%}
+		loop {m_maxhealth::*}:
+			if {m_maxhealth::%loop-value%} is not a player:
+				delete {m_maxhealth::%loop-value%}
+		loop {m_health::*}:
+			if {m_health::%loop-value%} is not a player:
+				delete {m_health::%loop-value%}
+		loop {m_damage::*}:
+			if {m_damage::%loop-value%} is not a player:
+				delete {m_damage::%loop-value%}
 		broadcast "{@shaft} &7Cleared &c%{_n}% &7entities"
 
 # ======== ADMIN ======== ADMIN ========
@@ -1544,8 +1612,8 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 			if arg-1 is not set:
 				send "{@admin} &f/modify &f<player>"
 				stop
-			else if arg-2 is not "level" or "coins" or "totalcoins" or "wrath" or  "totalwrath" or "block" or "totalblock" or "mkill" or "mdeath" or "pkill" or "pdeath" or "rebirth" or "all" or "maxhealth" or "health" or "damage" or "defense" or "maxdefense":
-				send "{@admin} &f/modify <%arg-1%> &f<level coins totalcoins wrath totalwrath block totalblock mkill mdeath pkill pdeath rebirth maxhealth health damage all defense maxdefense>"
+			else if arg-2 is not "level" or "coins" or "totalcoins" or "wrath" or  "totalwrath" or "influence" or "totalinfluence" or "mkill" or "mdeath" or "pkill" or "pdeath" or "rebirth" or "all" or "maxhealth" or "health" or "damage" or "defense" or "maxdefense":
+				send "{@admin} &f/modify <%arg-1%> &f<level coins totalcoins wrath totalwrath influence totalinfluence mkill mdeath pkill pdeath rebirth maxhealth health damage all defense maxdefense>"
 				stop
 			else if arg-3 is not "add" or "remove" or "set" or "reset":
 				if arg-2 is "reset":
@@ -1558,10 +1626,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					send "{@admin} &f/modify <%arg-1%> <%arg-2%> <%arg-3%> &f<integer>"
 					stop
 			if arg-3 is "add":
-				if arg-2 is "maxhealth" or "health" or "damage":
-					add arg-4 to {%arg-2%::%arg-1%}
-				else:
-					add arg-4 to {p_%arg-2%::%arg-1%}
+				add arg-4 to {p_%arg-2%::%arg-1%}
 				set {_nn} to format(arg-4)
 				send "{@admin} &7Added &e%{_nn}% &7to &e%arg-1%&e's &7%arg-2%"
 			else if arg-3 is "remove":
@@ -1571,28 +1636,25 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					else:
 						set {_n} to arg-4
 				else if arg-2 is "maxhealth":
-					if arg-4 is greater than {maxhealth::%arg-1%} - 20:
-						set {_n} to {maxhealth::%arg-1%} - 20
+					if arg-4 is greater than {p_maxhealth::%arg-1%} - 20:
+						set {_n} to {p_maxhealth::%arg-1%} - 20
 					else:
 						set {_n} to arg-4
 				else if arg-2 is "health":
-					if arg-4 is greater than {health::%arg-1%} - 1:
-						set {_n} to {health::%arg-1%} - 1
+					if arg-4 is greater than {p_health::%arg-1%} - 1:
+						set {_n} to {p_health::%arg-1%} - 1
 					else:
 						set {_n} to arg-4
 				else if arg-2 is "damage":
-					if arg-4 is greater than {damage::%arg-1%} - 20:
-						set {_n} to {damage::%arg-1%} - 20
+					if arg-4 is greater than {p_damage::%arg-1%} - 1:
+						set {_n} to {p_damage::%arg-1%} - 1
 					else:
 						set {_n} to arg-4
 				else if arg-4 is greater than {p_%arg-2%::%arg-1%}:
 					set {_n} to {p_%arg-2%::%arg-1%}
 				else:
 					set {_n} to arg-4
-				if arg-2 is "maxhealth" or "health" or "damage":
-					remove {_n} from {%arg-2%::%arg-1%}
-				else:
-					remove {_n} from {p_%arg-2%::%arg-1%}
+				remove {_n} from {p_%arg-2%::%arg-1%}
 				set {_nn} to format({_n})
 				send "{@admin} &7Removed &e%{_nn}% &7from &e%arg-1%&e's &7%arg-2%"
 			else if arg-3 is "set":
@@ -1620,10 +1682,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to 0
 				else:
 					set {_n} to arg-4
-				if arg-2 is "maxhealth" or "health" or "damage":
-					set {%arg-2%::%arg-1%} to {_n}
-				else:
-					set {p_%arg-2%::%arg-1%} to {_n}
+				set {p_%arg-2%::%arg-1%} to {_n}
 				set {_nn} to format({_n})
 				send "{@admin} &7Set &e%arg-1%&e's &7%arg-2% &7to &e%{_nn}%"
 			else if arg-3 is "reset":
@@ -1635,25 +1694,41 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {p_totalcoins::%arg-1%} to 0
 					set {p_totalwrath::%arg-1%} to 0
 					set {p_wrath::%arg-1%} to 0
-					set {p_block::%arg-1%} to 0
-					set {p_totalblock::%arg-1%} to 0
+					set {p_influence::%arg-1%} to 0
+					set {p_totalinfluence::%arg-1%} to 0
 					set {p_mkill::%arg-1%} to 0
 					set {p_mdeath::%arg-1%} to 0
 					set {p_pkill::%arg-1%} to 0
 					set {p_pdeath::%arg-1%} to 0
 					set {p_rebirth::%arg-1%} to 0
-					set {maxhealth::%arg-1%} to 20
-					set {health::%arg-1%} to 20
-					set {damage::%arg-1%} to 1
+					set {p_maxhealth::%arg-1%} to 20
+					set {p_health::%arg-1%} to 20
+					set {p_damage::%arg-1%} to 1
 					send "{@admin} &7Reset all for &e%arg-1%"
 					stop
-				else if arg-2 is "maxhealth" or "health":
-					set {%arg-2%::%arg-1%} to 20
-				else if arg-2 is "damage":
-					set {%arg-2%::%arg-1%} to 1
 				else:
 					set {_n} to 0
 				set {p_%arg-2%::%arg-1%} to {_n}
 				send "{@admin} &7Reset &e%arg-1%&e's &7%arg-2%"
 		else:
 			send "{@admin} {@permission}"
+			
+command /loreenchant [<text>] [<integer>]:
+	trigger:
+		if player is op:
+			if player's held item is not set:
+				send "{@admin} &7You must be holding a tool"
+			if player's held item is pickaxe or axe or shovel:
+				if arg-1 is not "unbreaking" or "efficiency" or "fortune" or "excavate" or "mending" or "binding":
+					send "{@admin} /loreenchant <unbreaking efficiency efficiency fortune excavate mending binding>"
+			else if player's held item is bow:
+				if arg-1 is not "power" or "punch" or "flame":
+					send "{@admin} /loreenchant <power punch flame>"
+			else if player's held item is crossbow:
+				if arg-1 is not "quickcharge" or "piercing" or "multishot":
+					send "{@admin} /loreenchant <quickcharge piercing multishot>"
+			else if player's held item is trident:
+				if arg-1 is not "smite" or "knockback" or "channeling":
+					send "{@admin} /loreenchant <smite knockback channeling>"
+		else:
+			send "{@admin} {permission}"

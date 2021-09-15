@@ -49,14 +49,14 @@ on load:
 
 # ==== TOOLS ====
 
-	set {1_pickaxe} to netherite pickaxe named "&8[&f::&e::&7::::::&8] &e&lPICKAXE" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
-	set {1_axe} to netherite axe named "&8[&f::&e::&7::::::&8] &e&lHATCHET" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
-	set {1_shovel} to netherite shovel named "&8[&f::&e::&7::::::&8] &e&lSHOVEl" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
-	set {1_shield} to shield named "&8[&f::&e::&7::::::&8] &e&lSHIELD" with lore "&eMedals: &8[&e+0&8]" and " " with all flags hidden
+	set {1_pickaxe} to netherite pickaxe named "&8[&f::&e::&7::::::&8] &e&lPICKAXE" with lore "&eWrath: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
+	set {1_axe} to netherite axe named "&8[&f::&e::&7::::::&8] &e&lHATCHET" with lore "&eWrath: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
+	set {1_shovel} to netherite shovel named "&8[&f::&e::&7::::::&8] &e&lSHOVEl" with lore "&eWrath: &8[&e+0&8]" and " &8┃ &7Unbreaking: &e1" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Excavate: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
+	set {1_shield} to shield named "&8[&f::&e::&7::::::&8] &e&lSHIELD" with lore "&eWrath: &8[&e+0&8]" and " " with all flags hidden
 
-	set {1_bow} to bow named "&8[&f::&e::&7::::::&8] &e&lSOl&6&lAR" with lore "&eMedals: &8[&e+0&8]" and " &8┃ &7Power: &e1" and " &8┃ &7Punch: &e1" and " &8╹ &7Flame: &e1" and " " with all flags hidden
-	set {1_crossbow} to crossbow named "&8[&f::&a::&7::::::&8] &a&lTERRE&2&lSTRIAl" with lore "&aMedals: &8[&a+0&8]" and " &8┃ &7Quick Charge: &a1" and " &8┃ &7Piercing: &a1" and " &8╹ &7Multishot: &a1" and " " with all flags hidden
-	set {1_trident} to trident named "&8[&f::&b::&7::::::&8] &b&llUN&3&lAR" with lore "&bMedals: &8[&b+0&8]" and " &8┃ &7Smite: &b1" and " &8┃ &7Knockback: &b1" and " &8╹ &7Channeling: &b1" and " " with all flags hidden
+	set {1_bow} to bow named "&8[&f::&e::&7::::::&8] &e&lSOl&6&lAR" with lore "&eWrath: &8[&e+0&8]" and " &8┃ &7Power: &e1" and " &8┃ &7Punch: &e1" and " &8╹ &7Flame: &e1" and " " with all flags hidden
+	set {1_crossbow} to crossbow named "&8[&f::&a::&7::::::&8] &a&lTERRE&2&lSTRIAl" with lore "&aWrath: &8[&a+0&8]" and " &8┃ &7Quick Charge: &a1" and " &8┃ &7Piercing: &a1" and " &8╹ &7Multishot: &a1" and " " with all flags hidden
+	set {1_trident} to trident named "&8[&f::&b::&7::::::&8] &b&llUN&3&lAR" with lore "&bWrath: &8[&b+0&8]" and " &8┃ &7Smite: &b1" and " &8┃ &7Knockback: &b1" and " &8╹ &7Channeling: &b1" and " " with all flags hidden
 
 # ====  3x3  ====
 
@@ -98,71 +98,3 @@ on load:
 	enchant {poseidon} with luck of the sea 3, lure 3, and curse of vanishing 3
 	set {poseidonlock} to {poseidon} named "&8[&b::::::&8] &3Poseidon &7- &c&lLOCKED" with lore "&3Fragments: &8[&b0&8]" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and "&3Unlock: &b15,000 &7Wrath" and " " with all flags hidden
 	set {poseidonperm} to {poseidon} named "&8[&b::::::&8] &3Poseidon"  with lore "&3Fragments: &8[&b64&8]" and " &8┃ &b+300%% &7from &b&llUN&3&lAR" and " &8┃ &7while wearing" and " &8╹ &7Collect fragments to upgrade" and " " with all flags hidden
-
-# ==== MOBS ====
-
-function boneWarrior(e: entity):
-	set {maxhealth::%{_e}%} to 1200
-	set {damage::%{_e}%} to 1
-	set {health::%{_e}%} to 1200
-	set helmet of {_e} to bone
-	set chestplate of {_e} to iron chestplate
-	set leggings of {_e} to leather leggings
-	dye leggings of {_e} white
-	set boots of {_e} to iron boots
-	set held item of {_e} to bone
-	enchant helmet of {_e} with thorns
-	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant held item of {_e} with sharpness 7
-
-function boneArcher(e: entity):
-	set {maxhealth::%{_e}%} to 1200
-	set {damage::%{_e}%} to 1
-	set {health::%{_e}%} to 1200
-	set helmet of {_e} to feather
-	set chestplate of {_e} to iron chestplate
-	set leggings of {_e} to leather leggings
-	dye leggings of {_e} white
-	set boots of {_e} to iron boots
-	set held item of {_e} to bow
-	enchant helmet of {_e} with thorns
-	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant held item of {_e} with power 7
-
-function orcCaptain(e: entity):
-	set {maxhealth::%{_e}%} to 1200
-	set {damage::%{_e}%} to 1
-	set {health::%{_e}%} to 1200
-	set helmet of {_e} to fern
-	set chestplate of {_e} to leather chestplate
-	dye chestplate of {_e} green
-	set leggings of {_e} to netherite leggings
-	set boots of {_e} to leather boots
-	dye boots of {_e} lime
-	set held item of {_e} to iron sword
-	enchant helmet of {_e} with thorns
-	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant held item of {_e} with power 7
-
-function orcWarrior(e: entity):
-	set {maxhealth::%{_e}%} to 1200
-	set {damage::%{_e}%} to 1
-	set {health::%{_e}%} to 1200
-	set helmet of {_e} to dark prismarine slab
-	set chestplate of {_e} to leather chestplate
-	dye chestplate of {_e} green
-	set leggings of {_e} to netherite leggings
-	set boots of {_e} to leather boots
-	dye boots of {_e} lime
-	set held item of {_e} to stone sword
-	enchant helmet of {_e} with thorns
-	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, unbreaking 5, and thorns
-	enchant held item of {_e} with power 7

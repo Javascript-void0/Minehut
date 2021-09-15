@@ -1,12 +1,12 @@
 options:
 	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
 
-function blockAdd(p: player, n: integer):
+function influenceAdd(p: player, n: integer):
 	add {_n} to {p_coins::%{_p}%}
 	add {_n} to {p_totalcoins::%{_p}%}
-	add 1 to {p_totalblock::%{_p}%}
-	add 1 to {p_block::%{_p}%}
-	add 1 to {serverblock}
+	add 1 to {p_totalinfluence::%{_p}%}
+	add 1 to {p_influence::%{_p}%}
+	add 1 to {serverinfluence}
 
 on break:
 	if xp of player is less than 996:
@@ -23,37 +23,37 @@ on break:
 		cancel event
 		set action bar of player to "%name of player's tool% &7is &c&lBROKEN &7- &bRebirth &7to reset"
 	else if event-block is stone:
-		blockAdd(player, 1)
+		influenceAdd(player, 1)
 	else if event-block is grass block:
-		blockAdd(player, 1)
+		influenceAdd(player, 1)
 	else if event-block is dirt:
-		blockAdd(player, 1)
+		influenceAdd(player, 1)
 	else if event-block is andesite:
-		blockAdd(player, 1)
+		influenceAdd(player, 1)
 	else if event-block is granite:
-		blockAdd(player, 1)
+		influenceAdd(player, 1)
 	else if event-block is diorite:
-		blockAdd(player, 1)
+		influenceAdd(player, 1)
 	else if event-block is gravel:
-		blockAdd(player, 1)
+		influenceAdd(player, 1)
 	else if event-block is sand:
-		blockAdd(player, 1)
+		influenceAdd(player, 1)
 	else if event-block is coal ore:
-		blockAdd(player, 2)
+		influenceAdd(player, 2)
 	else if event-block is iron ore:
-		blockAdd(player, 10)
+		influenceAdd(player, 10)
 	else if event-block is gold ore:
-		blockAdd(player, 20)
+		influenceAdd(player, 20)
 	else if event-block is lapis ore:
-		blockAdd(player, 20)
+		influenceAdd(player, 20)
 	else if event-block is redstone ore:
-		blockAdd(player, 20)
+		influenceAdd(player, 20)
 	else if event-block is diamond ore:
-		blockAdd(player, 500)
+		influenceAdd(player, 500)
 	else if event-block is emerald ore:
-		blockAdd(player, 1000)
+		influenceAdd(player, 1000)
 	else if event-block is obsidian:
-		blockAdd(player, 1000)
+		influenceAdd(player, 1000)
 
 	set {_12} to slot 12 of player
 	set {_name} to name of slot 12 of player
