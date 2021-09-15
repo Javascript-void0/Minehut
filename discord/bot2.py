@@ -137,11 +137,11 @@ async def on_message(message):
         msg = message.content
         name = msg.replace('```', '')
         await channel.edit(name=name)
-    if "Time" in message.content and message.channel.name == 'portal':
-        channel = guild.get_channel(873434491123826689)
-        time = timeFormat(message.content)
-        await channel.edit(name=f'Time: {time}')
-    await client.process_commands(message)
+    # if "Time" in message.content and message.channel.name == 'portal':
+    #     channel = guild.get_channel(873434491123826689)
+    #     time = timeFormat(message.content)
+    #     await channel.edit(name=f'Time: {time}')
+    # await client.process_commands(message)
 
 if __name__ == '__main__':
     client.run(TOKEN, reconnect=True)
