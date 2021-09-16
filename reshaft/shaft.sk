@@ -304,7 +304,7 @@ every 1 minute in "{@world}":
 	if mod({servertime}, 60) is 0:
 		set {_format} to timeFormat({servertime})
 		broadcast "{@shaft} &7Server Time: &e%{_format}% &7(&e%{servertime}%t&7)"
-	send "```Time: %{servertime}%```" to channel with id "886738161491914772" with "ReShaft"
+	# send "```Time: %{servertime}%```" to channel with id "886738161491914772" with "ReShaft"
 
 every 5 seconds in "{@world}":
 	loop all players:

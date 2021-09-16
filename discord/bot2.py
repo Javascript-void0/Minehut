@@ -31,10 +31,10 @@ async def on_ready():
         online = False
     if online:
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online"))
-        await role.edit(color=discord.Color(0x48b66c))
+        # await role.edit(color=discord.Color(0x48b66c))
     else:
         await client.change_presence(activity=discord.Game(name="Server Offline"), status=discord.Status.do_not_disturb)
-        await role.edit(color=discord.Color(0x698f75))
+        # await role.edit(color=discord.Color(0x698f75))
 
 @client.event
 async def on_guild_channel_update(before, after):
@@ -50,10 +50,10 @@ async def on_guild_channel_update(before, after):
             online = False
     if online:
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online"))
-        await role.edit(color=discord.Color(0x48b66c))
+        # await role.edit(color=discord.Color(0x48b66c))
     else:
         await client.change_presence(activity=discord.Game(name="Server Offline"), status=discord.Status.do_not_disturb)
-        await role.edit(color=discord.Color(0x698f75))
+        # await role.edit(color=discord.Color(0x698f75))
 
 @client.command(help='ReShaft Server Status')
 async def status(ctx):
@@ -65,13 +65,13 @@ async def status(ctx):
         embed.add_field(name=f'Players online: {mc_status.players.online}/10', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='reshaft.minehut.gg')
         await client.change_presence(activity=discord.Game(name=f"{mc_status.players.online}/10 Online"))
-        await role.edit(color=discord.Color(0x48b66c))
+        # await role.edit(color=discord.Color(0x48b66c))
     else:
         embed = discord.Embed(title='⚒     ReShaft Server Status', description=f'```       [ OFFLINE ]```', color=discord.Color.red())
         embed.add_field(name=f'Players online: 0/10', value=f" - `Ping: {mc_status.latency} ms`")
         embed.set_footer(text='reshaft.minehut.gg')
         await client.change_presence(activity=discord.Game(name="Server Offline"), status=discord.Status.dnd)
-        await role.edit(color=discord.Color(0x698f75))
+        # await role.edit(color=discord.Color(0x698f75))
     await ctx.send(embed=embed)
 
 async def updateDrop(message):
