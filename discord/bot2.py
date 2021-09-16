@@ -130,8 +130,9 @@ def timeFormat(integer):
 @client.event
 async def on_message(message):
     if "discord.gg/" in message.content or "discord.com/invite/" in message.content:
-        if not message.author.id == '594352318464524289':
+        if not message.author.name == 'Java' and not message.author.discriminator == 3865:
             await message.delete()
+            print('deleted')
     if "Blessing" in message.content and message.channel.name == 'portal':
         channel = guild.get_channel(873434537802207273)
         msg = message.content
