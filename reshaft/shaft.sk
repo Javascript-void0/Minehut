@@ -174,6 +174,12 @@ on damage:
 			remove {p_damage::%attacker%} from {m_health::%victim%}
 			set {_name::*} to name of victim split at " "
 			set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{m_health::%victim%}%&c/%{m_maxhealth::%victim%}% ❤&7)"
+			# damage counter
+			set {_location} to random element out of blocks in radius 1 of victim
+			add 3 to {_location}'s y-coordinate
+			create holo object "&c-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
+			wait 1 second
+			delete holo object "damage.%{_location}%"
 		if {m_health::%victim%} is less than 1:
 			attacker is a player
 			deathEffect(victim)
