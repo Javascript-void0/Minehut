@@ -536,6 +536,10 @@ every 10 seconds in "{@world}":
 		loop-entity is not a player
 		if "%region at loop-entity%" does not contain "spawn":
 			delete loop-entity
+			delete {m_maxhealth::%loop-entity%}
+			delete {m_health::%loop-entity%}
+			delete {m_damage::%loop-entity%}
+
 	set {_p} to number of players
 	set {_d} to number of entities in "{@world}" - {_p}
 	if {_d} is greater than 50:
