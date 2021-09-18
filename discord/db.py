@@ -6,6 +6,7 @@ from discord.ext import commands, tasks
 from discord.utils import get
 
 intents = discord.Intents.default()
+intents.members = True
 client = commands.Bot(command_prefix='.', intents=intents)
 TOKEN = os.getenv("CHAT")
 
@@ -14,11 +15,12 @@ test = None
 guild = None
 log = None
 file_log = None
+portal = None
 
 @client.event
 async def on_ready():
-    global db, guild, log, file_log
-    guild = client.get_guild(747233433511788637)
+    global db, guild, log, file_log, portal
+    guild = client.get_guild(872657348299227218)
     test = client.get_guild(805299220935999509)
     db = guild.get_channel(872657351461732395)
     log = test.get_channel(872829816624271381)
@@ -29,104 +31,38 @@ async def on_ready():
     await log.send('```DATABASE: Started {0.user}```'.format(client))
     await log.send(f'```DATABASE: Connected to database...```')
 
-async def get_data(player):
+async def get_data(discord):
     data = None
     f = open(f'./discord/data.txt', 'r').read()
     lines = f.splitlines()
     for i in range(len(lines)):
-        if str(player) in lines[i]:
+        if str(discord) in lines[i]:
             data = lines[i].split(': ')
-            split = data[1].split(':')
-            return split
+            return data
     if not data:
         return False
 
 @client.command(aliases=['data', 'search', 'stat', 'stats'], help='Find Data')
-async def find(ctx, player):
+async def find(ctx, discord):
     global db
-    data = await get_data(player)
-    if data:
-        if len(data) == 8:
-            await ctx.send(f'```[:L{data[0]}] {player}: \n  Gold: {data[1]}\n  Gems: {data[2]}\nMedals: {data[3]}\nTokens: {data[4]}\nBlocks: {data[5]}\n Total: {data[6]}\nLinked: {data[7]}```')
-        else:
-            await ctx.send(f'```[:L{data[0]}] {player}: \n  Gold: {data[1]}\n  Gems: {data[2]}\nMedals: {data[3]}\nTokens: {data[4]}\nBlocks: {data[5]}\n Total: {data[6]}```')
+    discord, minecraft = await get_data(discord)
+    if minecraft:
+        await ctx.send(f'```Discord: {discord}\nMinecraft: {minecraft}```')
     else:
-        await ctx.send(f'```DATABASE: No data for {player}```')
+        await ctx.send(f'```DATABASE: No data for {discord}```')
 
-async def modify_data(player, currency, action, num):
-    global log
-    data = None
-    f = open(f'./discord/data.txt').read()
-    lines = f.splitlines(True)
-    if currency == 'level':
-        index = 0
-    if currency == 'gold':
-        index = 1
-    if currency == 'gem':
-        index = 2
-    if currency == 'medal':
-        index = 3
-    if currency == 'token':
-        index = 4
-    if currency == 'block':
-        index = 5
-    if currency == 'total':
-        index = 6
-    for i in range(len(lines)):
-        if str(player) in lines[i]:
-            data = await get_data(player)
-            if action == 'add':
-                x = int(data[index]) + num
-                await log.send(f'```DATABASE: Added {num} to {player}```')
-            elif action == 'remove':
-                x = int(data[index]) - num
-                await log.send(f'```DATABASE: Removed {num} from {player}```')
-            elif action == 'reset':
-                x = 0
-                await log.send(f'```DATABASE: Reset {player} to 0```')
-            elif action == 'set':
-                x = num
-                await log.send(f'```DATABASE: Set {player} to {num}```')
-            if x < 0:
-                x = 0
-            p = player.rjust(16)
-            if currency == 'level':
-                lines[i] = f'{p}: {x}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
-            if currency == 'gold':
-                lines[i] = f'{p}: {data[0]}:{x}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
-            if currency == 'gem':
-                lines[i] = f'{p}: {data[0]}:{data[1]}:{x}:{data[3]}:{data[4]}:{data[5]}:{data[6]}\n'
-            if currency == 'medal':
-                lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{x}:{data[4]}:{data[5]}:{data[6]}\n'
-            if currency == 'token':
-                lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{x}:{data[5]}:{data[6]}\n'
-            if currency == 'block':
-                lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{x}:{data[6]}\n'
-            if currency == 'total':
-                lines[i] = f'{p}: {data[0]}:{data[1]}:{data[2]}:{data[3]}:{data[4]}:{data[5]}:{x}\n'
-            with open(f'./discord/data.txt', 'w') as file:
-                file.writelines(lines)
-
-# @client.event
-# async def on_message(message):
-#     global log
-#     if message.channel == log and message.author.id == 779111449343164418:
-#         if message.content.startswith('```[+]'): # ADD
-#             await log.send('done')
-#         elif message.content.startswith('```[-]'): # REMOVE
-#             await log.send('done')
-#         elif message.content.startswith('```[=]'): # SET
-#             await log.send('done')
-#         elif message.content.startswith('```[|]'): # RESET
-#             await log.send('done')
-#         elif message.content.startswith('```[R]'): # REGISTER FROM MC
-#             await log.send('done')
-#         elif message.content.startswith('```[L]'): # MC TO DISCORD LINK
-#             await log.send('done')
-#         elif message.content.startswith('```[N]'): # REGISTER FROM MC
-#             await log.send('done')
-# #            await register(player)
-#     await client.process_commands(message)
+@client.event
+async def on_message(message):
+    global log, portal, guild
+    if message.channel == portal:
+        if message.content.startswith('```Link: '):
+            markdown = message.content.replace('```', '')
+            discord, minecraft = markdown[6:].split(', ')
+            await register(discord, minecraft)
+            await log.send(f'Linked {discord} to {minecraft}')
+            member = guild.get_member(int(discord))
+            await member.edit(nick=f'[Linked] {minecraft}')
+    await client.process_commands(message)
 
 # ============================= DISCORD COMMANDS =============================
 # ============================= DISCORD COMMANDS =============================
@@ -136,17 +72,17 @@ async def modify_data(player, currency, action, num):
 async def file(ctx):
     await ctx.send(file=discord.File(f'./discord/data.txt'))
 
-@client.command(name='register', help='Registers a Player')
+@client.command(name='register', help='Registers a Player', aliases=['link'])
 @commands.has_permissions(administrator=True)
-async def _register(ctx, player):
-    await register(player)
-    await ctx.send(f'```DATABASE: Registered {player}```')
+async def _register(ctx, discord, minecraft):
+    await register(discord, minecraft)
+    await ctx.send(f'```DATABASE: Registered {discord} to {minecraft}```')
 
-@client.command(name='unregister', help='Unregisters a Player')
+@client.command(name='unregister', help='Unregisters a Player', aliases=['unlink'])
 @commands.has_permissions(administrator=True)
-async def _unregister(ctx, player):
-    await unregister(player)
-    await ctx.send(f'```DATABASE: Unregistered {player}```')
+async def _unregister(ctx, discord):
+    await unregister(discord)
+    await ctx.send(f'```DATABASE: Unregistered {discord}```')
 
 @client.command(aliases=['dbload', 'loaddatabase', 'loaddb', 'load_database', 'load_db'], help='Database Load')
 @commands.has_permissions(administrator=True)
@@ -165,71 +101,51 @@ async def databaseclear(ctx):
     await db.purge(limit=None)
     await ctx.send('```DATABASE: Cleared all files in #db```')
 
-@client.command(help='Add')
-@commands.has_permissions(administrator=True)
-async def add(ctx, player, currency, num : int):
-    if num > 0:
-        await modify_data(player, currency, 'add', num)
-        await ctx.send(f'```DATABASE: Added {num} to {player}```')
+@client.command(help='Change your Discord nick (must be linked)')
+async def nick(ctx, *, nick=None):
+    if await registered(ctx.author.id):
+        if not nick:
+            await ctx.send('```.nick <nickname>```')
+        elif len(nick) > 15:
+            await ctx.send('```Nicknames must be less than 16 characters long```')
+        else:
+            await ctx.author.edit(nick=f'[Linked] {nick}')
+            await ctx.send(f'```Nickname changed to {nick}```')
     else:
-        await ctx.send(f'```DATABASE: Integer must be positive```')
-
-@client.command(help='Remove')
-@commands.has_permissions(administrator=True)
-async def remove(ctx, player, currency, num : int):
-    if num > 0:
-        await modify_data(player, currency, 'remove', num)
-        await ctx.send(f'```DATABASE: Removed {num} from {player}```')
-    else:
-        await ctx.send(f'```DATABASE: Integer must be positive```')
-        
-@client.command(help='Reset Player Data')
-@commands.has_permissions(administrator=True)
-async def reset(ctx, player, currency):
-    await modify_data(player, currency, 'reset', 0)
-    await ctx.send(f'```DATABASE: Reset {player} to 0```')
-
-@client.command(help='Set Player Data')
-@commands.has_permissions(administrator=True)
-async def set(ctx, player, currency, num : int):
-    if num > 0:
-        await modify_data(player, currency, 'set', num)
-        await ctx.send(f'```DATABASE: Set {player} to {num}```')
-    else:
-        await ctx.send(f'```DATABASE: Integer must be positive```')
+        await ctx.send('```You must link your account with minecraft to change your nickname```')
 
 # ============================= DISCORD COMMANDS =============================
 # ============================= DISCORD COMMANDS =============================
 # ============================= DISCORD COMMANDS =============================
 
-async def registered(player):
-    data = await get_data(player)
+async def registered(discord):
+    data = await get_data(discord)
     if data:
         return True
     return False
 
-async def register(player):
+async def register(discord, minecraft):
     global log
-    if not await registered(player):
+    if not await registered(discord):
         f = open('./discord/data.txt')
         f = f.read()
         lines = f.splitlines(True)
-        p = player.rjust(16)
-        lines.append(f'{p}: 0:0:0:0:0:0:0\n')
+        p = discord.rjust(16)
+        lines.append(f'{p}: {minecraft}\n')
         with open(f'./discord/data.txt', 'w') as file:
             file.writelines(lines)
             file.close()
-            await log.send(f'```DATABASE: Registered {player}```')
+            await log.send(f'```DATABASE: Registered {discord}```')
 
-async def unregister(player):
+async def unregister(discord):
     global log
     f = open(f'./discord/data.txt').read()
     lines = f.splitlines(True)
     with open(f'./discord/data.txt', 'w') as file:
         for i in range(len(lines)):
-            if str(player) not in lines[i]:
+            if str(discord) not in lines[i]:
                 file.write(lines[i])
-    await log.send(f'```DATABASE: Unregistered {player}```')
+    await log.send(f'```DATABASE: Unregistered {discord}```')
 
 
 async def get_db_files():
