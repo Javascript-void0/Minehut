@@ -12,6 +12,7 @@ options:
 	staff: &8[&e&lSTAFF&8]&f
 	admin: &8[&6&lADMIN&8]&f
 	world: world
+
 on load:
 	login to "{@token}" with the name "ReShaft"
 
@@ -35,18 +36,67 @@ command /login:
 	trigger:
 		if player is op:
 			login to "{@token}" with the name "ReShaft"
-			send "{@discord} &fDone"
+			send "{@admin} &7Logged In"
+		else:
+			send "{@admin} {@permission}"
+
+command /unlink [<player>]:
+	trigger:
+		if player is op:
+			loop {discord::*}:
+				if {discord::%loop-index%} is name of arg-1:
+					delete {discord::%loop-index%}
+					send "{@admin} &7Unlinked &7%arg-1%"
+					stop
+			send "{@admin} &e%arg-1% &7is not linked"
+		else:
+			send "{@admin} {@permission}"
+
+command /link:
+	trigger:
+		if {discord::*} contains name of player:
+			send "{@discord} &7Discord already linked"
+			stop
+		set {_code} to a random integer between 11111 and 99999
+		set {code::%{_code}%} to name of player
+		set {_copy} to new text component of "{@discord} &eClick here &7to copy command to clipboard. "
+		set click event of {_copy} to a new click event to copy ".link %{_code}%" to clipboard
+		set hover event of {_copy} to a new hover event showing "&eCopy to Clipboard"
+		send "{@discord} &7Run the command &e.link %{_code}% &7in &e##link &7to link your account"
+		send "{@discord} &eRewards: &710b coins and 10a wrath  &8|  &7Valid for 1 minute"
+		send components {_copy} to player
+		wait 1 minute
+		delete {code::%{_code}%}
+
+discord command link [<text>]:
+	prefixes: "."
+	trigger:
+		if arg-1 is not set:
+			reply with "```.link <code>```"
+			stop
+		if {code::%arg-1%} is not set:
+			reply with "```Invalid code```"
+			stop
+		set {discord::%discord id of event-member%} to {code::%arg-1%}
+		reply with "```Sucessfully Linked with %{code::%arg-1%}%. Rewards have been added to your account. ```"
+		add 10000000 to {p_coins::%{code::%arg-1%}%}
+		add 10000000 to {p_totalcoins::%{code::%arg-1%}%}
+		add 10000 to {p_wrath::%{code::%arg-1%}%}
+		add 10000 to {p_totalwrath::%{code::%arg-1%}%}
+		send "```Link: %discord id of event-member%, %{code::%arg-1%}%```" to channel with id "886738161491914772" with "ReShaft"
+		delete {code::%arg-1%}
+
 
 discord command top [<text>]:
 	prefixes: "."
 	executable in: guild
 	trigger:
 		set {_} to a message builder
-		if arg-1 is not "level" or "gold" or "totalgold" or "gem" or "medal" or "token" or "totaltoken" or "totalblock" or "pkill" or "mkill" or "rebirth":
-			append line "```.top <level gold totalgold gem medal token totaltoken totalblock pkill mkill rebirth>```"
+		if arg-1 is not "level" or "coins" or "totalcoins" or "wrath" or "totalwrath" or "totalstigma" or "pkill" or "mkill" or "rebirth" or "maxhealth" or "damage":
+			append line "```.top <level coins totalcoins wrath totalwrath totalstigma pkill mkill rebirth>```"
 			reply with {_}
 		else:
-			loop {%arg-1%::*}:
+			loop {p_%arg-1%::*}:
 				add 1 to {_size}
 				if {_low.to.high.list::%loop-value%} is not set:
 					set {_low.to.high.list::%loop-value%} to loop-index
@@ -68,25 +118,23 @@ discord command top [<text>]:
 			loop {_high.to.low.list::*}:
 				if arg-1 is "level":
 					set {_label} to ":L%{p_%arg-1%::%loop-value%}%"
-				else if arg-1 is "gold" or "totalgold":
-					set {_gold} to format({p_%arg-1%::%loop-value%})
-					set {_label} to "%{_gold}% gold"
-				else if arg-1 is "gem":
-					set {_gem} to spaced("%{p_%arg-1%::%loop-value%}%")
-					set {_label} to "%{_gem}% gems"
-				else if arg-1 is "medal" or "totalmedal":
-					set {_medal} to format({p_%arg-1%::%loop-value%})
-					set {_label} to "%{_medal}% medals"
-				else if arg-1 is "token":
-					set {_token} to spaced("%{p_%arg-1%::%loop-value%}%")
-					set {_label} to "%{_token}% tokens"
-				else if arg-1 is "totalblock":
-					set {_block} to format({p_%arg-1%::%loop-value%})
-					set {_label} to "%{_block}% blocks"
+				else if arg-1 is "coins" or "totalcoins":
+					set {_coins} to format({p_%arg-1%::%loop-value%})
+					set {_label} to "%{_coins}% coins"
+				else if arg-1 is "wrath" or "totalwrath":
+					set {_wrath} to format({p_%arg-1%::%loop-value%})
+					set {_label} to "%{_wrath}% wrath"
+				else if arg-1 is "totalstigma":
+					set {_stigma} to format({p_%arg-1%::%loop-value%})
+					set {_label} to "%{_stigma}% stigma"
 				else if arg-1 is "mkill" or "pkill":
 					set {_label} to "%{p_%arg-1%::%loop-value%}% kills"
 				else if arg-1 is "rebirth":
 					set {_label} to "%{p_%arg-1%::%loop-value%}% times"
+				else if arg-1 is "maxhealth":
+					set {_label} to "%{%arg-1%::%loop-value%}% ❤"
+				else if arg-1 is "damage":
+					set {_label} to "%{%arg-1%::%loop-value%}% dmg"
 				add 1 to {_topnumber}
 				set {_player} to "%loop-value%" parsed as offline player
 				append line "%{_topnumber}%. %{_player}% : %{_label}%"

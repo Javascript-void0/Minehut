@@ -21,19 +21,13 @@ async def on_ready():
     guild = client.get_guild(747233433511788637)
     test = client.get_guild(805299220935999509)
     db = guild.get_channel(872657351461732395)
-    log = guild.get_channel(872829816624271381)
-    file_log = guild.get_channel(872829900485193758)
+    log = test.get_channel(872829816624271381)
+    file_log = test.get_channel(872829900485193758)
+    portal = guild.get_channel(886738161491914772)
     print('[ + ] Started {0.user}'.format(client))
     print(f'[ + ] Connected to database...')
     await log.send('```DATABASE: Started {0.user}```'.format(client))
     await log.send(f'```DATABASE: Connected to database...```')
-
-@client.command(help='Link Your Minecraft Account to Discord Database')
-async def link(ctx, player):
-    await ctx.send(f'```[!] {player}```')
-
-async def link(player):
-    pass
 
 async def get_data(player):
     data = None
@@ -113,30 +107,26 @@ async def modify_data(player, currency, action, num):
             with open(f'./discord/data.txt', 'w') as file:
                 file.writelines(lines)
 
-@client.command(help='test')
-async def test(ctx):
-    await ctx.send('```[!]```')
-
-@client.event
-async def on_message(message):
-    global log
-    if message.channel == log and message.author.id == 779111449343164418:
-        if message.content.startswith('```[+]'): # ADD
-            await log.send('done')
-        elif message.content.startswith('```[-]'): # REMOVE
-            await log.send('done')
-        elif message.content.startswith('```[=]'): # SET
-            await log.send('done')
-        elif message.content.startswith('```[|]'): # RESET
-            await log.send('done')
-        elif message.content.startswith('```[R]'): # REGISTER FROM MC
-            await log.send('done')
-        elif message.content.startswith('```[L]'): # MC TO DISCORD LINK
-            await log.send('done')
-        elif message.content.startswith('```[N]'): # REGISTER FROM MC
-            await log.send('done')
-#            await register(player)
-    await client.process_commands(message)
+# @client.event
+# async def on_message(message):
+#     global log
+#     if message.channel == log and message.author.id == 779111449343164418:
+#         if message.content.startswith('```[+]'): # ADD
+#             await log.send('done')
+#         elif message.content.startswith('```[-]'): # REMOVE
+#             await log.send('done')
+#         elif message.content.startswith('```[=]'): # SET
+#             await log.send('done')
+#         elif message.content.startswith('```[|]'): # RESET
+#             await log.send('done')
+#         elif message.content.startswith('```[R]'): # REGISTER FROM MC
+#             await log.send('done')
+#         elif message.content.startswith('```[L]'): # MC TO DISCORD LINK
+#             await log.send('done')
+#         elif message.content.startswith('```[N]'): # REGISTER FROM MC
+#             await log.send('done')
+# #            await register(player)
+#     await client.process_commands(message)
 
 # ============================= DISCORD COMMANDS =============================
 # ============================= DISCORD COMMANDS =============================

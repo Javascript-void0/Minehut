@@ -253,7 +253,7 @@ on join:
 		else if {_bossbar} is 2:
 			set bossbar "bossbar.%player%" value to 33
 			set bossbar "bossbar.%player%" color to yellow
-			set bossbar "bossbar.%player%" title to "&7Join Our &eDiscord &7with &e/discord"
+			set bossbar "bossbar.%player%" title to "&7Join Our &eDiscord &7with &e/discord &8| &7Use &e/link &7 for Rewards"
 		else if {_bossbar} is 3:
 			set {_format} to timeFormat({servertime})
 			set bossbar "bossbar.%player%" value to 0
@@ -649,7 +649,7 @@ command /top [<text>]:
 				set {_wrath} to format({p_%arg-1%::%loop-value%})
 				set {_label} to "&e%{_wrath}% &7wrath"
 			else if arg-1 is "totalstigma":
-				set {_block} to format({p_%arg-1%::%loop-value%})
+				set {_stigma} to format({p_%arg-1%::%loop-value%})
 				set {_label} to "&e%{_stigma}% &7stigma"
 			else if arg-1 is "mkill" or "pkill":
 				set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7kills"
