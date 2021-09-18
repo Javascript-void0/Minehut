@@ -101,7 +101,7 @@ command /pl:
 	aliases: /plugins
 	trigger:
 		if group of player is "admin":
-			execute console command "/sudo %player% bukkit:plugins"
+			execute player command "/bukkit:plugins"
 		else:
 			send "&fPlugins (4): &aNone&f, &aOf&f, &aYour&f, &aBusiness"
 
@@ -961,7 +961,29 @@ function arrowShop(p: player):
 function toolbox(p: player):
 	open virtual chest inventory with size 3 named "&8Tool Box" to {_p}
 
+command /invlock:
+	trigger:
+		if player is op:
+			if {unlock.%player%} is set:
+				delete {unlock.%player%}
+				send "{@admin} &7Inventory &c&lLOCKED"
+			else:
+				set {unlock.%player%} to true
+				send "{@admin} &7Inventory &a&lUNLOCKED"
+		else:
+			send "{@admin} {permission}"
+
 on inventory click:
+	if {unlock.%player%} is set:
+		stop
+	if name of event-inventory is "&8Wardrobe":
+		if clicked item is helmet of player or chestplate of player or leggings of player or boots of player:
+			armorUpgrade(player)
+			stop
+	if name of event-inventory is "&8Upgrades":
+		if clicked item is helmet of player or chestplate of player or leggings of player or boots of player:
+			wardrobe(player)
+			stop
 	if clicked slot is 16:
 		gamemode of player is survival
 		arrowShop(player)
