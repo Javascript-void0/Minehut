@@ -59,7 +59,7 @@ async def on_message(message):
             markdown = message.content.replace('```', '')
             discord, minecraft = markdown[6:].split(', ')
             await register(discord, minecraft)
-            await log.send(f'Linked {discord} to {minecraft}')
+            await log.send(f'```Linked {discord} to {minecraft}```')
             member = guild.get_member(int(discord))
             await member.edit(nick=f'[Linked] {minecraft}')
     await client.process_commands(message)
