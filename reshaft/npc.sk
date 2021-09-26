@@ -1,0 +1,78 @@
+options:
+	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	discord: &8[&e&lDISCORD&8]&f
+	broadcast: &8[&e&lBROADCAST&8]&f
+	rule: &8[&e&lRULE&8]&f
+	permission: &7Insufficient Permissions
+	coins: &7Insufficient &eCoins
+	wrath: &7Insufficient &bWrath
+	staff: &8[&e&lSTAFF&8]&f
+	admin: &8[&6&lADMIN&8]&f
+	world: world
+
+command /quest [<text>]:
+	trigger:
+		set {activeQuest::%player%} to arg-1
+		send "{@shaft} &7Quest Set to &e%arg-1%"
+		set the player's compass target to location of {spawn}
+
+command /invlock2:
+	trigger:
+		if player is op:
+			if {unlock.%player%} is set:
+				delete {unlock.%player%}
+				send "{@admin} &7Inventory &c&lLOCKED"
+			else:
+				set {unlock.%player%} to true
+				send "{@admin} &7Inventory &a&lUNLOCKED"
+		else:
+			send "{@admin} {permission}"
+
+function Idunn(p: player):
+	open virtual dropper inventory named "&8Idunn's Map" to {_p}
+
+function Sodden(p: player):
+	open virtual hopper inventory named "&8Sodden's Setup" to {_p}
+
+function Foho(p: player):
+	open virtual dropper inventory named "&8Foho Quest Board" to {_p}
+	format gui slot 1 of {_p} with emerald named "&7test"
+
+function Atlas(p: player):
+	open virtual dropper inventory named "&8Atlas Quest Board" to {_p}
+	format gui slot 1 of {_p} with emerald named "&7test"
+
+function Feli(p: player):
+	open virtual dropper inventory named "&8Feli Quest Board" to {_p}
+	format gui slot 1 of {_p} with emerald named "&7test"
+
+function Odin(p: player):
+	open virtual hopper inventory named "&8Odin's Traning Areas" to {_p}
+
+npc left click:
+	if citizen is 9:
+		send "&8[&bMercenary&8] &bFoho&7: Test"
+		wait 2 seconds
+		Foho(player)
+	if citizen is 10:
+		send "&8[&bMercenary&8] &bAtlas&7: Test"
+		wait 2 seconds
+		Atlas(player)
+	if citizen is 11:
+		send "&8[&bMercenary&8] &bFeli&7: Test"
+		wait 2 seconds
+		Feli(player)
+	if citizen is 23:
+		send "&8[&6Explorer&8] &6Idunn&7: Hey, I'm &6Idunn&7! I can bring you to your quest(s). "
+		wait 1 seconds
+		send "&8[&6Explorer&8] &6Idunn&7: Here's the map, let me know where you want to go."
+		wait 1 seconds
+		Idunn(player)
+	if citizen is 26:
+		send "&8[&aMentor&8] &aOdin&7: Hey there champ! My name is &aOdin &7and I'm going to be your mentor on this journey. Talk to me when you want a bit of training. "
+		wait 2 seconds
+		Odin(player)
+	if citizen is 27:
+		send "&8[&eNarrator&8] &eSodden&7: Welcome! I'm &eSodden&7. I'm here to tell your story. Let's setup your journey. "
+		wait 3 seconds
+		Sodden(player)

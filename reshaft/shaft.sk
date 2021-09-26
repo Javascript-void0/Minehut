@@ -24,22 +24,22 @@ on place:
 on pickup:
 	cancel event
 on item damage: 
-	if durability of event-item is greater than 2029:
-		broadcast "%durability of player's tool%"
-		cancel event
-	else if item is axe:
-		stop
-	else if item is pickaxe:
-		stop
-	else if item is shovel:
-		stop
+	# if durability of event-item is greater than 2029:
+	# 	broadcast "%durability of player's tool%"
+	# 	cancel event
+	# else if item is axe:
+	# 	stop
+	# else if item is pickaxe:
+	# 	stop
+	# else if item is shovel:
+	# 	stop
 	cancel event
 on shoot:
 	set {_p} to held item of shooter
-	if {_p} is trident:
-		set slot 5 of shooter to {_p}
+	# if {_p} is trident:
+	# 	set slot 5 of shooter to {_p}
 	if projectile is set:
-		set slot 16 of shooter to 64 of arrow named "&e&lARROWS" with lore " &8╹ &7Click to Open Arrow Shop"
+		set slot 16 of shooter to 64 of arrow named "&e&lQUIVER" with lore " &8╹ &7Click to Open"
 
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
@@ -131,7 +131,9 @@ function death(p: player):
 	apply slowness of tier 255 to {_p} for 7 seconds
 	apply wither of tier 255 to {_p} for 7 seconds
 	set {_time} to 6
-	send {_p} title "&c&lYOU DIED" with subtitle "&7You lost &e10%% &7 of your coins" for 3 seconds
+	send {_p} title "&c&lYOU DIED" with subtitle "&7You lost &e50%% &7 of your coins" for 3 seconds
+	set {_half} to {p_coins::%{_p}%} / 2
+	remove {_half} from {p_coins::%{_p}%}
 	wait 3 second
 	loop 5 times:
 		remove 1 from {_time}
@@ -238,27 +240,27 @@ every 3 seconds in "{@world}":
 			{dead.%loop-player%} is not set
 			add 1 to {p_defense::%loop-player%}
 
-on join:
-	set {_bossbar} to 0
-	create bossbar titled " " and id "bossbar.%player%" for player with progress 100 with colors yellow
-	while player is online:
-		if {_bossbar} is 0:
-			set bossbar "bossbar.%player%" value to 100
-			set bossbar "bossbar.%player%" color to yellow
-			set bossbar "bossbar.%player%" title to "&7Welcome to &6&lRe&e&lSHAFT&7²"
-		else if {_bossbar} is 1:
-			set bossbar "bossbar.%player%" value to 66
-			set bossbar "bossbar.%player%" color to yellow
-			set bossbar "bossbar.%player%" title to "&7IP: &6reshaft.minehut.gg"
-		else if {_bossbar} is 2:
-			set bossbar "bossbar.%player%" value to 33
-			set bossbar "bossbar.%player%" color to yellow
-			set bossbar "bossbar.%player%" title to "&7Join Our &eDiscord &7with &e/discord &8| &7Use &e/link &7 for Rewards"
-		else if {_bossbar} is 3:
-			set {_format} to timeFormat({servertime})
-			set bossbar "bossbar.%player%" value to 0
-			set bossbar "bossbar.%player%" color to yellow
-			set bossbar "bossbar.%player%" title to "&6Server Time: &e%{_format}% &7(&e%{servertime}%&et&7)"
+# on join:
+# 	set {_bossbar} to 0
+# 	create bossbar titled " " and id "bossbar.%player%" for player with progress 100 with colors yellow
+# 	while player is online:
+# 		if {_bossbar} is 0:
+# 			set bossbar "bossbar.%player%" value to 100
+# 			set bossbar "bossbar.%player%" color to yellow
+# 			set bossbar "bossbar.%player%" title to "&7Welcome to &6&lRe&e&lSHAFT&7²"
+# 		else if {_bossbar} is 1:
+# 			set bossbar "bossbar.%player%" value to 66
+# 			set bossbar "bossbar.%player%" color to yellow
+# 			set bossbar "bossbar.%player%" title to "&7IP: &6reshaft.minehut.gg"
+# 		else if {_bossbar} is 2:
+# 			set bossbar "bossbar.%player%" value to 33
+# 			set bossbar "bossbar.%player%" color to yellow
+# 			set bossbar "bossbar.%player%" title to "&7Join Our &eDiscord &7with &e/discord &8| &7Use &e/link &7 for Rewards"
+# 		else if {_bossbar} is 3:
+# 			set {_format} to timeFormat({servertime})
+# 			set bossbar "bossbar.%player%" value to 0
+# 			set bossbar "bossbar.%player%" color to yellow
+# 			set bossbar "bossbar.%player%" title to "&6Server Time: &e%{_format}% &7(&e%{servertime}%&et&7)"
 		# else if {_bossbar} is 4:
 		# 	set bossbar "bossbar.%player%" value to 20
 		# 	set bossbar "bossbar.%player%" color to red
@@ -267,153 +269,259 @@ on join:
 		# 	set bossbar "bossbar.%player%" value to 0
 		# 	set bossbar "bossbar.%player%" color to red
 		# 	set bossbar "bossbar.%player%" title to "&7Help us &cdestroy &7this world"
-		wait 3 seconds
-		add 1 to {_bossbar}
-		if {_bossbar} is 4:
-			set {_bossbar} to 0
-	remove bossbar "bossbar.%player%"
+	# 	wait 3 seconds
+	# 	add 1 to {_bossbar}
+	# 	if {_bossbar} is 4:
+	# 		set {_bossbar} to 0
+	# remove bossbar "bossbar.%player%"
 
 # ==== SERVER TIME ====
 
-function timeFormat(t: integer) :: text: 
-	set {_h} to floor({_t} / 60)
-	set {_m} to {_t} - ({_h} * 60)
-	if {_h} is less than 10:
-		set {_h} to "0%{_h}%"
-	if {_m} is 0:
-		set {_m} to "00"
-	else if {_m} is less than 10:
-		set {_m} to "0%{_m}%"
-	set {_time} to "%{_h}%:%{_m}%"
-	return {_time}
+# function timeFormat(t: integer) :: text: 
+# 	set {_h} to floor({_t} / 60)
+# 	set {_m} to {_t} - ({_h} * 60)
+# 	if {_h} is less than 10:
+# 		set {_h} to "0%{_h}%"
+# 	if {_m} is 0:
+# 		set {_m} to "00"
+# 	else if {_m} is less than 10:
+# 		set {_m} to "0%{_m}%"
+# 	set {_time} to "%{_h}%:%{_m}%"
+# 	return {_time}
 
-command /servertime [<integer>]:
-	trigger:
-		if player is op:
-			if arg-1 is not set:
-				send "{@admin} /servertime <integer>"
-			else if arg-1 is greater than 1440:
-				set {_time} to 1440
-			else:
-				set {_time} to arg-1
-			set {servertime} to {_time}
-			set {_format} to timeFormat({_time})
-			send "{@admin} &7Server time set to &e%{_format}% &7(&e%{servertime}%&et&7)"
-			# send "```Time: %{servertime}%```" to channel with id "886738161491914772" with "ReShaft"
-		else:
-			send "{@admin} {@permission}"
+# command /servertime [<integer>]:
+# 	trigger:
+# 		if player is op:
+# 			if arg-1 is not set:
+# 				send "{@admin} /servertime <integer>"
+# 			else if arg-1 is greater than 1440:
+# 				set {_time} to 1440
+# 			else:
+# 				set {_time} to arg-1
+# 			set {servertime} to {_time}
+# 			set {_format} to timeFormat({_time})
+# 			send "{@admin} &7Server time set to &e%{_format}% &7(&e%{servertime}%&et&7)"
+# 			# send "```Time: %{servertime}%```" to channel with id "886738161491914772" with "ReShaft"
+# 		else:
+# 			send "{@admin} {@permission}"
 
-every 1 minute in "{@world}":
-	add 1 to {servertime}
-	if {servertime} is greater than 1440:
-		set {servertime} to 0
-	if mod({servertime}, 60) is 0:
-		set {_format} to timeFormat({servertime})
-		broadcast "{@shaft} &7Server Time: &e%{_format}% &7(&e%{servertime}%t&7)"
+# every 1 minute in "{@world}":
+# 	add 1 to {servertime}
+# 	if {servertime} is greater than 1440:
+# 		set {servertime} to 0
+# 	if mod({servertime}, 60) is 0:
+# 		set {_format} to timeFormat({servertime})
+# 		broadcast "{@shaft} &7Server Time: &e%{_format}% &7(&e%{servertime}%t&7)"
 	# send "```Time: %{servertime}%```" to channel with id "886738161491914772" with "ReShaft"
 
-every 5 seconds in "{@world}":
-	loop all players:
-		wipe loop-player's sidebar
-		set name of sidebar of loop-player to "&6&lRe&e&lSHAFT&7²"
-		set score "    " in sidebar of loop-player to 14
-		set score " &e&lPLAYER &8(&7:L&7%{p_level::%loop-player%}%&8)" in sidebar of loop-player to 13
-		set {_stigma} to format({p_stigma::%loop-player%})
-		set score " &8┃ &7Stigma: &f%{_stigma}%" in sidebar of loop-player to 12
-		set {_coin} to format({p_coins::%loop-player%})
-		set score " &8┃ &7Coins: &f%{_coin}%" in sidebar of loop-player to 11
-		set {_wrath} to format({p_wrath::%loop-player%})
-		set score " &8┃ &7Wrath: &f%{_wrath}%" in sidebar of loop-player to 9
-		set score " &8╹ &7Virtue: &f%{p_virtue::%loop-player%}%%%" in sidebar of loop-player to 7
-		set score "  " in sidebar of loop-player to 6
-		set score " &e&lSERVER &8(&7%number of all players%/10&8)" in sidebar of loop-player to 5
-		set {_tps} to tps from the last 1 minute
-		set {_t} to roundto({_tps}, 2)
-		set score " &8┃ &7TPS: &f%{_t}%" in sidebar of loop-player to 4
-		set {_time} to timeFormat({servertime})
-		set score " &8┃ &7Time: &f%{_time}%" in sidebar of loop-player to 3
-		set {_stigmas} to format({serverstigma})
-		set score " &8┃ &7Stigma: &f%{_stigmas}%" in sidebar of loop-player to 3
-		set score " &8╹ &7Blessing: &f%{blessing}%%%" in sidebar of loop-player to 2
-		set score " " in sidebar of loop-player to 0
+function roundto(n: number, to: number) :: number:
+   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
+
+function format(n: number) :: text:
+	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
+	loop split {_data} at "|":
+		set {_s::*} to split loop-value at ","
+		{_n} >= 10 ^ {_s::2} parsed as number
+		set {_nn} to roundto({_n} / 10 ^ {_s::2} parsed as number, 1)
+		return "%{_nn}%%{_s::1}%"
+	return "%{_n}%"
+
+function spaced(n: text) :: text:
+	set {_s::*} to split {_n} at "."
+	if {_s::2} is not set:
+		return a({_n})
+	else:
+		return "%a({_s::1})%.%{_s::2}%"
+ 
+function a(b: text) :: text:
+	if length of {_b} > 3:
+		return "%a(first length of {_b} - 3 characters of {_b})%,%last 3 characters of {_b}%"
+	return {_b}
+
+on join:
+	wipe player's sidebar
+	set name of sidebar of player to "&6&lRe&e&lSHAFT&7²"
+	create id score "&7" in sidebar of player to 12 with id "line12-%player%"
+	create id score " &e&lPLAYER" in sidebar of player to 11 with id "line11-%player%"
+	create id score " &8┃ &7Level: &f%{p_level::%player%}%" in sidebar of player to 10 with id "line10-%player%"
+	set {_expFormat} to format({p_exp::%player%})
+	set {_nextexpFormat} to format({p_nextexp::%player%})
+	create id score " &8╹ &7Exp: &f%{_expFormat}%&7/&f%{_nextexpFormat}%" in sidebar of player to 9 with id "line9-%player%"
+	create id score "&8" in sidebar of player to 8 with id "line8-%player%"
+	create id score " &8(&f%{_percentFormat}%%%&8)" in sidebar of player to 7 with id "line7-%player%" 
+	set {_percent} to {p_exp::%player%} / {p_nextexp::%player%}
+	set {_percentFormat} to roundto({_percent} * 100, 1)
+	if {_percent} is between 0 and 0.05:
+		create id score " &8[&e&7::::::::::::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.05 and 0.1:
+		create id score " &8[&e:&7:::::::::::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.1 and 0.15:
+		create id score " &8[&e::&7::::::::::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.15 and 0.2:
+		create id score " &8[&e:::&7:::::::::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.2 and 0.25:
+		create id score " &8[&e::::&7::::::::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.25 and 0.3:
+		create id score " &8[&e:::::&7:::::::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.3 and 0.35:
+		create id score " &8[&e::::::&7::::::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.35 and 0.4:
+		create id score " &8[&e:::::::&7:::::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.4 and 0.45:
+		create id score " &8[&e::::::::&7::::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.45 and 0.5:
+		create id score " &8[&e:::::::::&7:::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.5 and 0.55:
+		create id score " &8[&e::::::::::&7::::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.55 and 0.6:
+		create id score " &8[&e:::::::::::&7:::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.6 and 0.65:
+		create id score " &8[&e::::::::::::&7::::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.65 and 0.7:
+		create id score " &8[&e:::::::::::::&7:::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.7 and 0.75:
+		create id score " &8[&e::::::::::::::&7::::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.75 and 0.8:
+		create id score " &8[&e:::::::::::::::&7:::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.8 and 0.85:
+		create id score " &8[&e::::::::::::::::&7::::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.85 and 0.9:
+		create id score " &8[&e:::::::::::::::::&7:::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.9 and 0.95:
+		create id score " &8[&e::::::::::::::::::&7::&8]" in sidebar of player to 6 with id "line6-%player%"
+	else if {_percent} is between 0.95 and 1:
+		create id score " &8[&e:::::::::::::::::::&7:&8]" in sidebar of player to 6 with id "line6-%player%"
+	else:
+		create id score " &8[&e::::::::::::::::::::&7&8]" in sidebar of player to 6 with id "line6-%player%"
+	create id score "  " in sidebar of player to 5 with id "line5-%player%"
+	create id score " &e&lBALANCE" in sidebar of player to 4 with id "line4-%player%"
+	set {_coin} to format({p_coins::%player%})
+	create id score " &8┃ &7Coins: &f%{_coin}%" in sidebar of player to 3 with id "line3-%player%"
+	set {_wrath} to format({p_wrath::%player%})
+	create id score " &8┃ &7Wrath: &f%{_wrath}%" in sidebar of player to 2 with id "line2-%player%"
+	create id score " &8╹ &7Virtue: " in sidebar of player to 1 with id "line1-%player%"
+	create id score "&9" in sidebar of player to 0 with id "line0-%player%"
+	while player is online:
+		update score with id "line12-%player%" to "&7" and 12
+		update score with id "line11-%player%" to " &e&lPLAYER" and 11
+		update score with id "line10-%player%" to " &8┃ &7Level: &f%{p_level::%player%}%" and 10
+		set {_expFormat} to format({p_exp::%player%})
+		set {_nextexpFormat} to format({p_nextexp::%player%})
+		update score with id "line9-%player%" to " &8╹ &7Exp: &f%{_expFormat}%&7/&f%{_nextexpFormat}%" and 9
+		update score with id "line8-%player%" to "&8" and 8
+		update score with id "line7-%player%" to " &8(&f%{_percentFormat}%%%&8)" and 7
+		set {_percent} to {p_exp::%player%} / {p_nextexp::%player%}
+		set {_percentFormat} to roundto({_percent} * 100, 1)
+		if {_percent} is between 0 and 0.05:
+			update score with id "line6-%player%" to " &8[&e&7::::::::::::::::::::&8]" and 6 
+		else if {_percent} is between 0.05 and 0.1:
+			update score with id "line6-%player%" to " &8[&e:&7:::::::::::::::::::&8]" and 6 
+		else if {_percent} is between 0.1 and 0.15:
+			update score with id "line6-%player%" to " &8[&e::&7::::::::::::::::::&8]" and 6 
+		else if {_percent} is between 0.15 and 0.2:
+			update score with id "line6-%player%" to " &8[&e:::&7:::::::::::::::::&8]" and 6 
+		else if {_percent} is between 0.2 and 0.25:
+			update score with id "line6-%player%" to " &8[&e::::&7::::::::::::::::&8]" and 6 
+		else if {_percent} is between 0.25 and 0.3:
+			update score with id "line6-%player%" to " &8[&e:::::&7:::::::::::::::&8]" and 6 
+		else if {_percent} is between 0.3 and 0.35:
+			update score with id "line6-%player%" to " &8[&e::::::&7::::::::::::::&8]" and 6 
+		else if {_percent} is between 0.35 and 0.4:
+			update score with id "line6-%player%" to " &8[&e:::::::&7:::::::::::::&8]" and 6 
+		else if {_percent} is between 0.4 and 0.45:
+			update score with id "line6-%player%" to " &8[&e::::::::&7::::::::::::&8]" and 6 
+		else if {_percent} is between 0.45 and 0.5:
+			update score with id "line6-%player%" to " &8[&e:::::::::&7:::::::::::&8]" and 6 
+		else if {_percent} is between 0.5 and 0.55:
+			update score with id "line6-%player%" to " &8[&e::::::::::&7::::::::::&8]" and 6 
+		else if {_percent} is between 0.55 and 0.6:
+			update score with id "line6-%player%" to " &8[&e:::::::::::&7:::::::::&8]" and 6 
+		else if {_percent} is between 0.6 and 0.65:
+			update score with id "line6-%player%" to " &8[&e::::::::::::&7::::::::&8]" and 6 
+		else if {_percent} is between 0.65 and 0.7:
+			update score with id "line6-%player%" to " &8[&e:::::::::::::&7:::::::&8]" and 6 
+		else if {_percent} is between 0.7 and 0.75:
+			update score with id "line6-%player%" to " &8[&e::::::::::::::&7::::::&8]" and 6 
+		else if {_percent} is between 0.75 and 0.8:
+			update score with id "line6-%player%" to " &8[&e:::::::::::::::&7:::::&8]" and 6 
+		else if {_percent} is between 0.8 and 0.85:
+			update score with id "line6-%player%" to " &8[&e::::::::::::::::&7::::&8]" and 6 
+		else if {_percent} is between 0.85 and 0.9:
+			update score with id "line6-%player%" to " &8[&e:::::::::::::::::&7:::&8]" and 6 
+		else if {_percent} is between 0.9 and 0.95:
+			update score with id "line6-%player%" to " &8[&e::::::::::::::::::&7::&8]" and 6 
+		else if {_percent} is between 0.95 and 1:
+			update score with id "line6-%player%" to " &8[&e:::::::::::::::::::&7:&8]" and 6 
+		else:
+			update score with id "line6-%player%" to " &8[&e::::::::::::::::::::&7&8]" and 6 
+		update score with id "line5-%player%" to "  " and 5 
+		update score with id "line4-%player%" to " &e&lBALANCE" and 4 
+		set {_coin} to format({p_coins::%player%})
+		update score with id "line3-%player%" to " &8┃ &7Coins: &f%{_coin}%" and 3 
+		set {_wrath} to format({p_wrath::%player%})
+		update score with id "line2-%player%" to " &8┃ &7Wrath: &f%{_wrath}%" and 2 
+		update score with id "line1-%player%" to " &8╹ &7Virtue: " and 1 
+		update score with id "line0-%player%" to "&9" and 0 
+		wait 3 ticks
+ 
+on quit:
+	wipe player's sidebar
+	loop 13 times:
+		remove score with id "line%loop-number-1%-%player%"
 
 # ==== World Border ====
 
-command /serverstigma [<text>] [<integer>]:
-	trigger:
-		if player is op:
-			if arg-1 is not "add" or "remove" or "set" or "reset":
-				send "{@admin} /serverstigma <add remove set reset>"
-			else if arg-2 is not set:
-				arg-1 is not "reset"
-				send "{@admin} /serverstigma <%arg-1%> <integer>"
-				send "{@admin} &7Added &e%arg-2% &7from server stigma"
-			if arg-1 is "add":
-				add arg-2 to {serverstigma}
-			else if arg-1 is "remove":
-				remove arg-2 from {serverstigma}
-				send "{@admin} &7Removed &e%arg-2% &7from server stigma"
-			else if arg-1 is "set":
-				set {serverstigma} to arg-2
-				send "{@admin} &7Server stigma set to &e%arg-2%"
-			else if arg-1 is "reset":
-				set {serverstigma} to 0
-				send "{@admin} &7Server stigma set to &e0"
-		else:
-			send "{@admin} {@permission}"
+# command /serverstigma [<text>] [<integer>]:
+# 	trigger:
+# 		if player is op:
+# 			if arg-1 is not "add" or "remove" or "set" or "reset":
+# 				send "{@admin} /serverstigma <add remove set reset>"
+# 			else if arg-2 is not set:
+# 				arg-1 is not "reset"
+# 				send "{@admin} /serverstigma <%arg-1%> <integer>"
+# 				send "{@admin} &7Added &e%arg-2% &7from server stigma"
+# 			if arg-1 is "add":
+# 				add arg-2 to {serverstigma}
+# 			else if arg-1 is "remove":
+# 				remove arg-2 from {serverstigma}
+# 				send "{@admin} &7Removed &e%arg-2% &7from server stigma"
+# 			else if arg-1 is "set":
+# 				set {serverstigma} to arg-2
+# 				send "{@admin} &7Server stigma set to &e%arg-2%"
+# 			else if arg-1 is "reset":
+# 				set {serverstigma} to 0
+# 				send "{@admin} &7Server stigma set to &e0"
+# 		else:
+# 			send "{@admin} {@permission}"
 
-function setWorldBorder(n: integer):
-	make console execute "/minecraft:worldborder set %{_n}%"
-	broadcast "{@shaft} &7Worldborder moved to &e%{_n}% &7blocks"
+# function setWorldBorder(n: integer):
+# 	make console execute "/minecraft:worldborder set %{_n}%"
+# 	broadcast "{@shaft} &7Worldborder moved to &e%{_n}% &7blocks"
 
-every 5 seconds in "{@world}":
-	set {_border} to floor({serverstigma} ^ (1/2))
-	add 102 to {_border}
-	{worldborder} is not {_border}
-	set {worldborder} to {_border}
-	setWorldBorder({worldborder})
+# every 5 seconds in "{@world}":
+# 	set {_border} to floor({serverstigma} ^ (1/2))
+# 	add 102 to {_border}
+# 	{worldborder} is not {_border}
+# 	set {worldborder} to {_border}
+# 	setWorldBorder({worldborder})
 		
-command /worldborder [<integer>]:
-	trigger:
-		if player is op:
-			setWorldBorder(arg-1)
-			set {worldborder} to arg-1
-		else:
-			send "{@admin} {@permission}"
+# command /worldborder [<integer>]:
+# 	trigger:
+# 		if player is op:
+# 			setWorldBorder(arg-1)
+# 			set {worldborder} to arg-1
+# 		else:
+# 			send "{@admin} {@permission}"
 
-every 2 seconds in "world":
-	loop all players:
-		"%regions at loop-player%" does not contain "spawn"
-		loop all blocks in radius 10 around loop-player:
-			if loop-block is water or lava:
-				delete loop-block		
-on flow:
-	if "%regions at event-block%" does not contain "spawn":
-		cancel event
-
-# ======== HEX/RGB ======== HEX/RGB ========
-# ======== HEX/RGB ======== HEX/RGB ========
-# ======== HEX/RGB ======== HEX/RGB ========
-
-on load:
-	set {hex::*} to split "0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|k|l|m|n|o|r" at "|"
- 
-function rgbToHex(values: numbers) :: string:
-	loop {_values::*}:
-		set {_r} to "%{_r} ? ""<##""%%{hex::%(( (round(loop-value)) - mod((round(loop-value)), 16)) / 16 + 1)%} ? """"%%{hex::%mod((round(loop-value)), 16) + 1%} ? """"%"
-	return colored "%{_r}%>"
-
-function gradient(input: string, color-from: integers, color-to: integers) :: string:
-	loop {_color-from::*}:
-		set {_i::%loop-index%} to ({_color-to::%loop-index%} - loop-value) / length of {_input}
-	loop length of {_input} times:
-		if subtext of {_input} from indices loop-number - 1 to loop-number - 1 = "§":
-			set {_format} to "%{_format} ? """"%&%subtext of {_input} from indices loop-number to loop-number%" if {hex::*} contains subtext of {_input} from indices loop-number to loop-number
-			clear {_format} if subtext of {_input} from indices loop-number to loop-number = "r"
-			continue loop
-		set {_r} to "%{_r} ? """"%%rgbToHex({_color-from::*})%%{_format} ? """"%%subtext of {_input} from indices loop-number to loop-number%"
-		set {_color-from::*} to ({_color-from::1} + {_i::1}), ({_color-from::2} + {_i::2}) and ({_color-from::3} + {_i::3})
-	return colored {_r}
+# every 2 seconds in "world":
+# 	loop all players:
+# 		"%regions at loop-player%" does not contain "spawn"
+# 		loop all blocks in radius 10 around loop-player:
+# 			if loop-block is water or lava:
+# 				delete loop-block		
+# on flow:
+# 	if "%regions at event-block%" does not contain "spawn":
+# 		cancel event
 
 # ======== MOB SPAWN ======== MOB SPAWN ========
 # ======== MOB SPAWN ======== MOB SPAWN ========
@@ -573,43 +681,92 @@ command /blessing [<integer>]:
 # ======== PLAYER STATS ======== PLAYER STATS ========
 # ======== PLAYER STATS ======== PLAYER STATS ========
 
-on join:
-	if {p_level::%player%} is not set:
-		set {p_level::%player%} to 1
-	if {p_coins::%player%} is not set:
-		set {p_coins::%player%} to 0
-	if {p_wrath::%player%} is not set:
-		set {p_wrath::%player%} to 0
-	if {p_virtue::%player%} is not set:
-		set {p_virtue::%player%} to 100
-	if {p_stigma::%player%} is not set:
-		set {p_stigma::%player%} to 0
-	if {p_totalstigma::%player%} is not set:
-		set {p_totalstigma::%player%} to 0
-	if {p_totalcoins::%player%} is not set:
-		set {p_totalcoins::%player%} to 0
-	if {p_totalwrath::%player%} is not set:
-		set {p_totalwrath::%player%} to 0
-	if {p_mkill::%player%} is not set:
-		set {p_mkill::%player%} to 0
-	if {p_mdeath::%player%} is not set:
-		set {p_mdeath::%player%} to 0
-	if {p_pkill::%player%} is not set:
-		set {p_pkill::%player%} to 0
-	if {p_pdeath::%player%} is not set:
-		set {p_pdeath::%player%} to 0
-	if {p_rebirth::%player%} is not set:
-		set {p_rebirth::%player%} to 0
-	if {p_damage::%player%} is not set:
-		set {p_damage::%player%} to 1
-	if {p_health::%player%} is not set:
-		set {p_health::%player%} to 20
-	if {p_maxhealth::%player%} is not set:
-		set {p_maxhealth::%player%} to 20
-	if {p_defense::%player%} is not set:
-		set {p_defense::%player%} to 5
-	if {p_maxdefense::%player%} is not set:
-		set {p_maxdefense::%player%} to 5
+# on join:
+# 	if {p_level::%player%} is not set:
+# 		set {p_level::%player%} to 1
+# 	if {p_exp::%player%} is not set:
+# 		set {p_exp::%player%} to 0
+# 	if {p_nextexp::%player%} is not set:
+# 		set {p_nextexp::%player%} to 10
+# 	if {p_totalexp::%player%} is not set:
+# 		set {p_totalexp::%player%} to 0
+# 	if {p_coins::%player%} is not set:
+# 		set {p_coins::%player%} to 0
+# 	if {p_wrath::%player%} is not set:
+# 		set {p_wrath::%player%} to 0
+# 	if {p_virtue::%player%} is not set:
+# 		set {p_virtue::%player%} to 100
+# 	if {p_totalcoins::%player%} is not set:
+# 		set {p_totalcoins::%player%} to 0
+# 	if {p_totalwrath::%player%} is not set:
+# 		set {p_totalwrath::%player%} to 0
+# 	if {p_mkill::%player%} is not set:
+# 		set {p_mkill::%player%} to 0
+# 	if {p_mdeath::%player%} is not set:
+# 		set {p_mdeath::%player%} to 0
+# 	if {p_pkill::%player%} is not set:
+# 		set {p_pkill::%player%} to 0
+# 	if {p_pdeath::%player%} is not set:
+# 		set {p_pdeath::%player%} to 0
+# 	if {p_rebirth::%player%} is not set:
+# 		set {p_rebirth::%player%} to 0
+# 	if {p_damage::%player%} is not set:
+# 		set {p_damage::%player%} to 1
+# 	if {p_health::%player%} is not set:
+# 		set {p_health::%player%} to 20
+# 	if {p_maxhealth::%player%} is not set:
+# 		set {p_maxhealth::%player%} to 20
+# 	if {p_defense::%player%} is not set:
+# 		set {p_defense::%player%} to 5
+# 	if {p_maxdefense::%player%} is not set:
+# 		set {p_maxdefense::%player%} to 5
+
+command /statcheck [<player>]:
+	trigger:
+		if player is not op:
+			stop
+		if arg-1 is not set:
+			send "{@admin} &7/statcheck <player>"
+			stop
+		if {p_level::%arg-1%} is not set:
+			set {p_level::%arg-1%} to 1
+		if {p_exp::%arg-1%} is not set:
+			set {p_exp::%arg-1%} to 0
+		if {p_nextexp::%arg-1%} is not set:
+			set {p_nextexp::%arg-1%} to 10
+		if {p_totalexp::%arg-1%} is not set:
+			set {p_totalexp::%arg-1%} to 0
+		if {p_coins::%arg-1%} is not set:
+			set {p_coins::%arg-1%} to 0
+		if {p_wrath::%arg-1%} is not set:
+			set {p_wrath::%arg-1%} to 0
+		if {p_virtue::%arg-1%} is not set:
+			set {p_virtue::%arg-1%} to 100
+		if {p_totalcoins::%arg-1%} is not set:
+			set {p_totalcoins::%arg-1%} to 0
+		if {p_totalwrath::%arg-1%} is not set:
+			set {p_totalwrath::%arg-1%} to 0
+		if {p_mkill::%arg-1%} is not set:
+			set {p_mkill::%arg-1%} to 0
+		if {p_mdeath::%arg-1%} is not set:
+			set {p_mdeath::%arg-1%} to 0
+		if {p_pkill::%arg-1%} is not set:
+			set {p_pkill::%arg-1%} to 0
+		if {p_pdeath::%arg-1%} is not set:
+			set {p_pdeath::%arg-1%} to 0
+		if {p_rebirth::%arg-1%} is not set:
+			set {p_rebirth::%arg-1%} to 0
+		if {p_damage::%arg-1%} is not set:
+			set {p_damage::%arg-1%} to 1
+		if {p_health::%arg-1%} is not set:
+			set {p_health::%arg-1%} to 20
+		if {p_maxhealth::%arg-1%} is not set:
+			set {p_maxhealth::%arg-1%} to 20
+		if {p_defense::%arg-1%} is not set:
+			set {p_defense::%arg-1%} to 5
+		if {p_maxdefense::%arg-1%} is not set:
+			set {p_maxdefense::%arg-1%} to 5
+		send "{@admin} &7Done Checking"
 
 # ======== /TOP ======== /TOP ========
 # ======== /TOP ======== /TOP ========
@@ -782,34 +939,6 @@ on chat:
 		else:
 			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
 
-# ======== NUMBER FORMAT ======== NUMBER FORMAT ========
-# ======== NUMBER FORMAT ======== NUMBER FORMAT ========
-# ======== NUMBER FORMAT ======== NUMBER FORMAT ========
-
-function roundto(n: number, to: number) :: number:
-   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
-
-function format(n: number) :: text:
-	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
-	loop split {_data} at "|":
-		set {_s::*} to split loop-value at ","
-		{_n} >= 10 ^ {_s::2} parsed as number
-		set {_nn} to roundto({_n} / 10 ^ {_s::2} parsed as number, 1)
-		return "%{_nn}%%{_s::1}%"
-	return "%{_n}%"
-
-function spaced(n: text) :: text:
-	set {_s::*} to split {_n} at "."
-	if {_s::2} is not set:
-		return a({_n})
-	else:
-		return "%a({_s::1})%.%{_s::2}%"
- 
-function a(b: text) :: text:
-	if length of {_b} > 3:
-		return "%a(first length of {_b} - 3 characters of {_b})%,%last 3 characters of {_b}%"
-	return {_b}
-
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
 # ======== PLAYER INVENTORY ======== PLAYER INVENTORY ========
@@ -821,6 +950,8 @@ command /new [<text>]:
 				newlock(player)
 			else if arg-1 is "unlock" or "unlocked":
 				new(player)
+			else if arg-1 is "center":
+				newcenter(player)
 		else:
 			send "{@admin} {@permission}"
 
@@ -829,38 +960,22 @@ function new(p: player):
 	set chestplate of {_p} to {1_chestplate}
 	set leggings of {_p} to {1_leggings}
 	set boots of {_p} to {1_boots}
-	set slot 0 of {_p} to {1_pickaxe}
-	set slot 1 of {_p} to {1_axe}
-	set slot 2 of {_p} to {1_shovel}
-	set slot 3 of {_p} to {1_bow}
-	set slot 4 of {_p} to {1_crossbow}
-	set slot 5 of {_p} to {1_trident}
-	set slot 12 of {_p} to {pegasus}
-	set slot 13 of {_p} to {athena}
-	set slot 14 of {_p} to {poseidon}
-	set slot 21 of {_p} to {apollo}
-	set slot 22 of {_p} to {hades}
-	set slot 23 of {_p} to {kronos}
-	set slot 30 of {_p} to {talaria}
-	set slot 31 of {_p} to {zeus}
-	set slot 32 of {_p} to {hermes}
+	set slot 0 of {_p} to {1_sword}
+	set slot 1 of {_p} to {1_bow}
 	set slot 40 of {_p} to {1_shield}
-	set slot 16 of {_p} to 64 of arrow named "&e&lARROWS" with lore " &8╹ &7Click to Open Arrow Shop"
-	set slot 17 of {_p} to anvil named "&e&lSETTINGS" with lore " &8╹ &7Click To Open Settings"
-	set slot 26 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore " &8╹ &7Click To View Your Stats"
-	set slot 9, 10, 11, 15, 18, 19, 20, 24, 25, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
+	set slot 9 of {_p} to skull of {_p} named "&e&lMENU" with lore " &8╹ &7Click to Open"
 
 function newlock(p: player):
 	set helmet of {_p} to {1_helmet}
 	set chestplate of {_p} to {1_chestplate}
 	set leggings of {_p} to {1_leggings}
 	set boots of {_p} to {1_boots}
-	set slot 0 of {_p} to {1_pickaxe}
-	set slot 1 of {_p} to {1_axe}
-	set slot 2 of {_p} to {1_shovel}
-	set slot 3 of {_p} to {1_bow}
-	set slot 4 of {_p} to {1_crossbow}
-	set slot 5 of {_p} to {1_trident}
+	set slot 0 of {_p} to {1_sword}
+	set slot 1 of {_p} to {1_bow}
+	set slot 40 of {_p} to {1_shield}
+	set slot 9 of {_p} to skull of {_p} named "&e&lMENU" with lore " &8╹ &7Click to Open"
+
+function newcenter(p: player):
 	set slot 12 of {_p} to {pegasuslock}
 	set slot 13 of {_p} to {athenalock}
 	set slot 14 of {_p} to {poseidonlock}
@@ -870,89 +985,84 @@ function newlock(p: player):
 	set slot 30 of {_p} to {talarialock}
 	set slot 31 of {_p} to {zeuslock}
 	set slot 32 of {_p} to {hermeslock}
-	set slot 40 of {_p} to {1_shield}
-	set slot 16 of {_p} to 64 of arrow named "&e&lARROWS" with lore " &8╹ &7Click to Open Arrow Shop"
-	set slot 17 of {_p} to anvil named "&e&lSETTINGS" with lore " &8╹ &7Click To Open Settings"
-	set slot 26 of {_p} to skull of {_p} named "&e&lSTATISTICS" with lore " &8╹ &7Click To View Your Stats"
-	set slot 9, 10, 11, 15, 18, 19, 20, 24, 25, 27, 28, 29, 33, 34, and 35 of {_p} to gray stained glass pane named " "
 
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
 # ======== HOTBAR MENU ======== HOTBAR MENU ========
 
-function hat(p: player, i: item, s: integer):
-	set {_cur} to helmet of {_p}
-	set helmet of {_p} to {_i}
-	set slot {_s} of {_p} to {_cur}
+# function hat(p: player, i: item, s: integer):
+# 	set {_cur} to helmet of {_p}
+# 	set helmet of {_p} to {_i}
+# 	set slot {_s} of {_p} to {_cur}
 
-function hatreset(p: player):
-	set {_12} to slot 12 of {_p}
-	if {_12} is light gray stained glass:
-		set {_item} to {_12}
-		set {_slot} to 12
-	set {_13} to slot 13 of {_p}
-	if {_13} is light gray stained glass:
-		set {_item} to {_13}
-		set {_slot} to 13
-	set {_14} to slot 14 of {_p}
-	if {_14} is light gray stained glass:
-		set {_item} to {_14}
-		set {_slot} to 14
-	set {_21} to slot 21 of {_p}
-	if {_21} is light gray stained glass:
-		set {_item} to {_21}
-		set {_slot} to 21
-	set {_23} to slot 23 of {_p}
-	if {_23} is light gray stained glass:
-		set {_item} to {_23}
-		set {_slot} to 23
-	set {_14} to slot 22 of {_p}
-	if {_14} is light gray stained glass:
-		set {_item} to {_14}
-		set {_slot} to 22
-	set {_30} to slot 30 of {_p}
-	if {_30} is light gray stained glass:
-		set {_item} to {_30}
-		set {_slot} to 30
-	set {_cur} to helmet of {_p}
-	if {_cur} is not light gray stained glass:
-		hat({_p}, {_item}, {_slot})
-	remove absorption from {_p}
-	remove resistance from {_p}
-	set flight mode of {_p} to false
+# function hatreset(p: player):
+# 	set {_12} to slot 12 of {_p}
+# 	if {_12} is light gray stained glass:
+# 		set {_item} to {_12}
+# 		set {_slot} to 12
+# 	set {_13} to slot 13 of {_p}
+# 	if {_13} is light gray stained glass:
+# 		set {_item} to {_13}
+# 		set {_slot} to 13
+# 	set {_14} to slot 14 of {_p}
+# 	if {_14} is light gray stained glass:
+# 		set {_item} to {_14}
+# 		set {_slot} to 14
+# 	set {_21} to slot 21 of {_p}
+# 	if {_21} is light gray stained glass:
+# 		set {_item} to {_21}
+# 		set {_slot} to 21
+# 	set {_23} to slot 23 of {_p}
+# 	if {_23} is light gray stained glass:
+# 		set {_item} to {_23}
+# 		set {_slot} to 23
+# 	set {_14} to slot 22 of {_p}
+# 	if {_14} is light gray stained glass:
+# 		set {_item} to {_14}
+# 		set {_slot} to 22
+# 	set {_30} to slot 30 of {_p}
+# 	if {_30} is light gray stained glass:
+# 		set {_item} to {_30}
+# 		set {_slot} to 30
+# 	set {_cur} to helmet of {_p}
+# 	if {_cur} is not light gray stained glass:
+# 		hat({_p}, {_item}, {_slot})
+# 	remove absorption from {_p}
+# 	remove resistance from {_p}
+# 	set flight mode of {_p} to false
 
-function unlock(p: player, c: integer, s: integer):
-	if {p_wrath::%{_p}%} is greater than {_c}:
-		remove {_c} from {p_wrath::%{_p}%}
-		if {_s} is 12:
-			set slot 12 of {_p} to {pegasus}
-			send "{@shaft} &7Unlocked &bPegasus" to {_p}
-		if {_s} is 13:
-			set slot 13 of {_p} to {athena}
-			send "{@shaft} &7Unlocked &bAthena" to {_p}
-		if {_s} is 14:
-			set slot 14 of {_p} to {poseidon}
-			send "{@shaft} &7Unlocked &bPoseidon" to {_p}
-		if {_s} is 21:
-			set slot 21 of {_p} to {apollo}
-			send "{@shaft} &7Unlocked &bApollo" to {_p}
-		if {_s} is 22:
-			set slot 22 of {_p} to {hades}
-			send "{@shaft} &7Unlocked &bHades" to {_p}
-		if {_s} is 23:
-			set slot 23 of {_p} to {kronos}
-			send "{@shaft} &7Unlocked &bKronos" to {_p}
-		if {_s} is 30:
-			set slot 30 of {_p} to {talaria}
-			send "{@shaft} &7Unlocked &bTalaria" to {_p}
-		if {_s} is 31:
-			set slot 31 of {_p} to {zeus}
-			send "{@shaft} &7Unlocked &bZeus" to {_p}
-		if {_s} is 32:
-			set slot 32 of {_p} to {hermes}
-			send "{@shaft} &7Unlocked &bHermes" to {_p}
-	else:
-		send "{@shaft} {@wrath}" to {_p}
+# function unlock(p: player, c: integer, s: integer):
+# 	if {p_wrath::%{_p}%} is greater than {_c}:
+# 		remove {_c} from {p_wrath::%{_p}%}
+# 		if {_s} is 12:
+# 			set slot 12 of {_p} to {pegasus}
+# 			send "{@shaft} &7Unlocked &bPegasus" to {_p}
+# 		if {_s} is 13:
+# 			set slot 13 of {_p} to {athena}
+# 			send "{@shaft} &7Unlocked &bAthena" to {_p}
+# 		if {_s} is 14:
+# 			set slot 14 of {_p} to {poseidon}
+# 			send "{@shaft} &7Unlocked &bPoseidon" to {_p}
+# 		if {_s} is 21:
+# 			set slot 21 of {_p} to {apollo}
+# 			send "{@shaft} &7Unlocked &bApollo" to {_p}
+# 		if {_s} is 22:
+# 			set slot 22 of {_p} to {hades}
+# 			send "{@shaft} &7Unlocked &bHades" to {_p}
+# 		if {_s} is 23:
+# 			set slot 23 of {_p} to {kronos}
+# 			send "{@shaft} &7Unlocked &bKronos" to {_p}
+# 		if {_s} is 30:
+# 			set slot 30 of {_p} to {talaria}
+# 			send "{@shaft} &7Unlocked &bTalaria" to {_p}
+# 		if {_s} is 31:
+# 			set slot 31 of {_p} to {zeus}
+# 			send "{@shaft} &7Unlocked &bZeus" to {_p}
+# 		if {_s} is 32:
+# 			set slot 32 of {_p} to {hermes}
+# 			send "{@shaft} &7Unlocked &bHermes" to {_p}
+# 	else:
+# 		send "{@shaft} {@wrath}" to {_p}
 
 function arrowShop(p: player):
 	open virtual chest inventory with size 1 named "&8Arrow Shop" to {_p}
@@ -973,8 +1083,11 @@ command /invlock:
 		else:
 			send "{@admin} {permission}"
 
-on inventory click:
+on inventory click:	
 	if {unlock.%player%} is set:
+		stop
+	if clicked slot is 9:
+		cancel event
 		stop
 	if name of event-inventory is "&8Wardrobe":
 		if clicked item is helmet of player or chestplate of player or leggings of player or boots of player:
@@ -984,18 +1097,6 @@ on inventory click:
 		if clicked item is helmet of player or chestplate of player or leggings of player or boots of player:
 			wardrobe(player)
 			stop
-	if clicked slot is 16:
-		gamemode of player is survival
-		arrowShop(player)
-		stop
-	if clicked slot is 17:
-		gamemode of player is survival
-		settings(player)
-		stop
-	if clicked slot is 26:
-		gamemode of player is survival
-		stats(player)
-		stop
 	if name of event-inventory is not "Crafting":
 		cancel event
 		stop
@@ -1045,89 +1146,89 @@ on inventory click:
 	# if clicked slot is 40:
 	# 	gamemode of player is survival
 	# 	delete slot 40 of player
-	if clicked slot is 12:
-		cancel event
-		if name of clicked item contains "&c&lLOCKED":
-			unlock(player, 15000, 12)
-			stop
-		if clicked item is not light gray stained glass:
-			hatreset(player)
-		hat(player, clicked item, 12)
-	else if clicked slot is 13:
-		cancel event
-		if name of clicked item contains "&c&lLOCKED":
-			unlock(player, 15000, 13)
-			stop
-		if clicked item is not light gray stained glass:
-			hatreset(player)
-		hat(player, clicked item, 13)
-	else if clicked slot is 14:
-		cancel event
-		if name of clicked item contains "&c&lLOCKED":
-			unlock(player, 15000, 14)
-			stop
-		if clicked item is not light gray stained glass:
-			hatreset(player)
-		hat(player, clicked item, 14)
-	else if clicked slot is 21:
-		cancel event
-		if name of clicked item contains "&c&lLOCKED":
-			unlock(player, 10000, 21)
-			stop
-		if clicked item is not light gray stained glass:
-			hatreset(player)
-			apply absorption 5 to player for 9999 days
-		else:
-			remove absorption from player
-		hat(player, clicked item, 21)
-	else if clicked slot is 22:
-		cancel event
-		if name of clicked item contains "&c&lLOCKED":
-			unlock(player, 10000, 22)
-			stop
-		if clicked item is not light gray stained glass:
-			hatreset(player)
-		hat(player, clicked item, 22)
-	else if clicked slot is 23:
-		cancel event
-		if name of clicked item contains "&c&lLOCKED":
-			unlock(player, 10000, 23)
-			stop
-		if clicked item is not light gray stained glass:
-			hatreset(player)
-			apply resistance 2 to player for 9999 days
-		else:
-			remove resistance from player
-		hat(player, clicked item, 23)
-	if clicked slot is 30:
-		cancel event
-		if name of clicked item contains "&c&lLOCKED":
-			unlock(player, 5000, 30)
-			stop
-		if clicked item is not light gray stained glass:
-			hatreset(player)
-			set player's flight mode to true
-		else:
-			set player's flight mode to false
-		hat(player, clicked item, 30)
-	else if clicked slot is 31:
-		cancel event
-		if name of clicked item contains "&c&lLOCKED":
-			unlock(player, 3000, 31)
-			stop
-		set {_cur} to chestplate of player
-		set {_new} to clicked item
-		set chestplate of player to {_new}
-		set slot 31 of player to {_cur}
-	else if clicked slot is 32:
-		cancel event
-		if name of clicked item contains "&c&lLOCKED":
-			unlock(player, 5000, 32)
-			stop
-		set {_cur} to boots of player
-		set {_new} to clicked item
-		set boots of player to {_new}
-		set slot 32 of player to {_cur}
+	# if clicked slot is 12:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 15000, 12)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 	hat(player, clicked item, 12)
+	# else if clicked slot is 13:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 15000, 13)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 	hat(player, clicked item, 13)
+	# else if clicked slot is 14:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 15000, 14)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 	hat(player, clicked item, 14)
+	# else if clicked slot is 21:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 10000, 21)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 		apply absorption 5 to player for 9999 days
+	# 	else:
+	# 		remove absorption from player
+	# 	hat(player, clicked item, 21)
+	# else if clicked slot is 22:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 10000, 22)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 	hat(player, clicked item, 22)
+	# else if clicked slot is 23:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 10000, 23)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 		apply resistance 2 to player for 9999 days
+	# 	else:
+	# 		remove resistance from player
+	# 	hat(player, clicked item, 23)
+	# if clicked slot is 30:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 5000, 30)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 		set player's flight mode to true
+	# 	else:
+	# 		set player's flight mode to false
+	# 	hat(player, clicked item, 30)
+	# else if clicked slot is 31:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 3000, 31)
+	# 		stop
+	# 	set {_cur} to chestplate of player
+	# 	set {_new} to clicked item
+	# 	set chestplate of player to {_new}
+	# 	set slot 31 of player to {_cur}
+	# else if clicked slot is 32:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 5000, 32)
+	# 		stop
+	# 	set {_cur} to boots of player
+	# 	set {_new} to clicked item
+	# 	set boots of player to {_new}
+	# 	set slot 32 of player to {_cur}
 	if group of player is not "admin":
 		cancel event
 
@@ -1161,7 +1262,7 @@ function settings(p: player):
 		format gui slot 8 of {_p} with minecart with chest named "&7&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to &aClaim" and " &8╹ &e+100 &7Wrath" to run:
 			set {daily.%{_p}%.lastused} to now
 			send "{@shaft} &7You claimed your daily reward at &e%now%" to {_p}
-			add 100 to {wrath.%{_p}%}
+			add 100 to {p_wrath::%{_p}%}
 			settings({_p})
 	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
 
@@ -1192,8 +1293,8 @@ function stats(p: player):
 	set {_wrath} to format({p_wrath::%{_p}%})
 	set {_totalwrath} to format({p_totalwrath::%{_p}%})
 	format gui slot 12 of {_p} with bell named "&c&lWRATH" with lore "&7Current: &c%{_wrath}% &7wrath" and "&7Total: &c%{_totalwrath}% &7wrath"
-	set {_total} to format({p_totalstigma::%{_p}%})
-	set {_stigma} to format({p_stigma::%{_p}%})
+	# set {_total} to format({p_totalstigma::%{_p}%})
+	# set {_stigma} to format({p_stigma::%{_p}%})
 	format gui slot 14 of {_p} with grass block named "&a&lSTIGMA" with lore "&7Since Last Rebirth: &a%{_stigma}% &7stigma" and "&7Total: &a%{_total}% &7stigma"
 	format gui slot 15 of {_p} with cookie named "&b&lVIRTUE" with lore "&7Current: &b%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
 	format gui slot 16 of {_p} with nether star named "&b&lREBIRTH" with lore "&7Total: &b%{p_rebirth::%{_p}%}% &7times"
@@ -1231,52 +1332,52 @@ function wrathUpgrade(p: player, i: item, s: integer):
 # 	else:
 # 		send "{@shaft} {@coins}" to {_p}
 
-function rebirth(p: player):
-	if {p_block::%{_p}%} is less than 2000:
-		set {_m} to 2000 - {p_block::%{_p}%}
-		send "{@shaft} &7You need &c%{_m}% &7more stigma before rebirth" to {_p}
-	else:
-		set {_level} to floor({p_stigma::%{_p}%} / 1000)
-		set {_before} to {p_level::%{_p}%}
-		if {_before} is less than {_level}:
-			set {p_level::%{_p}%} to {_level}
-			set {_dif} to {_level} - {_before}
-			send "{@shaft} &7Player Level increased from &e%{_before}% &7to &e%{_level}% &7(&e+%{_dif}%&7)" to {_p}
-		rebirthnew({_p})
-		set {_blessing} to {blessing} / 100
-		set {_wrath} to {p_stigma::%{_p}%} * {_blessing}
-		add {_wrath} to {p_wrath::%{_p}%}
-		add {_wrath} to {p_totalwrath::%{_p}%}
-		set {p_stigma::%{_p}%} to 0
-		set {p_coins::%{_p}%} to 0
-		set {_m} to format({_wrath})
-		add 1 to {p_rebirth::%{_p}%}
-		send "{@shaft} &7You rebirthed and gained &e%{_m}% &7wrath" to {_p}
+# function rebirth(p: player):
+# 	if {p_block::%{_p}%} is less than 2000:
+# 		set {_m} to 2000 - {p_block::%{_p}%}
+# 		send "{@shaft} &7You need &c%{_m}% &7more stigma before rebirth" to {_p}
+# 	else:
+# 		set {_level} to floor({p_stigma::%{_p}%} / 1000)
+# 		set {_before} to {p_level::%{_p}%}
+# 		if {_before} is less than {_level}:
+# 			set {p_level::%{_p}%} to {_level}
+# 			set {_dif} to {_level} - {_before}
+# 			send "{@shaft} &7Player Level increased from &e%{_before}% &7to &e%{_level}% &7(&e+%{_dif}%&7)" to {_p}
+# 		rebirthnew({_p})
+# 		set {_blessing} to {blessing} / 100
+# 		set {_wrath} to {p_stigma::%{_p}%} * {_blessing}
+# 		add {_wrath} to {p_wrath::%{_p}%}
+# 		add {_wrath} to {p_totalwrath::%{_p}%}
+# 		set {p_stigma::%{_p}%} to 0
+# 		set {p_coins::%{_p}%} to 0
+# 		set {_m} to format({_wrath})
+# 		add 1 to {p_rebirth::%{_p}%}
+# 		send "{@shaft} &7You rebirthed and gained &e%{_m}% &7wrath" to {_p}
 
-function rebirthnew(p: player):
-	set {_item} to slot 0 of {_p}
-	set {_bind} to level of curse of binding on {_item}
-	if {_bind} is not set:
-		disenchant {_item}
-	repair {_item}
-	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
-	set slot 0 of {_p} to {_item}
+# function rebirthnew(p: player):
+# 	set {_item} to slot 0 of {_p}
+# 	set {_bind} to level of curse of binding on {_item}
+# 	if {_bind} is not set:
+# 		disenchant {_item}
+# 	repair {_item}
+# 	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+# 	set slot 0 of {_p} to {_item}
 
-	set {_item} to slot 1 of {_p}
-	set {_bind} to level of curse of binding on {_item}
-	if {_bind} is not set:
-		disenchant {_item}
-	repair {_item}
-	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
-	set slot 1 of {_p} to {_item}
+# 	set {_item} to slot 1 of {_p}
+# 	set {_bind} to level of curse of binding on {_item}
+# 	if {_bind} is not set:
+# 		disenchant {_item}
+# 	repair {_item}
+# 	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+# 	set slot 1 of {_p} to {_item}
 
-	set {_item} to slot 2 of {_p}
-	set {_bind} to level of curse of binding on {_item}
-	if {_bind} is not set:
-		disenchant {_item}
-	repair {_item}
-	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
-	set slot 2 of {_p} to {_item}
+# 	set {_item} to slot 2 of {_p}
+# 	set {_bind} to level of curse of binding on {_item}
+# 	if {_bind} is not set:
+# 		disenchant {_item}
+# 	repair {_item}
+# 	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+# 	set slot 2 of {_p} to {_item}
 
 function enchants(p: player, i: item, s: integer):
 	open virtual chest inventory with size 1 named "&8Library" to {_p}
@@ -1409,17 +1510,17 @@ function enchants(p: player, i: item, s: integer):
 	set slot {_s} of {_p} to {_i}
 	#format gui slot 8 of {_p} with arrow named "&7 < &cBack" with lore "&7Click to go back" to run function tool({_p}, {_i})
 
-function bowenchant(p: player):
-	open virtual chest inventory with size 1 named "&8Library" to {_p}
-	format gui slot 0 of {_p} with held item of {_p}
+# function bowenchant(p: player):
+# 	open virtual chest inventory with size 1 named "&8Library" to {_p}
+# 	format gui slot 0 of {_p} with held item of {_p}
 
-function crossbowenchant(p: player):
-	open virtual chest inventory with size 1 named "&8Library" to {_p}
-	format gui slot 0 of {_p} with held item of {_p}
+# function crossbowenchant(p: player):
+# 	open virtual chest inventory with size 1 named "&8Library" to {_p}
+# 	format gui slot 0 of {_p} with held item of {_p}
 
-function trident(p: player):
-	open virtual chest inventory with size 1 named "&8Library" to {_p}
-	format gui slot 0 of {_p} with held item of {_p}
+# function trident(p: player):
+# 	open virtual chest inventory with size 1 named "&8Library" to {_p}
+# 	format gui slot 0 of {_p} with held item of {_p}
 
 # function tool(p: player, i: item):
 # 	if {_i} is pickaxe:
@@ -1645,8 +1746,8 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 			if arg-1 is not set:
 				send "{@admin} &f/modify &f<player>"
 				stop
-			else if arg-2 is not "level" or "coins" or "totalcoins" or "wrath" or  "totalwrath" or "stigma" or "totalstigma" or "mkill" or "mdeath" or "pkill" or "pdeath" or "rebirth" or "all" or "maxhealth" or "health" or "damage" or "defense" or "maxdefense":
-				send "{@admin} &f/modify <%arg-1%> &f<level coins totalcoins wrath totalwrath stigma totalstigma mkill mdeath pkill pdeath rebirth maxhealth health damage all defense maxdefense>"
+			else if arg-2 is not "level" or "coins" or "totalcoins" or "wrath" or  "totalwrath" or "exp" or "nextexp" or "totalexp" or "mkill" or "mdeath" or "pkill" or "pdeath" or "rebirth" or "all" or "maxhealth" or "health" or "damage" or "defense" or "maxdefense":
+				send "{@admin} &f/modify <%arg-1%> &f<level exp nextexp totalexp coins totalcoins wrath totalwrath mkill mdeath pkill pdeath rebirth maxhealth health damage all defense maxdefense>"
 				stop
 			else if arg-3 is not "add" or "remove" or "set" or "reset":
 				if arg-2 is "reset":
@@ -1727,8 +1828,8 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {p_totalcoins::%arg-1%} to 0
 					set {p_totalwrath::%arg-1%} to 0
 					set {p_wrath::%arg-1%} to 0
-					set {p_stigma::%arg-1%} to 0
-					set {p_totalstigma::%arg-1%} to 0
+					set {p_exp::%arg-1%} to 0
+					set {p_totalexp::%arg-1%} to 0
 					set {p_mkill::%arg-1%} to 0
 					set {p_mdeath::%arg-1%} to 0
 					set {p_pkill::%arg-1%} to 0
