@@ -61,7 +61,15 @@ async def on_message(message):
             await register(discord, minecraft)
             await log.send(f'```Linked {discord} to {minecraft}```')
             member = guild.get_member(int(discord))
-            await member.edit(nick=f'[Linked] {minecraft}')
+            await member.edit(nick=f'[:L0] {minecraft}')
+        if message.content.startswith('```Level: '):
+            markdown = message.content.replace('```', '')
+            minecraft, level = markdown[6:].split(', ')
+            if await registered(minecraft):
+                discord, minecraft = await get_data(minecraft)
+                member = guild.get_member(int(discord))
+                nick = member.nick.split(' ', 1)
+                await member.edit(nick=f'[:L{level}] {nick[1]}')
     await client.process_commands(message)
 
 # ============================= DISCORD COMMANDS =============================
@@ -109,7 +117,8 @@ async def nick(ctx, *, nick=None):
         elif len(nick) > 15:
             await ctx.send('```Nicknames must be less than 16 characters long```')
         else:
-            await ctx.author.edit(nick=f'[Linked] {nick}')
+            nick_split = ctx.author.nick.split(' ', 1)
+            await ctx.author.edit(nick=f'{nick_split[0]} {nick}')
             await ctx.send(f'```Nickname changed to {nick}```')
     else:
         await ctx.send('```You must link your account with minecraft to change your nickname```')
@@ -146,7 +155,6 @@ async def unregister(discord):
             if str(discord) not in lines[i]:
                 file.write(lines[i])
     await log.send(f'```DATABASE: Unregistered {discord}```')
-
 
 async def get_db_files():
     global db, log
