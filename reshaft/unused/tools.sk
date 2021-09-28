@@ -1,0 +1,46 @@
+# function bowenchant(p: player):
+# 	open virtual chest inventory with size 1 named "&8Library" to {_p}
+# 	format gui slot 0 of {_p} with held item of {_p}
+
+# function crossbowenchant(p: player):
+# 	open virtual chest inventory with size 1 named "&8Library" to {_p}
+# 	format gui slot 0 of {_p} with held item of {_p}
+
+# function trident(p: player):
+# 	open virtual chest inventory with size 1 named "&8Library" to {_p}
+# 	format gui slot 0 of {_p} with held item of {_p}
+
+# function tool(p: player, i: item):
+# 	if {_i} is pickaxe:
+# 		open virtual chest inventory with size 1 named "&8Pickaxe Upgrades" to {_p}
+# 	else if {_i} is axe:
+# 		open virtual chest inventory with size 1 named "&8Hatchet Upgrades" to {_p}
+# 	else if {_i} is shovel:
+# 		open virtual chest inventory with size 1 named "&8Shovel Upgrades" to {_p}
+# 	else if {_i} is bow:
+# 		open virtual chest inventory with size 1 named "&e&lSOl&6&lAR &8Menu" to {_p}
+# 	else if {_i} is crossbow:
+# 		open virtual chest inventory with size 1 named "&a&lTERRE&2&lSTRIAl &8Menu" to {_p}	
+# 	else if {_i} is trident:
+# 		open virtual chest inventory with size 1 named "&b&llUN&3&lAR &8Menu" to {_p}	
+# 	set {_1} to removeLoreLabel(line 1 of lore of {_i})
+# 	set {_2} to removeLoreLabel(line 2 of lore of {_i})
+# 	set {_cost1} to {_1}^2
+# 	set {_cost11} to format({_cost1})
+# 	set {_cost2} to ({_2} * 10000)^2
+# 	set {_cost22} to format({_cost2})
+# 	format gui slot 1 of {_p} with bell named "&eWrath: &&e&8┃%{_1}%&8]" with lore "&7 &8╹lick to Upgrade:" and "&7Cost: &e%{_cost11}% &7Wrath" to run function wrathUpgrade({_p}, {_cost1})
+# 	# format gui slot 3 of {_p} with emerald named&b&8┃{_2}%%% &7Bonus" with lore "&7 &8╹lick to Upgrade:" and "&7Cost: &e%{_cost22}% &7Coins" to run function bonusUpgrade({_p}, {_cost2})
+# 	if tool of {_p} is bow:
+# 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function bowenchants({_p}, {_i}, {_s})
+# 	else if tool of {_p} is crossbow:
+# 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function crossbownchants({_p})
+# 	else if tool of {_p} is trident:
+# 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function tridentenchants({_p}, {_i}, {_s})
+# 	else:
+# 		format gui slot 5 of {_p} with enchanted book named "&cEnchanting &7Menu" with lore "&7 > Gather up enchantments using &ecoins" to run function enchants({_p}, {_i}, {_s})
+# 	set {_stigma} to {p_stigma::%{_p}%}
+# 	set {_stigma2} to format({p_stigma::%{_p}%})
+# 	set {_virtue} to format((({p_virtue::%{_p}%} / 100) - 1) * {_stigma})
+# 	set {_blessing} to format((({blessing} / 100) - 1) * {_stigma})
+# 	format gui slot 7 of {_p} with nether star named "&bRebirth" with lore "&7 > Click to &bRebirth &7and Gain Wrath" and "&7 > %{_stigma2}% &b+%{_virtue}% (%{p_virtue::%{_p}%}%%%) &e+%{_blessing}% (%{blessing}%%%) &7Wrath" to run function rebirth({_p})

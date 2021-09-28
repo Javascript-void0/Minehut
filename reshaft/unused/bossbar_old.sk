@@ -1,0 +1,34 @@
+# on join:
+# 	set {_bossbar} to 0
+# 	create bossbar titled " " and id "bossbar.%player%" for player with progress 100 with colors yellow
+# 	while player is online:
+# 		if {_bossbar} is 0:
+# 			set bossbar "bossbar.%player%" value to 100
+# 			set bossbar "bossbar.%player%" color to yellow
+# 			set bossbar "bossbar.%player%" title to "&7Welcome to &6&lRe&e&lSHAFT&7²"
+# 		else if {_bossbar} is 1:
+# 			set bossbar "bossbar.%player%" value to 66
+# 			set bossbar "bossbar.%player%" color to yellow
+# 			set bossbar "bossbar.%player%" title to "&7IP: &6reshaft.minehut.gg"
+# 		else if {_bossbar} is 2:
+# 			set bossbar "bossbar.%player%" value to 33
+# 			set bossbar "bossbar.%player%" color to yellow
+# 			set bossbar "bossbar.%player%" title to "&7Join Our &eDiscord &7with &e/discord &8| &7Use &e/link &7 for Rewards"
+# 		else if {_bossbar} is 3:
+# 			set {_format} to timeFormat({servertime})
+# 			set bossbar "bossbar.%player%" value to 0
+# 			set bossbar "bossbar.%player%" color to yellow
+# 			set bossbar "bossbar.%player%" title to "&6Server Time: &e%{_format}% &7(&e%{servertime}%&et&7)"
+		# else if {_bossbar} is 4:
+		# 	set bossbar "bossbar.%player%" value to 20
+		# 	set bossbar "bossbar.%player%" color to red
+		# 	set bossbar "bossbar.%player%" title to "&eRebirth &7to collect &ebonuses &7and &egear"
+		# else if {_bossbar} is 5:
+		# 	set bossbar "bossbar.%player%" value to 0
+		# 	set bossbar "bossbar.%player%" color to red
+		# 	set bossbar "bossbar.%player%" title to "&7Help us &cdestroy &7this world"
+	# 	wait 3 seconds
+	# 	add 1 to {_bossbar}
+	# 	if {_bossbar} is 4:
+	# 		set {_bossbar} to 0
+	# remove bossbar "bossbar.%player%"

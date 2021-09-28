@@ -1,0 +1,73 @@
+# function hat(p: player, i: item, s: integer):
+# 	set {_cur} to helmet of {_p}
+# 	set helmet of {_p} to {_i}
+# 	set slot {_s} of {_p} to {_cur}
+
+# function hatreset(p: player):
+# 	set {_12} to slot 12 of {_p}
+# 	if {_12} is light gray stained glass:
+# 		set {_item} to {_12}
+# 		set {_slot} to 12
+# 	set {_13} to slot 13 of {_p}
+# 	if {_13} is light gray stained glass:
+# 		set {_item} to {_13}
+# 		set {_slot} to 13
+# 	set {_14} to slot 14 of {_p}
+# 	if {_14} is light gray stained glass:
+# 		set {_item} to {_14}
+# 		set {_slot} to 14
+# 	set {_21} to slot 21 of {_p}
+# 	if {_21} is light gray stained glass:
+# 		set {_item} to {_21}
+# 		set {_slot} to 21
+# 	set {_23} to slot 23 of {_p}
+# 	if {_23} is light gray stained glass:
+# 		set {_item} to {_23}
+# 		set {_slot} to 23
+# 	set {_14} to slot 22 of {_p}
+# 	if {_14} is light gray stained glass:
+# 		set {_item} to {_14}
+# 		set {_slot} to 22
+# 	set {_30} to slot 30 of {_p}
+# 	if {_30} is light gray stained glass:
+# 		set {_item} to {_30}
+# 		set {_slot} to 30
+# 	set {_cur} to helmet of {_p}
+# 	if {_cur} is not light gray stained glass:
+# 		hat({_p}, {_item}, {_slot})
+# 	remove absorption from {_p}
+# 	remove resistance from {_p}
+# 	set flight mode of {_p} to false
+
+# function unlock(p: player, c: integer, s: integer):
+# 	if {p_wrath::%{_p}%} is greater than {_c}:
+# 		remove {_c} from {p_wrath::%{_p}%}
+# 		if {_s} is 12:
+# 			set slot 12 of {_p} to {pegasus}
+# 			send "{@shaft} &7Unlocked &bPegasus" to {_p}
+# 		if {_s} is 13:
+# 			set slot 13 of {_p} to {athena}
+# 			send "{@shaft} &7Unlocked &bAthena" to {_p}
+# 		if {_s} is 14:
+# 			set slot 14 of {_p} to {poseidon}
+# 			send "{@shaft} &7Unlocked &bPoseidon" to {_p}
+# 		if {_s} is 21:
+# 			set slot 21 of {_p} to {apollo}
+# 			send "{@shaft} &7Unlocked &bApollo" to {_p}
+# 		if {_s} is 22:
+# 			set slot 22 of {_p} to {hades}
+# 			send "{@shaft} &7Unlocked &bHades" to {_p}
+# 		if {_s} is 23:
+# 			set slot 23 of {_p} to {kronos}
+# 			send "{@shaft} &7Unlocked &bKronos" to {_p}
+# 		if {_s} is 30:
+# 			set slot 30 of {_p} to {talaria}
+# 			send "{@shaft} &7Unlocked &bTalaria" to {_p}
+# 		if {_s} is 31:
+# 			set slot 31 of {_p} to {zeus}
+# 			send "{@shaft} &7Unlocked &bZeus" to {_p}
+# 		if {_s} is 32:
+# 			set slot 32 of {_p} to {hermes}
+# 			send "{@shaft} &7Unlocked &bHermes" to {_p}
+# 	else:
+# 		send "{@shaft} {@wrath}" to {_p}

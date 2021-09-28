@@ -1,0 +1,56 @@
+# function bonusUpgrade(p: player, c: number):
+# 	set {_2} to removeLoreLabel(line 2 of lore of tool of {_p})
+# 	if {p_coins::%{_p}%} is greater than {_c}:
+# 		remove {_c} from {p_coins::%{_p}%}
+# 		set {_n2} to {_2} * 2
+# 		set line 2 of lore of tool of {_p} to "&b%{_n2}%%% &7Bonus"
+# 		tool({_p}, tool of {_p})
+# 	else:
+# 		send "{@shaft} {@coins}" to {_p}
+
+# function rebirth(p: player):
+# 	if {p_block::%{_p}%} is less than 2000:
+# 		set {_m} to 2000 - {p_block::%{_p}%}
+# 		send "{@shaft} &7You need &c%{_m}% &7more stigma before rebirth" to {_p}
+# 	else:
+# 		set {_level} to floor({p_stigma::%{_p}%} / 1000)
+# 		set {_before} to {p_level::%{_p}%}
+# 		if {_before} is less than {_level}:
+# 			set {p_level::%{_p}%} to {_level}
+# 			set {_dif} to {_level} - {_before}
+# 			send "{@shaft} &7Player Level increased from &e%{_before}% &7to &e%{_level}% &7(&e+%{_dif}%&7)" to {_p}
+# 		rebirthnew({_p})
+# 		set {_blessing} to {blessing} / 100
+# 		set {_wrath} to {p_stigma::%{_p}%} * {_blessing}
+# 		add {_wrath} to {p_wrath::%{_p}%}
+# 		add {_wrath} to {p_totalwrath::%{_p}%}
+# 		set {p_stigma::%{_p}%} to 0
+# 		set {p_coins::%{_p}%} to 0
+# 		set {_m} to format({_wrath})
+# 		add 1 to {p_rebirth::%{_p}%}
+# 		send "{@shaft} &7You rebirthed and gained &e%{_m}% &7wrath" to {_p}
+
+# function rebirthnew(p: player):
+# 	set {_item} to slot 0 of {_p}
+# 	set {_bind} to level of curse of binding on {_item}
+# 	if {_bind} is not set:
+# 		disenchant {_item}
+# 	repair {_item}
+# 	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+# 	set slot 0 of {_p} to {_item}
+
+# 	set {_item} to slot 1 of {_p}
+# 	set {_bind} to level of curse of binding on {_item}
+# 	if {_bind} is not set:
+# 		disenchant {_item}
+# 	repair {_item}
+# 	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+# 	set slot 1 of {_p} to {_item}
+
+# 	set {_item} to slot 2 of {_p}
+# 	set {_bind} to level of curse of binding on {_item}
+# 	if {_bind} is not set:
+# 		disenchant {_item}
+# 	repair {_item}
+# 	#set line 2 of lore of {_item} to "&b0.3125%% &7Bonus"
+# 	set slot 2 of {_p} to {_item}

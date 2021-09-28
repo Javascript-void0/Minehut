@@ -1,0 +1,173 @@
+function chatRound(n: number, to: number) :: number:
+   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
+
+function chatFormat(n: number) :: text:
+	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
+	loop split {_data} at "|":
+		set {_s::*} to split loop-value at ","
+		{_n} >= 10 ^ {_s::2} parsed as number
+		set {_nn} to chatRound({_n} / 10 ^ {_s::2} parsed as number, 1)
+		return "%{_nn}%%{_s::1}%"
+	return "%{_n}%"
+
+on chat:
+	set {_player} to a new text component of display name of player
+	if group of player is "admin":
+		set {_prefix} to "&6&lADMIN&8]&r &8[&e:L"
+	else if group of player is "mod":
+		set {_prefix} to "&e&lMOD&8]&r &8[&e:L"
+	else:
+		set {_prefix} to "&7:L"
+
+	if group of player is "admin" or "mod":
+		set {_level} to a new text component of "&e%{p_level::%player%}%"
+	else:
+		set {_level} to a new text component of "&7%{p_level::%player%}%"
+	
+	set {_exp} to chatFormat({p_exp::%player%})
+	set {_nextexp} to chatFormat({p_nextexp::%player%})
+	set {_percent} to {p_exp::%player%} / {p_nextexp::%player%}
+	set {_percentFormat} to scoreboardRound({_percent} * 100, 1)
+	if {_percent} is between 0 and 0.05:
+		set {_bar} to " &8[&e&7::::::::::::::::::::&8]"
+	else if {_percent} is between 0.05 and 0.1:
+		set {_bar} to " &8[&e:&7:::::::::::::::::::&8]"
+	else if {_percent} is between 0.1 and 0.15:
+		set {_bar} to " &8[&e::&7::::::::::::::::::&8]"
+	else if {_percent} is between 0.15 and 0.2:
+		set {_bar} to " &8[&e:::&7:::::::::::::::::&8]"
+	else if {_percent} is between 0.2 and 0.25:
+		set {_bar} to " &8[&e::::&7::::::::::::::::&8]"
+	else if {_percent} is between 0.25 and 0.3:
+		set {_bar} to " &8[&e:::::&7:::::::::::::::&8]"
+	else if {_percent} is between 0.3 and 0.35:
+		set {_bar} to " &8[&e::::::&7::::::::::::::&8]"
+	else if {_percent} is between 0.35 and 0.4:
+		set {_bar} to " &8[&e:::::::&7:::::::::::::&8]"
+	else if {_percent} is between 0.4 and 0.45:
+		set {_bar} to " &8[&e::::::::&7::::::::::::&8]"
+	else if {_percent} is between 0.45 and 0.5:
+		set {_bar} to " &8[&e:::::::::&7:::::::::::&8]"
+	else if {_percent} is between 0.5 and 0.55:
+		set {_bar} to " &8[&e::::::::::&7::::::::::&8]"
+	else if {_percent} is between 0.55 and 0.6:
+		set {_bar} to " &8[&e:::::::::::&7:::::::::&8]"
+	else if {_percent} is between 0.6 and 0.65:
+		set {_bar} to " &8[&e::::::::::::&7::::::::&8]"
+	else if {_percent} is between 0.65 and 0.7:
+		set {_bar} to " &8[&e:::::::::::::&7:::::::&8]"
+	else if {_percent} is between 0.7 and 0.75:
+		set {_bar} to " &8[&e::::::::::::::&7::::::&8]"
+	else if {_percent} is between 0.75 and 0.8:
+		set {_bar} to " &8[&e:::::::::::::::&7:::::&8]"
+	else if {_percent} is between 0.8 and 0.85:
+		set {_bar} to " &8[&e::::::::::::::::&7::::&8]"
+	else if {_percent} is between 0.85 and 0.9:
+		set {_bar} to " &8[&e:::::::::::::::::&7:::&8]"
+	else if {_percent} is between 0.9 and 0.95:
+		set {_bar} to " &8[&e::::::::::::::::::&7::&8]"
+	else if {_percent} is between 0.95 and 1:
+		set {_bar} to " &8[&e:::::::::::::::::::&7:&8]"
+	else:
+		set {_bar} to " &8[&e::::::::::::::::::::&7&8]"
+
+	set {_uncolorlevel} to "%{p_level::%player%}%"
+	set {_coins} to chatFormat({p_coins::%player%})
+	set {_wrath} to chatFormat({p_totalwrath::%player%})
+	set {_virtue} to " "
+	set {_stats} to bedrock named "&8[&e:L%{p_level::%player%}%&8] &f%{_player}%" with lore " &8┃ &7Level: &f%{_uncolorlevel}%" and " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" and " " and " &8(&f%{_percentFormat}%%%&8)" and "%{_bar}%" and " " and " &8┃ &7Coins: &f%{_coins}%" and " &8┃ &7Wrath: &f%{_wrath}%" and " &8╹ &7Virtue: &f%{_virtue}%"
+	set hover event of {_player} to a new hover event showing {_stats}
+
+	set {_slotList::hand} to index of player's hotbar slot
+	set {_keywordList::hand::*} to "[hand]", "[item]" and "[i]"
+	set {_slotList::offhand} to 40
+	set {_keywordList::offhand::*} to "[offhand]"
+	set {_slotList::helmet} to 39
+	set {_keywordList::helmet::*} to "[helmet]", "[helm]", "[cap]" and "[head]"
+	set {_slotList::chestplate} to 38
+	set {_keywordList::chestplate::*} to "[chestplate]", "[tunic]" and "[chest]"
+	set {_slotList::leggings} to 37
+	set {_keywordList::leggings::*} to "[leggings]", "[pants]" and "[legs]"
+	set {_slotList::boots} to 36
+	set {_keywordList::boots::*} to "[boots]" and "[feet]"
+	loop indices of {_keywordList::*}:
+		loop {_keywordList::%loop-value%::*}:
+			message contains loop-value-2
+			add {_slotList::%loop-value-1%} to {_items::*}
+			add loop-value-2 to {_keywords::*}
+			exit 1 loop
+	if size of {_keywords::*} > 0:
+		cancel event
+		set {_message} to message
+		loop {_keywords::*}:
+			loop indices of {_keywordList::*}:
+				{_keywordList::%loop-value-2%::*} contains loop-value-1
+				loop {_keywordList::%loop-value-2%::*}:
+					loop-value-3 is not loop-value-1
+					replace all loop-value-3 with "" in {_message}
+			set {_messages::*} to {_message} split at "%loop-value%"
+			set {_temp} to {_messages::1}
+			delete {_messages::1}
+			set {_message} to "&7%{_temp}%%loop-value%&7%join {_messages::*} with """"%"
+			replace all loop-value with "{CIplaceholder}:{%loop-index%}:{CIplaceholder}" in {_message}
+		set {_messages::*} to {_message} split at "{CIplaceholder}"
+		loop {_messages::*}:
+			set {_messages::%loop-index%} to a new text component of "%loop-value%"
+			"%loop-value%" is ":{1}:", ":{2}:", ":{3}:", ":{4}:", ":{5}:" or ":{6}:"
+			set {_itemIndex} to subtext of "%loop-value%" from characters 3 to 3
+			set {_itemIndexes::%{_itemIndex}%} to loop-index
+		loop {_items::*}:
+			delete {_name}
+			set {_item} to loop-value
+			if {_item} is a number:
+				set {_item} to slot {_item} of player's inventory
+			if {_item} is not set:
+				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "&7%{_keywords::%loop-index%}%"
+			else if {_item} is not air:
+				set {_name} to name of {_item}
+				if {_name} is not set:
+					set {_name} to a new translate component from {_item}
+				set {_itemName} to a new text component of "&8[&r%{_name}%&8]&r"
+				set hover event of {_itemName} to a new hover event showing {_item}
+				set {_messages::%{_itemIndexes::%loop-index%}%} to {_itemName}
+			else:
+				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "&7%{_keywords::%loop-index%}%"
+		set {_messageFormat::*} to message format split at "[message]"
+		replace "<[player]>" with "%{_player}%&7:&r" in {_messageFormat::1}
+		replace "world" with "" in {_messageFormat::*}
+		replace "[" with "" in {_messageFormat::*}
+		replace "]" with "" in {_messageFormat::*}
+		replace "build" with "" in {_messageFormat::*}
+		replace "Skyland" with "" in {_messageFormat::*}
+		if message format contains message:
+			set {_messageFormat::*} to message format split at message
+		set {_temp} to a new text component of "%{_messageFormat::1}%"
+		set {_p} to a new text component of "&8[%{_prefix}%"
+		set {_s} to a new text component of "&8] "
+		set {_} to a new text component of "&7: "
+		delete {_messageFormat::1}
+		loop all players:
+			send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
+		send components {_p}, {_level}, {_s}, {_temp}, {_messages::*} and {_messageFormat::*} to console
+		if group of player is "admin":
+			send "[**ADMIN**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+		else if group of player is "mod":
+			send "[**MOD**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+		else:
+			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+	else:
+		cancel event
+		set {_message} to a new text component of "&7%message%"
+		set {_player} to a new text component of {_player}
+		set {_p} to a new text component of "&8[%{_prefix}%"
+		set {_s} to a new text component of "&8] &f"
+		set {_} to a new text component of "&7: "
+		loop all players:
+			send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to loop-player
+		send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to console
+		if group of player is "admin":
+			send "[**ADMIN**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+		else if group of player is "mod":
+			send "[**MOD**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"
+		else:
+			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "ReShaft"

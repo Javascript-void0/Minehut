@@ -1,0 +1,36 @@
+# function timeFormat(t: integer) :: text: 
+# 	set {_h} to floor({_t} / 60)
+# 	set {_m} to {_t} - ({_h} * 60)
+# 	if {_h} is less than 10:
+# 		set {_h} to "0%{_h}%"
+# 	if {_m} is 0:
+# 		set {_m} to "00"
+# 	else if {_m} is less than 10:
+# 		set {_m} to "0%{_m}%"
+# 	set {_time} to "%{_h}%:%{_m}%"
+# 	return {_time}
+
+# command /servertime [<integer>]:
+# 	trigger:
+# 		if player is op:
+# 			if arg-1 is not set:
+# 				send "{@admin} /servertime <integer>"
+# 			else if arg-1 is greater than 1440:
+# 				set {_time} to 1440
+# 			else:
+# 				set {_time} to arg-1
+# 			set {servertime} to {_time}
+# 			set {_format} to timeFormat({_time})
+# 			send "{@admin} &7Server time set to &e%{_format}% &7(&e%{servertime}%&et&7)"
+# 			# send "```Time: %{servertime}%```" to channel with id "886738161491914772" with "ReShaft"
+# 		else:
+# 			send "{@admin} {@permission}"
+
+# every 1 minute in "{@world}":
+# 	add 1 to {servertime}
+# 	if {servertime} is greater than 1440:
+# 		set {servertime} to 0
+# 	if mod({servertime}, 60) is 0:
+# 		set {_format} to timeFormat({servertime})
+# 		broadcast "{@shaft} &7Server Time: &e%{_format}% &7(&e%{servertime}%t&7)"
+	# send "```Time: %{servertime}%```" to channel with id "886738161491914772" with "ReShaft"

@@ -1,0 +1,137 @@
+options:
+	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	world: world
+
+function boneWarrior(e: entity):
+	set {m_maxhealth::%{_e}%} to 50
+	set {m_damage::%{_e}%} to 1
+	set {m_health::%{_e}%} to 50
+	set helmet of {_e} to bone
+	set chestplate of {_e} to iron chestplate
+	set leggings of {_e} to leather leggings
+	dye leggings of {_e} white
+	set boots of {_e} to iron boots
+	set held item of {_e} to bone
+	#enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant held item of {_e} with sharpness 7
+
+function boneArcher(e: entity):
+	set {m_maxhealth::%{_e}%} to 20
+	set {m_damage::%{_e}%} to 2
+	set {m_health::%{_e}%} to 20
+	set helmet of {_e} to feather
+	set chestplate of {_e} to iron chestplate
+	set leggings of {_e} to leather leggings
+	dye leggings of {_e} white
+	set boots of {_e} to iron boots
+	set held item of {_e} to bow
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant held item of {_e} with power 7
+
+function orcCaptain(e: entity):
+	set {m_maxhealth::%{_e}%} to 50
+	set {m_damage::%{_e}%} to 1
+	set {m_health::%{_e}%} to 50
+	set helmet of {_e} to fern
+	set chestplate of {_e} to leather chestplate
+	dye chestplate of {_e} green
+	set leggings of {_e} to netherite leggings
+	set boots of {_e} to leather boots
+	dye boots of {_e} lime
+	set held item of {_e} to iron sword
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant held item of {_e} with power 7
+
+function orcWarrior(e: entity):
+	set {m_maxhealth::%{_e}%} to 50
+	set {m_damage::%{_e}%} to 1
+	set {m_health::%{_e}%} to 50
+	set helmet of {_e} to dark prismarine slab
+	set chestplate of {_e} to leather chestplate
+	dye chestplate of {_e} green
+	set leggings of {_e} to netherite leggings
+	set boots of {_e} to leather boots
+	dye boots of {_e} lime
+	set held item of {_e} to stone sword
+	enchant helmet of {_e} with thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant held item of {_e} with power 7
+
+on combust:
+	if event-entity is zombie or skeleton:
+		cancel event
+
+on spawn of zombie:
+	set {_n} to random integer between 1 and 2
+	if {mobcap} is true:
+		cancel event
+	else if block below event-location is not grass block:
+		cancel event
+	else if {_n} is 1:
+		orcCaptain(event-entity)
+		set name of event-entity to "&8[&e:L100&8] &fOrc:Captain &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
+	else if {_n} is 2:
+		orcWarrior(event-entity)
+		set name of event-entity to "&8[&e:L100&8] &fOrc:Warrior &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
+on spawn of skeleton:
+	set {_n} to random integer between 1 and 2
+	if {mobcap} is true:
+		cancel event
+	else if block below event-location is not grass block:
+		cancel event
+	else if {_n} is 1:
+		boneWarrior(event-entity)
+		set name of event-entity to "&8[&e:L100&8] &fBone:Warrior &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
+	else if {_n} is 2:
+		boneArcher(event-entity)
+		set name of event-entity to "&8[&e:L100&8] &fBone:Archer &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
+on spawn of creeper:
+#	if {mobcap} is false:
+	cancel event
+on spawn of enderman:
+#	if {mobcap} is false:
+	cancel event
+on spawn of witch:
+#	if {mobcap} is false:
+	cancel event
+on spawn of spider:
+#	if {mobcap} is false:
+	cancel event
+on spawn of chicken:
+	cancel event
+on spawn of pig:
+#	if {mobcap} is false:
+	cancel event
+on spawn of cow:
+#	if {mobcap} is false:
+	cancel event
+on spawn of sheep:
+#	if {mobcap} is false:
+	cancel event
+
+every 10 seconds in "{@world}":
+	loop all entities:
+		loop-entity is not a player
+		if "%region at loop-entity%" does not contain "spawn":
+			delete loop-entity
+			delete {m_maxhealth::%loop-entity%}
+			delete {m_health::%loop-entity%}
+			delete {m_damage::%loop-entity%}
+
+	set {_p} to number of players
+	set {_d} to number of entities in "{@world}" - {_p}
+	if {_d} is greater than 50:
+		set {mobcap} to true
+	else:
+		set {mobcap} to false

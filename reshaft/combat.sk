@@ -1,0 +1,138 @@
+options:
+	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	permission: &7Insufficient Permissions
+	admin: &8[&6&lADMIN&8]&f
+	world: world
+
+command /pvp:
+	trigger:
+		if {pvp::%player%} is not set:
+			set {pvp::%player%} to false
+			send "{@shaft} &7PvP &c&lDISABLED"
+		else:
+			delete {pvp::%player%}
+			send "{@shaft} &7PvP &a&lENABLED."
+
+every 5 tick:
+	loop all players:
+		if {staffchat::%loop-player%} is not set:
+			set action bar of loop-player to "&c%{p_health::%loop-player%}%/%{p_maxhealth::%loop-player%}% ❤ &8| &7%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| &c+%{p_damage::%loop-player%}% dmg"
+		if {dead.%loop-player%} is set:
+			teleport loop-player to {spawn}
+
+function death(p: player):
+	set gamemode of {_p} to spectator
+	set {dead.%{_p}%} to true
+	apply blindness of tier 255 to {_p} for 7 seconds
+	apply weakness of tier 255 to {_p} for 7 seconds
+	apply slowness of tier 255 to {_p} for 7 seconds
+	apply wither of tier 255 to {_p} for 7 seconds
+	set {_time} to 6
+	send {_p} title "&c&lYOU DIED" with subtitle "&7You lost &e50%% &7 of your coins" for 3 seconds
+	set {_half} to {p_coins::%{_p}%} / 2
+	remove {_half} from {p_coins::%{_p}%}
+	wait 3 second
+	loop 5 times:
+		remove 1 from {_time}
+		send {_p} title "&8Grim: &7Welcome back ☠" with subtitle "&cRespawn in: %{_time}%s" for 1 second
+		wait 1 second
+	teleport {_p} to {spawn}
+	set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
+	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
+	delete {dead.%{_p}%}
+	set gamemode of {_p} to survival
+
+function deathEffect(e: entity):
+	set {_x} to x-coordinate of {_e}
+	set {_y} to y-coordinate of {_e}
+	set {_z} to z-coordinate of {_e}
+	execute console command "/particle crit %{_x}% %{_y}% %{_z}% 0.3 0.3 0.3 1 100"
+	execute console command "/particle damage_indicator %{_x}% %{_y}% %{_z}% 0.2 1.2 0.2 0 8"
+
+on damage:
+	set damage to 0
+	if {dead.%{victim}%} is set:
+		cancel event
+	if attacker is a player:
+		victim is a player
+		{pvp::%victim%} is set
+		cancel event
+		set action bar of attacker to "{@shaft} &7PvP is &c&lDISABLED &7 for %victim%"
+		stop
+	if attacker is set:
+		attacker is a player
+		victim is a player
+		{pvp::%attacker%} is set
+		cancel event
+		set action bar of attacker to "{@shaft} &7Your PvP is &c&lDISABLED"
+		stop
+	if victim is not a player:
+		if attacker is not a player:
+			cancel event
+		else:
+			remove {p_damage::%attacker%} from {m_health::%victim%}
+			set {_name::*} to name of victim split at " "
+			set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{m_health::%victim%}%&c/%{m_maxhealth::%victim%}% ❤&7)"
+			# damage counter
+			set {_location} to random element out of blocks in radius 1 of victim
+			add 3 to {_location}'s y-coordinate
+			create holo object "&c-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
+			wait 1 second
+			delete holo object "damage.%{_location}%"
+		if {m_health::%victim%} is less than 1:
+			attacker is a player
+			deathEffect(victim)
+			delete victim
+			add 1 to {p_mkill::%attacker%}
+			delete {m_maxhealth::%victim%}
+			delete {m_health::%victim%}
+			delete {m_damage::%victim%}
+	if victim is a player:
+		if victim is blocking with a shield:
+			cancel event
+			set {_shield} to slot 40 of victim
+			set slot 40 of victim to air
+			wait 0.7 second
+			set slot 40 of victim to {_shield}
+		# else if damage was caused by thorns:
+		# 	if {p_defense::%victim%} is greater than 0:
+		# 		remove 1 from {p_defense::%victim%}
+		# 	else:
+		# 		remove 1 from {p_health::%victim%}
+		# 	stop
+		else if {p_defense::%victim%} is greater than 0:
+			remove {m_damage::%attacker%} from {p_defense::%victim%}
+			stop
+		if attacker is player:
+			remove {p_damage::%attacker%} from {p_health::%victim%}
+		if attacker is not a player:
+			remove {m_damage::%attacker%} from {p_health::%victim%}
+		if {p_health::%victim%} is less than 1:
+			death(victim)
+			cancel event
+			if attacker is not a player:
+				victim is player
+				if projectile is set:
+					broadcast "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name%"
+				else:
+					broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
+				add 1 to {p_mdeath::%victim%}
+			else if attacker is a player:
+				victim is player
+				add 1 to {p_pkill::%attacker%}
+				add 1 to {p_pdeath::%victim%}
+				if projectile is set:
+					set {_msg} to new text component of "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name% using "
+				else:
+					set {_msg} to new text component of "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name% using "
+				set {_weapon} to new text component of "&8[&f%name of tool of attacker%&8]"
+				set {_info} to tool of attacker
+				set hover event of {_weapon} to a new hover event showing {_info}
+				loop all players:
+					send components {_msg} and {_weapon} to loop-player
+
+every 3 seconds in "{@world}":
+	loop all players:
+		if {p_defense::%loop-player%} is less than {p_maxdefense::%loop-player%}:
+			{dead.%loop-player%} is not set
+			add 1 to {p_defense::%loop-player%}

@@ -1,0 +1,84 @@
+#on spawn:
+#	if "%Spawn Reason%" is not "Spawner":
+#		cancel event
+
+# function newWardrobe(p: player):
+# 	open virtual chest inventory with size 4 named "&8Wardrobe" to {_p}
+# 	format gui slot 2 of {_p} with {2_helmet}
+# 	format gui slot 4 of {_p} with {3_helmet}
+# 	format gui slot 6 of {_p} with {4_helmet}
+# 	format gui slot 8 of {_p} with {5_helmet}
+# 	if helmet of {_p} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
+# 		format gui slot 0 of {_p} with helmet of {_p}
+# 		set {_helmet} to helmet of {_p}
+# 	else if isGlass({_p}, 12) is true:
+# 		format gui slot 0 of {_p} with slot 12 of {_p}
+# 		set {_helmet} to slot 12 of {_p}
+# 	else if isGlass({_p}, 21) is true:
+# 		format gui slot 0 of {_p} with slot 21 of {_p}
+# 		set {_helmet} to slot 21 of {_p}
+# 	else if isGlass({_p}, 22) is true:
+# 		format gui slot 0 of {_p} with slot 22 of {_p}
+# 		set {_helmet} to slot 22 of {_p}
+# 	else if isGlass({_p}, 23) is true:
+# 		format gui slot 0 of {_p} with slot 23 of {_p}
+# 		set {_helmet} to slot 23 of {_p}
+# 	else if isGlass({_p}, 30) is true:
+# 		format gui slot 0 of {_p} with slot 30 of {_p}
+# 		set {_helmet} to slot 30 of {_p}
+# 	else if isGlass({_p}, 31) is true:
+# 		format gui slot 0 of {_p} with slot 31 of {_p}
+# 		set {_helmet} to slot 31 of {_p}
+# 	else if isGlass({_p}, 32) is true:
+# 		format gui slot 0 of {_p} with slot 32 of {_p}
+# 		set {_helmet} to slot 32 of {_p}
+# 	format gui slot 11 of {_p} with {2_chestplate}
+# 	format gui slot 13 of {_p} with {3_chestplate}
+# 	format gui slot 15 of {_p} with {4_chestplate}
+# 	format gui slot 17 of {_p} with {5_chestplate}
+# 	if chestplate of {_p} is chestplate:
+# 		format gui slot 9 of {_p} with chestplate of {_p}
+# 		set {_chestplate} to chestplate of {_p}
+# 	else:
+# 		format gui slot 9 of {_p} with slot 13 of {_p}
+# 		set {_chestplate} to slot 13 of {_p}
+# 	format gui slot 18 of {_p} with leggings of {_p}
+# 	format gui slot 20 of {_p} with {2_leggings}
+# 	format gui slot 22 of {_p} with {3_leggings}
+# 	format gui slot 24 of {_p} with {4_leggings}
+# 	format gui slot 26 of {_p} with {5_leggings}
+# 	set {_leggings} to leggings of {_p}
+# 	format gui slot 29 of {_p} with {2_boots}
+# 	format gui slot 31 of {_p} with {3_boots}
+# 	format gui slot 33 of {_p} with {4_boots}
+# 	format gui slot 35 of {_p} with {5_boots}
+# 	if boots of {_p} is not {hermes}:
+# 		format gui slot 27 of {_p} with boots of {_p}
+# 		set {_boots} to boots of {_p}
+# 	else:
+# 		format gui slot 27 of {_p} with slot 14 of {_p}
+# 		set {_boots} to slot 14 of {_p}
+
+# command /wardrobe:
+# 	trigger:
+# 		if {w_wardrobe.%player%::*} is not set:
+# 			newWardrobe(player)
+# 		else:
+# 			open virtual chest with 4 rows named "&8Wardrobe" to player
+# 			loop ((rows of player's current inventory)*9) times:
+# 				set slot (loop-number)-1 of player's current inventory to {w_wardrobe.%player%::%(loop-number)-1%}
+
+# command /wardrobeclear:
+# 	trigger:
+# 		delete {w_wardrobe.%player%::*}
+# 		send "done"
+
+# on inventory close:
+# 	delete {w_wardrobe.%player%::*}
+# 	loop ((rows of player's current inventory)*9) times:
+# 		set {w_wardrobe.%player%::%(loop-number)-1%} to slot (loop-number)-1 of player's current inventory
+
+# on inventory click:
+# 	inventory is "&8Wardrobe"
+# 	{unlock.%player%} is set
+# 	cancel event

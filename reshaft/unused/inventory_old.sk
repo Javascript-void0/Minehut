@@ -1,0 +1,126 @@
+	# if clicked slot is 0:
+	# 	gamemode of player is survival
+	# 	set {_i} to slot 0 of player
+	# 	set slot 40 of player to {_i}
+	# if clicked slot is 1:
+	# 	gamemode of player is survival
+	# 	set {_i} to slot 1 of player
+	# 	set slot 40 of player to {_i}
+	# if clicked slot is 2:
+	# 	gamemode of player is survival
+	# 	set {_i} to slot 2 of player
+	# 	set slot 40 of player to {_i}
+
+
+
+	# if clicked slot is 40:
+	# 	gamemode of player is survival
+	# 	delete slot 40 of player
+	# if clicked slot is 12:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 15000, 12)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 	hat(player, clicked item, 12)
+	# else if clicked slot is 13:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 15000, 13)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 	hat(player, clicked item, 13)
+	# else if clicked slot is 14:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 15000, 14)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 	hat(player, clicked item, 14)
+	# else if clicked slot is 21:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 10000, 21)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 		apply absorption 5 to player for 9999 days
+	# 	else:
+	# 		remove absorption from player
+	# 	hat(player, clicked item, 21)
+	# else if clicked slot is 22:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 10000, 22)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 	hat(player, clicked item, 22)
+	# else if clicked slot is 23:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 10000, 23)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 		apply resistance 2 to player for 9999 days
+	# 	else:
+	# 		remove resistance from player
+	# 	hat(player, clicked item, 23)
+	# if clicked slot is 30:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 5000, 30)
+	# 		stop
+	# 	if clicked item is not light gray stained glass:
+	# 		hatreset(player)
+	# 		set player's flight mode to true
+	# 	else:
+	# 		set player's flight mode to false
+	# 	hat(player, clicked item, 30)
+	# else if clicked slot is 31:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 3000, 31)
+	# 		stop
+	# 	set {_cur} to chestplate of player
+	# 	set {_new} to clicked item
+	# 	set chestplate of player to {_new}
+	# 	set slot 31 of player to {_cur}
+	# else if clicked slot is 32:
+	# 	cancel event
+	# 	if name of clicked item contains "&c&lLOCKED":
+	# 		unlock(player, 5000, 32)
+	# 		stop
+	# 	set {_cur} to boots of player
+	# 	set {_new} to clicked item
+	# 	set boots of player to {_new}
+	# 	set slot 32 of player to {_cur}
+
+		if clicked slot is 0 or 1 or 2 or 3 or 4 or 5:
+		if clicked slot is 0:
+			set {_slot} to 0
+		else if clicked slot is 1:
+			set {_slot} to 1
+		else if clicked slot is 2:
+			set {_slot} to 2
+		else if clicked slot is 3:
+			set {_slot} to 3
+		else if clicked slot is 4:
+			set {_slot} to 4
+		else if clicked slot is 5:
+			set {_slot} to 5
+		if clicked type is left mouse button:
+			enchants(player, clicked item, {_slot})
+		if clicked type is left mouse button with shift:
+			wrathUpgrade(player, clicked item, {_slot})
+		else if clicked type is right mouse button:
+			if clicked slot is 0 or 1 or 2:
+				gamemode of player is survival
+				toolbox(player)
+				stop
+			else:
+				cancel event

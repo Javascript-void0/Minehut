@@ -130,3 +130,61 @@ function gradient(input: string, color-from: integers, color-to: integers) :: st
 		set {_r} to "%{_r} ? """"%%rgbToHex({_color-from::*})%%{_format} ? """"%%subtext of {_input} from indices loop-number to loop-number%"
 		set {_color-from::*} to ({_color-from::1} + {_i::1}), ({_color-from::2} + {_i::2}) and ({_color-from::3} + {_i::3})
 	return colored {_r}
+
+	# ==== World Border ====
+
+# command /serverstigma [<text>] [<integer>]:
+# 	trigger:
+# 		if player is op:
+# 			if arg-1 is not "add" or "remove" or "set" or "reset":
+# 				send "{@admin} /serverstigma <add remove set reset>"
+# 			else if arg-2 is not set:
+# 				arg-1 is not "reset"
+# 				send "{@admin} /serverstigma <%arg-1%> <integer>"
+# 				send "{@admin} &7Added &e%arg-2% &7from server stigma"
+# 			if arg-1 is "add":
+# 				add arg-2 to {serverstigma}
+# 			else if arg-1 is "remove":
+# 				remove arg-2 from {serverstigma}
+# 				send "{@admin} &7Removed &e%arg-2% &7from server stigma"
+# 			else if arg-1 is "set":
+# 				set {serverstigma} to arg-2
+# 				send "{@admin} &7Server stigma set to &e%arg-2%"
+# 			else if arg-1 is "reset":
+# 				set {serverstigma} to 0
+# 				send "{@admin} &7Server stigma set to &e0"
+# 		else:
+# 			send "{@admin} {@permission}"
+
+# function setWorldBorder(n: integer):
+# 	make console execute "/minecraft:worldborder set %{_n}%"
+# 	broadcast "{@shaft} &7Worldborder moved to &e%{_n}% &7blocks"
+
+# every 5 seconds in "{@world}":
+# 	set {_border} to floor({serverstigma} ^ (1/2))
+# 	add 102 to {_border}
+# 	{worldborder} is not {_border}
+# 	set {worldborder} to {_border}
+# 	setWorldBorder({worldborder})
+		
+# command /worldborder [<integer>]:
+# 	trigger:
+# 		if player is op:
+# 			setWorldBorder(arg-1)
+# 			set {worldborder} to arg-1
+# 		else:
+# 			send "{@admin} {@permission}"
+
+# every 2 seconds in "world":
+# 	loop all players:
+# 		"%regions at loop-player%" does not contain "spawn"
+# 		loop all blocks in radius 10 around loop-player:
+# 			if loop-block is water or lava:
+# 				delete loop-block		
+# on flow:
+# 	if "%regions at event-block%" does not contain "spawn":
+# 		cancel event
+
+# ======== MOB SPAWN ======== MOB SPAWN ========
+# ======== MOB SPAWN ======== MOB SPAWN ========
+# ======== MOB SPAWN ======== MOB SPAWN ========
