@@ -83,14 +83,10 @@ on damage:
 			attacker is a player
 			deathEffect(victim)
 			delete victim
-			add 1 to {p_mkill::%attacker%}
+			add 1 to {p_kill::%attacker%}
 			delete {m_maxhealth::%victim%}
 			delete {m_health::%victim%}
 			delete {m_damage::%victim%}
-			add 1 to {p_exp::%attacker%}
-			set {action::%attacker%} to "+1 exp"
-			wait 2 seconds
-			delete {action::%attacker%}
 	if victim is a player:
 		if victim is blocking with a shield:
 			cancel event
@@ -120,7 +116,7 @@ on damage:
 				add 1 to {p_mdeath::%victim%}
 			else if attacker is a player:
 				victim is player
-				add 1 to {p_pkill::%attacker%}
+				add 1 to {p_kill::%attacker%}
 				add 1 to {p_pdeath::%victim%}
 				if projectile is set:
 					set {_msg} to new text component of "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name% using "

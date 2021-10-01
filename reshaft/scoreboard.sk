@@ -72,8 +72,8 @@ every second:
 		if {action::%loop-player%} is set:
 			set score "   &7%{action::%loop-player%}% " in sidebar of loop-player to 6
 		else:
-			set score "   &7+" in sidebar of loop-player to 6
-		set score "  " in sidebar of loop-player to 5
+			set score "   &8_____" in sidebar of loop-player to 6
+		set score "&b" in sidebar of loop-player to 5
 		set score " &e&lBALANCE" in sidebar of loop-player to 4
 		set {_coin} to scoreboardFormat({p_coins::%loop-player%})
 		set score " &8┃ &7Coins: &f%{_coin}%" in sidebar of loop-player to 3
