@@ -73,7 +73,7 @@ command /setspawn:
 		else:
 			send "{@admin} {@permission}"
 
-every 10 minutes in "{@world}":
+every 10 minutes:
 	loop all players:
 		message "{@discord} &7Join our &eDiscord &7for events, updates, and extra features (offline bonuses) <tooltip:&6Click to join!><link:https://discord.gg/y333BGhxFP>&8[&6&lCLICK HERE&8]<reset>" to loop-player
 
@@ -118,14 +118,6 @@ command /pl:
 		else:
 			send "&fPlugins (4): &aNone&f, &aOf&f, &aYour&f, &aBusiness"
 
-on load:
-	execute console command "/mv unload survdupe_the_end"
-	execute console command "/mv unload survdupe"	
-	execute console command "/mv unload Rykene"	
-	execute console command "/mv unload world_the_end"	
-	execute console command "/mv unload build_the_end"	
-	execute console command "/mv unload Xethyr"			
-
 command /blessing [<integer>]:
 	trigger:
 		if player is op:
@@ -157,14 +149,10 @@ command /blessing [<integer>]:
 # 		set {p_totalcoins::%player%} to 0
 # 	if {p_totalwrath::%player%} is not set:
 # 		set {p_totalwrath::%player%} to 0
-# 	if {p_mkill::%player%} is not set:
-# 		set {p_mkill::%player%} to 0
-# 	if {p_mdeath::%player%} is not set:
-# 		set {p_mdeath::%player%} to 0
-# 	if {p_pkill::%player%} is not set:
-# 		set {p_pkill::%player%} to 0
-# 	if {p_pdeath::%player%} is not set:
-# 		set {p_pdeath::%player%} to 0
+# 	if {p_kill::%player%} is not set:
+# 		set {p_kill::%player%} to 0
+# 	if {p_death::%player%} is not set:
+# 		set {p_death::%player%} to 0
 # 	if {p_rebirth::%player%} is not set:
 # 		set {p_rebirth::%player%} to 0
 # 	if {p_damage::%player%} is not set:
@@ -203,14 +191,10 @@ command /statcheck [<player>]:
 			set {p_totalcoins::%arg-1%} to 0
 		if {p_totalwrath::%arg-1%} is not set:
 			set {p_totalwrath::%arg-1%} to 0
-		if {p_mkill::%arg-1%} is not set:
-			set {p_mkill::%arg-1%} to 0
-		if {p_mdeath::%arg-1%} is not set:
-			set {p_mdeath::%arg-1%} to 0
-		if {p_pkill::%arg-1%} is not set:
-			set {p_pkill::%arg-1%} to 0
-		if {p_pdeath::%arg-1%} is not set:
-			set {p_pdeath::%arg-1%} to 0
+		if {p_kill::%arg-1%} is not set:
+			set {p_kill::%arg-1%} to 0
+		if {p_death::%arg-1%} is not set:
+			set {p_death::%arg-1%} to 0
 		if {p_rebirth::%arg-1%} is not set:
 			set {p_rebirth::%arg-1%} to 0
 		if {p_damage::%arg-1%} is not set:

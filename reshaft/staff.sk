@@ -26,7 +26,7 @@ on chat:
 		loop all players:
 			if loop-player has permission "sc.staffchat":
 				send formatted "{@staff} %player's prefix%&r%player's display name%&7: &r%message%" to loop-player
-every 1 second in "{@world}":
+every 1 second:
 	loop all players:
 		if {staffchat::%loop-player%} is true:
 			send action bar "{@staff} &aEnabled" to loop-player
@@ -80,8 +80,8 @@ command /clearlag:
 	permission: staff
 	permission message: {@staff} {@permission}
 	trigger:
-		set {_n} to size of all entities in "world"
-		delete all entities in "world"
+		set {_n} to size of all entities
+		delete all entities
 		loop {m_maxhealth::*}:
 			if {m_maxhealth::%loop-value%} is not a player:
 				delete {m_maxhealth::%loop-value%}

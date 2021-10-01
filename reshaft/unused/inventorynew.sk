@@ -31,8 +31,7 @@ function stats(p: player):
 	format gui slot 12 of {_p} with grass block named "&a&lSTIGMA" with lore "&7Since Last Rebirth: &a%{_stigma}% &7stigma" and "&7Total: &a%{_total}% &7stigma"
 	format gui slot 13 of {_p} with nether star named "&b&lVIRTUE" with lore "&7Current: &b%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
 	# format gui slot 16 of {_p} with nether star named "&b&lREBIRTH" with lore "&7Total: &b%{p_rebirth::%{_p}%}% &7times"
-	format gui slot 19 of {_p} with zombie skull named "&c&lPvE" with lore "&7Kills: &c%{p_mkill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{p_mdeath::%{_p}%}% &7deaths"
-	format gui slot 20 of {_p} with skeleton skull named "&c&lPvP" with lore "&7Kills: &c%{p_pkill::%{_p}%}% &7players killed" and "&7Deaths: &c%{p_pdeath::%{_p}%}% &7deaths"
+	format gui slot 19 of {_p} with diamond sword named "&c&lCombat" with lore "&7Kills: &c%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{p_death::%{_p}%}% &7deaths"
 
 command /dailyreset [<offline player>]:
 	trigger:

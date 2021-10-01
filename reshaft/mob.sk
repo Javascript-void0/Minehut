@@ -12,10 +12,9 @@ function boneWarrior(e: entity):
 	dye leggings of {_e} white
 	set boots of {_e} to iron boots
 	set held item of {_e} to bone
-	#enchant helmet of {_e} with thorns
-	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
-	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
-	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant held item of {_e} with sharpness 7
 
 function boneArcher(e: entity):
@@ -28,10 +27,10 @@ function boneArcher(e: entity):
 	dye leggings of {_e} white
 	set boots of {_e} to iron boots
 	set held item of {_e} to bow
-	enchant helmet of {_e} with thorns
-	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
-	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
-	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant helmet of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant held item of {_e} with power 7
 
 function orcCaptain(e: entity):
@@ -45,10 +44,10 @@ function orcCaptain(e: entity):
 	set boots of {_e} to leather boots
 	dye boots of {_e} lime
 	set held item of {_e} to iron sword
-	enchant helmet of {_e} with thorns
-	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
-	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
-	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant helmet of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant held item of {_e} with power 7
 
 function orcWarrior(e: entity):
@@ -62,10 +61,10 @@ function orcWarrior(e: entity):
 	set boots of {_e} to leather boots
 	dye boots of {_e} lime
 	set held item of {_e} to stone sword
-	enchant helmet of {_e} with thorns
-	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
-	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
-	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5#, and thorns
+	enchant helmet of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant chestplate of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
+	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant held item of {_e} with power 7
 
 on combust:
@@ -76,9 +75,9 @@ on spawn of zombie:
 	set {_n} to random integer between 1 and 2
 	if {mobcap} is true:
 		cancel event
-	else if block below event-location is not grass block:
-		cancel event
-	else if {_n} is 1:
+	# else if block below event-location is not grass block:
+	# 	cancel event
+	if {_n} is 1:
 		orcCaptain(event-entity)
 		set name of event-entity to "&8[&e:L100&8] &fOrc:Captain &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
 	else if {_n} is 2:
@@ -88,50 +87,35 @@ on spawn of skeleton:
 	set {_n} to random integer between 1 and 2
 	if {mobcap} is true:
 		cancel event
-	else if block below event-location is not grass block:
-		cancel event
-	else if {_n} is 1:
+	# else if block below event-location is not grass block:
+	# 	cancel event
+	if {_n} is 1:
 		boneWarrior(event-entity)
 		set name of event-entity to "&8[&e:L100&8] &fBone:Warrior &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
 	else if {_n} is 2:
 		boneArcher(event-entity)
 		set name of event-entity to "&8[&e:L100&8] &fBone:Archer &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
 on spawn of creeper:
-#	if {mobcap} is false:
 	cancel event
 on spawn of enderman:
-#	if {mobcap} is false:
 	cancel event
 on spawn of witch:
-#	if {mobcap} is false:
 	cancel event
 on spawn of spider:
-#	if {mobcap} is false:
-	cancel event
-on spawn of chicken:
-	cancel event
-on spawn of pig:
-#	if {mobcap} is false:
-	cancel event
-on spawn of cow:
-#	if {mobcap} is false:
-	cancel event
-on spawn of sheep:
-#	if {mobcap} is false:
 	cancel event
 
-every 10 seconds in "{@world}":
+every 10 seconds:
 	loop all entities:
 		loop-entity is not a player
-		if "%region at loop-entity%" does not contain "spawn":
+		loop-entity is not a horse
+		if "%region at loop-entity%" contains "spawn":
 			delete loop-entity
 			delete {m_maxhealth::%loop-entity%}
 			delete {m_health::%loop-entity%}
 			delete {m_damage::%loop-entity%}
-
 	set {_p} to number of players
-	set {_d} to number of entities in "{@world}" - {_p}
-	if {_d} is greater than 50:
+	set {_d} to number of entities - {_p}
+	if {_d} is greater than 200:
 		set {mobcap} to true
 	else:
 		set {mobcap} to false

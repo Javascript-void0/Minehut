@@ -7,7 +7,7 @@ options:
 	world: world
 
 function inventoryRound(n: number, to: number) :: number:
-   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
+	return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
 
 function inventoryFormat(n: number) :: text:
 	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
@@ -18,77 +18,19 @@ function inventoryFormat(n: number) :: text:
 		return "%{_nn}%%{_s::1}%"
 	return "%{_n}%"
 
-function arrowShop(p: player):
-	open virtual chest inventory with size 1 named "&8Arrow Shop" to {_p}
-	format gui slot 0 of {_p} with arrow
-
-function toolbox(p: player):
-	open virtual chest inventory with size 3 named "&8Tool Box" to {_p}
-
-command /invlock:
-	trigger:
-		if player is op:
-			if {unlock.%player%} is set:
-				delete {unlock.%player%}
-				send "{@admin} &7Inventory &c&lLOCKED"
-			else:
-				set {unlock.%player%} to true
-				send "{@admin} &7Inventory &a&lUNLOCKED"
-		else:
-			send "{@admin} {permission}"
-
-on inventory click:	
-	if {unlock.%player%} is set:
-		stop
-	if name of event-inventory is "&8Wardrobe":
-		if clicked item is helmet of player or chestplate of player or leggings of player or boots of player:
-			armorUpgrade(player)
-			stop
-	if name of event-inventory is "&8Upgrades":
-		if clicked item is helmet of player or chestplate of player or leggings of player or boots of player:
-			wardrobe(player)
-			stop
-	if name of event-inventory is not "Crafting":
-		cancel event
-		stop
-	if clicked slot is 36 or 37 or 38 or 39:
-		gamemode of player is survival
-		if clicked type is left mouse button:
-			armorUpgrade(player)
-		else if clicked type is right mouse button:
-			wardrobe(player)
-	if group of player is not "admin":
-		cancel event
-
-function settings(p: player):
-	open virtual chest inventory with size 1 named "&8Settings" to {_p}
-	if {pvp::%{_p}%} is false:
-		format gui slot 0 of {_p} with red dye named "&7&lPvP &c&lDISABLED" with lore " &8╹ &7Click to Enable (/pvp)" to run:
-			delete {pvp::%{_p}%}
-			settings({_p})
-	else:
-		format gui slot 0 of {_p} with lime dye named "&7&lPvP &a&lENABLED" with lore " &8╹ &7Click to Disable (/pvp)" to run:
-			set {pvp::%{_p}%} to false
-			settings({_p})
-	format gui slot 1 of {_p} with nether star named "&7&lSPAWN" with lore " &8╹ Click to Teleport" to run:
-		teleport {_p} to {spawn}
-	set {_waited} to difference between {daily.%{_p}%.lastused} and now
-	set {_next} to 1 day after {daily.%{_p}%.lastused}
-	if {_waited} is less than 24 hours:
-		format gui slot 8 of {_p} with minecart named "&7&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&7┃ &7Already &cClaimed " and "&7╹ &b+100 &7Wrath" to run:
-			send "{@shaft} &7Your daily reward was already claimed at &e%{daily.%{_p}%.lastused}%" to {_p}
-			settings({_p})
-	else:
-		if {_waited} is not set:
-			set {_m} to "Never Used"
-		else:
-			set {_m} to "%{daily.%{_p}%.lastused}%"
-		format gui slot 8 of {_p} with minecart with chest named "&7&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to &aClaim" and " &8╹ &e+100 &7Wrath" to run:
-			set {daily.%{_p}%.lastused} to now
-			send "{@shaft} &7You claimed your daily reward at &e%now%" to {_p}
-			add 100 to {p_wrath::%{_p}%}
-			settings({_p})
-	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
+function stats(p: player):
+	open virtual chest inventory with size 3 named "&e&lSTATS: &8%{_p}%" to {_p}
+	# format gui slot 2 of {_p} with compass named "&6Position: &f%location of {_p}%" with lore "&7 > For those without F3...?"
+	format gui slot 10 of {_p} with head of {_p} named "&7:L%{p_level::%{_p}%}%&8: &e%display name of {_p}%" with lore "&6Playtime: &7%time played of {_p}%"
+	set {_coins} to inventoryFormat({p_coins::%{_p}%})
+	set {_totalcoins} to inventoryFormat({p_totalcoins::%{_p}%})
+	format gui slot 12 of {_p} with gold block named "&6&lCOINS" with lore "&7Current: &6%{_coins}% &7coins" and "&7Total: &6%{_totalcoins}% &7coins"
+	set {_wrath} to inventoryFormat({p_wrath::%{_p}%})
+	set {_totalwrath} to inventoryFormat({p_totalwrath::%{_p}%})
+	format gui slot 13 of {_p} with bell named "&c&lWRATH" with lore "&7Current: &c%{_wrath}% &7wrath" and "&7Total: &c%{_totalwrath}% &7wrath"
+	format gui slot 14 of {_p} with nether star named "&b&lVIRTUE" with lore "&7Current: &b%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
+	# format gui slot 16 of {_p} with nether star named "&b&lREBIRTH" with lore "&7Total: &b%{p_rebirth::%{_p}%}% &7times"
+	format gui slot 15 of {_p} with diamond sword named "&c&lCombat" with lore "&7Kills: &c%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{p_death::%{_p}%}% &7deaths"
 
 command /dailyreset [<offline player>]:
 	trigger:
@@ -106,181 +48,58 @@ command /stats [<offline player>]:
 		else:
 			stats(arg-1)
 
-function stats(p: player):
-	open virtual chest inventory with size 3 named "&e&lSTATS: &8%{_p}%" to {_p}
-	format gui slot 2 of {_p} with compass named "&6Position: &f%location of {_p}%" with lore "&7 > For those without F3...?"
-	format gui slot 4 of {_p} with head of {_p} named "&7:L%{p_level::%{_p}%}%&8: &e%display name of {_p}%"
-	format gui slot 6 of {_p} with clock named "&6Playtime: &f%time played of {_p}%" with lore "&7 > Total time spent online"
-	set {_coins} to inventoryFormat({p_coins::%{_p}%})
-	set {_totalcoins} to inventoryFormat({p_totalcoins::%{_p}%})
-	format gui slot 10 of {_p} with gold block named "&6&lCOINS" with lore "&7Current: &6%{_coins}% &7coins" and "&7Total: &6%{_totalcoins}% &7coins"
-	set {_wrath} to inventoryFormat({p_wrath::%{_p}%})
-	set {_totalwrath} to inventoryFormat({p_totalwrath::%{_p}%})
-	format gui slot 12 of {_p} with bell named "&c&lWRATH" with lore "&7Current: &c%{_wrath}% &7wrath" and "&7Total: &c%{_totalwrath}% &7wrath"
-	# set {_total} to inventoryFormat({p_totalstigma::%{_p}%})
-	# set {_stigma} to inventoryFormat({p_stigma::%{_p}%})
-	format gui slot 14 of {_p} with grass block named "&a&lSTIGMA" with lore "&7Since Last Rebirth: &a%{_stigma}% &7stigma" and "&7Total: &a%{_total}% &7stigma"
-	format gui slot 15 of {_p} with cookie named "&b&lVIRTUE" with lore "&7Current: &b%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
-	format gui slot 16 of {_p} with nether star named "&b&lREBIRTH" with lore "&7Total: &b%{p_rebirth::%{_p}%}% &7times"
-	format gui slot 19 of {_p} with zombie skull named "&c&lPvE" with lore "&7Kills: &c%{p_mkill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{p_mdeath::%{_p}%}% &7deaths"
-	format gui slot 20 of {_p} with skeleton skull named "&c&lPvP" with lore "&7Kills: &c%{p_pkill::%{_p}%}% &7players killed" and "&7Deaths: &c%{p_pdeath::%{_p}%}% &7deaths"
+on right click:
+	if player's tool is pickaxe or axe or shovel:
+		if player's tool is wooden axe:
+			stop
+	else if name of player's tool is "&e&lMENU":
+		menu(player)
 
-function removeLoreLabel(t: text) :: number:
-	set {_n} to uncolored {_t}
-	replace "Wrath: [+" with "" in {_n}
-	replace "]" with "" in {_n}
-	set {_r} to {_n} parsed as number
-	return {_r}
-
-# changed tool function?
-function wrathUpgrade(p: player, i: item, s: integer):
-	set {_1} to removeLoreLabel(line 1 of lore of {_i})
-	set {_cost} to {_1}^2
-	# set {_costFormat} to inventoryFormat({_cost})
-	if {p_wrath::%{_p}%} is greater than {_cost}:
-		remove {_cost} from {p_wrath::%{_p}%}
-		add 1 to {_1}
-		set line 1 of lore of {_i} to "&eWrath: &8[&e+%{_1}%&8]"
-		set slot {_s} of inventory of {_p} to {_i}
-		#tool({_p}, tool of {_p})
+function menu(p: player):
+	open virtual chest inventory with size 3 named "&8Menu" to {_p}
+	if {pvp::%{_p}%} is false:
+		format gui slot 0 of {_p} with red dye named "&7&lPvP &c&lDISABLED" with lore " &8╹ &7Click to Enable (/pvp)" to run:
+			delete {pvp::%{_p}%}
+			menu({_p})
 	else:
-		send "{@shaft} {@wrath}" to {_p}
+		format gui slot 0 of {_p} with lime dye named "&7&lPvP &a&lENABLED" with lore " &8╹ &7Click to Disable (/pvp)" to run:
+			set {pvp::%{_p}%} to false
+			menu({_p})
+	format gui slot 1 of {_p} with nether star named "&7&lSPAWN" with lore " &8╹ &7Click to Teleport" to run:
+		teleport {_p} to {spawn}
+	set {_waited} to difference between {daily.%{_p}%.lastused} and now
+	set {_next} to 1 day after {daily.%{_p}%.lastused}
+	if {_waited} is less than 24 hours:
+		format gui slot 8 of {_p} with red stained glass named "&7&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&7┃ &7Already &cClaimed " and "&7╹ &b+100 &7Wrath" to run:
+			send "{@shaft} &7Your daily reward was already claimed at &e%{daily.%{_p}%.lastused}%" to {_p}
+			menu({_p})
+	else:
+		if {_waited} is not set:
+			set {_m} to "Never Used"
+		else:
+			set {_m} to "%{daily.%{_p}%.lastused}%"
+		format gui slot 8 of {_p} with lime stained glass named "&7&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to &aClaim" and " &8╹ &e+100 &7Wrath" to run:
+			set {daily.%{_p}%.lastused} to now
+			send "{@shaft} &7You claimed your daily reward at &e%now%" to {_p}
+			add 100 to {p_wrath::%{_p}%}
+			menu({_p})
+	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
+	format gui slot 2 of {_p} with book named "&7&lSTATS" with lore " &8╹ &7Click to view" to run:
+		stats(player)
 
-function enchants(p: player, i: item, s: integer):
-	open virtual chest inventory with size 1 named "&8Library" to {_p}
-	format gui slot 0 of {_p} with {_i}
-	set {_l} to level of unbreaking of {_i}
-	if {_l} is not set:
-		set {_l} to 1
-	set {_c} to ({_l} + 1) * 500000
-	set {_cf} to inventoryFormat({_c})
-	if {_l} is greater or equal to {p_level::%{_p}%}:
-		set {_c} to "&c&lMAX"
-	format gui slot 2 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Unbreaking" and "&7Increase longevity of the tool" and " &8┃ &7Current: &e%{_l}%" and " &8╹ &7Max: &e%{p_level::%{_p}%}%" and "&7Cost: &e%{_cf}% &7Coins" with all flags hidden to run:
-		if {_l} is greater or equal to {p_level::%{_p}%}:
-			send "{@shaft} &cMax Level" to {_p}
-			stop
-		if {p_coins::%{_p}%} is greater than {_c}:
-			set {_new} to {_l} + 1
-			enchant {_i} with "unbreaking %{_new}%" parsed as enchantment type
-			set line 2 of lore of {_i} to " &8┃ &7Unbreaking: &e%{_new}%"
-			remove {_c} from {p_coins::%{_p}%}
-			#send "{@shaft} &7Upgraded &eUnbreaking &7to &e%{_new}%" to {_p}
-		else:
-			send "{@shaft} {@coins}" to {_p}
-		enchants({_p}, {_i}, {_s})
-	delete {_l}
-	set {_l} to level of efficiency of {_i}
-	if {_l} is not set:
-		set {_l} to 1
-	set {_c} to ({_l} + 1) * 100000
-	set {_cf} to inventoryFormat({_c})
-	if {_l} is greater or equal to 15:
-		set {_c} to "&c&lMAX"
-	format gui slot 3 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Efficiency" and "&7Speed at which you mine" and " &8┃ &7Current: &e%{_l}%" and " &8╹ &7Max: &e15" and "&7Cost: &e%{_cf}% &7Coins" with all flags hidden to run: 
-		if {_l} is greater or equal to 15:
-			send "{@shaft} &cMax Level" to {_p}
-			stop
-		if {p_coins::%{_p}%} is greater than {_c}:
-			set {_new} to {_l} + 1
-			enchant {_i} with "efficiency %{_new}%" parsed as enchantment type
-			set line 3 of lore of {_i} to " &8┃ &7Efficiency: &e%{_new}%"
-			remove {_c} from {p_coins::%{_p}%}
-			#send "{@shaft} &7Upgraded &eEfficiency &7to &e%{_new}%" to {_p}
-		else:
-			send "{@shaft} {@coins}" to {_p}
-		enchants({_p}, {_i}, {_s})
-	delete {_l}
-	set {_l} to level of fortune of {_i}
-	if {_l} is not set:
-		set {_l} to 1
-	set {_c} to ({_l} + 1) * 50000
-	set {_cf} to inventoryFormat({_c})
-	if {_l} is greater or equal to 10:
-		set {_c} to "&c&lMAX"
-	format gui slot 4 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Fortune" and "&7Increases chances of finding wrath" and " &8┃ &7Current: &e%{_l}%" and " &8╹ &7Max: &e10" and "&7Cost: &e%{_cf}% &7Coins" with all flags hidden to run:
-		if {_l} is greater or equal to 10:
-			send "{@shaft} &cMax Level" to {_p}
-			stop
-		if {p_coins::%{_p}%} is greater than {_c}:
-			set {_new} to {_l} + 1
-			enchant {_i} with "fortune %{_new}%" parsed as enchantment type
-			set line 4 of lore of {_i} to " &8┃ &7Fortune: &e%{_new}%"
-			remove {_c} from {p_coins::%{_p}%}
-			#send "{@shaft} &7Upgraded &eFortune &7to &e%{_new}%" to {_p}
-		else:
-			send "{@shaft} {@coins}" to {_p}
-		enchants({_p}, {_i}, {_s})
-	delete {_l}
-	set {_l} to level of silk touch of {_i}
-	if {_l} is not set:
-		set {_l} to 1
-	set {_c} to ({_l} + 1) * 50000
-	set {_cf} to inventoryFormat({_c})
-	if {_l} is greater or equal to 10:
-		set {_c} to "&c&lMAX"
-	format gui slot 5 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Excavate" and "&7Increases chances of uncovering" and "&7Deity fragments" and " &8┃ &7Current: &e%{_l}%" and " &8╹ &7Max: &e10" and "&7Cost: &e%{_cf}% &7Coins" with all flags hidden to run:
-		if {_l} is greater or equal to 10:
-			send "{@shaft} &cMax Level" to {_p}
-			stop
-		if {p_coins::%{_p}%} is greater than {_c}:
-			set {_new} to {_l} + 1
-			enchant {_i} with "silk touch %{_new}%" parsed as enchantment type
-			set line 5 of lore of {_i} to " &8┃ &7Excavate: &e%{_new}%"
-			remove {_c} from {p_coins::%{_p}%}
-			#send "{@shaft} &7Upgraded &eSilk Touch &7to &e%{_new}%" to {_p}
-		else:
-			send "{@shaft} {@coins}" to {_p}
-		enchants({_p}, {_i}, {_s})
-	delete {_l}
-	set {_l} to level of mending of {_i}
-	if {_l} is not set:
-		set {_l} to 1
-	set {_c} to ({_l} + 1) * 100000
-	set {_cf} to inventoryFormat({_c})
-	if {_l} is greater or equal to 5:
-		set {_c} to "&c&lMAX"
-	format gui slot 6 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Mending" and "&7Level 5: Increases chances of" and "&7repairing tool when mining" and " &8┃ &7Current: &e%{_l}%" and " &8╹ &7Max: &e5" and "&7Cost: &e%{_cf}% &7Coins" with all flags hidden to run: 
-		if {_l} is greater or equal to 5:
-			send "{@shaft} &cMax Level" to {_p}
-			stop
-		if {p_coins::%{_p}%} is greater than {_c}:
-			set {_new} to {_l} + 1
-			enchant {_i} with "mending %{_new}%" parsed as enchantment type
-			set line 6 of lore of {_i} to " &8┃ &7Mending: &e%{_new}%"
-			remove {_c} from {p_coins::%{_p}%}
-			#send "{@shaft} &7Upgraded &eMending &7to &e%{_new}%" to {_p}
-		else:
-			send "{@shaft} {@coins}" to {_p}
-		enchants({_p}, {_i}, {_s})
-	delete {_l}
-	set {_l} to level of curse of binding of {_i}
-	if {_l} is not set:
-		set {_l} to 1
-	set {_c} to ({_l} + 1) * 100000
-	set {_cf} to inventoryFormat({_c})
-	if {_l} is greater or equal to 5:
-		set {_c} to "&c&lMAX"
-	format gui slot 7 of {_p} with shiny book named "&eEnchanted Book" with lore "&9Tools" and "&7Curse of Binding" and "&7Level 5: Keep enchantments after rebirth" and " &8┃ &7Current: &e%{_l}%" and " &8╹ &7Max: &e5" and "&7Cost: &e%{_cf}% &7Wrath" with all flags hidden to run: 
-		if {_l} is greater or equal to 5:
-			send "{@shaft} &cMax Level" to {_p}
-			stop
-		if {p_wrath::%{_p}%} is greater than {_c}:
-			set {_new} to {_l} + 1
-			enchant {_i} with "curse of binding %{_new}%" parsed as enchantment type
-			set line 7 of lore of {_i} to " &8╹ &7Binding: &e%{_new}%"
-			remove {_c} from {p_wrath::%{_p}%}
-			#send "{@shaft} &7Upgraded &eCurse of Binding &7to &e%{_new}%" to {_p}
-		else:
-			send "{@shaft} {@wrath}" to {_p}
-		enchants({_p}, {_i}, {_s})
-	set slot {_s} of {_p} to {_i}
-	#format gui slot 8 of {_p} with arrow named "&7 < &cBack" with lore "&7Click to go back" to run function tool({_p}, {_i})
-
-function isGlass(p: player, s: integer) :: boolean:
-	if slot {_s} of {_p} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
-		return true
-	return false
+on inventory click:	
+	if {unlock.%player%} is set:
+		stop
+	if name of event-inventory is not "Crafting":
+		cancel event
+		stop
+	gamemode of player is survival
+	if clicked type is right mouse button:
+		if clicked slot is 36 or 37 or 38 or 39:
+			armorUpgrade(player)
+		else if clicked item is helmet or chestplate or leggings or boots:
+			set {_s} to index of event-slot
+			armorPieceUpgrade(player, clicked item, {_s})
 
 function armorUpgrade(p: player):
 	open virtual chest inventory with size 4 named "&8Upgrades" to {_p}
@@ -289,78 +108,6 @@ function armorUpgrade(p: player):
 	format gui slot 18 of {_p} with leggings of {_p}
 	format gui slot 27 of {_p} with boots of {_p}
 
-function wardrobe(p: player):
-	open virtual chest inventory with size 4 named "&8Wardrobe" to {_p}
-	format gui slot 2 of {_p} with {2_helmet}
-	format gui slot 4 of {_p} with {3_helmet}
-	format gui slot 6 of {_p} with {4_helmet}
-	format gui slot 8 of {_p} with {5_helmet}
-	if helmet of {_p} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
-		format gui slot 0 of {_p} with helmet of {_p}
-		set {_helmet} to helmet of {_p}
-	else if isGlass({_p}, 12) is true:
-		format gui slot 0 of {_p} with slot 12 of {_p}
-		set {_helmet} to slot 12 of {_p}
-	else if isGlass({_p}, 21) is true:
-		format gui slot 0 of {_p} with slot 21 of {_p}
-		set {_helmet} to slot 21 of {_p}
-	else if isGlass({_p}, 22) is true:
-		format gui slot 0 of {_p} with slot 22 of {_p}
-		set {_helmet} to slot 22 of {_p}
-	else if isGlass({_p}, 23) is true:
-		format gui slot 0 of {_p} with slot 23 of {_p}
-		set {_helmet} to slot 23 of {_p}
-	else if isGlass({_p}, 30) is true:
-		format gui slot 0 of {_p} with slot 30 of {_p}
-		set {_helmet} to slot 30 of {_p}
-	else if isGlass({_p}, 31) is true:
-		format gui slot 0 of {_p} with slot 31 of {_p}
-		set {_helmet} to slot 31 of {_p}
-	else if isGlass({_p}, 32) is true:
-		format gui slot 0 of {_p} with slot 32 of {_p}
-		set {_helmet} to slot 32 of {_p}
-	format gui slot 11 of {_p} with {2_chestplate}
-	format gui slot 13 of {_p} with {3_chestplate}
-	format gui slot 15 of {_p} with {4_chestplate}
-	format gui slot 17 of {_p} with {5_chestplate}
-	if chestplate of {_p} is chestplate:
-		format gui slot 9 of {_p} with chestplate of {_p}
-		set {_chestplate} to chestplate of {_p}
-	else:
-		format gui slot 9 of {_p} with slot 13 of {_p}
-		set {_chestplate} to slot 13 of {_p}
-	format gui slot 18 of {_p} with leggings of {_p}
-	format gui slot 20 of {_p} with {2_leggings}
-	format gui slot 22 of {_p} with {3_leggings}
-	format gui slot 24 of {_p} with {4_leggings}
-	format gui slot 26 of {_p} with {5_leggings}
-	set {_leggings} to leggings of {_p}
-	format gui slot 29 of {_p} with {2_boots}
-	format gui slot 31 of {_p} with {3_boots}
-	format gui slot 33 of {_p} with {4_boots}
-	format gui slot 35 of {_p} with {5_boots}
-	if boots of {_p} is not {hermes}:
-		format gui slot 27 of {_p} with boots of {_p}
-		set {_boots} to boots of {_p}
-	else:
-		format gui slot 27 of {_p} with slot 14 of {_p}
-		set {_boots} to slot 14 of {_p}
-
-on right click:
-	if player's tool is pickaxe or axe or shovel:
-		clicked block is set
-		if player's tool is wooden axe:
-			stop
-		if the current hotbar slot of player is 0:
-			set {_slot} to 0
-		if the current hotbar slot of player is 1:
-			set {_slot} to 1
-		if the current hotbar slot of player is 2:
-			set {_slot} to 2
-		set {_tool} to player's tool
-		set slot 40 of player to air
-		enchants(player, {_tool}, {_slot})
-		set slot 40 of player to {1_shield}
-		cancel event
-	else if player's tool is player's skull:
-		settings(player)
+function armorPieceUpgrade(p: player, i: item, s: integer):
+	open virtual chest inventory with size 1 named "&8Upgrades" to {_p}
+	format gui slot 0 of {_p} with {_i}

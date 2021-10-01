@@ -11,7 +11,7 @@ on break:
 	if xp of player is less than 996:
 		add 1 to xp of player
 
-every 5 ticks in "world":
+every 5 ticks:
 	loop all players:
 		if xp of loop-player is greater than 910:
 			remove 1 from xp of loop-player

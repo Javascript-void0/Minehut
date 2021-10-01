@@ -16,7 +16,7 @@ command /quest [<text>]:
 		send "{@shaft} &7Quest Set to &e%arg-1%"
 		set the player's compass target to location of {spawn}
 
-command /invlock2:
+command /invlock:
 	trigger:
 		if player is op:
 			if {unlock.%player%} is set:

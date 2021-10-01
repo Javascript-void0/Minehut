@@ -46,8 +46,8 @@ function deathEffect(e: entity):
 	set {_x} to x-coordinate of {_e}
 	set {_y} to y-coordinate of {_e}
 	set {_z} to z-coordinate of {_e}
-	execute console command "/particle crit %{_x}% %{_y}% %{_z}% 0.3 0.3 0.3 1 100"
-	execute console command "/particle damage_indicator %{_x}% %{_y}% %{_z}% 0.2 1.2 0.2 0 8"
+	# execute console command "/particle crit %{_x}% %{_y}% %{_z}% 0.3 0.3 0.3 1 100"
+	# execute console command "/particle damage_indicator %{_x}% %{_y}% %{_z}% 0.2 1.2 0.2 0 8"
 
 on damage:
 	set damage to 0
@@ -87,6 +87,10 @@ on damage:
 			delete {m_maxhealth::%victim%}
 			delete {m_health::%victim%}
 			delete {m_damage::%victim%}
+			add 1 to {p_exp::%attacker%}
+			set {action::%attacker%} to "+1 exp"
+			wait 2 seconds
+			delete {action::%attacker%}
 	if victim is a player:
 		if victim is blocking with a shield:
 			cancel event
@@ -94,12 +98,9 @@ on damage:
 			set slot 40 of victim to air
 			wait 0.7 second
 			set slot 40 of victim to {_shield}
-		# else if damage was caused by thorns:
-		# 	if {p_defense::%victim%} is greater than 0:
-		# 		remove 1 from {p_defense::%victim%}
-		# 	else:
-		# 		remove 1 from {p_health::%victim%}
-		# 	stop
+		else if damage was caused by thorns:
+			cancel event
+			stop
 		else if {p_defense::%victim%} is greater than 0:
 			remove {m_damage::%attacker%} from {p_defense::%victim%}
 			stop
@@ -131,7 +132,7 @@ on damage:
 				loop all players:
 					send components {_msg} and {_weapon} to loop-player
 
-every 3 seconds in "{@world}":
+every 3 seconds:
 	loop all players:
 		if {p_defense::%loop-player%} is less than {p_maxdefense::%loop-player%}:
 			{dead.%loop-player%} is not set
