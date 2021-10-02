@@ -119,3 +119,14 @@ every 10 seconds:
 		set {mobcap} to true
 	else:
 		set {mobcap} to false
+
+on load:
+	loop all entities:
+		loop-entity is not a player
+		loop-entity is not a horse
+		if {m_maxhealth::%loop-entity%} is not set:
+			delete loop-entity
+		else if {m_health::%loop-entity%} is not set:
+			delete loop-entity
+		else if {m_damage::%loop-entity%} is not set:
+			delete loop-entity

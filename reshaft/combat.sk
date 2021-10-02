@@ -23,20 +23,15 @@ every 5 tick:
 function death(p: player):
 	set gamemode of {_p} to spectator
 	set {dead.%{_p}%} to true
-	apply blindness of tier 255 to {_p} for 7 seconds
-	apply weakness of tier 255 to {_p} for 7 seconds
-	apply slowness of tier 255 to {_p} for 7 seconds
-	apply wither of tier 255 to {_p} for 7 seconds
-	set {_time} to 6
-	send {_p} title "&c&lYOU DIED" with subtitle "&7You lost &e50%% &7 of your coins" for 3 seconds
-	set {_half} to {p_coins::%{_p}%} / 2
+	apply blindness of tier 255 to {_p} for 2 seconds
+	apply weakness of tier 255 to {_p} for 2 seconds
+	apply slowness of tier 255 to {_p} for 2 seconds
+	apply wither of tier 255 to {_p} for 2 seconds
+	send {_p} title "&c&lYOU DIED" with subtitle "&7You lost &e50%% &7 of your coins" for 2 seconds
+	set {_half} to floor({p_coins::%{_p}%} / 2)
 	remove {_half} from {p_coins::%{_p}%}
-	wait 3 second
-	loop 5 times:
-		remove 1 from {_time}
-		send {_p} title "&8Grim: &7Welcome back ☠" with subtitle "&cRespawn in: %{_time}%s" for 1 second
-		wait 1 second
 	teleport {_p} to {spawn}
+	wait 2 second
 	set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
 	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
 	delete {dead.%{_p}%}
