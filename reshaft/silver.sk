@@ -1,0 +1,33 @@
+options:
+	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	permission: &7Insufficient Permissions
+	silver: &7You must be holding &8[&f&lSILVER &7&lCOIN&8]
+	admin: &8[&6&lADMIN&8]&f
+
+on load:
+	set {silver} to iron nugget named "&f&lSILVER &7&lCOIN" with lore " &8┃ &7Redeem &e@Shaft &7at spawn" with all flags hidden
+	
+command /silver:
+	trigger:
+		if player is op:
+			give player {silver}
+		else:
+			send "{@admin} {@permission}"
+
+on right click:
+	event-block is {well}
+	if player is sneaking:
+		player's tool is {silver}
+		player is op
+		set {well} to event-block
+		send "{@admin} &7Well set to &e%location of {well}%"
+	else:
+		if player's tool is {silver}:
+			remove 1 of {silver} from player's inventory
+		else:
+			send "{@shaft} {@silver}"
+
+on left click:
+	event-block is {well}
+	cancel event
+	open virtual chest inventory with size 3 named "&8Shaft Rewards" to player
