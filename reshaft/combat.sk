@@ -70,6 +70,21 @@ on damage:
 			delete {m_maxhealth::%victim%}
 			delete {m_health::%victim%}
 			delete {m_damage::%victim%}
+			add 3 to {p_exp::%attacker%}
+			if {p_exp::%attacker%} is greater or equal to {p_nextexp::%attacker%}:
+				set {_before} to {p_level::%attacker%}
+				set {p_exp::%attacker%} to 0
+				add 1 to {p_level::%attacker%}
+				set {p_nextexp::%attacker%} to {p_level::%attacker%} * 2
+				set {action::%attacker%} to "Level Up!"
+				send attacker title "&e&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%attacker%}%" for 3 seconds
+				wait 2 seconds
+				delete {action::%attacker%}
+			else:
+				set {action::%attacker%} to "+3 exp"
+				wait 2 seconds
+				delete {action::%attacker%}
+			add 1 to {p_coins::%attacker%}
 		else:
 			set {_name::*} to name of victim split at " "
 			set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{m_health::%victim%}%&c/%{m_maxhealth::%victim%}% ❤&7)"
