@@ -13,7 +13,7 @@ function scoreboardFormat(n: number) :: text:
 function scoreboardRound(n: number, to: number) :: number:
    return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
 
-every second:
+every 4 ticks:
 	loop all players:
 		wipe loop-player's sidebar
 		set name of sidebar of loop-player to "&6&lRe&e&lSHAFT&7²"

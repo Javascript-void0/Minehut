@@ -1,3 +1,16 @@
+options:
+	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	permission: &7Insufficient Permissions
+	admin: &8[&6&lADMIN&8]&f
+	world: world
+
+command /tools:
+	trigger:
+		if player is op:
+			give player {1_pickaxe}, {1_axe}, {1_shovel}, and {1_hoe}
+		else:
+			send "{@shaft} {@permission}"
+
 on load: 
 
 # ::
@@ -55,7 +68,7 @@ on load:
 	# set {1_shovel} to netherite shovel named "&8[&f::&e::&7::::::&8] &e&lSHOVEl" with lore "&eWrath: &8[&e+0&8]" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" and " " with all flags hidden
 	set {1_shield} to shield named "&8[&f::&e::&7::::::&8] &e&lSHIELD" with lore "&eWrath: &8[&e+0&8]" and " " with all flags hidden
 	set {1_bow} to bow named "&8[&f::&e::&7::::::&8] &e&lBOW" with lore "&eWrath: &8[&e+0&8]" and " &8┃ &7Power: &e1" and " &8┃ &7Punch: &e1" and " &8╹ &7Flame: &e1" and " " with all flags hidden
-	set {1_hoe} to netherite hoe named "&8[&f::&e::&7::::::&8] &e&lSCYTHE" with lore "&eWrath: &8[&e+0&8]" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1"
+	set {1_hoe} to netherite hoe named "&8[&f::&e::&7::::::&8] &e&lSCYTHE" with lore "&eWrath: &8[&e+0&8]" and " &8┃ &7Efficiency: &e1" and " &8┃ &7Fortune: &e1" and " &8┃ &7Mending: &e1" and " &8╹ &7Binding: &e1" with all flags hidden
 
 	# set {solar} to bow named "&8[&f::&e::&7::::::&8] &e&lSOl&6&lAR" with lore "&eWrath: &8[&e+0&8]" and " &8┃ &7Power: &e1" and " &8┃ &7Punch: &e1" and " &8╹ &7Flame: &e1" and " " with all flags hidden
 	# set {terrestrial} to crossbow named "&8[&f::&a::&7::::::&8] &a&lTERRE&2&lSTRIAl" with lore "&aWrath: &8[&a+0&8]" and " &8┃ &7Quick Charge: &a1" and " &8┃ &7Piercing: &a1" and " &8╹ &7Multishot: &a1" and " " with all flags hidden

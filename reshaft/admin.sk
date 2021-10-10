@@ -16,6 +16,9 @@ function adminFormat(n: number) :: text:
 function adminRound(n: number, to: number) :: number:
    return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
 
+on tab complete of "/modify":
+	set tab completions for position 2 to "level", "coins", "totalcoins", "wrath", "totalwrath", "exp", "nextexp", "totalexp", "kill", "death", "rebirth", "all", "maxhealth", "health", "damage", "defense", and "maxdefense"
+	set tab completions for position 3 to "add", "remove", "set", and "reset"
 
 command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 	trigger:
@@ -23,8 +26,8 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 			if arg-1 is not set:
 				send "{@admin} &f/modify &f<player>"
 				stop
-			else if arg-2 is not "level" or "coins" or "totalcoins" or "wrath" or  "totalwrath" or "exp" or "nextexp" or "totalexp" or "mkill" or "mdeath" or "pkill" or "pdeath" or "rebirth" or "all" or "maxhealth" or "health" or "damage" or "defense" or "maxdefense":
-				send "{@admin} &f/modify <%arg-1%> &f<level exp nextexp totalexp coins totalcoins wrath totalwrath mkill mdeath pkill pdeath rebirth maxhealth health damage all defense maxdefense>"
+			else if arg-2 is not "level" or "coins" or "totalcoins" or "wrath" or  "totalwrath" or "exp" or "nextexp" or "totalexp" or "kill" or "death" or "rebirth" or "all" or "maxhealth" or "health" or "damage" or "defense" or "maxdefense":
+				send "{@admin} &f/modify <%arg-1%> &f<level exp nextexp totalexp coins totalcoins wrath totalwrath death kill rebirth maxhealth health damage all defense maxdefense>"
 				stop
 			else if arg-3 is not "add" or "remove" or "set" or "reset":
 				if arg-2 is "reset":
@@ -107,10 +110,8 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {p_wrath::%arg-1%} to 0
 					set {p_exp::%arg-1%} to 0
 					set {p_totalexp::%arg-1%} to 0
-					set {p_mkill::%arg-1%} to 0
-					set {p_mdeath::%arg-1%} to 0
-					set {p_pkill::%arg-1%} to 0
-					set {p_pdeath::%arg-1%} to 0
+					set {p_kill::%arg-1%} to 0
+					set {p_death::%arg-1%} to 0
 					set {p_rebirth::%arg-1%} to 0
 					set {p_maxhealth::%arg-1%} to 20
 					set {p_health::%arg-1%} to 20

@@ -209,10 +209,13 @@ command /statcheck [<player>]:
 			set {p_maxdefense::%arg-1%} to 5
 		send "{@admin} &7Done Checking"
 
+on tab complete of "/top":
+	set tab completions for position 1 to "level", "coins", "totalcoins", "wrath", "totalwrath", "totalstigma", "kill", "death", "rebirth", "maxhealth", and "damage"
+
 command /top [<text>]:
 	trigger:
-		if arg-1 is not "level" or "coins" or "totalcoins" or "wrath" or "totalwrath" or "totalstigma" or "pkill" or "mkill" or "rebirth" or "maxhealth" or "damage":
-			send "{@shaft} /top <level coins totalcoins wrath totalwrath totalstigma pkill mkill rebirth>"
+		if arg-1 is not "level" or "coins" or "totalcoins" or "wrath" or "totalwrath" or "totalstigma" or "kill" or "kill" or "rebirth" or "maxhealth" or "damage":
+			send "{@shaft} /top <level coins totalcoins wrath totalwrath totalstigma kill kill rebirth>"
 		else:
 			loop {p_%arg-1%::*}:
 				add 1 to {_size}
@@ -245,7 +248,9 @@ command /top [<text>]:
 			else if arg-1 is "totalstigma":
 				set {_stigma} to format({p_%arg-1%::%loop-value%})
 				set {_label} to "&e%{_stigma}% &7stigma"
-			else if arg-1 is "mkill" or "pkill":
+			else if arg-1 is "death":
+				set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7deaths"
+			else if arg-1 is "kill":
 				set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7kills"
 			else if arg-1 is "rebirth":
 				set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7times"

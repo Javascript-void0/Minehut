@@ -30,7 +30,7 @@ function stats(p: player):
 	format gui slot 13 of {_p} with bell named "&c&lWRATH" with lore "&7Current: &c%{_wrath}% &7wrath" and "&7Total: &c%{_totalwrath}% &7wrath"
 	format gui slot 14 of {_p} with nether star named "&b&lVIRTUE" with lore "&7Current: &b%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
 	# format gui slot 16 of {_p} with nether star named "&b&lREBIRTH" with lore "&7Total: &b%{p_rebirth::%{_p}%}% &7times"
-	format gui slot 15 of {_p} with diamond sword named "&c&lCombat" with lore "&7Kills: &c%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{p_death::%{_p}%}% &7deaths"
+	format gui slot 15 of {_p} with netherite sword named "&c&lCOMBAT" with lore "&7Kills: &c%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{p_death::%{_p}%}% &7deaths" with all flags hidden
 
 command /dailyreset [<offline player>]:
 	trigger:

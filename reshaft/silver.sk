@@ -4,53 +4,112 @@ options:
 	admin: &8[&6&lADMIN&8]&f
 
 on load:
-	set {silver} to iron nugget named "&f&lSILVER &7&lCOIN" with lore " &8┃ &7Redeem &e@Shaft &7at spawn" with all flags hidden
-	set {tarnishedsilver} to iron nugget named "&6&lTARNISHED &f&lSILVER &7&lCOIN" with lore " &8┃ &7Redeem &e@Shaft &7at spawn" with all flags hidden
-	set {polishedsilver} to iron nugget named "&3&lPOLISHED &f&lSILVER &7&lCOIN" with lore " &8┃ &7Redeem &e@Shaft &7at spawn" with all flags hidden
+	set {weatheredsilver} to iron nugget named "&f&lSILVER &7&lCOIN" with lore " &8┃ &7Redeem &e@Shaft &7at spawn" and " &8╹ &eCondition: &7Weathered" with all flags hidden
+	set {tarnishedsilver} to iron nugget named "&f&lSILVER &7&lCOIN" with lore " &8┃ &7Redeem &e@Shaft &7at spawn" and " &8╹ &eCondition: &7Tarnished" with all flags hidden
+	set {polishedsilver} to iron nugget named "&f&lSILVER &7&lCOIN" with lore " &8┃ &7Redeem &e@Shaft &7at spawn" and " &8╹ &eCondition: &7Polished" with all flags hidden
 
 command /silver:
 	trigger:
 		if player is op:
-			give player {silver}
+			give player {weatheredsilver}
 			give player {polishedsilver}
 			give player {tarnishedsilver}
 		else:
 			send "{@admin} {@permission}"
 
+every second:
+	show 50 flying glyph at {well}
+
 on right click:
 	if player is sneaking:
-		player's tool is {silver} or {tarnishedsilver} or {polishedsilver}
+		player's tool is {weatheredsilver} or {tarnishedsilver} or {polishedsilver}
 		player is op
 		set {well} to event-block
 		send "{@admin} &7Well set to &e%location of {well}%"
 	else:
 		event-block is {well}
-		if player's tool is {silver}:
-			remove 1 of {silver} from player's inventory
-			silverRewards(player)
-		if player's tool is {silver}:
-			remove 1 of {tarnishedsilver} from player's inventory
-			polishedRewards(player)
+		if player's tool is {weatheredsilver}:
+			show large explosion at {well}
+			remove 1 of tool from tool
+			weatheredReward(player)
+		if player's tool is {tarnishedsilver}:
+			show large explosion at {well}
+			remove 1 of tool from tool
+			tarnishedReward(player)
 		if player's tool is {polishedsilver}:
-			remove 1 of {silver} from player's inventory
-			tarnishedRewards(player)
+			show large explosion at {well}
+			remove 1 of tool from tool
+			polishedReward(player)
 
 on left click:
 	event-block is {well}
 	cancel event
 	open virtual chest inventory with size 3 named "&8Shaft Rewards" to player
-	
-function silverReward(p: player):
-	set {_n} to random number between 1 and 1000
-	if {_n} is between 1 and 10:
-		send "%{_n}%" to {_p}
+	format gui slot 10 of player with {tarnishedsilver} to run function tarnishedList(player)
+	format gui slot 1 and 19 of player with brown stained glass pane named "&6&lTARNISHED" to run function tarnishedList(player)
+	format gui slot 13 of player with {weatheredsilver}
+	format gui slot 4 and 22 of player with green stained glass pane named "&a&lWEATHERED"
+	format gui slot 16 of player with {polishedsilver}
+	format gui slot 7 and 25 of player with light blue stained glass pane named "&3&lPOLISHED"
+	format gui slot 0, 2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, and 26 of player with gray stained glass pane named " "
+
+function weatheredList(p: player):
+	open virtual chest inventory with size 3 named "&8Weathered Coin Reward" to {_p}
+
+function tarnishedList(p: player):
+	open dropper inventory named "&8Tarnished Coin Reward" to {_p}
+	format gui slot 0 of {_p} with paper named "&e10a &7coins" with lore "&7Chance: 35%%"
+	format gui slot 1 of {_p} with paper named "&e20a &7coins" with lore "&7Chance: 15%%"
+	format gui slot 2 of {_p} with paper named "&e30a &7coins" with lore "&7Chance: 8%%"
+	format gui slot 3 of {_p} with paper named "&e40a &7coins" with lore "&7Chance: 5%%"
+	format gui slot 4 of {_p} with book named "&e100 &7wrath" with lore "&7Chance: 10%%"
+	format gui slot 5 of {_p} with book named "&e300 &7wrath" with lore "&7Chance: 5%%"
+	format gui slot 6 of {_p} with book named "&e500 &7wrath" with lore "&7Chance: 2%%"
+	format gui slot 7 of {_p} with iron nugget named "&f&lSILVER &7&lCOIN" with lore "&eCondition: &7Weathered" and "&7Chance: 10%%" with all flags hidden
+	format gui slot 8 of {_p} with iron nugget named "&f&lSILVER &7&lCOIN" with lore "&eCondition: &7Polished" and "&7Chance: 3%%" with all flags hidden
+
+function polished(p: player):
+	open virtual chest inventory with size 3 named "&8Polished Coin Reward" to {_p}
+
+function weatheredReward(p: player):
+	set {_n} to random integer between 1 and 100
+	send "%{_n}%" to {_p}
+	if {_n} is between 1 and 20:
+		send "&c%{_n}%" to {_p}
 
 function polishedReward(p: player):
-	set {_n} to random number between 1 and 1000
-	if {_n} is between 1 and 10:
+	set {_n} to random integer between 1 and 100
+	if {_n} is between 1 and 20:
 		send "%{_n}%" to {_p}
 
 function tarnishedReward(p: player):
-	set {_n} to random number between 1 and 1000
-	if {_n} is between 1 and 10:
-		send "%{_n}%" to {_p}
+	set {_n} to random integer between 1 and 100
+	if {_n} is between 1 and 35:
+		add 10000 to {p_coins::%{_p}%}
+		send "{@shaft} &7Recieved &e10a coins &7(35%%)" to {_p}
+	else if {_n} is between 35 and 50:
+		add 20000 to {p_coins::%{_p}%}
+		send "{@shaft} &7Recieved &e20a coins &7(15%%)" to {_p}
+	else if {_n} is between 50 and 58:
+		add 30000 to {p_coins::%{_p}%}
+		send "{@shaft} &7Recieved &e30a coins &7(8%%)" to {_p}
+	else if {_n} is between 58 and 63:
+		add 40000 to {p_coins::%{_p}%}
+		send "{@shaft} &7Recieved &e40a coins &7(5%%)" to {_p}
+	else if {_n} is between 63 and 73:
+		add 100 to {p_wrath::%{_p}%}
+		send "{@shaft} &7Recieved &e100 wrath &7(10%%)" to {_p}
+	else if {_n} is between 73 and 78:
+		add 300 to {p_wrath::%{_p}%}
+		send "{@shaft} &7Recieved &e300 wrath &7(5%%)" to {_p}
+	else if {_n} is between 78 and 80:
+		add 500 to {p_wrath::%{_p}%}
+		send "{@shaft} &7Recieved &e500 wrath &7(2%%)" to {_p}
+	else if {_n} is between 80 and 90:
+		give {_p} 1 of {weatheredsilver}
+		send "{@shaft} &7Recieved &e1 weathered coin &7(10%%)" to {_p}
+	else if {_n} is between 90 and 100:
+		give {_p} 1 of {polishedsilver}
+		send "{@shaft} &7Recieved &e1 polished coin &7(3%%)" to {_p}
+	else:
+		send "{@shaft} &cError: %{_n}%" to {_p}

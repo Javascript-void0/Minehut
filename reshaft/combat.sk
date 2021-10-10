@@ -23,10 +23,10 @@ every 5 tick:
 function death(p: player):
 	set gamemode of {_p} to spectator
 	set {dead.%{_p}%} to true
-	apply blindness of tier 255 to {_p} for 2 seconds
-	apply weakness of tier 255 to {_p} for 2 seconds
-	apply slowness of tier 255 to {_p} for 2 seconds
-	apply wither of tier 255 to {_p} for 2 seconds
+	apply blindness of tier 255 to {_p} for 3 seconds
+	apply weakness of tier 255 to {_p} for 3 seconds
+	apply slowness of tier 255 to {_p} for 3 seconds
+	apply wither of tier 255 to {_p} for 3 seconds
 	send {_p} title "&c&lYOU DIED" with subtitle "&7You lost &e50%% &7 of your coins" for 2 seconds
 	set {_half} to floor({p_coins::%{_p}%} / 2)
 	remove {_half} from {p_coins::%{_p}%}
@@ -38,11 +38,7 @@ function death(p: player):
 	set gamemode of {_p} to survival
 
 function deathEffect(e: entity):
-	set {_x} to x-coordinate of {_e}
-	set {_y} to y-coordinate of {_e}
-	set {_z} to z-coordinate of {_e}
-	# execute console command "/particle crit %{_x}% %{_y}% %{_z}% 0.3 0.3 0.3 1 100"
-	# execute console command "/particle damage_indicator %{_x}% %{_y}% %{_z}% 0.2 1.2 0.2 0 8"
+	show 30 critical hit at location of {_e}
 
 on damage:
 	set damage to 0
@@ -64,16 +60,8 @@ on damage:
 	if victim is not a player:
 		if attacker is not a player:
 			cancel event
-		else:
-			remove {p_damage::%attacker%} from {m_health::%victim%}
-			set {_name::*} to name of victim split at " "
-			set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{m_health::%victim%}%&c/%{m_maxhealth::%victim%}% ❤&7)"
-			# damage counter
-			set {_location} to random element out of blocks in radius 1 of victim
-			add 3 to {_location}'s y-coordinate
-			create holo object "&c-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
-			wait 1 second
-			delete holo object "damage.%{_location}%"
+			stop
+		remove {p_damage::%attacker%} from {m_health::%victim%}
 		if {m_health::%victim%} is less than 1:
 			attacker is a player
 			deathEffect(victim)
@@ -82,6 +70,15 @@ on damage:
 			delete {m_maxhealth::%victim%}
 			delete {m_health::%victim%}
 			delete {m_damage::%victim%}
+		else:
+			set {_name::*} to name of victim split at " "
+			set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{m_health::%victim%}%&c/%{m_maxhealth::%victim%}% ❤&7)"
+		# damage counter
+		set {_location} to random element out of blocks in radius 1 of victim
+		add 3 to {_location}'s y-coordinate
+		create holo object "&c-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
+		wait 1 second
+		delete holo object "damage.%{_location}%"
 	if victim is a player:
 		if victim is blocking with a shield:
 			cancel event
@@ -108,11 +105,11 @@ on damage:
 					broadcast "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name%"
 				else:
 					broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
-				add 1 to {p_mdeath::%victim%}
+				add 1 to {p_death::%victim%}
 			else if attacker is a player:
 				victim is player
 				add 1 to {p_kill::%attacker%}
-				add 1 to {p_pdeath::%victim%}
+				add 1 to {p_death::%victim%}
 				if projectile is set:
 					set {_msg} to new text component of "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name% using "
 				else:
