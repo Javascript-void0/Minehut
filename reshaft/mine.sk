@@ -1,0 +1,57 @@
+options:
+	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	permission: &7Insufficient Permissions
+	admin: &8[&6&lADMIN&8]&f
+
+on walking on bedrock:
+	block above event-block is polished blackstone pressure plate
+	loop 10 times:
+		push player upwards
+		wait 1 tick
+		
+command /mine:
+	trigger:
+		if player is op:
+			fillCube({minestart})
+			send "{@admin} &7Reset Mine"
+		else:
+			send "{@shaft} {@permission}"
+
+command /setmine:
+	trigger:
+		if player is op:
+			set {minestart} to location of player
+			send "{@admin} &7Set start of mine to %{minestart}%"
+		else:
+			send "{@shaft} {@permission}"
+
+on load:
+	if {minecolor} is not set:
+		set {minecolor} to "gray"
+
+function fillCube(loc: location):
+	if {minecolor} is "green":
+		set {minecolor} to "gray"
+	else if {minecolor} is "gray":
+		set {minecolor} to "green"
+	set {_x} to x-location of {_loc}
+	set {_y} to y-location of {_loc}
+	set {_z} to z-location of {_loc}
+	loop 77 times:
+		if {_wait} is true:
+			set {_wait} to false
+			wait 1 second
+		else:
+			set {_wait} to true
+		loop 50 times:
+			loop 50 times:
+				if {minecolor} is "gray":
+					set block at {_loc} to green terracotta
+				else if {minecolor} is "green":
+					set block at {_loc} to cyan terracotta
+				add 1 to x-coordinate of {_loc}
+			add 1 to z-coordinate of {_loc}
+			set x-coordinate of {_loc} to {_x}
+		add 1 to y-coordinate of {_loc}
+		set x-coordinate of {_loc} to {_x}
+		set y-coordinate of {_loc} to {_y}
