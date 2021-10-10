@@ -40,6 +40,14 @@ command /login:
 		else:
 			send "{@admin} {@permission}"
 
+command /logout:
+	trigger:
+		if player is op:
+			logout of "ReShaft"
+			send "{@admin} &7Logged Out"
+		else:
+			send "{@admin} {@permission}"
+
 command /unlink [<player>]:
 	trigger:
 		if player is op:
@@ -143,17 +151,3 @@ discord command top [<text>]:
 					stop
 			append line "```"
 			reply with {_}
-
-function dropGem(n: integer):
-	set {_} to a new message builder
-	append line "```"
-	append line "New Drop - %{_n}% Gems"
-	append line "React Below to Claim (Need linked account)"
-	append line "```"
-	set {_channel} to channel with id "872661226059096125"
-	send {_} to {_channel} with "ReShaft"
-
-command /test [<integer>]:
-	trigger:
-		dropGem(arg-1)
-		broadcast "{@shaft} &b%arg-1% &bGems &7just dropped in Discord"

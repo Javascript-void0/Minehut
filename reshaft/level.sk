@@ -18,24 +18,36 @@ every 5 ticks:
 
 on break: 
 	cancel drops
-	add 0.1 to {p_exp::%player%}
-	if {p_exp::%player%} is greater or equal to {p_nextexp::%player%}:
-		set {_before} to {p_level::%player%}
-		set {p_exp::%player%} to 0
-		add 1 to {p_level::%player%}
-		set {p_nextexp::%player%} to ({p_level::%player%} * 2) + 10
-		set {action::%player%} to "Level Up!"
-		send player title "&e&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%player%}%" for 3 seconds
-		set {actionBlock::%player%} to location of event-block
+
+command /levelup [<integer>]:
+	trigger:
+		discordLevel(player, arg-1)
+
+function discordLevel(p: player, l: integer):
+	broadcast "%{_p}%, %{_l}%"
+	send "```Level: %name of {_p}%, %{_l}%```" to channel with id "886738161491914772" with "ReShaft"
+
+function expBlock(p: player, n: integer, b: block):
+	set {_total} to 0.1 * {_n}
+	add {_total} to {p_exp::%{_p}%}
+	if {p_exp::%{_p}%} is greater or equal to {p_nextexp::%{_p}%}:
+		set {_before} to {p_level::%{_p}%}
+		set {p_exp::%{_p}%} to 0
+		add 1 to {p_level::%{_p}%}
+		set {p_nextexp::%{_p}%} to ({p_level::%{_p}%} * 2) + 10
+		set {action::%{_p}%} to "Level Up!"
+		send {_p} title "&e&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%{_p}%}%" for 3 seconds
+		discordLevel({_p}, {p_level::%{_p}%})
+		set {actionBlock::%{_p}%} to {_b}
 		wait 2 seconds
-		{actionBlock::%player%} is location of event-block
-		delete {action::%player%}
-		delete {actionBlock::%player%}
+		{actionBlock::%{_p}%} is {_b}
+		delete {action::%{_p}%}
+		delete {actionBlock::%{_p}%}
 	else:
-		set {action::%player%} to "+0.1 exp"
-		set {actionBlock::%player%} to location of event-block
+		set {action::%{_p}%} to "+%{_total}% exp"
+		set {actionBlock::%{_p}%} to {_b}
 		wait 2 seconds
-		{actionBlock::%player%} is location of event-block
-		delete {action::%player%}
-		delete {actionBlock::%player%}
-	add 1 to {p_coins::%player%}
+		{actionBlock::%{_p}%} is {_b}
+		delete {action::%{_p}%}
+		delete {actionBlock::%{_p}%}
+	add 1 * {_n} to {p_coins::%{_p}%}

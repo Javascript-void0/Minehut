@@ -6,14 +6,21 @@ options:
 command /jumplock:
 	trigger:
 		if player is op:
-			if {launchpad} is set:
-				delete {launchpad}
-				send "{@admin} &7Turned Launch Pad &c&lOFF"
-			else:
+			if {launchpad} is false:
 				set {launchpad} to true
 				send "{@admin} &7Turned Launch Pad &a&lON"
+			else if {launchpad} is true:
+				set {launchpad} to false
+				send "{@admin} &7Turned Launch Pad &c&lOFF"
 		else:
 			send "{@admin} {@permission}"
+
+on walking on bedrock:
+	{launchpad} is true
+	block above event-block is polished blackstone pressure plate
+	loop 10 times:
+		push player upwards
+		wait 1 tick
 
 on break:
 	player is not op
@@ -26,41 +33,35 @@ on mine:
 	set {_1} to location of event-block
 	set {_2} to location of event-block
 	if player's pitch is between -50 and 50:
-		add 1 to y-coord of {_1}
-		subtract 1 from y-coord of {_2}
+		add 2 to y-coord of {_1}
+		subtract 2 from y-coord of {_2}
 		if player's horizontal facing is west or east:
-			add 1 to z-coord of {_1}
-			subtract 1 from z-coord of {_2}
+			add 2 to z-coord of {_1}
+			subtract 2 from z-coord of {_2}
 			loop blocks within {_1} to {_2}:
 				loop-block is gray concrete or cyan terracotta
-				break loop-block using player's tool
+				add 1 to {_n}
+				set loop-block to air
 				show 3 small smoke at location of loop-block
-				delete dropped items
 		else if player's horizontal facing is north or south:
-			add 1 to x-coord of {_1}
-			subtract 1 from x-coord of {_2}
+			add 2 to x-coord of {_1}
+			subtract 2 from x-coord of {_2}
 			loop blocks within {_1} to {_2}:
 				loop-block is gray concrete or cyan terracotta
-				break loop-block using player's tool
+				add 1 to {_n}
+				set loop-block to air
 				show 3 small smoke at location of loop-block
-				delete dropped items
 	else:
-		add 1 to x-coord of {_1}
-		add 1 to z-coord of {_1}
-		subtract 1 from x-coord of {_2}
-		subtract 1 from z-coord of {_2}
+		add 2 to x-coord of {_1}
+		add 2 to z-coord of {_1}
+		subtract 2 from x-coord of {_2}
+		subtract 2 from z-coord of {_2}
 		loop blocks within {_1} to {_2}:
 			loop-block is gray concrete or cyan terracotta
-			break loop-block using player's tool
+			add 1 to {_n}
+			set loop-block to air
 			show 3 small smoke at location of loop-block
-			delete dropped items
-
-on walking on bedrock:
-	{launchpad} is set
-	block above event-block is polished blackstone pressure plate
-	loop 10 times:
-		push player upwards
-		wait 1 tick
+	expBlock(player, {_n}, event-block)
 		
 command /minereset:
 	trigger:
