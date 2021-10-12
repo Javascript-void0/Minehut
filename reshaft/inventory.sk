@@ -1,9 +1,9 @@
 options:
-	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	shaft: &8[&c&lRESHAFT&8]&c
 	permission: &7Insufficient Permissions
-	coins: &7Insufficient &eCoins
-	wrath: &7Insufficient &bWrath
-	admin: &8[&6&lADMIN&8]&f
+	admin: &8[&c&lADMIN&8]&c
+	coins: &7Insufficient &x&d&5&5&6&5&6Coins
+	wrath: &7Insufficient &x&d&5&5&6&5&6Wrath
 	world: world
 
 function inventoryRound(n: number, to: number) :: number:
@@ -19,24 +19,22 @@ function inventoryFormat(n: number) :: text:
 	return "%{_n}%"
 
 function stats(p: player):
-	open virtual chest inventory with size 3 named "&e&lSTATS: &8%{_p}%" to {_p}
-	# format gui slot 2 of {_p} with compass named "&6Position: &f%location of {_p}%" with lore "&7 > For those without F3...?"
-	format gui slot 10 of {_p} with head of {_p} named "&7:L%{p_level::%{_p}%}%&8: &e%display name of {_p}%" with lore "&6Playtime: &7%time played of {_p}%"
+	open virtual chest inventory with size 3 named "&8Statistics: %{_p}%" to {_p}
+	format gui slot 10 of {_p} with head of {_p} named "&x&d&5&5&6&5&6:L%{p_level::%{_p}%}%&8: &x&d&5&5&6&5&6%display name of {_p}%" with lore "&x&d&5&5&6&5&6Playtime: &7%time played of {_p}%"
 	set {_coins} to inventoryFormat({p_coins::%{_p}%})
 	set {_totalcoins} to inventoryFormat({p_totalcoins::%{_p}%})
-	format gui slot 12 of {_p} with gold block named "&6&lCOINS" with lore "&7Current: &6%{_coins}% &7coins" and "&7Total: &6%{_totalcoins}% &7coins"
+	format gui slot 12 of {_p} with gold block named "&x&d&5&5&6&5&6&lCOINS" with lore "&7Current: &x&d&5&5&6&5&6%{_coins}% &7coins" and "&7Total: &x&d&5&5&6&5&6%{_totalcoins}% &7coins"
 	set {_wrath} to inventoryFormat({p_wrath::%{_p}%})
 	set {_totalwrath} to inventoryFormat({p_totalwrath::%{_p}%})
-	format gui slot 13 of {_p} with bell named "&c&lWRATH" with lore "&7Current: &c%{_wrath}% &7wrath" and "&7Total: &c%{_totalwrath}% &7wrath"
-	format gui slot 14 of {_p} with nether star named "&b&lVIRTUE" with lore "&7Current: &b%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
-	# format gui slot 16 of {_p} with nether star named "&b&lREBIRTH" with lore "&7Total: &b%{p_rebirth::%{_p}%}% &7times"
-	format gui slot 15 of {_p} with netherite sword named "&c&lCOMBAT" with lore "&7Kills: &c%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: &c%{p_death::%{_p}%}% &7deaths" with all flags hidden
+	format gui slot 13 of {_p} with bell named "&x&d&5&5&6&5&6&lWRATH" with lore "&7Current: &x&d&5&5&6&5&6%{_wrath}% &7wrath" and "&7Total: &c%{_totalwrath}% &7wrath"
+	format gui slot 14 of {_p} with nether star named "&x&d&5&5&6&5&6&lVIRTUE" with lore "&7Current: &x&d&5&5&6&5&6%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
+	format gui slot 15 of {_p} with netherite sword named "&x&d&5&5&6&5&6&lCOMBAT" with lore "&7Kills: &x&d&5&5&6&5&6%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: &x&d&5&5&6&5&6%{p_death::%{_p}%}% &7deaths" with all flags hidden
 
 command /dailyreset [<offline player>]:
 	trigger:
 		if command executor is op:
 			clear {daily.%arg-1%.lastused}
-			send "{@admin} &7Reset daily reward of &e%arg-1%"
+			send "{@admin} &7Reset daily reward of &x&d&5&5&6&5&6%arg-1%"
 			send "{@shaft} &7Your daily reward has neen reset" to arg-1
 		else:
 			send "{@admin} {@permission}"
@@ -52,39 +50,39 @@ on right click:
 	if player's tool is pickaxe or axe or shovel:
 		if player's tool is wooden axe:
 			stop
-	else if name of player's tool is "&e&lMENU":
+	else if name of player's tool is "&x&d&5&5&6&5&6&lMENU":
 		menu(player)
 
 function menu(p: player):
 	open virtual chest inventory with size 3 named "&8Menu" to {_p}
 	if {pvp::%{_p}%} is false:
-		format gui slot 0 of {_p} with red dye named "&7&lPvP &c&lDISABLED" with lore " &8╹ &7Click to Enable (/pvp)" to run:
+		format gui slot 0 of {_p} with red dye named "&x&d&5&5&6&5&6&lPvP &7&lDISABLED" with lore " &8╹ &7Click to Enable (/pvp)" to run:
 			delete {pvp::%{_p}%}
 			menu({_p})
 	else:
-		format gui slot 0 of {_p} with lime dye named "&7&lPvP &a&lENABLED" with lore " &8╹ &7Click to Disable (/pvp)" to run:
+		format gui slot 0 of {_p} with lime dye named "&x&d&5&5&6&5&6&lPvP &7&lENABLED" with lore " &8╹ &7Click to Disable (/pvp)" to run:
 			set {pvp::%{_p}%} to false
 			menu({_p})
-	format gui slot 1 of {_p} with nether star named "&7&lSPAWN" with lore " &8╹ &7Click to Teleport" to run:
+	format gui slot 1 of {_p} with nether star named "&x&d&5&5&6&5&6&lSPAWN" with lore " &8╹ &7Click to Teleport" to run:
 		teleport {_p} to {spawn}
 	set {_waited} to difference between {daily.%{_p}%.lastused} and now
 	set {_next} to 1 day after {daily.%{_p}%.lastused}
 	if {_waited} is less than 24 hours:
-		format gui slot 8 of {_p} with red stained glass named "&7&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&7┃ &7Already &cClaimed " and "&7╹ &b+100 &7Wrath" to run:
-			send "{@shaft} &7Your daily reward was already claimed at &e%{daily.%{_p}%.lastused}%" to {_p}
+		format gui slot 8 of {_p} with red stained glass named "&x&d&5&5&6&5&6&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&8┃ &7Already &x&d&5&5&6&5&6Claimed " and "&8╹ &x&d&5&5&6&5&6+100 &7Wrath" to run:
+			send "{@shaft} &7Your daily reward was already claimed at &x&d&5&5&6&5&6%{daily.%{_p}%.lastused}%" to {_p}
 			menu({_p})
 	else:
 		if {_waited} is not set:
 			set {_m} to "Never Used"
 		else:
 			set {_m} to "%{daily.%{_p}%.lastused}%"
-		format gui slot 8 of {_p} with lime stained glass named "&7&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to &aClaim" and " &8╹ &e+100 &7Wrath" to run:
+		format gui slot 8 of {_p} with lime stained glass named "&x&d&5&5&6&5&6&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to &x&d&5&5&6&5&6Claim" and " &8╹ &x&d&5&5&6&5&6+100 &7Wrath" to run:
 			set {daily.%{_p}%.lastused} to now
-			send "{@shaft} &7You claimed your daily reward at &e%now%" to {_p}
+			send "{@shaft} &7You claimed your daily reward at &x&d&5&5&6&5&6%now%" to {_p}
 			add 100 to {p_wrath::%{_p}%}
 			menu({_p})
 	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
-	format gui slot 2 of {_p} with book named "&7&lSTATS" with lore " &8╹ &7Click to view" to run:
+	format gui slot 2 of {_p} with book named "&x&d&5&5&6&5&6&lSTATS" with lore " &8╹ &7Click to view" to run:
 		stats(player)
 
 on inventory click:	

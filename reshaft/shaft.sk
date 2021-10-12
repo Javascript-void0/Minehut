@@ -1,13 +1,13 @@
 options:
-	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
-	discord: &8[&e&lDISCORD&8]&f
-	broadcast: &8[&e&lBROADCAST&8]&f
-	rule: &8[&e&lRULE&8]&f
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
+	discord: &8[&x&d&5&5&6&5&6&lDISCORD&8]&f
+	broadcast: &8[&x&d&5&5&6&5&6&lBROADCAST&8]&f
+	rule: &8[&x&d&5&5&6&5&6&lRULE&8]&f
 	permission: &7Insufficient Permissions
-	coins: &7Insufficient &eCoins
+	coins: &7Insufficient &x&d&5&5&6&5&6Coins
 	wrath: &7Insufficient &bWrath
-	staff: &8[&e&lSTAFF&8]&f
-	admin: &8[&6&lADMIN&8]&f
+	staff: &8[&x&d&5&5&6&5&6&lSTAFF&8]&f
+	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
 	world: world
 
 function roundto(n: number, to: number) :: number:
@@ -52,14 +52,14 @@ on item damage:
 on shoot:
 	set {_p} to held item of shooter
 	if projectile is set:
-		set slot 16 of shooter to 64 of arrow named "&e&lQUIVER" with lore " &8╹ &7Click to Open"
+		set slot 16 of shooter to 64 of arrow named "&x&d&5&5&6&5&6&lQUIVER" with lore " &8╹ &7Click to Open"
 
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
 on disconnect:
 	broadcast "&8[&c-&8] &7%player%"
 on first join:
-	broadcast "&8[&a+&8] &e%player% &8[&f##%size of all offline players%&8]"
+	broadcast "&8[&a+&8] &x&d&5&5&6&5&6%player% &8[&f##%size of all offline players%&8]"
 
 command /spawn:
 	trigger:
@@ -73,9 +73,13 @@ command /setspawn:
 		else:
 			send "{@admin} {@permission}"
 
+command /discord:
+	trigger:
+		send "{@discord} <tooltip:&x&d&5&5&6&5&6Click to join!><link:https://discord.gg/y333BGhxFP>&7Click Here to Join!<reset>"
+
 every 10 minutes:
 	loop all players:
-		message "{@discord} &7Join our &eDiscord &7for events, updates, and extra features (offline bonuses) <tooltip:&6Click to join!><link:https://discord.gg/y333BGhxFP>&8[&6&lCLICK HERE&8]<reset>" to loop-player
+		message "{@discord} &7Join our &x&d&5&5&6&5&6Discord &7for events, updates, and extra features (offline bonuses) <tooltip:&x&d&5&5&6&5&6Click to join!><link:https://discord.gg/y333BGhxFP>&8[&x&d&5&5&6&5&6&lCLICK HERE&8]<reset>" to loop-player
 
 command /tps:
 	trigger:
@@ -84,7 +88,7 @@ command /tps:
 		if {_t} >= 19:
 			send "{@shaft} &a%{_t}% &7TPS"
 		else if {_t} >= 16:
-			send "{@shaft} &e%{_t}% &7TPS"
+			send "{@shaft} &x&d&5&5&6&5&6%{_t}% &7TPS"
 		else:
 			send "{@shaft} &c%{_t}% &7TPS"
 
@@ -93,7 +97,7 @@ command /bc [<text>]:
 	trigger:
 		if player is op:
 			if arg-1 is set:
-				broadcast colored "{@broadcast} &6%arg-1%"
+				broadcast colored "{@broadcast} &c%arg-1%"
 			else:
 				send "{@admin} /bc <msg>"
 		else:
@@ -101,14 +105,14 @@ command /bc [<text>]:
 
 command /rules: 
 	trigger:
-		send "{@rule} &e1. &fNo NSFW. Limit swearing."
-		send "{@rule} &e2. &fEnglish only"
-		send "{@rule} &e3. &fDon't spam/flood. Limit caps. "
-		send "{@rule} &e4. &fRespect everyone"
-		send "{@rule} &e5. &fNo advertising"
-		send "{@rule} &e6. &fDon't start drama"
-		send "{@rule} &e7. &fNo bugs, exploits, hacks, macros, or any unfair advantages"
-		send "{@rule} &e8. &fDon't be rude, racist, or bully others"
+		send "{@rule} &x&d&5&5&6&5&61. &fNo NSFW. Limit swearing."
+		send "{@rule} &x&d&5&5&6&5&62. &fEnglish only"
+		send "{@rule} &x&d&5&5&6&5&63. &fDon't spam/flood. Limit caps. "
+		send "{@rule} &x&d&5&5&6&5&64. &fRespect everyone"
+		send "{@rule} &x&d&5&5&6&5&65. &fNo advertising"
+		send "{@rule} &x&d&5&5&6&5&66. &fDon't start drama"
+		send "{@rule} &x&d&5&5&6&5&67. &fNo bugs, exploits, hacks, macros, or any unfair advantages"
+		send "{@rule} &x&d&5&5&6&5&68. &fDon't be rude, racist, or bully others"
 
 command /pl:
 	aliases: /plugins
@@ -235,25 +239,25 @@ command /top [<text>]:
 			set {_n} to {_n}-1
 		wait 1 tick
 		set {_i} to 0
-		send "&7&m-----------&r &8[ &e&lTOP &8] &7&m-------------"
+		send "&7&m-----------&r &8[ &x&d&5&5&6&5&6&lTOP &8] &7&m-------------"
 		loop {_high.to.low.list::*}:
 			if arg-1 is "level":
-				set {_label} to "&e:L%{p_%arg-1%::%loop-value%}%"
+				set {_label} to "&x&d&5&5&6&5&6:L%{p_%arg-1%::%loop-value%}%"
 			else if arg-1 is "coins" or "totalcoins":
 				set {_coins} to format({p_%arg-1%::%loop-value%})
-				set {_label} to "&e%{_coins}% &7coins"
+				set {_label} to "&x&d&5&5&6&5&6%{_coins}% &7coins"
 			else if arg-1 is "wrath" or "totalwrath":
 				set {_wrath} to format({p_%arg-1%::%loop-value%})
-				set {_label} to "&e%{_wrath}% &7wrath"
+				set {_label} to "&x&d&5&5&6&5&6%{_wrath}% &7wrath"
 			else if arg-1 is "totalstigma":
 				set {_stigma} to format({p_%arg-1%::%loop-value%})
-				set {_label} to "&e%{_stigma}% &7stigma"
+				set {_label} to "&x&d&5&5&6&5&6%{_stigma}% &7stigma"
 			else if arg-1 is "death":
-				set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7deaths"
+				set {_label} to "&x&d&5&5&6&5&6%{p_%arg-1%::%loop-value%}% &7deaths"
 			else if arg-1 is "kill":
-				set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7kills"
+				set {_label} to "&x&d&5&5&6&5&6%{p_%arg-1%::%loop-value%}% &7kills"
 			else if arg-1 is "rebirth":
-				set {_label} to "&e%{p_%arg-1%::%loop-value%}% &7times"
+				set {_label} to "&x&d&5&5&6&5&6%{p_%arg-1%::%loop-value%}% &7times"
 			else if arg-1 is "maxhealth":
 				set {_label} to "&c%{%arg-1%::%loop-value%}% &c❤"
 			else if arg-1 is "damage":
@@ -288,7 +292,7 @@ function new(p: player):
 	set slot 0 of {_p} to {1_sword}
 	set slot 1 of {_p} to {1_bow}
 	set slot 40 of {_p} to {1_shield}
-	set slot 8 of {_p} to skull of {_p} named "&e&lMENU" with lore " &8╹ &7Click to Open"
+	set slot 8 of {_p} to skull of {_p} named "&x&d&5&5&6&5&6&lMENU" with lore " &8╹ &7Click to Open"
 
 function newcenter(p: player):
 	set slot 12 of {_p} to {pegasuslock}

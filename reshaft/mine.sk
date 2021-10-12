@@ -1,17 +1,18 @@
 options:
-	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
 	permission: &7Insufficient Permissions
-	admin: &8[&6&lADMIN&8]&f
+	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
+	world: world
 
 command /jumplock:
 	trigger:
 		if player is op:
 			if {launchpad} is false:
 				set {launchpad} to true
-				send "{@admin} &7Turned Launch Pad &a&lON"
+				send "{@admin} &7Turned Launch Pad &x&d&5&5&6&5&6&lON"
 			else if {launchpad} is true:
 				set {launchpad} to false
-				send "{@admin} &7Turned Launch Pad &c&lOFF"
+				send "{@admin} &7Turned Launch Pad &x&d&5&5&6&5&6&lOFF"
 		else:
 			send "{@admin} {@permission}"
 

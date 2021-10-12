@@ -1,7 +1,7 @@
 options:
-	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
 	permission: &7Insufficient Permissions
-	admin: &8[&6&lADMIN&8]&f
+	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
 	world: world
 
 function adminFormat(n: number) :: text:
@@ -42,7 +42,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 			if arg-3 is "add":
 				add arg-4 to {p_%arg-2%::%arg-1%}
 				set {_nn} to adminFormat(arg-4)
-				send "{@admin} &7Added &e%{_nn}% &7to &e%arg-1%&e's &7%arg-2%"
+				send "{@admin} &7Added &x&d&5&5&6&5&6%{_nn}% &7to %arg-1% &7%arg-2%"
 			else if arg-3 is "remove":
 				if arg-2 is "level":
 					if arg-4 is greater than {p_level::%arg-1%} - 1:
@@ -70,7 +70,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to arg-4
 				remove {_n} from {p_%arg-2%::%arg-1%}
 				set {_nn} to adminFormat({_n})
-				send "{@admin} &7Removed &e%{_nn}% &7from &e%arg-1%&e's &7%arg-2%"
+				send "{@admin} &7Removed &x&d&5&5&6&5&6%{_nn}% &7from %arg-1% &7%arg-2%"
 			else if arg-3 is "set":
 				if arg-2 is "level":
 					if arg-4 is less than 1:
@@ -98,7 +98,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to arg-4
 				set {p_%arg-2%::%arg-1%} to {_n}
 				set {_nn} to adminFormat({_n})
-				send "{@admin} &7Set &e%arg-1%&e's &7%arg-2% &7to &e%{_nn}%"
+				send "{@admin} &7Set %arg-1% &7%arg-2% &7to &x&d&5&5&6&5&6%{_nn}%"
 			else if arg-3 is "reset":
 				if arg-2 is "level":
 					set {_n} to 1
@@ -116,12 +116,12 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {p_maxhealth::%arg-1%} to 20
 					set {p_health::%arg-1%} to 20
 					set {p_damage::%arg-1%} to 1
-					send "{@admin} &7Reset all for &e%arg-1%"
+					send "{@admin} &7Reset all for &x&d&5&5&6&5&6%arg-1%"
 					stop
 				else:
 					set {_n} to 0
 				set {p_%arg-2%::%arg-1%} to {_n}
-				send "{@admin} &7Reset &e%arg-1%&e's &7%arg-2%"
+				send "{@admin} &7Reset %arg-1% &7%arg-2%"
 		else:
 			send "{@admin} {@permission}"
 			

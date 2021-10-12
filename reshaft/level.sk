@@ -1,5 +1,8 @@
 options:
-	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
+	permission: &7Insufficient Permissions
+	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
+	world: world
 
 function expAdd(p: player, n: integer):
 	add {_n} to {p_coins::%{_p}%}
@@ -36,7 +39,7 @@ function expBlock(p: player, n: integer, b: block):
 		add 1 to {p_level::%{_p}%}
 		set {p_nextexp::%{_p}%} to ({p_level::%{_p}%} * 2) + 10
 		set {action::%{_p}%} to "Level Up!"
-		send {_p} title "&e&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%{_p}%}%" for 3 seconds
+		send {_p} title "&x&d&5&5&6&5&6&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%{_p}%}%" for 3 seconds
 		discordLevel({_p}, {p_level::%{_p}%})
 		set {actionBlock::%{_p}%} to {_b}
 		wait 2 seconds

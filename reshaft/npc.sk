@@ -1,13 +1,7 @@
 options:
-	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
-	discord: &8[&e&lDISCORD&8]&f
-	broadcast: &8[&e&lBROADCAST&8]&f
-	rule: &8[&e&lRULE&8]&f
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
 	permission: &7Insufficient Permissions
-	coins: &7Insufficient &eCoins
-	wrath: &7Insufficient &bWrath
-	staff: &8[&e&lSTAFF&8]&f
-	admin: &8[&6&lADMIN&8]&f
+	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
 	world: world
 
 command /quest [<text>]:

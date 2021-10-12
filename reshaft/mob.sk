@@ -1,5 +1,5 @@
 options:
-	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
 	world: world
 
 function boneWarrior(e: entity):
@@ -79,10 +79,10 @@ on spawn of zombie:
 	# 	cancel event
 	if {_n} is 1:
 		orcCaptain(event-entity)
-		set name of event-entity to "&8[&e:L100&8] &fOrc:Captain &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
+		set name of event-entity to "&8[&x&d&5&5&6&5&6:L100&8] &fOrc:Captain &7(&x&d&5&5&6&5&6%{m_health::%event-entity%}%&x&d&5&5&6&5&6/%{m_maxhealth::%event-entity%}% ❤&7)"
 	else if {_n} is 2:
 		orcWarrior(event-entity)
-		set name of event-entity to "&8[&e:L100&8] &fOrc:Warrior &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
+		set name of event-entity to "&8[&x&d&5&5&6&5&6:L100&8] &fOrc:Warrior &7(&x&d&5&5&6&5&6%{m_health::%event-entity%}%&x&d&5&5&6&5&6/%{m_maxhealth::%event-entity%}% ❤&7)"
 on spawn of skeleton:
 	set {_n} to random integer between 1 and 2
 	if {mobcap} is true:
@@ -91,10 +91,10 @@ on spawn of skeleton:
 	# 	cancel event
 	if {_n} is 1:
 		boneWarrior(event-entity)
-		set name of event-entity to "&8[&e:L100&8] &fBone:Warrior &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
+		set name of event-entity to "&8[&x&d&5&5&6&5&6:L100&8] &fBone:Warrior &7(&x&d&5&5&6&5&6%{m_health::%event-entity%}%&x&d&5&5&6&5&6/%{m_maxhealth::%event-entity%}% ❤&7)"
 	else if {_n} is 2:
 		boneArcher(event-entity)
-		set name of event-entity to "&8[&e:L100&8] &fBone:Archer &7(&c%{m_health::%event-entity%}%&c/%{m_maxhealth::%event-entity%}% ❤&7)"
+		set name of event-entity to "&8[&x&d&5&5&6&5&6:L100&8] &fBone:Archer &7(&x&d&5&5&6&5&6%{m_health::%event-entity%}%&x&d&5&5&6&5&6/%{m_maxhealth::%event-entity%}% ❤&7)"
 on spawn of creeper:
 	cancel event
 on spawn of enderman:

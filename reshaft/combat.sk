@@ -1,17 +1,17 @@
 options:
-	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
 	permission: &7Insufficient Permissions
-	admin: &8[&6&lADMIN&8]&f
+	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
 	world: world
 
 command /pvp:
 	trigger:
 		if {pvp::%player%} is not set:
 			set {pvp::%player%} to false
-			send "{@shaft} &7PvP &c&lDISABLED"
+			send "{@shaft} &7PvP &x&d&5&5&6&5&6&lDISABLED"
 		else:
 			delete {pvp::%player%}
-			send "{@shaft} &7PvP &a&lENABLED."
+			send "{@shaft} &7PvP &x&d&5&5&6&5&6&lENABLED."
 
 every 5 tick:
 	loop all players:
@@ -27,7 +27,7 @@ function death(p: player):
 	apply weakness of tier 255 to {_p} for 3 seconds
 	apply slowness of tier 255 to {_p} for 3 seconds
 	apply wither of tier 255 to {_p} for 3 seconds
-	send {_p} title "&c&lYOU DIED" with subtitle "&7You lost &e50%% &7 of your coins" for 2 seconds
+	send {_p} title "&x&d&5&5&6&5&6&lYOU DIED" with subtitle "&7You lost &x&d&5&5&6&5&650%% &7 of your coins" for 2 seconds
 	set {_half} to floor({p_coins::%{_p}%} / 2)
 	remove {_half} from {p_coins::%{_p}%}
 	teleport {_p} to {spawn}
@@ -48,14 +48,14 @@ on damage:
 		victim is a player
 		{pvp::%victim%} is set
 		cancel event
-		set action bar of attacker to "{@shaft} &7PvP is &c&lDISABLED &7 for %victim%"
+		set action bar of attacker to "{@shaft} &7PvP is &x&d&5&5&6&5&6&lDISABLED &7 for %victim%"
 		stop
 	if attacker is set:
 		attacker is a player
 		victim is a player
 		{pvp::%attacker%} is set
 		cancel event
-		set action bar of attacker to "{@shaft} &7Your PvP is &c&lDISABLED"
+		set action bar of attacker to "{@shaft} &7Your PvP is &x&d&5&5&6&5&6&lDISABLED"
 		stop
 	if victim is not a player:
 		if attacker is not a player:
@@ -77,7 +77,7 @@ on damage:
 				add 1 to {p_level::%attacker%}
 				set {p_nextexp::%attacker%} to {p_level::%attacker%} * 2
 				set {action::%attacker%} to "Level Up!"
-				send attacker title "&e&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%attacker%}%" for 3 seconds
+				send attacker title "&x&d&5&5&6&5&6&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%attacker%}%" for 3 seconds
 				discordLevel(attacker, {p_level::%attacker%})
 				wait 2 seconds
 				delete {action::%attacker%}
@@ -88,11 +88,11 @@ on damage:
 			add 1 to {p_coins::%attacker%}
 		else:
 			set {_name::*} to name of victim split at " "
-			set name of victim to "%{_name::1}% %{_name::2}% &7(&c%{m_health::%victim%}%&c/%{m_maxhealth::%victim%}% ❤&7)"
+			set name of victim to "%{_name::1}% %{_name::2}% &7(&x&d&5&5&6&5&6%{m_health::%victim%}%&x&d&5&5&6&5&6/%{m_maxhealth::%victim%}% ❤&7)"
 		# damage counter
 		set {_location} to random element out of blocks in radius 1 of victim
 		add 3 to {_location}'s y-coordinate
-		create holo object "&c-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
+		create holo object "&x&d&5&5&6&5&6-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
 		wait 1 second
 		delete holo object "damage.%{_location}%"
 	if victim is a player:

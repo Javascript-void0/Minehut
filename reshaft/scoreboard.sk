@@ -2,8 +2,8 @@ options:
 	world: world
 
 function scoreboardFormat(n: number) :: text:
-	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
-	loop split {_data} at "|":
+	set {_data} to "f,18:e,15:d,12:c,9:b,6:a,3"
+	loop split {_data} at ":":
 		set {_s::*} to split loop-value at ","
 		{_n} >= 10 ^ {_s::2} parsed as number
 		set {_nn} to scoreboardRound({_n} / 10 ^ {_s::2} parsed as number, 1)
@@ -16,9 +16,9 @@ function scoreboardRound(n: number, to: number) :: number:
 every second:
 	loop all players:
 		wipe loop-player's sidebar
-		set name of sidebar of loop-player to "    &6&lRe&e&lSHAFT&7²      "
+		set name of sidebar of loop-player to "    &x&d&5&5&6&5&6&lRESHAFT&7²      "
 		set score "&7" in sidebar of loop-player to 13
-		set score " &e&lPLAYER" in sidebar of loop-player to 12
+		set score " &c&lPLAYER" in sidebar of loop-player to 12
 		set score " &8┃ &7Level: &f%{p_level::%loop-player%}%" in sidebar of loop-player to 11
 		set {_expFormat} to scoreboardFormat({p_exp::%loop-player%})
 		set {_nextexpFormat} to scoreboardFormat({p_nextexp::%loop-player%})
@@ -28,56 +28,56 @@ every second:
 		set {_percentFormat} to scoreboardRound({_percent} * 100, 1)
 		set score "   &8(&f%{_percentFormat}%%%&8)" in sidebar of loop-player to 8
 		if {_percent} is between 0 and 0.05:
-			set score " &8[&e&7::::::::::::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c&7::::::::::::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.05 and 0.1:
-			set score " &8[&e:&7:::::::::::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c:&7:::::::::::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.1 and 0.15:
-			set score " &8[&e::&7::::::::::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c::&7::::::::::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.15 and 0.2:
-			set score " &8[&e:::&7:::::::::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c:::&7:::::::::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.2 and 0.25:
-			set score " &8[&e::::&7::::::::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c::::&7::::::::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.25 and 0.3:
-			set score " &8[&e:::::&7:::::::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c:::::&7:::::::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.3 and 0.35:
-			set score " &8[&e::::::&7::::::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c::::::&7::::::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.35 and 0.4:
-			set score " &8[&e:::::::&7:::::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c:::::::&7:::::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.4 and 0.45:
-			set score " &8[&e::::::::&7::::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c::::::::&7::::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.45 and 0.5:
-			set score " &8[&e:::::::::&7:::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c:::::::::&7:::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.5 and 0.55:
-			set score " &8[&e::::::::::&7::::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c::::::::::&7::::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.55 and 0.6:
-			set score " &8[&e:::::::::::&7:::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c:::::::::::&7:::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.6 and 0.65:
-			set score " &8[&e::::::::::::&7::::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c::::::::::::&7::::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.65 and 0.7:
-			set score " &8[&e:::::::::::::&7:::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c:::::::::::::&7:::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.7 and 0.75:
-			set score " &8[&e::::::::::::::&7::::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c::::::::::::::&7::::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.75 and 0.8:
-			set score " &8[&e:::::::::::::::&7:::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c:::::::::::::::&7:::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.8 and 0.85:
-			set score " &8[&e::::::::::::::::&7::::&8]" in sidebar of loop-player to 7
+			set score " &8[&c::::::::::::::::&7::::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.85 and 0.9:
-			set score " &8[&e:::::::::::::::::&7:::&8]" in sidebar of loop-player to 7
+			set score " &8[&c:::::::::::::::::&7:::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.9 and 0.95:
-			set score " &8[&e::::::::::::::::::&7::&8]" in sidebar of loop-player to 7
+			set score " &8[&c::::::::::::::::::&7::&8]" in sidebar of loop-player to 7
 		else if {_percent} is between 0.95 and 1:
-			set score " &8[&e:::::::::::::::::::&7:&8]" in sidebar of loop-player to 7
+			set score " &8[&c:::::::::::::::::::&7:&8]" in sidebar of loop-player to 7
 		else:
-			set score " &8[&e::::::::::::::::::::&7&8]" in sidebar of loop-player to 7
+			set score " &8[&c::::::::::::::::::::&7&8]" in sidebar of loop-player to 7
 		if {action::%loop-player%} is set:
 			set score "   &7%{action::%loop-player%}% " in sidebar of loop-player to 6
 		else:
 			set score "   &8_____" in sidebar of loop-player to 6
-		set score "&b" in sidebar of loop-player to 5
-		set score " &e&lBALANCE" in sidebar of loop-player to 4
+		set score "&d" in sidebar of loop-player to 5
+		set score " &c&lBALANCE" in sidebar of loop-player to 4
 		set {_coin} to scoreboardFormat({p_coins::%loop-player%})
 		set score " &8┃ &7Coins: &f%{_coin}%" in sidebar of loop-player to 3
 		set {_wrath} to scoreboardFormat({p_wrath::%loop-player%})
 		set score " &8┃ &7Wrath: &f%{_wrath}%" in sidebar of loop-player to 2
 		set score " &8╹ &7Virtue: " in sidebar of loop-player to 1
-		set score "&9" in sidebar of loop-player to 0
+		set score "&c" in sidebar of loop-player to 0

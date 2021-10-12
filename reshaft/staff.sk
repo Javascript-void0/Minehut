@@ -1,7 +1,7 @@
 options:
-	shaft: &8[&6&lRe&e&lSHAFT&7²&8]&f
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
 	permission: &7Insufficient Permissions
-	staff: &8[&e&lSTAFF&8]&f
+	staff: &8[&x&d&5&5&6&5&6&lSTAFF&8]&f
 	world: world
 
 command /staffchat [<text>]:
@@ -12,10 +12,10 @@ command /staffchat [<text>]:
 		if arg-1 is not set:
 			if {staffchat::%player%} is not set:
 				set {staffchat::%player%} to true
-				send "{@staff} &7Toggle &aENABLED"
+				send "{@staff} &7Toggle &x&d&5&5&6&5&6&lENABLED"
 			else:
 				delete {staffchat::%player%}
-				send "{@staff} &7Toggle &cDISABLED"
+				send "{@staff} &7Toggle &x&d&5&5&6&5&6&lDISABLED"
 		else:
 			loop all players:
 				if loop-player has permission "sc.staffchat":
@@ -29,7 +29,7 @@ on chat:
 every 1 second:
 	loop all players:
 		if {staffchat::%loop-player%} is true:
-			send action bar "{@staff} &aEnabled" to loop-player
+			send action bar "{@staff} &x&d&5&5&6&5&6Enabled" to loop-player
 on chat:
 	if player is op:
 		stop
@@ -56,18 +56,18 @@ command /mutechat:
 	trigger:
 		if {Globalchat} is not set:
 			set {Globalchat} to true
-			broadcast "{@shaft} &7Chat &cMUTED &7by %player%"
+			broadcast "{@shaft} &7Chat &x&d&5&5&6&5&6&lMUTED &7by %player%"
 			stop trigger
 		if {Globalchat} is set:
 			clear {Globalchat}
-			broadcast "{@shaft} &7Chat &aUNMUTED &7by %player%"
+			broadcast "{@shaft} &7Chat &x&d&5&5&6&5&6&lUNMUTED &7by %player%"
 on chat:
 	if {Globalchat} is true:
 		if player has permission "chat.mute.bypass":
 			stop trigger
 		else:
 			cancel event
-			send "{@shaft} &cChat is currently muted."
+			send "{@shaft} &7Chat is currently &x&d&5&5&6&5&6muted."
 command /clearchat:
 	permission: staff
 	permission message: {@staff} {@permission}
@@ -75,7 +75,7 @@ command /clearchat:
 	trigger:
 		loop 100 times:
 			broadcast ""
-		send "{@shaft} &aYou have cleared the chat"
+		send "{@shaft} &7You have &x&d&5&5&6&5&6cleared &7the chat"
 command /clearlag:
 	permission: staff
 	permission message: {@staff} {@permission}
@@ -91,4 +91,4 @@ command /clearlag:
 		loop {m_damage::*}:
 			if {m_damage::%loop-value%} is not a player:
 				delete {m_damage::%loop-value%}
-		broadcast "{@shaft} &7Cleared &c%{_n}% &7entities"
+		broadcast "{@shaft} &7Cleared &x&d&5&5&6&5&6%{_n}% &7entities"
