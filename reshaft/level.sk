@@ -27,7 +27,6 @@ command /levelup [<integer>]:
 		discordLevel(player, arg-1)
 
 function discordLevel(p: player, l: integer):
-	broadcast "%{_p}%, %{_l}%"
 	send "```Level: %name of {_p}%, %{_l}%```" to channel with id "886738161491914772" with "ReShaft"
 
 function expBlock(p: player, n: integer, b: block):
@@ -39,7 +38,7 @@ function expBlock(p: player, n: integer, b: block):
 		add 1 to {p_level::%{_p}%}
 		set {p_nextexp::%{_p}%} to ({p_level::%{_p}%} * 2) + 10
 		set {action::%{_p}%} to "Level Up!"
-		send {_p} title "&x&d&5&5&6&5&6&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%{_p}%}%" for 3 seconds
+		send {_p} title "&c&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%{_p}%}%" for 3 seconds
 		discordLevel({_p}, {p_level::%{_p}%})
 		set {actionBlock::%{_p}%} to {_b}
 		wait 2 seconds

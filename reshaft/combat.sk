@@ -77,7 +77,7 @@ on damage:
 				add 1 to {p_level::%attacker%}
 				set {p_nextexp::%attacker%} to {p_level::%attacker%} * 2
 				set {action::%attacker%} to "Level Up!"
-				send attacker title "&x&d&5&5&6&5&6&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%attacker%}%" for 3 seconds
+				send attacker title "&c&lLEVEL UP" with subtitle "&7%{_before}% > %{p_level::%attacker%}%" for 3 seconds
 				discordLevel(attacker, {p_level::%attacker%})
 				wait 2 seconds
 				delete {action::%attacker%}
