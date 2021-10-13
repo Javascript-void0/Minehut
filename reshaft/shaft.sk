@@ -281,6 +281,8 @@ command /new [<text>]:
 				new(player)
 			else if arg-1 is "center":
 				newcenter(player)
+			else if arg-1 is "tool" or "tools":
+				give player {1_pickaxe}, {1_axe}, {1_shovel}, and {1_hoe}
 		else:
 			send "{@admin} {@permission}"
 
@@ -304,3 +306,18 @@ function newcenter(p: player):
 	set slot 30 of {_p} to {talarialock}
 	set slot 31 of {_p} to {zeuslock}
 	set slot 32 of {_p} to {hermeslock}
+	
+command /backpack [<integer>]:
+	trigger:
+		if player is op:
+			set slot 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, and 35 of player to gray stained glass pane named " "
+			if arg-1 is 3:
+				set slot 12, 13, 14, 21, 22, 23, 30, 31, and 32 of player to air
+			else if arg-1 is 5:
+				set slot 11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32, and 33 of player to air
+			else if arg-1 is 7:
+				set slot 10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, and 34 of player to air
+			else if arg-1 is 9:
+				set slot 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, and 35 of player to air
+		else:
+			send "{@admin} {@permission}"

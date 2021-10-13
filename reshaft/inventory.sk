@@ -1,10 +1,22 @@
 options:
-	shaft: &8[&c&lRESHAFT&8]&c
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[&c&lADMIN&8]&c
+	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&7
 	coins: &7Insufficient &x&d&5&5&6&5&6Coins
 	wrath: &7Insufficient &x&d&5&5&6&5&6Wrath
 	world: world
+
+command /invlock:
+	trigger:
+		if player is op:
+			if {unlock.%player%} is set:
+				delete {unlock.%player%}
+				send "{@admin} &7Inventory &c&lLOCKED"
+			else:
+				set {unlock.%player%} to true
+				send "{@admin} &7Inventory &a&lUNLOCKED"
+		else:
+			send "{@admin} {permission}"
 
 function inventoryRound(n: number, to: number) :: number:
 	return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
@@ -88,16 +100,22 @@ function menu(p: player):
 on inventory click:	
 	if {unlock.%player%} is set:
 		stop
+	if clicked slot is 8:
+		cancel event
+		menu(player)
 	if name of event-inventory is not "Crafting":
 		cancel event
 		stop
 	gamemode of player is survival
-	if clicked type is right mouse button:
-		if clicked slot is 36 or 37 or 38 or 39:
+	if clicked slot is 36 or 37 or 38 or 39:
+		if clicked type is right mouse button:
 			armorUpgrade(player)
-		else if clicked item is helmet or chestplate or leggings or boots:
-			set {_s} to index of event-slot
-			armorPieceUpgrade(player, clicked item, {_s})
+		else if clicked type is left mouse button:
+			if clicked item is black stained glass:
+				send "{@shaft} Can't promote any farther!"
+			else:
+				set {_s} to index of event-slot
+				armorPromote(player, clicked item, {_s})
 
 function armorUpgrade(p: player):
 	open virtual chest inventory with size 4 named "&8Upgrades" to {_p}
@@ -106,6 +124,34 @@ function armorUpgrade(p: player):
 	format gui slot 18 of {_p} with leggings of {_p}
 	format gui slot 27 of {_p} with boots of {_p}
 
-function armorPieceUpgrade(p: player, i: item, s: integer):
-	open virtual chest inventory with size 1 named "&8Upgrades" to {_p}
-	format gui slot 0 of {_p} with {_i}
+function armorPromote(p: player, i: item, s: integer):
+	broadcast "test"
+	open virtual dropper inventory named "&8Promote" to {_p}
+	broadcast "test"
+	broadcast "test %{_i}%"
+	set {_name} to name of {_n}
+	broadcast "%{_name}%"
+	if {_name} contains "&8[&c::&7::::::::&8]":
+		broadcast "test"
+		if {_i} is light gray stained glass:
+			format gui slot 4 of {_p} with {2_helmet} to run:
+				set player's helmet to {2_helmet}
+				close player's inventory
+		else if {_i} is chestplate:
+			format gui slot 4 of {_p} with {2_chestplate} to run:
+				set player's helmet to {2_chestplate}
+				close player's inventory
+		else if {_i} is leggings:
+			format gui slot 4 of {_p} with {2_leggings} to run:
+				set player's leggings to {2_leggings}
+				close player's inventory
+		else if {_i} is boots:
+			format gui slot 4 of {_p} with {2_boots} to run:
+				set player's boots to {2_boots}
+				close player's inventory
+	else if name of {_i} contains "&7::::::":
+		format gui slot 4 of {_p} with {3_helmet}
+	else if name of {_i} contains "&7::::":
+		format gui slot 4 of {_p} with {4_helmet}
+	else if name of {_i} contains "&7::":
+		format gui slot 4 of {_p} with {5_helmet}

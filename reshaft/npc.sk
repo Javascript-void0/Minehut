@@ -10,18 +10,6 @@ command /quest [<text>]:
 		send "{@shaft} &7Quest Set to &e%arg-1%"
 		set the player's compass target to location of {spawn}
 
-command /invlock:
-	trigger:
-		if player is op:
-			if {unlock.%player%} is set:
-				delete {unlock.%player%}
-				send "{@admin} &7Inventory &c&lLOCKED"
-			else:
-				set {unlock.%player%} to true
-				send "{@admin} &7Inventory &a&lUNLOCKED"
-		else:
-			send "{@admin} {permission}"
-
 function Idunn(p: player):
 	open virtual dropper inventory named "&8Idunn's Map" to {_p}
 
