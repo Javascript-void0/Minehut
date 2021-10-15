@@ -68,15 +68,21 @@ on right click:
 function menu(p: player):
 	open virtual chest inventory with size 3 named "&8Menu" to {_p}
 	if {pvp::%{_p}%} is false:
-		format gui slot 0 of {_p} with red dye named "&x&d&5&5&6&5&6&lPvP &7&lDISABLED" with lore " &8╹ &7Click to Enable (/pvp)" to run:
-			delete {pvp::%{_p}%}
+		format gui slot 0 of {_p} with red dye named "&x&d&5&5&6&5&6&lPVP &7Disabled" with lore " &8╹ &7Click to Enable (/pvp)" to run:
+			pvpToggle({_p})
 			menu({_p})
 	else:
-		format gui slot 0 of {_p} with lime dye named "&x&d&5&5&6&5&6&lPvP &7&lENABLED" with lore " &8╹ &7Click to Disable (/pvp)" to run:
-			set {pvp::%{_p}%} to false
+		format gui slot 0 of {_p} with lime dye named "&x&d&5&5&6&5&6&lPVP &7Enabled" with lore " &8╹ &7Click to Disable (/pvp)" to run:
+			pvpToggle({_p})
 			menu({_p})
-	format gui slot 1 of {_p} with nether star named "&x&d&5&5&6&5&6&lSPAWN" with lore " &8╹ &7Click to Teleport" to run:
-		teleport {_p} to {spawn}
+	if {wait.%{_p}%} is false:
+		format gui slot 1 of {_p} with red dye named "&x&d&5&5&6&5&6&lWAIT &7Disabled" with lore " &8╹ &7Click to Enable (/wait)" to run:
+			waitToggle({_p})
+			menu({_p})
+	else:
+		format gui slot 1 of {_p} with lime dye named "&x&d&5&5&6&5&6&lWAIT &7Enabled" with lore " &8╹ &7Click to Disable (/wait)" to run:
+			waitToggle({_p})
+			menu({_p})
 	set {_waited} to difference between {daily.%{_p}%.lastused} and now
 	set {_next} to 1 day after {daily.%{_p}%.lastused}
 	if {_waited} is less than 24 hours:

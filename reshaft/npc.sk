@@ -1,7 +1,7 @@
 options:
-	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
+	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&7
 	world: world
 
 command /quest [<text>]:
@@ -33,6 +33,21 @@ function Odin(p: player):
 
 function Hildr(p: player):
 	open virtual chest inventory with size 3 named "Bank" to {_p}
+
+command /wait:
+	trigger:
+		waitToggle(player)
+
+function waitToggle(p: player):
+	if {wait.%{_p}%} is not set:
+		set {wait.%{_p}%} to false
+		send "{@shaft} NPC chat delay turned off" to {_p}
+	else if {wait.%{_p}%} is false:
+		set {wait.%{_p}%} to true
+		send "{@shaft} NPC chat delay turned on" to {_p}
+	else if {wait.%{_p}%} is true:
+		set {wait.%{_p}%} to false
+		send "{@shaft} NPC chat delay turned off" to {_p}
 
 npc left click:
 	if citizen is 9:
