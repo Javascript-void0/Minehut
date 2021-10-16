@@ -1,0 +1,150 @@
+options:
+	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
+	permission: &7Insufficient Permissions
+	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
+	world: world
+
+function copyCube(loc: location, name: text):
+	set {_x} to x-location of {_loc}
+	set {_y} to y-location of {_loc}
+	set {_z} to z-location of {_loc}
+	loop 11 times:
+		loop 11 times:
+			loop 11 times:
+				set {_offsetX} to x-location of {_loc} - {_x}
+				set {_offsetY} to y-location of {_loc} - {_y}
+				set {_offsetZ} to z-location of {_loc} - {_z}
+				set {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} to block at {_loc}
+				if {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} is air:
+					set {_original} to air
+				else if {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} is obsidian:
+					set {_original} to obsidian
+				set block at {_loc} to red stained glass
+				# wait 1 tick
+				set block at {_loc} to {_original}
+				add 1 to x-coordinate of {_loc}
+			set x-coordinate of {_loc} to {_x}
+			add 1 to z-coordinate of {_loc}
+		set z-coordinate of {_loc} to {_z}
+		add 1 to y-coordinate of {_loc}
+	set y-coordinate of {_loc} to {_y}
+
+function pasteCube(loc: location, name: text):
+	set {_x} to x-location of {_loc}
+	set {_z} to z-location of {_loc}
+	set {_y} to y-location of {_loc}
+	loop 11 times:
+		loop 11 times:
+			loop 11 times:
+				set {_offsetX} to loop-number-3
+				remove 1 from {_offsetX}
+				set {_offsetZ} to loop-number-2
+				remove 1 from {_offsetZ}
+				set {_offsetY} to loop-number-1
+				remove 1 from {_offsetY}
+				# broadcast "%{d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}%"
+				#set block at {_loc} to lime stained glass
+				# wait 1 tick
+				set block at {_loc} to {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%}
+				add 1 to x-coordinate of {_loc}
+			set x-coordinate of {_loc} to {_x}
+			add 1 to z-coordinate of {_loc}
+		set z-coordinate of {_loc} to {_z}
+		add 1 to y-coordinate of {_loc}
+	set y-coordinate of {_loc} to {_y}
+
+function copySquare(loc: location, name: text):
+	set {_x} to x-location of {_loc}
+	set {_z} to z-location of {_loc}
+	loop 11 times:
+		loop 11 times:
+			set {_offsetX} to x-location of {_loc} - {_x}
+			set {_offsetZ} to z-location of {_loc} - {_z}
+			set {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%} to block at {_loc}
+			#if {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%} is air:
+			#	set {_original} to air
+			#else if {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%} is obsidian:
+			#	set {_original} to obsidian
+			# broadcast "&fOffset: &7%{_offsetX}%, %{_offsetZ}%"
+			# broadcast "&fBlock: &7%{d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}%"
+			#set block at {_loc} to red stained glass
+			# wait 1 tick
+			#set block at {_loc} to {_original}
+			add 1 to x-coordinate of {_loc}
+		set x-coordinate of {_loc} to {_x}
+		add 1 to z-coordinate of {_loc}
+	set z-coordinate of {_loc} to {_z}
+
+function pasteSquare(loc: location, name: text):
+	set {_x} to x-location of {_loc}
+	set {_z} to z-location of {_loc}
+	loop 11 times:
+		loop 11 times:
+			set {_offsetX} to loop-number-2
+			remove 1 from {_offsetX}
+			set {_offsetZ} to loop-number-1
+			remove 1 from {_offsetZ}
+			# broadcast "%{d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}%"
+			#set block at {_loc} to lime stained glass
+			# wait 1 tick
+			set block at {_loc} to {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}
+			add 1 to x-coordinate of {_loc}
+		set x-coordinate of {_loc} to {_x}
+		add 1 to z-coordinate of {_loc}
+	set z-coordinate of {_loc} to {_z}
+
+on tab complete of "/dungeon":
+	set tab completions for position 1 to "clear", "list", "copy", and "paste"
+
+command /dungeon [<text>] [<text>]:
+	trigger:
+		player is op
+		if arg-1 is "clear":
+			delete {dungeonStart::*}
+			broadcast "deleted all dungeon"
+			stop
+		if arg-1 is "list":
+			loop {dungeonStart::*}:
+				broadcast "%loop-index%, %loop-value%, %block at loop-value%"
+		if arg-1 is "copy":
+			if arg-2 is not set:
+				broadcast "/dungeon <copy> <name>"
+				stop
+			else:
+				copyCube({dungeonStart.pos}, arg-2)
+				broadcast "copied new dungeon to %arg-2%"
+				stop
+		if arg-1 is "paste":
+			if arg-2 is not set:
+				broadcast "/dungeon <paste> <name>"
+				broadcast "pasted %arg-2%"
+				stop
+			else:
+				pasteCube({dungeonStart.pos}, arg-2)
+				stop
+		arg-1 is not set
+		loop {dungeonStart::*}:
+			if block at loop-value is emerald block:
+				broadcast "&aOpen: &7%loop-index%, %loop-value%"
+				teleport player to location above loop-value
+				stop
+			else if block at loop-value is redstone block:
+				broadcast "&cActive: &7%loop-index%, %loop-value%"
+			else if block at loop-value is coal block:
+				broadcast "&8Disabled: &7%loop-index%, %loop-value%"
+
+on left click with blaze rod:
+	cancel event
+	if event-block is obsidian:
+		set {dungeonStart.pos} to location of event-block
+		broadcast "&3Selection: &7%location of event-block%"
+		stop
+	else if event-block is redstone block or emerald block or coal block:
+		if {dungeonStart::%location of event-block%} is set:
+			delete {dungeonStart::%location of event-block%}
+			send "removed %location of event-block%"
+		else:
+			set {dungeonStart::%location of event-block%} to location of event-block
+			set yaw of {dungeonStart::%location of event-block%} to -90
+			set pitch of {dungeonStart::%location of event-block%} to 0
+			send "added %location of event-block%"

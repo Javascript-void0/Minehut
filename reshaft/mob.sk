@@ -103,22 +103,37 @@ on spawn of witch:
 	cancel event
 on spawn of spider:
 	cancel event
+on spawn of slime:
+	cancel event
+on spawn of horse:
+	world of event-entity is "dungeon"
+	cancel event
+on spawn of sheep:
+	cancel event
+on spawn of pig:
+	cancel event
+on spawn of chicken:
+	cancel event
+on spawn of cow:
+	cancel event
+on spawn of donkey:
+	cancel event
 
-every 10 seconds:
-	loop all entities:
-		loop-entity is not a player
-		loop-entity is not a horse
-		if "%region at loop-entity%" contains "spawn":
-			delete loop-entity
-			delete {m_maxhealth::%loop-entity%}
-			delete {m_health::%loop-entity%}
-			delete {m_damage::%loop-entity%}
-	set {_p} to number of players
-	set {_d} to number of entities - {_p}
-	if {_d} is greater than 200:
-		set {mobcap} to true
-	else:
-		set {mobcap} to false
+# every 10 seconds:
+# 	loop all entities:
+# 		loop-entity is not a player
+# 		loop-entity is not a horse
+# 		if "%region at loop-entity%" contains "spawn":
+# 			delete loop-entity
+# 			delete {m_maxhealth::%loop-entity%}
+# 			delete {m_health::%loop-entity%}
+# 			delete {m_damage::%loop-entity%}
+# 	set {_p} to number of players
+# 	set {_d} to number of entities - {_p}
+# 	if {_d} is greater than 200:
+# 		set {mobcap} to true
+# 	else:
+# 		set {mobcap} to false
 
 on load:
 	loop all entities:

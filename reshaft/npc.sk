@@ -52,31 +52,39 @@ function waitToggle(p: player):
 npc left click:
 	if citizen is 9:
 		send "&8[&bMercenary&8] &bFoho&7: Test"
-		wait 0.5 seconds
+		if {wait.%player%} is true:
+			wait 0.5 seconds
 		Foho(player)
 	if citizen is 10:
 		send "&8[&bMercenary&8] &bAtlas&7: Test"
-		wait 0.5 seconds
+		if {wait.%player%} is true:
+			wait 0.5 seconds
 		Atlas(player)
 	if citizen is 11:
 		send "&8[&bMercenary&8] &bFeli&7: Test"
-		wait 0.5 seconds
+		if {wait.%player%} is true:
+			wait 0.5 seconds
 		Feli(player)
 	if citizen is 23:
 		send "&8[&6Explorer&8] &6Idunn&7: Hey, I'm &6Idunn&7! I can bring you to your quest(s). "
-		wait 0.5 seconds
+		if {wait.%player%} is true:
+			wait 0.5 seconds
 		send "&8[&6Explorer&8] &6Idunn&7: Here's the map, let me know where you want to go."
-		wait 0.5 seconds
+		if {wait.%player%} is true:
+			wait 0.5 seconds
 		Idunn(player)
 	if citizen is 26:
 		send "&8[&aMentor&8] &aOdin&7: Hey there champ! My name is &aOdin &7and I'm going to be your mentor on this journey. Talk to me when you want a bit of training. "
-		wait 0.5 seconds
+		if {wait.%player%} is true:
+			wait 0.5 seconds
 		Odin(player)
 	if citizen is 27:
 		send "&8[&eNarrator&8] &eSodden&7: Welcome! I'm &eSodden&7. I'm here to tell your story. Let's setup your journey. "
-		wait 0.5 seconds
+		if {wait.%player%} is true:
+			wait 0.5 seconds
 		Sodden(player)
 	if citizen is 28:
 		send "&8[&aBanker&8] &aHildr&7: Welcome to the bank! My name is &aHildr&7, how may I assist you today?"
-		wait 0.5 seconds
+		if {wait.%player%} is true:
+			wait 0.5 seconds
 		Hildr(player)

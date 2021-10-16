@@ -80,15 +80,13 @@ command /clearlag:
 	permission: staff
 	permission message: {@staff} {@permission}
 	trigger:
-		set {_n} to size of all entities
-		delete all entities
-		loop {m_maxhealth::*}:
-			if {m_maxhealth::%loop-value%} is not a player:
-				delete {m_maxhealth::%loop-value%}
-		loop {m_health::*}:
-			if {m_health::%loop-value%} is not a player:
-				delete {m_health::%loop-value%}
-		loop {m_damage::*}:
-			if {m_damage::%loop-value%} is not a player:
-				delete {m_damage::%loop-value%}
+		set {_n} to 0
+		loop all entities in "dungeon":
+			loop-entity is not a player
+			loop-entity is not a horse
+			delete loop-entity
+			delete {m_maxhealth::%loop-entity%}
+			delete {m_health::%loop-entity%}
+			delete {m_damage::%loop-entity%}
+			add 1 to {_n}
 		broadcast "{@shaft} &7Cleared &x&d&5&5&6&5&6%{_n}% &7entities"
