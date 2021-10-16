@@ -5,6 +5,8 @@ options:
 	world: world
 
 function copyCube(loc: location, name: text):
+	remove 1 from y-coordinate of {_loc}
+	remove 5 from z-coordinate of {_loc}
 	set {_x} to x-location of {_loc}
 	set {_y} to y-location of {_loc}
 	set {_z} to z-location of {_loc}
@@ -24,6 +26,8 @@ function copyCube(loc: location, name: text):
 	set y-coordinate of {_loc} to {_y}
 
 function pasteCube(loc: location, name: text):
+	remove 1 from y-coordinate of {_loc}
+	remove 5 from z-coordinate of {_loc}
 	set {_x} to x-location of {_loc}
 	set {_z} to z-location of {_loc}
 	set {_y} to y-location of {_loc}
@@ -47,8 +51,51 @@ function pasteCube(loc: location, name: text):
 		add 1 to y-coordinate of {_loc}
 	set y-coordinate of {_loc} to {_y}
 
+function copyCorridor(loc: location):
+	add 1 to x-coordinate of {_loc}
+	remove 3 from z-coordinate of {_loc}
+	set {_x} to x-location of {_loc}
+	set {_y} to y-location of {_loc}
+	set {_z} to z-location of {_loc}
+	loop 6 times:
+		loop 7 times:
+			loop 4 times:
+				set {_offsetX} to x-location of {_loc} - {_x}
+				set {_offsetY} to y-location of {_loc} - {_y}
+				set {_offsetZ} to z-location of {_loc} - {_z}
+				set {d_corridor::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} to block at {_loc}
+				add 1 to x-coordinate of {_loc}
+			set x-coordinate of {_loc} to {_x}
+			add 1 to z-coordinate of {_loc}
+		set z-coordinate of {_loc} to {_z}
+		add 1 to y-coordinate of {_loc}
+	set y-coordinate of {_loc} to {_y}
+
+function pasteCorridor(loc: location):
+	add 1 to x-coordinate of {_loc}
+	remove 3 from z-coordinate of {_loc}
+	set {_x} to x-location of {_loc}
+	set {_z} to z-location of {_loc}
+	set {_y} to y-location of {_loc}
+	loop 6 times:
+		loop 7 times:
+			loop 4 times:
+				set {_offsetX} to loop-number-3
+				remove 1 from {_offsetX}
+				set {_offsetZ} to loop-number-2
+				remove 1 from {_offsetZ}
+				set {_offsetY} to loop-number-1
+				remove 1 from {_offsetY}
+				set block at {_loc} to {d_corridor::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%}
+				add 1 to x-coordinate of {_loc}
+			set x-coordinate of {_loc} to {_x}
+			add 1 to z-coordinate of {_loc}
+		set z-coordinate of {_loc} to {_z}
+		add 1 to y-coordinate of {_loc}
+	set y-coordinate of {_loc} to {_y}
+
 on tab complete of "/dungeon":
-	set tab completions for position 1 to "clearDungeonStart", "listDungeonStart", "listDungeonRoom", "copy", "delete", and "paste"
+	set tab completions for position 1 to "clearDungeonStart", "listDungeonStart", "listDungeonRoom", "copyCorridor", "pasteCorridor", "copy", "delete", and "paste"
 	set tab completions for position 2 to {d_roomList::*}
 
 command /dungeon [<text>] [<text>]:
@@ -65,6 +112,12 @@ command /dungeon [<text>] [<text>]:
 				broadcast "%loop-index%, %loop-value%, %block at loop-value%"
 		if arg-1 is "listDungeonRoom":
 			broadcast {d_roomList::*}
+		if arg-1 is "copyCorridor":
+			copyCorridor({dungeonStart.pos})
+			broadcast "copied new corridor"
+		if arg-1 is "pasteCorridor":
+			pasteCorridor({dungeonStart.pos})
+			broadcast "pasted corridor"
 		if arg-1 is "copy":
 			if arg-2 is not set:
 				broadcast "/dungeon <copy> <name>"
@@ -106,7 +159,8 @@ command /dungeon [<text>] [<text>]:
 
 on left click with blaze rod:
 	cancel event
-	if event-block is obsidian:
+	player is op
+	if event-block is obsidian or lapis lazuli block or diamond block:
 		set {dungeonStart.pos} to location of event-block
 		broadcast "&3Selection: &7%location of event-block%"
 		stop
@@ -119,3 +173,13 @@ on left click with blaze rod:
 			set yaw of {dungeonStart::%location of event-block%} to -90
 			set pitch of {dungeonStart::%location of event-block%} to 0
 			send "added %location of event-block%"
+
+on walking on lapis lazuli block:
+	world of player is "dungeon"
+	set event-block to stone bricks
+	pasteCorridor(location of event-block)
+
+on walking on diamond block:
+	world of player is "dungeon"
+	set event-block to stone bricks
+	pasteCube(location of event-block, "empty")
