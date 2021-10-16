@@ -1,0 +1,39 @@
+function copySquare(loc: location, name: text):
+	set {_x} to x-location of {_loc}
+	set {_z} to z-location of {_loc}
+	loop 11 times:
+		loop 11 times:
+			set {_offsetX} to x-location of {_loc} - {_x}
+			set {_offsetZ} to z-location of {_loc} - {_z}
+			set {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%} to block at {_loc}
+			#if {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%} is air:
+			#	set {_original} to air
+			#else if {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%} is obsidian:
+			#	set {_original} to obsidian
+			# broadcast "&fOffset: &7%{_offsetX}%, %{_offsetZ}%"
+			# broadcast "&fBlock: &7%{d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}%"
+			#set block at {_loc} to red stained glass
+			# wait 1 tick
+			#set block at {_loc} to {_original}
+			add 1 to x-coordinate of {_loc}
+		set x-coordinate of {_loc} to {_x}
+		add 1 to z-coordinate of {_loc}
+	set z-coordinate of {_loc} to {_z}
+
+function pasteSquare(loc: location, name: text):
+	set {_x} to x-location of {_loc}
+	set {_z} to z-location of {_loc}
+	loop 11 times:
+		loop 11 times:
+			set {_offsetX} to loop-number-2
+			remove 1 from {_offsetX}
+			set {_offsetZ} to loop-number-1
+			remove 1 from {_offsetZ}
+			# broadcast "%{d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}%"
+			#set block at {_loc} to lime stained glass
+			# wait 1 tick
+			set block at {_loc} to {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}
+			add 1 to x-coordinate of {_loc}
+		set x-coordinate of {_loc} to {_x}
+		add 1 to z-coordinate of {_loc}
+	set z-coordinate of {_loc} to {_z}

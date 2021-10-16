@@ -15,13 +15,7 @@ function copyCube(loc: location, name: text):
 				set {_offsetY} to y-location of {_loc} - {_y}
 				set {_offsetZ} to z-location of {_loc} - {_z}
 				set {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} to block at {_loc}
-				if {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} is air:
-					set {_original} to air
-				else if {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} is obsidian:
-					set {_original} to obsidian
-				set block at {_loc} to red stained glass
 				# wait 1 tick
-				set block at {_loc} to {_original}
 				add 1 to x-coordinate of {_loc}
 			set x-coordinate of {_loc} to {_x}
 			add 1 to z-coordinate of {_loc}
@@ -53,59 +47,24 @@ function pasteCube(loc: location, name: text):
 		add 1 to y-coordinate of {_loc}
 	set y-coordinate of {_loc} to {_y}
 
-function copySquare(loc: location, name: text):
-	set {_x} to x-location of {_loc}
-	set {_z} to z-location of {_loc}
-	loop 11 times:
-		loop 11 times:
-			set {_offsetX} to x-location of {_loc} - {_x}
-			set {_offsetZ} to z-location of {_loc} - {_z}
-			set {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%} to block at {_loc}
-			#if {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%} is air:
-			#	set {_original} to air
-			#else if {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%} is obsidian:
-			#	set {_original} to obsidian
-			# broadcast "&fOffset: &7%{_offsetX}%, %{_offsetZ}%"
-			# broadcast "&fBlock: &7%{d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}%"
-			#set block at {_loc} to red stained glass
-			# wait 1 tick
-			#set block at {_loc} to {_original}
-			add 1 to x-coordinate of {_loc}
-		set x-coordinate of {_loc} to {_x}
-		add 1 to z-coordinate of {_loc}
-	set z-coordinate of {_loc} to {_z}
-
-function pasteSquare(loc: location, name: text):
-	set {_x} to x-location of {_loc}
-	set {_z} to z-location of {_loc}
-	loop 11 times:
-		loop 11 times:
-			set {_offsetX} to loop-number-2
-			remove 1 from {_offsetX}
-			set {_offsetZ} to loop-number-1
-			remove 1 from {_offsetZ}
-			# broadcast "%{d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}%"
-			#set block at {_loc} to lime stained glass
-			# wait 1 tick
-			set block at {_loc} to {d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}
-			add 1 to x-coordinate of {_loc}
-		set x-coordinate of {_loc} to {_x}
-		add 1 to z-coordinate of {_loc}
-	set z-coordinate of {_loc} to {_z}
-
 on tab complete of "/dungeon":
-	set tab completions for position 1 to "clear", "list", "copy", and "paste"
+	set tab completions for position 1 to "clearDungeonStart", "listDungeonStart", "listDungeonRoom", "copy", "delete", and "paste"
+	set tab completions for position 2 to {d_roomList::*}
 
 command /dungeon [<text>] [<text>]:
 	trigger:
-		player is op
-		if arg-1 is "clear":
-			delete {dungeonStart::*}
-			broadcast "deleted all dungeon"
+		if player is not op:
+			send "{@admin} {@permission}"
 			stop
-		if arg-1 is "list":
+		if arg-1 is "clearDungeonStart":
+			delete {dungeonStart::*}
+			broadcast "deleted all dungeon start"
+			stop
+		if arg-1 is "listDungeonStart":
 			loop {dungeonStart::*}:
 				broadcast "%loop-index%, %loop-value%, %block at loop-value%"
+		if arg-1 is "listDungeonRoom":
+			broadcast {d_roomList::*}
 		if arg-1 is "copy":
 			if arg-2 is not set:
 				broadcast "/dungeon <copy> <name>"
@@ -113,14 +72,26 @@ command /dungeon [<text>] [<text>]:
 			else:
 				copyCube({dungeonStart.pos}, arg-2)
 				broadcast "copied new dungeon to %arg-2%"
+				if {d_roomList::*} does not contain arg-2:
+					add arg-2 to {d_roomList::*}
 				stop
 		if arg-1 is "paste":
 			if arg-2 is not set:
 				broadcast "/dungeon <paste> <name>"
-				broadcast "pasted %arg-2%"
 				stop
 			else:
 				pasteCube({dungeonStart.pos}, arg-2)
+				broadcast "pasted %arg-2%"
+				stop
+		if arg-1 is "delete":
+			if arg-2 is not set:
+				broadcast "/dungeon <delete> <name>"
+				stop
+			else:
+				pasteCube({dungeonStart.pos}, arg-2)
+				broadcast "deleted %arg-2%"
+				if {d_roomList::*} contains arg-2:
+					remove arg-2 from {d_roomList::*}
 				stop
 		arg-1 is not set
 		loop {dungeonStart::*}:
