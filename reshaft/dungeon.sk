@@ -176,10 +176,10 @@ on left click with blaze rod:
 
 on walking on lapis lazuli block:
 	world of player is "dungeon"
-	set event-block to stone bricks
 	pasteCorridor(location of event-block)
+	set event-block to stone bricks
 
 on walking on diamond block:
 	world of player is "dungeon"
-	set event-block to stone bricks
 	pasteCube(location of event-block, "empty")
+	set event-block to stone bricks
