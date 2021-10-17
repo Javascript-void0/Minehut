@@ -1,7 +1,7 @@
 options:
-	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
+	charging: &8[<##BBEFE0>&lCHARGING&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
+	admin: &8[<##BBEFE0>&lADMIN&8]&7
 	world: world
 
 command /jumplock:
@@ -70,7 +70,7 @@ command /minereset:
 			fillCube({minestart})
 			send "{@admin} &7Reset Mine"
 		else:
-			send "{@shaft} {@permission}"
+			send "{@admin} {@permission}"
 
 command /setmine:
 	trigger:
@@ -78,7 +78,7 @@ command /setmine:
 			set {minestart} to location of player
 			send "{@admin} &7Set start of mine to %{minestart}%"
 		else:
-			send "{@shaft} {@permission}"
+			send "{@admin} {@permission}"
 
 command /minecolor [<text>]:
 	trigger:

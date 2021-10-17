@@ -13,70 +13,71 @@ function chatFormat(n: number) :: text:
 on chat:
 	set {_player} to a new text component of display name of player
 	if group of player is "admin":
-		set {_prefix} to "&x&d&5&5&6&5&6&lADMIN&8]&r &8[&x&d&5&5&6&5&6:L"
+		set {_prefix} to "<##BBEFE0>&lADMIN&8]&r &8[<##8fb6ab>:L"
 	else if group of player is "mod":
-		set {_prefix} to "&x&d&5&5&6&5&6&lMOD&8]&r &8[&x&d&5&5&6&5&6:L"
+		set {_prefix} to "<##BBEFE0>&lMOD&8]&r &8[<##8fb6ab>:L"
 	else:
-		set {_prefix} to "&7:L"
+		set {_prefix} to "<##8fb6ab>:L"
 
-	if group of player is "admin" or "mod":
-		set {_levelFormat} to chatFormat({p_level::%player%})
-		set {_level} to a new text component of "&x&d&5&5&6&5&6%{_levelFormat}%"
-	else:
-		set {_level} to a new text component of "&7%{_levelFormat}%"
+	# if group of player is "admin" or "mod":
+	set {_levelFormat} to chatFormat({p_level::%player%})
+	set {_level} to a new text component of "<##8fb6ab>%{_levelFormat}%"
+	# else:
+	# 	set {_levelFormat} to chatFormat({p_level::%player%})
+	# 	set {_level} to a new text component of "&7%{_levelFormat}%"
 	
 	set {_exp} to chatFormat({p_exp::%player%})
 	set {_nextexp} to chatFormat({p_nextexp::%player%})
 	set {_percent} to {p_exp::%player%} / {p_nextexp::%player%}
 	set {_percentFormat} to scoreboardRound({_percent} * 100, 1)
 	if {_percent} is between 0 and 0.05:
-		set {_bar} to " &8[&x&d&5&5&6&5&6&7::::::::::::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>&7::::::::::::::::::::&8]"
 	else if {_percent} is between 0.05 and 0.1:
-		set {_bar} to " &8[&x&d&5&5&6&5&6:&7:::::::::::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>:&7:::::::::::::::::::&8]"
 	else if {_percent} is between 0.1 and 0.15:
-		set {_bar} to " &8[&x&d&5&5&6&5&6::&7::::::::::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>::&7::::::::::::::::::&8]"
 	else if {_percent} is between 0.15 and 0.2:
-		set {_bar} to " &8[&x&d&5&5&6&5&6:::&7:::::::::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>:::&7:::::::::::::::::&8]"
 	else if {_percent} is between 0.2 and 0.25:
-		set {_bar} to " &8[&x&d&5&5&6&5&6::::&7::::::::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>::::&7::::::::::::::::&8]"
 	else if {_percent} is between 0.25 and 0.3:
-		set {_bar} to " &8[&x&d&5&5&6&5&6:::::&7:::::::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>:::::&7:::::::::::::::&8]"
 	else if {_percent} is between 0.3 and 0.35:
-		set {_bar} to " &8[&x&d&5&5&6&5&6::::::&7::::::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>::::::&7::::::::::::::&8]"
 	else if {_percent} is between 0.35 and 0.4:
-		set {_bar} to " &8[&x&d&5&5&6&5&6:::::::&7:::::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>:::::::&7:::::::::::::&8]"
 	else if {_percent} is between 0.4 and 0.45:
-		set {_bar} to " &8[&x&d&5&5&6&5&6::::::::&7::::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>::::::::&7::::::::::::&8]"
 	else if {_percent} is between 0.45 and 0.5:
-		set {_bar} to " &8[&x&d&5&5&6&5&6:::::::::&7:::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>:::::::::&7:::::::::::&8]"
 	else if {_percent} is between 0.5 and 0.55:
-		set {_bar} to " &8[&x&d&5&5&6&5&6::::::::::&7::::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>::::::::::&7::::::::::&8]"
 	else if {_percent} is between 0.55 and 0.6:
-		set {_bar} to " &8[&x&d&5&5&6&5&6:::::::::::&7:::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>:::::::::::&7:::::::::&8]"
 	else if {_percent} is between 0.6 and 0.65:
-		set {_bar} to " &8[&x&d&5&5&6&5&6::::::::::::&7::::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>::::::::::::&7::::::::&8]"
 	else if {_percent} is between 0.65 and 0.7:
-		set {_bar} to " &8[&x&d&5&5&6&5&6:::::::::::::&7:::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>:::::::::::::&7:::::::&8]"
 	else if {_percent} is between 0.7 and 0.75:
-		set {_bar} to " &8[&x&d&5&5&6&5&6::::::::::::::&7::::::&8]"
+		set {_bar} to " &8[<##BBEFE0>::::::::::::::&7::::::&8]"
 	else if {_percent} is between 0.75 and 0.8:
-		set {_bar} to " &8[&x&d&5&5&6&5&6:::::::::::::::&7:::::&8]"
+		set {_bar} to " &8[<##BBEFE0>:::::::::::::::&7:::::&8]"
 	else if {_percent} is between 0.8 and 0.85:
-		set {_bar} to " &8[&x&d&5&5&6&5&6::::::::::::::::&7::::&8]"
+		set {_bar} to " &8[<##BBEFE0>::::::::::::::::&7::::&8]"
 	else if {_percent} is between 0.85 and 0.9:
-		set {_bar} to " &8[&x&d&5&5&6&5&6:::::::::::::::::&7:::&8]"
+		set {_bar} to " &8[<##BBEFE0>:::::::::::::::::&7:::&8]"
 	else if {_percent} is between 0.9 and 0.95:
-		set {_bar} to " &8[&x&d&5&5&6&5&6::::::::::::::::::&7::&8]"
+		set {_bar} to " &8[<##BBEFE0>::::::::::::::::::&7::&8]"
 	else if {_percent} is between 0.95 and 1:
-		set {_bar} to " &8[&x&d&5&5&6&5&6:::::::::::::::::::&7:&8]"
+		set {_bar} to " &8[<##BBEFE0>:::::::::::::::::::&7:&8]"
 	else:
-		set {_bar} to " &8[&x&d&5&5&6&5&6::::::::::::::::::::&7&8]"
+		set {_bar} to " &8[<##BBEFE0>::::::::::::::::::::&7&8]"
 
 	set {_uncolorlevel} to "%{p_level::%player%}%"
 	set {_coins} to chatFormat({p_coins::%player%})
 	set {_wrath} to chatFormat({p_wrath::%player%})
 	set {_virtue} to " "
-	set {_stats} to bedrock named "&8[&x&d&5&5&6&5&6:L%{_levelFormat}%&8] &f%{_player}%" with lore " &8┃ &7Level: &f%{_uncolorlevel}%" and " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" and " " and "   &8(&f%{_percentFormat}%%%&8)" and "%{_bar}%" and " " and " &8┃ &7Coins: &f%{_coins}%" and " &8┃ &7Wrath: &f%{_wrath}%" and " &8╹ &7Virtue: &f%{_virtue}%"
+	set {_stats} to bedrock named "&8[<##8fb6ab>:L%{_levelFormat}%&8] &f%{_player}%" with lore "<##8fb6ab>&lPLAYER" and " &8┃ &7Level: &f%{_uncolorlevel}%" and " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" and " " and "   &8(&f%{_percentFormat}%%%&8)" and "%{_bar}%" and " " and "<##8fb6ab>&lBALANCE" and " &8┃ &7Coins: &f%{_coins}%" and " &8┃ &7Wrath: &f%{_wrath}%" and " &8╹ &7Virtue: &f%{_virtue}%"
 	set hover event of {_player} to a new hover event showing {_stats}
 
 	set {_slotList::hand} to index of player's hotbar slot
@@ -132,7 +133,7 @@ on chat:
 				set {_name} to name of {_item}
 				if {_name} is not set:
 					set {_name} to a new translate component from {_item}
-				set {_itemName} to a new text component of "&8[&x&d&5&5&6&5&6%{_name}%&8]&r"
+				set {_itemName} to a new text component of "&8[<##BBEFE0>%{_name}%&8]&r"
 				set hover event of {_itemName} to a new hover event showing {_item}
 				set {_messages::%{_itemIndexes::%loop-index%}%} to {_itemName}
 			else:

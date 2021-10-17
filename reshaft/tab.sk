@@ -1,7 +1,7 @@
-options: #d25555 #BBEFE0
-	shaft: <##8fb6ab>&lRESHAFT&7²
-	ip: <##8fb6ab>&oreshaft.minehut.gg
-# old #FBCB75 #98C7FF 
+options: #  <##BBEFE0> LIGHT <##8fb6ab> DARK <##617C74> DARKER
+	charging: &x&9&f&c&b&b&e&lC&x&b&0&e&0&d&2&lH&x&c&0&f&6&e&6&lA&x&b&b&e&f&e&0&lR&x&b&b&e&f&e&0&lG&x&b&b&e&f&e&0&lI&x&b&0&e&0&d&2&lN&x&a&5&d&2&c&5&lG
+	ip: &x&9&5&b&f&b&3c&x&9&c&c&8&b&bh&x&a&3&d&1&c&4a&x&a&a&d&a&c&cr&x&b&1&e&3&d&4g&x&b&8&e&c&d&di&x&b&f&f&5&e&5n&x&b&b&e&f&e&0g&x&b&b&e&f&e&0.&x&b&b&e&f&e&0m&x&b&b&e&f&e&0i&x&b&b&e&f&e&0n&x&b&b&e&f&e&0e&x&b&b&e&f&e&0h&x&b&6&e&9&d&au&x&b&1&e&3&d&4t&x&a&d&d&d&c&f.&x&a&8&d&7&c&9g&x&a&3&d&1&c&4g
+
 every 4 ticks:
 	loop all players:
 		tab(loop-player)
@@ -28,5 +28,5 @@ function tab(p: player):
 		set {_rank} to ""
 	set {_level} to chatFormat({p_level::%{_p}%})
 	set tablist name of {_p} to "%{_rank}%&8[<##8fb6ab>:L%{_level}%&8] &7%display name of {_p}%"
-	set tablist header of {_p} to "                                               %nl%{@shaft}%nl%%nl%<##617C74>Online: &7%number of all players% &8| <##617C74>TPS: &7%{_tps}% &8| <##617C74>Ping: &7%ping of {_p}%%nl%"
+	set tablist header of {_p} to "                                               %nl%{@charging}%nl%%nl%<##617C74>Online: &7%number of all players% &8| <##617C74>TPS: &7%{_tps}% &8| <##617C74>Ping: &7%ping of {_p}%%nl%"
 	set tablist footer of {_p} to "%nl%{@ip}%nl%"

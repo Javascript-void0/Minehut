@@ -1,13 +1,13 @@
 options:
-	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&7
+	charging: &8[<##BBEFE0>&lCHARGING&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&7
+	admin: &8[<##BBEFE0>&lADMIN&8]&7
 	world: world
 
 command /quest [<text>]:
 	trigger:
 		set {activeQuest::%player%} to arg-1
-		send "{@shaft} &7Quest Set to &e%arg-1%"
+		send "{@charging} &7Quest Set to &e%arg-1%"
 		set the player's compass target to location of {spawn}
 
 function Idunn(p: player):
@@ -41,13 +41,13 @@ command /wait:
 function waitToggle(p: player):
 	if {wait.%{_p}%} is not set:
 		set {wait.%{_p}%} to false
-		send "{@shaft} NPC chat delay turned off" to {_p}
+		send "{@charging} NPC chat delay turned off" to {_p}
 	else if {wait.%{_p}%} is false:
 		set {wait.%{_p}%} to true
-		send "{@shaft} NPC chat delay turned on" to {_p}
+		send "{@charging} NPC chat delay turned on" to {_p}
 	else if {wait.%{_p}%} is true:
 		set {wait.%{_p}%} to false
-		send "{@shaft} NPC chat delay turned off" to {_p}
+		send "{@charging} NPC chat delay turned off" to {_p}
 
 npc left click:
 	if citizen is 9:

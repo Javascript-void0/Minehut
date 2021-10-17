@@ -1,7 +1,7 @@
 options:
-	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
+	prefix: &8[<##BBEFE0>&lCHARGING&8]&r
 	permission: &7Insufficient Permissions
-	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
+	admin: &8[<##BBEFE0>&lADMIN&8]&r
 	world: world
 
 command /pvp:
@@ -11,13 +11,13 @@ command /pvp:
 function pvpToggle(p: player):
 	if {pvp::%{_p}%} is not set:
 		set {pvp::%{_p}%} to false
-		send "{@shaft} &7PvP turned off" to {_p}
+		send "{@prefix} &7PvP turned off" to {_p}
 	else if {pvp::%{_p}%} is true:
 		set {pvp::%{_p}%} to false
-		send "{@shaft} &7PvP turned off" to {_p}
+		send "{@prefix} &7PvP turned off" to {_p}
 	else if {pvp::%{_p}%} is false:
 		set {pvp::%{_p}%} to true
-		send "{@shaft} &7PvP turned on" to {_p}
+		send "{@prefix} &7PvP turned on" to {_p}
 
 every 5 tick:
 	loop all players:
@@ -27,21 +27,20 @@ every 5 tick:
 			teleport loop-player to {spawn}
 
 function death(p: player):
-	set gamemode of {_p} to spectator
-	set {dead.%{_p}%} to true
-	apply blindness of tier 255 to {_p} for 3 seconds
-	apply weakness of tier 255 to {_p} for 3 seconds
-	apply slowness of tier 255 to {_p} for 3 seconds
-	apply wither of tier 255 to {_p} for 3 seconds
-	send {_p} title "&x&d&5&5&6&5&6&lYOU DIED" with subtitle "&7You lost &x&d&5&5&6&5&650%% &7 of your coins" for 2 seconds
+	# set gamemode of {_p} to spectator
+	# set {dead.%{_p}%} to true
+	# apply blindness of tier 255 to {_p} for 3 seconds
+	# apply weakness of tier 255 to {_p} for 3 seconds
+	# apply slowness of tier 255 to {_p} for 3 seconds
+	# apply wither of tier 255 to {_p} for 3 seconds
+	send {_p} title "&c&lYOU DIED" with subtitle "&7You lost &f50%% &7 of your coins" for 2 seconds
 	set {_half} to floor({p_coins::%{_p}%} / 2)
 	remove {_half} from {p_coins::%{_p}%}
-	teleport {_p} to {spawn}
-	wait 2 second
+	# wait 2 second
 	set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
 	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
-	delete {dead.%{_p}%}
-	set gamemode of {_p} to survival
+	# delete {dead.%{_p}%}
+	# set gamemode of {_p} to survival
 
 function deathEffect(e: entity):
 	show 30 critical hit at location of {_e}
@@ -54,14 +53,14 @@ on damage:
 		victim is a player
 		{pvp::%victim%} is set
 		cancel event
-		set action bar of attacker to "{@shaft} &7PvP is &x&d&5&5&6&5&6&lDISABLED &7 for %victim%"
+		set action bar of attacker to "{@prefix} &7PvP is <##BBEFE0>&lDISABLED &7 for %victim%"
 		stop
 	if attacker is set:
 		attacker is a player
 		victim is a player
 		{pvp::%attacker%} is set
 		cancel event
-		set action bar of attacker to "{@shaft} &7Your PvP is &x&d&5&5&6&5&6&lDISABLED"
+		set action bar of attacker to "{@prefix} &7Your PvP is <##BBEFE0>&lDISABLED"
 		stop
 	if victim is not a player:
 		if attacker is not a player:
@@ -94,11 +93,11 @@ on damage:
 			add 1 to {p_coins::%attacker%}
 		else:
 			set {_name::*} to name of victim split at " "
-			set name of victim to "%{_name::1}% %{_name::2}% &7(&x&d&5&5&6&5&6%{m_health::%victim%}%&x&d&5&5&6&5&6/%{m_maxhealth::%victim%}% ❤&7)"
+			set name of victim to "%{_name::1}% %{_name::2}% &7(<##8fb6ab>%{m_health::%victim%}%<##8fb6ab>/%{m_maxhealth::%victim%}% ❤&7)"
 		# damage counter
 		set {_location} to random element out of blocks in radius 1 of victim
 		add 3 to {_location}'s y-coordinate
-		create holo object "&x&d&5&5&6&5&6-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
+		create holo object "<##8fb6ab>-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
 		wait 1 second
 		delete holo object "damage.%{_location}%"
 	if victim is a player:
@@ -141,6 +140,10 @@ on damage:
 				set hover event of {_weapon} to a new hover event showing {_info}
 				loop all players:
 					send components {_msg} and {_weapon} to loop-player
+
+on join:
+	if {dead.%player%} is set:
+		delete {dead.%player%}
 
 every 3 seconds:
 	loop all players:

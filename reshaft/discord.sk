@@ -1,13 +1,13 @@
 options:
 	token: Nzc5MTExNDQ5MzQzMTY0NDE4.X7byFA.hIo0NDj7aUo-F85ZmnbbPeFdhH0
-	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
-	discord: &8[&x&d&5&5&6&5&6&lDISCORD&8]&f
+	charging: &8[<##BBEFE0>&lCHARGING&8]&7
+	discord: &8[<##BBEFE0>&lDISCORD&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
+	admin: &8[<##BBEFE0>&lADMIN&8]&7
 	world: world
 
 on load:
-	login to "{@token}" with the name "ReShaft"
+	login to "{@token}" with the name "Charging"
 
 discord command list:
 	prefixes: "."
@@ -28,7 +28,7 @@ discord command tps:
 command /login:
 	trigger:
 		if player is op:
-			login to "{@token}" with the name "ReShaft"
+			login to "{@token}" with the name "Charging"
 			send "{@admin} &7Logged In"
 		else:
 			send "{@admin} {@permission}"
@@ -36,7 +36,7 @@ command /login:
 command /logout:
 	trigger:
 		if player is op:
-			logout of "ReShaft"
+			logout of "Charging"
 			send "{@admin} &7Logged Out"
 		else:
 			send "{@admin} {@permission}"
@@ -49,7 +49,7 @@ command /unlink [<player>]:
 					delete {discord::%loop-index%}
 					send "{@admin} &7Unlinked &7%arg-1%"
 					stop
-			send "{@admin} &x&d&5&5&6&5&6%arg-1% &7is not linked"
+			send "{@admin} <##BBEFE0>%arg-1% &7is not linked"
 		else:
 			send "{@admin} {@permission}"
 
@@ -60,11 +60,11 @@ command /link:
 			stop
 		set {_code} to a random integer between 11111 and 99999
 		set {code::%{_code}%} to name of player
-		set {_copy} to new text component of "{@discord} &x&d&5&5&6&5&6Click here &7to copy command to clipboard. "
+		set {_copy} to new text component of "{@discord} <##BBEFE0>Click here &7to copy command to clipboard. "
 		set click event of {_copy} to a new click event to copy ".link %{_code}%" to clipboard
-		set hover event of {_copy} to a new hover event showing "&x&d&5&5&6&5&6Copy to Clipboard"
-		send "{@discord} &7Run the command &x&d&5&5&6&5&6.link %{_code}% &7in &x&d&5&5&6&5&6##link &7to link your account"
-		send "{@discord} &x&d&5&5&6&5&6Rewards: &710b coins and 10a wrath  &8|  &7Valid for 1 minute"
+		set hover event of {_copy} to a new hover event showing "<##BBEFE0>Copy to Clipboard"
+		send "{@discord} &7Run the command <##BBEFE0>.link %{_code}% &7in <##BBEFE0>##link &7to link your account"
+		send "{@discord} <##BBEFE0>Rewards: &710b coins and 10a wrath  &8|  &7Valid for 1 minute"
 		send components {_copy} to player
 		wait 1 minute
 		delete {code::%{_code}%}
@@ -84,7 +84,7 @@ discord command link [<text>]:
 		add 10000000 to {p_totalcoins::%{code::%arg-1%}%}
 		add 10000 to {p_wrath::%{code::%arg-1%}%}
 		add 10000 to {p_totalwrath::%{code::%arg-1%}%}
-		send "```Link: %discord id of event-member%, %{code::%arg-1%}%```" to channel with id "886738161491914772" with "ReShaft"
+		send "```Link: %discord id of event-member%, %{code::%arg-1%}%```" to channel with id "886738161491914772" with "Charging"
 		delete {code::%arg-1%}
 
 

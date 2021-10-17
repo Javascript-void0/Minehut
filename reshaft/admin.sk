@@ -1,7 +1,7 @@
 options:
-	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
+	charging: &8[<##BBEFE0>&lCHARGING&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
+	admin: &8[<##BBEFE0>&lADMIN&8]&7
 	world: world
 
 function adminFormat(n: number) :: text:
@@ -42,7 +42,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 			if arg-3 is "add":
 				add arg-4 to {p_%arg-2%::%arg-1%}
 				set {_nn} to adminFormat(arg-4)
-				send "{@admin} &7Added &x&d&5&5&6&5&6%{_nn}% &7to %arg-1% &7%arg-2%"
+				send "{@admin} &7Added <##BBEFE0>%{_nn}% &7to %arg-1% &7%arg-2%"
 			else if arg-3 is "remove":
 				if arg-2 is "level":
 					if arg-4 is greater than {p_level::%arg-1%} - 1:
@@ -70,7 +70,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to arg-4
 				remove {_n} from {p_%arg-2%::%arg-1%}
 				set {_nn} to adminFormat({_n})
-				send "{@admin} &7Removed &x&d&5&5&6&5&6%{_nn}% &7from %arg-1% &7%arg-2%"
+				send "{@admin} &7Removed <##BBEFE0>%{_nn}% &7from %arg-1% &7%arg-2%"
 			else if arg-3 is "set":
 				if arg-2 is "level":
 					if arg-4 is less than 1:
@@ -98,7 +98,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to arg-4
 				set {p_%arg-2%::%arg-1%} to {_n}
 				set {_nn} to adminFormat({_n})
-				send "{@admin} &7Set %arg-1% &7%arg-2% &7to &x&d&5&5&6&5&6%{_nn}%"
+				send "{@admin} &7Set %arg-1% &7%arg-2% &7to <##BBEFE0>%{_nn}%"
 			else if arg-3 is "reset":
 				if arg-2 is "level":
 					set {_n} to 1
@@ -116,7 +116,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {p_maxhealth::%arg-1%} to 20
 					set {p_health::%arg-1%} to 20
 					set {p_damage::%arg-1%} to 1
-					send "{@admin} &7Reset all for &x&d&5&5&6&5&6%arg-1%"
+					send "{@admin} &7Reset all for <##BBEFE0>%arg-1%"
 					stop
 				else:
 					set {_n} to 0
@@ -153,32 +153,32 @@ command /enchant [<text>] [<integer>]:
 
 			else if player's held item is sword:
 				if arg-1 is not "sharpness" or "looting" or "mending" or "binding":
-					send "{@admin} /loreenchant <sharpness sweeping looting mending binding>"
+					send "{@admin} /enchant <sharpness sweeping looting mending binding>"
 				else if arg-2 is not set:
-					send "{@admin} /loreenchant <%arg-1%> <integer>"
+					send "{@admin} /enchant <%arg-1%> <integer>"
 				else:
 					if arg-1 is "sharpness":
 						# set {_split::*} to uncoloured line 2 of player's tool's lore parsed as " ┃ Sharpness: %number%"
 						# send "%{_split::1}%" to the player
-						set line 2 of player's tool's lore to " &8┃ &7Sharpness: &x&d&5&5&6&5&6%arg-2%"					
+						set line 2 of player's tool's lore to " &8┃ &7Sharpness: <##BBEFE0>%arg-2%"					
 						removeEnch(player's tool, sharpness)
 						enchant player's tool with "sharpness %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with &x&d&5&5&6&5&6Sharpness %arg-2%"
+						send "{@admin} Enchanted with <##BBEFE0>Sharpness %arg-2%"
 					else if arg-1 is "looting":
-						set line 3 of player's tool's lore to " &8┃ &7Looting: &x&d&5&5&6&5&6%arg-2%"					
+						set line 3 of player's tool's lore to " &8┃ &7Looting: <##BBEFE0>%arg-2%"					
 						removeEnch(player's tool, looting)
 						enchant player's tool with "looting %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with &x&d&5&5&6&5&6Looting %arg-2%"
+						send "{@admin} Enchanted with <##BBEFE0>Looting %arg-2%"
 					else if arg-1 is "mending":
-						set line 4 of player's tool's lore to " &8┃ &7Mending: &x&d&5&5&6&5&6%arg-2%"					
+						set line 4 of player's tool's lore to " &8┃ &7Mending: <##BBEFE0>%arg-2%"					
 						removeEnch(player's tool, mending)
 						enchant player's tool with "mending %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with &x&d&5&5&6&5&6Mending %arg-2%"
+						send "{@admin} Enchanted with <##BBEFE0>Mending %arg-2%"
 					else if arg-1 is "binding":
-						set line 5 of player's tool's lore to " &8╹ &7Binding: &x&d&5&5&6&5&6%arg-2%"					
+						set line 5 of player's tool's lore to " &8╹ &7Binding: <##BBEFE0>%arg-2%"					
 						removeEnch(player's tool, curse of binding)
 						enchant player's tool with "curse of binding %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with &x&d&5&5&6&5&6Binding %arg-2%"
+						send "{@admin} Enchanted with <##BBEFE0>Binding %arg-2%"
 			
 			# PICKAXE
 			# PICKAXE
@@ -193,25 +193,25 @@ command /enchant [<text>] [<integer>]:
 					if arg-1 is "efficiency":
 						# set {_split::*} to uncoloured line 2 of player's tool's lore parsed as " ┃ Sharpness: %number%"
 						# send "%{_split::1}%" to the player
-						set line 2 of player's tool's lore to " &8┃ &7Efficiency: &x&d&5&5&6&5&6%arg-2%"					
+						set line 2 of player's tool's lore to " &8┃ &7Efficiency: <##BBEFE0>%arg-2%"					
 						removeEnch(player's tool, efficiency)
 						enchant player's tool with "efficiency %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with &x&d&5&5&6&5&6Efficiency %arg-2%"
+						send "{@admin} Enchanted with <##BBEFE0>Efficiency %arg-2%"
 					else if arg-1 is "fortune":
-						set line 3 of player's tool's lore to " &8┃ &7Fortune: &x&d&5&5&6&5&6%arg-2%"					
+						set line 3 of player's tool's lore to " &8┃ &7Fortune: <##BBEFE0>%arg-2%"					
 						removeEnch(player's tool, fortune)
 						enchant player's tool with "fortune %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with &x&d&5&5&6&5&6Fortune %arg-2%"
+						send "{@admin} Enchanted with <##BBEFE0>Fortune %arg-2%"
 					else if arg-1 is "mending":
-						set line 4 of player's tool's lore to " &8┃ &7Mending: &x&d&5&5&6&5&6%arg-2%"					
+						set line 4 of player's tool's lore to " &8┃ &7Mending: <##BBEFE0>%arg-2%"					
 						removeEnch(player's tool, mending)
 						enchant player's tool with "mending %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with &x&d&5&5&6&5&6Mending %arg-2%"
+						send "{@admin} Enchanted with <##BBEFE0>Mending %arg-2%"
 					else if arg-1 is "binding":
-						set line 5 of player's tool's lore to " &8╹ &7Binding: &x&d&5&5&6&5&6%arg-2%"					
+						set line 5 of player's tool's lore to " &8╹ &7Binding: <##BBEFE0>%arg-2%"					
 						removeEnch(player's tool, curse of binding)
 						enchant player's tool with "curse of binding %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with &x&d&5&5&6&5&6Binding %arg-2%"
+						send "{@admin} Enchanted with <##BBEFE0>Binding %arg-2%"
 
 		else:
 			send "{@admin} {permission}"
