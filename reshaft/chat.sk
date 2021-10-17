@@ -20,9 +20,10 @@ on chat:
 		set {_prefix} to "&7:L"
 
 	if group of player is "admin" or "mod":
-		set {_level} to a new text component of "&x&d&5&5&6&5&6%{p_level::%player%}%"
+		set {_levelFormat} to chatFormat({p_level::%player%})
+		set {_level} to a new text component of "&x&d&5&5&6&5&6%{_levelFormat}%"
 	else:
-		set {_level} to a new text component of "&7%{p_level::%player%}%"
+		set {_level} to a new text component of "&7%{_levelFormat}%"
 	
 	set {_exp} to chatFormat({p_exp::%player%})
 	set {_nextexp} to chatFormat({p_nextexp::%player%})
@@ -73,9 +74,9 @@ on chat:
 
 	set {_uncolorlevel} to "%{p_level::%player%}%"
 	set {_coins} to chatFormat({p_coins::%player%})
-	set {_wrath} to chatFormat({p_totalwrath::%player%})
+	set {_wrath} to chatFormat({p_wrath::%player%})
 	set {_virtue} to " "
-	set {_stats} to bedrock named "&8[&x&d&5&5&6&5&6:L%{p_level::%player%}%&8] &f%{_player}%" with lore " &8┃ &7Level: &f%{_uncolorlevel}%" and " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" and " " and "   &8(&f%{_percentFormat}%%%&8)" and "%{_bar}%" and " " and " &8┃ &7Coins: &f%{_coins}%" and " &8┃ &7Wrath: &f%{_wrath}%" and " &8╹ &7Virtue: &f%{_virtue}%"
+	set {_stats} to bedrock named "&8[&x&d&5&5&6&5&6:L%{_levelFormat}%&8] &f%{_player}%" with lore " &8┃ &7Level: &f%{_uncolorlevel}%" and " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" and " " and "   &8(&f%{_percentFormat}%%%&8)" and "%{_bar}%" and " " and " &8┃ &7Coins: &f%{_coins}%" and " &8┃ &7Wrath: &f%{_wrath}%" and " &8╹ &7Virtue: &f%{_virtue}%"
 	set hover event of {_player} to a new hover event showing {_stats}
 
 	set {_slotList::hand} to index of player's hotbar slot

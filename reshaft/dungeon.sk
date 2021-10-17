@@ -1,23 +1,19 @@
-options:
-	shaft: &8[&x&d&5&5&6&5&6&lRESHAFT&8]&f
-	permission: &7Insufficient Permissions
-	admin: &8[&x&d&5&5&6&5&6&lADMIN&8]&f
-	world: world
-
-function copyCube(loc: location, name: text):
+function copyDungeon(loc: location, name: text, yt: integer, zt: integer, xt: integer):
 	remove 1 from y-coordinate of {_loc}
-	remove 5 from z-coordinate of {_loc}
+	set {_n} to {_zt} / 2
+	remove floor({_n}) from z-coordinate of {_loc}
+	broadcast "%floor({_n})%"
 	set {_x} to x-location of {_loc}
 	set {_y} to y-location of {_loc}
 	set {_z} to z-location of {_loc}
-	loop 11 times:
-		loop 11 times:
-			loop 11 times:
+	loop {_yt} times:
+		loop {_zt} times:
+			loop {_xt} times:
 				set {_offsetX} to x-location of {_loc} - {_x}
 				set {_offsetY} to y-location of {_loc} - {_y}
 				set {_offsetZ} to z-location of {_loc} - {_z}
 				set {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} to block at {_loc}
-				# wait 1 tick
+				set {d_%{_name}%::dimensions} to "%{_yt}%, %{_zt}%, %{_xt}%"
 				add 1 to x-coordinate of {_loc}
 			set x-coordinate of {_loc} to {_x}
 			add 1 to z-coordinate of {_loc}
@@ -25,104 +21,17 @@ function copyCube(loc: location, name: text):
 		add 1 to y-coordinate of {_loc}
 	set y-coordinate of {_loc} to {_y}
 
-function pasteCube(loc: location, name: text):
+function pasteDungeon(loc: location, name: text):
+	set {_dimensions::*} to {d_%{_name}%::dimensions} split by ", "
 	remove 1 from y-coordinate of {_loc}
-	remove 5 from z-coordinate of {_loc}
+	set {_n} to ({_dimensions::2} parsed as integer) / 2
+	remove floor({_n}) from z-coordinate of {_loc}
 	set {_x} to x-location of {_loc}
 	set {_z} to z-location of {_loc}
 	set {_y} to y-location of {_loc}
-	loop 11 times:
-		loop 11 times:
-			loop 11 times:
-				set {_offsetX} to loop-number-3
-				remove 1 from {_offsetX}
-				set {_offsetZ} to loop-number-2
-				remove 1 from {_offsetZ}
-				set {_offsetY} to loop-number-1
-				remove 1 from {_offsetY}
-				# broadcast "%{d_%{_name}%::%{_offsetX}%.%{_offsetZ}%}%"
-				#set block at {_loc} to lime stained glass
-				# wait 1 tick
-				set block at {_loc} to {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%}
-				add 1 to x-coordinate of {_loc}
-			set x-coordinate of {_loc} to {_x}
-			add 1 to z-coordinate of {_loc}
-		set z-coordinate of {_loc} to {_z}
-		add 1 to y-coordinate of {_loc}
-	set y-coordinate of {_loc} to {_y}
-
-function copyCorridor(loc: location):
-	add 1 to x-coordinate of {_loc}
-	remove 3 from z-coordinate of {_loc}
-	set {_x} to x-location of {_loc}
-	set {_y} to y-location of {_loc}
-	set {_z} to z-location of {_loc}
-	loop 6 times:
-		loop 7 times:
-			loop 4 times:
-				set {_offsetX} to x-location of {_loc} - {_x}
-				set {_offsetY} to y-location of {_loc} - {_y}
-				set {_offsetZ} to z-location of {_loc} - {_z}
-				set {d_corridor::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} to block at {_loc}
-				add 1 to x-coordinate of {_loc}
-			set x-coordinate of {_loc} to {_x}
-			add 1 to z-coordinate of {_loc}
-		set z-coordinate of {_loc} to {_z}
-		add 1 to y-coordinate of {_loc}
-	set y-coordinate of {_loc} to {_y}
-
-function pasteCorridor(loc: location):
-	add 1 to x-coordinate of {_loc}
-	remove 3 from z-coordinate of {_loc}
-	set {_x} to x-location of {_loc}
-	set {_z} to z-location of {_loc}
-	set {_y} to y-location of {_loc}
-	loop 6 times:
-		loop 7 times:
-			loop 4 times:
-				set {_offsetX} to loop-number-3
-				remove 1 from {_offsetX}
-				set {_offsetZ} to loop-number-2
-				remove 1 from {_offsetZ}
-				set {_offsetY} to loop-number-1
-				remove 1 from {_offsetY}
-				set block at {_loc} to {d_corridor::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%}
-				add 1 to x-coordinate of {_loc}
-			set x-coordinate of {_loc} to {_x}
-			add 1 to z-coordinate of {_loc}
-		set z-coordinate of {_loc} to {_z}
-		add 1 to y-coordinate of {_loc}
-	set y-coordinate of {_loc} to {_y}
-
-function copyTall(loc: location, name: text):
-	remove 1 from y-coordinate of {_loc}
-	remove 5 from z-coordinate of {_loc}
-	set {_x} to x-location of {_loc}
-	set {_y} to y-location of {_loc}
-	set {_z} to z-location of {_loc}
-	loop 21 times:
-		loop 11 times:
-			loop 11 times:
-				set {_offsetX} to x-location of {_loc} - {_x}
-				set {_offsetY} to y-location of {_loc} - {_y}
-				set {_offsetZ} to z-location of {_loc} - {_z}
-				set {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} to block at {_loc}
-				add 1 to x-coordinate of {_loc}
-			set x-coordinate of {_loc} to {_x}
-			add 1 to z-coordinate of {_loc}
-		set z-coordinate of {_loc} to {_z}
-		add 1 to y-coordinate of {_loc}
-	set y-coordinate of {_loc} to {_y}
-
-function pasteTall(loc: location, name: text):
-	remove 1 from y-coordinate of {_loc}
-	remove 5 from z-coordinate of {_loc}
-	set {_x} to x-location of {_loc}
-	set {_z} to z-location of {_loc}
-	set {_y} to y-location of {_loc}
-	loop 21 times:
-		loop 11 times:
-			loop 11 times:
+	loop ({_dimensions::1} parsed as integer) times:
+		loop ({_dimensions::2} parsed as integer) times:
+			loop ({_dimensions::3} parsed as integer) times:
 				set {_offsetX} to loop-number-3
 				remove 1 from {_offsetX}
 				set {_offsetZ} to loop-number-2
@@ -138,71 +47,47 @@ function pasteTall(loc: location, name: text):
 	set y-coordinate of {_loc} to {_y}
 
 on tab complete of "/dungeon":
-	set tab completions for position 1 to "clearDungeonStart", "listDungeonStart", "listDungeonRoom", "copyCorridor", "pasteCorridor", "copyTall", "pasteTall", "copy", "delete", and "paste"
+	set tab completions for position 1 to "clearStart", "listStart", "listRoom", "copy", "delete", "save", "load", "remove", and "paste"
 	set tab completions for position 2 to {d_roomList::*}
 
-command /dungeon [<text>] [<text>]:
+command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 	trigger:
 		if player is not op:
-			send "{@admin} {@permission}"
+			send "no permission"
 			stop
-		if arg-1 is "clearDungeonStart":
+		if arg-1 is "clearStart":
 			delete {dungeonStart::*}
 			broadcast "deleted all dungeon start"
 			stop
-		if arg-1 is "listDungeonStart":
+		if arg-1 is "listStart":
 			loop {dungeonStart::*}:
 				broadcast "%loop-index%, %loop-value%, %block at loop-value%"
-		if arg-1 is "listDungeonRoom":
-			broadcast {d_roomList::*}
-		if arg-1 is "copyCorridor":
-			copyCorridor({dungeonStart.pos})
-			broadcast "copied new corridor"
-		if arg-1 is "pasteCorridor":
-			pasteCorridor({dungeonStart.pos})
-			broadcast "pasted corridor"
-		if arg-1 is "copyTall":
-			if arg-2 is not set:
-				broadcast "/dungeon <copytall> <name>"
-				stop
-			else:
-				copyTall({dungeonStart.pos}, arg-2)
-				broadcast "copied new dungeon to %arg-2% long"
-				if {d_roomList::*} does not contain arg-2:
-					add arg-2 to {d_roomList::*}
-				stop
-		if arg-1 is "pasteTall":
-			if arg-2 is not set:
-				broadcast "/dungeon <pastetall> <name>"
-				stop
-			else:
-				pasteTall({dungeonStart.pos}, arg-2)
-				broadcast "pasted %arg-2% long"
-				stop
-		if arg-1 is "copy":
+		if arg-1 is "listRoom":
+			loop {d_roomList::*}:
+				broadcast "&f%loop-value%&7: %{d_%loop-value%::dimensions}%"
+		if arg-1 is "copy" or "save":
 			if arg-2 is not set:
 				broadcast "/dungeon <copy> <name>"
 				stop
 			else:
-				copyCube({dungeonStart.pos}, arg-2)
+				copyDungeon({dungeonStart.pos}, arg-2, arg-3, arg-4, arg-5)
 				broadcast "copied new dungeon to %arg-2%"
 				if {d_roomList::*} does not contain arg-2:
 					add arg-2 to {d_roomList::*}
 				stop
-		if arg-1 is "paste":
+		if arg-1 is "paste" or "load":
 			if arg-2 is not set:
 				broadcast "/dungeon <paste> <name>"
 				stop
 			else:
-				pasteCube({dungeonStart.pos}, arg-2)
+				pasteDungeon({dungeonStart.pos}, arg-2)
 				broadcast "pasted %arg-2%"
 				stop
-		if arg-1 is "delete":
+		if arg-1 is "delete" or "remove":
 			if arg-2 is not set:
 				broadcast "/dungeon <delete> <name>"
 				stop
 			else:
-				pasteCube({dungeonStart.pos}, arg-2)
 				broadcast "deleted %arg-2%"
 				if {d_roomList::*} contains arg-2:
 					remove arg-2 from {d_roomList::*}
@@ -237,10 +122,10 @@ on left click with blaze rod:
 
 on walking on lapis lazuli block:
 	world of player is "dungeon"
-	pasteCorridor(location of event-block)
+	pasteDungeon(location of event-block, "corridor")
 	set event-block to stone bricks
 
 on walking on diamond block:
 	world of player is "dungeon"
-	pasteCube(location of event-block, "empty")
+	pasteDungeon(location of event-block, "defaultEmpty")
 	set event-block to stone bricks
