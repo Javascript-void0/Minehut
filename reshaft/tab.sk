@@ -1,7 +1,7 @@
-options: #FBCB75 #98C7FF #d25555
-	shaft: &x&d&5&5&6&5&6&lRESHAFT&7²
-	ip: &x&d&5&5&6&5&6&oreshaft.minehut.gg
-
+options: #d25555 #BBEFE0
+	shaft: <##8fb6ab>&lRESHAFT&7²
+	ip: <##8fb6ab>&oreshaft.minehut.gg
+# old #FBCB75 #98C7FF 
 every 4 ticks:
 	loop all players:
 		tab(loop-player)
@@ -21,12 +21,12 @@ function tabRound(n: number, to: number) :: number:
 function tab(p: player):
 	set {_tps} to tabRound(tps from the last minute, 2)
 	if group of {_p} is "admin":
-		set {_rank} to "&8[&x&d&5&5&6&5&6&lADMIN&8]&f "
+		set {_rank} to "&8[<##BBEFE0>&lADMIN&8]&f "
 	else if group of {_p} is "mod":
-		set {_rank} to "&8[&x&d&5&5&6&5&6&lMOD&8]&f "
+		set {_rank} to "&8[<##BBEFE0>&lMOD&8]&f "
 	else:
 		set {_rank} to ""
 	set {_level} to chatFormat({p_level::%{_p}%})
-	set tablist name of {_p} to "%{_rank}%&8[&x&d&5&5&6&5&6:L%{_level}%&8] &7%display name of {_p}%"
-	set tablist header of {_p} to "                                               %nl%{@shaft}%nl%%nl%&x&d&5&5&6&5&6Online: &7%number of all players% &8| &x&d&5&5&6&5&6TPS: &7%{_tps}% &8| &x&d&5&5&6&5&6Ping: &7%ping of {_p}%%nl%"
+	set tablist name of {_p} to "%{_rank}%&8[<##8fb6ab>:L%{_level}%&8] &7%display name of {_p}%"
+	set tablist header of {_p} to "                                               %nl%{@shaft}%nl%%nl%<##617C74>Online: &7%number of all players% &8| <##617C74>TPS: &7%{_tps}% &8| <##617C74>Ping: &7%ping of {_p}%%nl%"
 	set tablist footer of {_p} to "%nl%{@ip}%nl%"
