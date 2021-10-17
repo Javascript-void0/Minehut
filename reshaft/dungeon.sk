@@ -94,8 +94,51 @@ function pasteCorridor(loc: location):
 		add 1 to y-coordinate of {_loc}
 	set y-coordinate of {_loc} to {_y}
 
+function copyTall(loc: location, name: text):
+	remove 1 from y-coordinate of {_loc}
+	remove 5 from z-coordinate of {_loc}
+	set {_x} to x-location of {_loc}
+	set {_y} to y-location of {_loc}
+	set {_z} to z-location of {_loc}
+	loop 21 times:
+		loop 11 times:
+			loop 11 times:
+				set {_offsetX} to x-location of {_loc} - {_x}
+				set {_offsetY} to y-location of {_loc} - {_y}
+				set {_offsetZ} to z-location of {_loc} - {_z}
+				set {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} to block at {_loc}
+				add 1 to x-coordinate of {_loc}
+			set x-coordinate of {_loc} to {_x}
+			add 1 to z-coordinate of {_loc}
+		set z-coordinate of {_loc} to {_z}
+		add 1 to y-coordinate of {_loc}
+	set y-coordinate of {_loc} to {_y}
+
+function pasteTall(loc: location, name: text):
+	remove 1 from y-coordinate of {_loc}
+	remove 5 from z-coordinate of {_loc}
+	set {_x} to x-location of {_loc}
+	set {_z} to z-location of {_loc}
+	set {_y} to y-location of {_loc}
+	loop 21 times:
+		loop 11 times:
+			loop 11 times:
+				set {_offsetX} to loop-number-3
+				remove 1 from {_offsetX}
+				set {_offsetZ} to loop-number-2
+				remove 1 from {_offsetZ}
+				set {_offsetY} to loop-number-1
+				remove 1 from {_offsetY}
+				set block at {_loc} to {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%}
+				add 1 to x-coordinate of {_loc}
+			set x-coordinate of {_loc} to {_x}
+			add 1 to z-coordinate of {_loc}
+		set z-coordinate of {_loc} to {_z}
+		add 1 to y-coordinate of {_loc}
+	set y-coordinate of {_loc} to {_y}
+
 on tab complete of "/dungeon":
-	set tab completions for position 1 to "clearDungeonStart", "listDungeonStart", "listDungeonRoom", "copyCorridor", "pasteCorridor", "copy", "delete", and "paste"
+	set tab completions for position 1 to "clearDungeonStart", "listDungeonStart", "listDungeonRoom", "copyCorridor", "pasteCorridor", "copyTall", "pasteTall", "copy", "delete", and "paste"
 	set tab completions for position 2 to {d_roomList::*}
 
 command /dungeon [<text>] [<text>]:
@@ -118,6 +161,24 @@ command /dungeon [<text>] [<text>]:
 		if arg-1 is "pasteCorridor":
 			pasteCorridor({dungeonStart.pos})
 			broadcast "pasted corridor"
+		if arg-1 is "copyTall":
+			if arg-2 is not set:
+				broadcast "/dungeon <copytall> <name>"
+				stop
+			else:
+				copyTall({dungeonStart.pos}, arg-2)
+				broadcast "copied new dungeon to %arg-2% long"
+				if {d_roomList::*} does not contain arg-2:
+					add arg-2 to {d_roomList::*}
+				stop
+		if arg-1 is "pasteTall":
+			if arg-2 is not set:
+				broadcast "/dungeon <pastetall> <name>"
+				stop
+			else:
+				pasteTall({dungeonStart.pos}, arg-2)
+				broadcast "pasted %arg-2% long"
+				stop
 		if arg-1 is "copy":
 			if arg-2 is not set:
 				broadcast "/dungeon <copy> <name>"
