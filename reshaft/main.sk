@@ -325,3 +325,22 @@ command /backpack [<integer>]:
 				set slot 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, and 35 of player to air
 		else:
 			send "{@admin} {@permission}"
+
+on tab complete of "/sk":
+	set tab completions for position 1 to "reload"
+	set tab completions for position 2 to enabled scripts
+
+command /sk [<text>] [<text>]:
+	trigger:
+		if player is op:
+			if arg-1 is not set:
+				send "{@admin} &7/sk reload <script>"
+				stop
+			if arg-2 is not set:
+				send "{@admin} &7/sk reload %enabled scripts%"
+				stop
+			send "{@admin} &7Reloading <##BBEFE0>%arg-2%<##BBEFE0>"
+			reload skript arg-1
+			send "{@admin} &7Reloaded <##BBEFE0>%arg-2%<##BBEFE0>"
+		else:
+			send "{@admin} {@permission}"
