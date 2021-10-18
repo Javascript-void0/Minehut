@@ -21,7 +21,6 @@ function expItem(p: player, n: integer):
 		set {_nextexp} to ({_level} * 2) + 10
 		set {_before} to {_level}
 		add 1 to {_level}
-		# send {_p} title "&3" with subtitle "&7Pickaxe: &8[&7:L%{_before}%&8] &7> &8[&7:L%{_level}%&8]" for 3 seconds
 	set line 2 of {_p}'s tool's lore to " &8┃ &7Level: &f%{_level}%"					
 	set line 3 of {_p}'s tool's lore to " &8┃ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%"					
 
@@ -102,7 +101,7 @@ function expBlock(p: player, n: integer, b: block):
 		add 1 to {p_level::%{_p}%}
 		set {p_nextexp::%{_p}%} to ({p_level::%{_p}%} * 2) + 10
 		set {action::%{_p}%} to "Level Up!"
-		send {_p} title "&3" with subtitle "&8[&7:L%{_before}%&8] &7> &8[&7:L%{p_level::%{_p}%}%&8]" for 3 seconds
+		send title "&3" with subtitle "&8[<##8fb6ab>:L%{_before}%&8] &7> &8[<##8fb6ab>:L%{p_level::%{_p}%}%&8]" to {_p} for 3 seconds
 		# discordLevel({_p}, {p_level::%{_p}%})
 		set {actionBlock::%{_p}%} to {_b}
 		wait 2 seconds
