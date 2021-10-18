@@ -1,5 +1,5 @@
 options:
-	shaft: &8[&c&lRESHAFT&8]&7
+	prefix: &8[<##BBEFE0>&lCHARGING&8]&f
 	permission: &7Insufficient Permissions
 	admin: &8[&c&lADMIN&8]&7
 	world: world

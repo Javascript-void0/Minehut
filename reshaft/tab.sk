@@ -24,6 +24,12 @@ function tab(p: player):
 		set {_rank} to "&8[<##BBEFE0>&lADMIN&8]&f "
 	else if group of {_p} is "mod":
 		set {_rank} to "&8[<##BBEFE0>&lMOD&8]&f "
+	else if group of {_p} is "tier3":
+		set {_rank} to "&8[&x&8&f&b&6&a&b&lTIER&x&6&1&7&c&7&4&l&n3&8]&f "
+	else if group of {_p} is "tier2":
+		set {_rank} to "&8[&x&8&f&b&6&a&b&lTIER&x&6&1&7&c&7&4&l&n2&8]&f "
+	else if group of {_p} is "tier1":
+		set {_rank} to "&8[&x&8&f&b&6&a&b&lTIER&x&6&1&7&c&7&4&l&n1&8]&f "
 	else:
 		set {_rank} to ""
 	set {_level} to chatFormat({p_level::%{_p}%})

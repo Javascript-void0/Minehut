@@ -1,5 +1,5 @@
 options:
-	shaft: &8[<##BBEFE0>&lRESHAFT&8]&f
+	prefix: &8[<##BBEFE0>&lCHARGING&8]&f
 	discord: &8[<##BBEFE0>&lDISCORD&8]&7
 	broadcast: &8[<##BBEFE0>&lBROADCAST&8]&f
 	rule: &8[<##BBEFE0>&lRULE&8]&f
@@ -90,11 +90,11 @@ command /tps:
 		set {_tps} to tps from the last 1 minute
 		set {_t} to roundto({_tps}, 2)
 		if {_t} >= 19:
-			send "{@shaft} &a%{_t}% &7TPS"
+			send "{@prefix} &a%{_t}% &7TPS"
 		else if {_t} >= 16:
-			send "{@shaft} <##BBEFE0>%{_t}% &7TPS"
+			send "{@prefix} <##BBEFE0>%{_t}% &7TPS"
 		else:
-			send "{@shaft} <##8fb6ab>%{_t}% &7TPS"
+			send "{@prefix} <##8fb6ab>%{_t}% &7TPS"
 
 command /bc [<text>]:
 	aliases: /broadcast
@@ -168,7 +168,7 @@ on tab complete of "/top":
 command /top [<text>]:
 	trigger:
 		if arg-1 is not "level" or "coins" or "totalcoins" or "wrath" or "totalwrath" or "totalstigma" or "kill" or "kill" or "rebirth" or "maxhealth" or "damage":
-			send "{@shaft} /top <level coins totalcoins wrath totalwrath totalstigma kill kill rebirth>"
+			send "{@prefix} /top <level coins totalcoins wrath totalwrath totalstigma kill kill rebirth>"
 		else:
 			loop {p_%arg-1%::*}:
 				add 1 to {_size}
