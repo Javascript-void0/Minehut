@@ -1,22 +1,10 @@
 options:
-	charging: &8[<##BBEFE0>&lCHARGING&8]&7
+	prefix: &8[<##BBEFE0>&lCHARGING&8]&7
 	permission: &7Insufficient Permissions
 	admin: &8[<##BBEFE0>&lADMIN&8]&7
 	coins: &7Insufficient <##BBEFE0>Coins
 	wrath: &7Insufficient <##BBEFE0>Wrath
 	world: world
-
-command /invlock:
-	trigger:
-		if player is op:
-			if {unlock.%player%} is set:
-				delete {unlock.%player%}
-				send "{@admin} &7Inventory <##8fb6ab>&lLOCKED"
-			else:
-				set {unlock.%player%} to true
-				send "{@admin} &7Inventory <##8fb6ab>&lUNLOCKED"
-		else:
-			send "{@admin} {permission}"
 
 function inventoryRound(n: number, to: number) :: number:
 	return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
@@ -41,15 +29,6 @@ function stats(p: player):
 	format gui slot 13 of {_p} with bell named "<##BBEFE0>&lWRATH" with lore "&7Current: <##BBEFE0>%{_wrath}% &7wrath" and "&7Total: <##BBEFE0>%{_totalwrath}% &7wrath"
 	format gui slot 14 of {_p} with nether star named "<##BBEFE0>&lVIRTUE" with lore "&7Current: <##BBEFE0>%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
 	format gui slot 15 of {_p} with netherite sword named "<##BBEFE0>&lCOMBAT" with lore "&7Kills: <##BBEFE0>%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: <##BBEFE0>%{p_death::%{_p}%}% &7deaths" with all flags hidden
-
-command /dailyreset [<offline player>]:
-	trigger:
-		if command executor is op:
-			clear {daily.%arg-1%.lastused}
-			send "{@admin} &7Reset daily reward of <##BBEFE0>%arg-1%"
-			send "{@charging} &7Your daily reward has neen reset" to arg-1
-		else:
-			send "{@admin} {@permission}"
 
 command /stats [<offline player>]:
 	trigger:
@@ -91,7 +70,7 @@ function menu(p: player):
 	set {_next} to 1 day after {daily.%{_p}%.lastused}
 	if {_waited} is less than 24 hours:
 		format gui slot 8 of {_p} with red stained glass named "<##BBEFE0>&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&8┃ &7Already <##BBEFE0>Claimed " and "&8╹ <##BBEFE0>+100 &7Wrath" to run:
-			send "{@charging} &7Your daily reward was already claimed at <##BBEFE0>%{daily.%{_p}%.lastused}%" to {_p}
+			send "{@prefix} &7Your daily reward was already claimed at <##BBEFE0>%{daily.%{_p}%.lastused}%" to {_p}
 			menu({_p})
 	else:
 		if {_waited} is not set:
@@ -100,7 +79,7 @@ function menu(p: player):
 			set {_m} to "%{daily.%{_p}%.lastused}%"
 		format gui slot 8 of {_p} with lime stained glass named "<##BBEFE0>&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to <##BBEFE0>Claim" and " &8╹ <##BBEFE0>+100 &7Wrath" to run:
 			set {daily.%{_p}%.lastused} to now
-			send "{@charging} &7You claimed your daily reward at <##BBEFE0>%now%" to {_p}
+			send "{@prefix} &7You claimed your daily reward at <##BBEFE0>%now%" to {_p}
 			add 100 to {p_wrath::%{_p}%}
 			menu({_p})
 	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
@@ -122,7 +101,7 @@ on inventory click:
 			armorUpgrade(player)
 		else if clicked type is left mouse button:
 			if clicked item is black stained glass:
-				send "{@charging} Can't promote any farther!"
+				send "{@prefix} Can't promote any farther!"
 			else:
 				set {_s} to index of event-slot
 				armorPromote(player, clicked item, {_s})

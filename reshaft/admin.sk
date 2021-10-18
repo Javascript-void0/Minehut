@@ -136,83 +136,118 @@ function removeEnch(i: item, e: enchantment):
 on tab complete of "/enchant":
 	if player's held item is sword:
 		set tab completions for position 1 to "sharpness", "looting", "mending", and "binding"
-	else if player's held item is pickaxe:
+	else if player's held item is pickaxe or hoe:
 		set tab completions for position 1 to "efficiency", "fortune", "mending", and "binding"
-		
+	else if player's held item is bow:
+		set tab completions for position 1 to "power", "infinity", "mending", and "binding"
+	else if player's held item is shield:
+		set tab completions for position 1 to "unbreaking", "thorns", "mending", and "binding"
+	else if player's held item is helmet or chestplate or leggings or boots:
+		set tab completions for position 1 to "protection", "thorns", "mending", and "binding"
+
 command /enchant [<text>] [<integer>]:
 	trigger:
 		if player is op:
 			if player's held item is not set:
 				send "{@admin} &7You must be holding a tool"
-			else if player's held item is not pickaxe or sword:
+			else if player's held item is not pickaxe or sword or bow or hoe or shield or helmet or chestplate or leggings or boots:
 				send "{@admin} &7You can not enchant that"
+
+			if arg-2 is not set:
+				stop
+			if arg-1 is "mending":
+				set line 11 of player's tool's lore to " &8┃ &7Mending: <##BBEFE0>%arg-2%"					
+				removeEnch(player's tool, mending)
+				enchant player's tool with "mending %arg-2%" parsed as enchantment type
+				send "{@admin} Enchanted with <##BBEFE0>Mending %arg-2%"
+			else if arg-1 is "binding":
+				set line 12 of player's tool's lore to " &8╹ &7Binding: <##BBEFE0>%arg-2%"					
+				removeEnch(player's tool, curse of binding)
+				enchant player's tool with "curse of binding %arg-2%" parsed as enchantment type
+				send "{@admin} Enchanted with <##BBEFE0>Binding %arg-2%"
 
 			# SWORD
 			# SWORD
 			# SWORD
 
 			else if player's held item is sword:
-				if arg-1 is not "sharpness" or "looting" or "mending" or "binding":
-					send "{@admin} /enchant <sharpness sweeping looting mending binding>"
-				else if arg-2 is not set:
-					send "{@admin} /enchant <%arg-1%> <integer>"
-				else:
-					if arg-1 is "sharpness":
-						# set {_split::*} to uncoloured line 2 of player's tool's lore parsed as " ┃ Sharpness: %number%"
-						# send "%{_split::1}%" to the player
-						set line 2 of player's tool's lore to " &8┃ &7Sharpness: <##BBEFE0>%arg-2%"					
-						removeEnch(player's tool, sharpness)
-						enchant player's tool with "sharpness %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with <##BBEFE0>Sharpness %arg-2%"
-					else if arg-1 is "looting":
-						set line 3 of player's tool's lore to " &8┃ &7Looting: <##BBEFE0>%arg-2%"					
-						removeEnch(player's tool, looting)
-						enchant player's tool with "looting %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with <##BBEFE0>Looting %arg-2%"
-					else if arg-1 is "mending":
-						set line 4 of player's tool's lore to " &8┃ &7Mending: <##BBEFE0>%arg-2%"					
-						removeEnch(player's tool, mending)
-						enchant player's tool with "mending %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with <##BBEFE0>Mending %arg-2%"
-					else if arg-1 is "binding":
-						set line 5 of player's tool's lore to " &8╹ &7Binding: <##BBEFE0>%arg-2%"					
-						removeEnch(player's tool, curse of binding)
-						enchant player's tool with "curse of binding %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with <##BBEFE0>Binding %arg-2%"
+				if arg-1 is "sharpness":
+					# set {_split::*} to uncoloured line 2 of player's tool's lore parsed as " ┃ Sharpness: %number%"
+					# send "%{_split::1}%" to the player
+					set line 9 of player's tool's lore to " &8┃ &7Sharpness: <##BBEFE0>%arg-2%"					
+					removeEnch(player's tool, sharpness)
+					enchant player's tool with "sharpness %arg-2%" parsed as enchantment type
+					send "{@admin} Enchanted with <##BBEFE0>Sharpness %arg-2%"
+				else if arg-1 is "looting":
+					set line 10 of player's tool's lore to " &8┃ &7Looting: <##BBEFE0>%arg-2%"					
+					removeEnch(player's tool, looting)
+					enchant player's tool with "looting %arg-2%" parsed as enchantment type
+					send "{@admin} Enchanted with <##BBEFE0>Looting %arg-2%"
 			
-			# PICKAXE
-			# PICKAXE
-			# PICKAXE
+			# PICKAXE / SCYTHE
+			# PICKAXE / SCYTHE
+			# PICKAXE / SCYTHE
 			
-			else if player's held item is pickaxe:
-				if arg-1 is not "efficiency" or "fortune" or "mending" or "binding":
-					send "{@admin} /loreenchant <efficiency fortune mending binding>"
-				else if arg-2 is not set:
-					send "{@admin} /loreenchant <%arg-1%> <integer>"
-				else:
-					if arg-1 is "efficiency":
-						# set {_split::*} to uncoloured line 2 of player's tool's lore parsed as " ┃ Sharpness: %number%"
-						# send "%{_split::1}%" to the player
-						set line 2 of player's tool's lore to " &8┃ &7Efficiency: <##BBEFE0>%arg-2%"					
-						removeEnch(player's tool, efficiency)
-						enchant player's tool with "efficiency %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with <##BBEFE0>Efficiency %arg-2%"
-					else if arg-1 is "fortune":
-						set line 3 of player's tool's lore to " &8┃ &7Fortune: <##BBEFE0>%arg-2%"					
-						removeEnch(player's tool, fortune)
-						enchant player's tool with "fortune %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with <##BBEFE0>Fortune %arg-2%"
-					else if arg-1 is "mending":
-						set line 4 of player's tool's lore to " &8┃ &7Mending: <##BBEFE0>%arg-2%"					
-						removeEnch(player's tool, mending)
-						enchant player's tool with "mending %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with <##BBEFE0>Mending %arg-2%"
-					else if arg-1 is "binding":
-						set line 5 of player's tool's lore to " &8╹ &7Binding: <##BBEFE0>%arg-2%"					
-						removeEnch(player's tool, curse of binding)
-						enchant player's tool with "curse of binding %arg-2%" parsed as enchantment type
-						send "{@admin} Enchanted with <##BBEFE0>Binding %arg-2%"
-
+			else if player's held item is pickaxe or hoe:
+				if arg-1 is "efficiency":
+					set line 9 of player's tool's lore to " &8┃ &7Efficiency: <##BBEFE0>%arg-2%"					
+					removeEnch(player's tool, efficiency)
+					enchant player's tool with "efficiency %arg-2%" parsed as enchantment type
+					send "{@admin} Enchanted with <##BBEFE0>Efficiency %arg-2%"
+				else if arg-1 is "fortune":
+					set line 10 of player's tool's lore to " &8┃ &7Fortune: <##BBEFE0>%arg-2%"					
+					removeEnch(player's tool, fortune)
+					enchant player's tool with "fortune %arg-2%" parsed as enchantment type
+					send "{@admin} Enchanted with <##BBEFE0>Fortune %arg-2%"
+			
+			# BOW
+			# BOW
+			# BOW
+			
+			else if player's held item is bow:
+				if arg-1 is "power":
+					set line 9 of player's tool's lore to " &8┃ &7Power: <##BBEFE0>%arg-2%"					
+					removeEnch(player's tool, power)
+					enchant player's tool with "power %arg-2%" parsed as enchantment type
+					send "{@admin} Enchanted with <##BBEFE0>Power %arg-2%"
+				else if arg-1 is "infinity":
+					set line 10 of player's tool's lore to " &8┃ &7Infinity: <##BBEFE0>%arg-2%"					
+					removeEnch(player's tool, infinity)
+					enchant player's tool with "infinity %arg-2%" parsed as enchantment type
+					send "{@admin} Enchanted with <##BBEFE0>Infinity %arg-2%"
+					
+			# SHIELD
+			# SHIELD
+			# SHIELD
+			
+			else if player's held item is shield:
+				if arg-1 is "unbreaking":
+					set line 9 of player's tool's lore to " &8┃ &7Unbreaking: <##BBEFE0>%arg-2%"					
+					removeEnch(player's tool, unbreaking)
+					enchant player's tool with "unbreaking %arg-2%" parsed as enchantment type
+					send "{@admin} Enchanted with <##BBEFE0>Unbreaking %arg-2%"
+				else if arg-1 is "thorns":
+					set line 10 of player's tool's lore to " &8┃ &7Thorns: <##BBEFE0>%arg-2%"					
+					removeEnch(player's tool, thorns)
+					enchant player's tool with "thorns %arg-2%" parsed as enchantment type
+					send "{@admin} Enchanted with <##BBEFE0>Thorns %arg-2%"
+			
+			# ARMOR
+			# ARMOR
+			# ARMOR
+			
+			else if player's held item is helmet or chestplate or leggings or boots:
+				if arg-1 is "protection":
+					set line 9 of player's tool's lore to " &8┃ &7Protection: <##BBEFE0>%arg-2%"					
+					removeEnch(player's tool, protection)
+					enchant player's tool with "protection %arg-2%" parsed as enchantment type
+					send "{@admin} Enchanted with <##BBEFE0>Protection %arg-2%"
+				else if arg-1 is "thorns":
+					set line 10 of player's tool's lore to " &8┃ &7Thorns: <##BBEFE0>%arg-2%"					
+					removeEnch(player's tool, thorns)
+					enchant player's tool with "thorns %arg-2%" parsed as enchantment type
+					send "{@admin} Enchanted with <##BBEFE0>Thorns %arg-2%"
+		
 		else:
 			send "{@admin} {permission}"
 

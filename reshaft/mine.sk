@@ -4,18 +4,6 @@ options:
 	admin: &8[<##BBEFE0>&lADMIN&8]&7
 	world: world
 
-command /jumplock:
-	trigger:
-		if player is op:
-			if {launchpad} is false:
-				set {launchpad} to true
-				send "{@admin} &7Turned Launch Pad &x&d&5&5&6&5&6&lON"
-			else if {launchpad} is true:
-				set {launchpad} to false
-				send "{@admin} &7Turned Launch Pad &x&d&5&5&6&5&6&lOFF"
-		else:
-			send "{@admin} {@permission}"
-
 on walking on bedrock:
 	{launchpad} is true
 	block above event-block is polished blackstone pressure plate
@@ -63,27 +51,23 @@ on mine:
 			set loop-block to air
 			show 3 small smoke at location of loop-block
 	expBlock(player, {_n}, event-block)
+	expItem(player, {_n})
 		
-command /minereset:
+on tab complete of "/mine":
+	set tab completions for position 1 to "reset", "set", and "color"
+	if tab complete arg-1 is "color":
+		set tab completions for position 2 to "gray" and "cyan"
+
+command /mine [<text>] [<text>]:
 	trigger:
-		if player is op:
+		if arg-1 is "reset":
 			fillCube({minestart})
 			send "{@admin} &7Reset Mine"
-		else:
-			send "{@admin} {@permission}"
-
-command /setmine:
-	trigger:
-		if player is op:
+		else if arg-1 is "set":
 			set {minestart} to location of player
 			send "{@admin} &7Set start of mine to %{minestart}%"
-		else:
-			send "{@admin} {@permission}"
-
-command /minecolor [<text>]:
-	trigger:
-		if player is op:
-			if arg-1 is "gray" or "cyan":
+		else if arg-1 is "color":
+			if arg-2 is "gray" or "cyan":
 				set {minecolor} to arg-1
 				send "{@admin} &7Set mine color to %arg-1%"
 		else:

@@ -1,0 +1,153 @@
+options:
+	prefix: &8[<##BBEFE0>&lCHARGING&8]&r
+	permission: &7Insufficient Permissions
+	admin: &8[<##BBEFE0>&lADMIN&8]&r
+	world: world
+
+
+
+on tab complete of "/commands" and "/cmd" and "/command" and "/c":
+	set tab completions for position 1 to "3x3", "new", "statcheck", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", and "tools"
+	if tab complete arg-1 is "statcheck" or "dailyreset":
+		set tab completions for position 2 to all players
+
+
+
+command /commands [<text>] [<text>]:
+	aliases: /command, /cmd, /c
+	trigger:
+		if player is op:
+
+
+
+			if arg-1 is "new":
+				new(player)
+			else if arg-1 is "3x3":
+				newcenter(player)
+			else if arg-1 is "tools":
+				give player {1_pickaxe}, {1_axe}, {1_shovel}, and {1_hoe}
+
+
+
+			else if arg-1 is "backpack" or "bp":
+				set slot 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, and 35 of player to gray stained glass pane named " "
+				if arg-2 is "3":
+					set slot 12, 13, 14, 21, 22, 23, 30, 31, and 32 of player to air
+				else if arg-2 is "5":
+					set slot 11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32, and 33 of player to air
+				else if arg-2 is "7":
+					set slot 10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, and 34 of player to air
+				else if arg-2 is "9":
+					set slot 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, and 35 of player to air
+
+
+
+			else if arg-1 is "statcheck":
+				if {p_level::%arg-2%} is not set:
+					set {p_level::%arg-2%} to 1
+				if {p_exp::%arg-2%} is not set:
+					set {p_exp::%arg-2%} to 0
+				if {p_nextexp::%arg-2%} is not set:
+					set {p_nextexp::%arg-2%} to 10
+				if {p_totalexp::%arg-2%} is not set:
+					set {p_totalexp::%arg-2%} to 0
+				if {p_coins::%arg-2%} is not set:
+					set {p_coins::%arg-2%} to 0
+				if {p_wrath::%arg-2%} is not set:
+					set {p_wrath::%arg-2%} to 0
+				if {p_virtue::%arg-2%} is not set:
+					set {p_virtue::%arg-2%} to 100
+				if {p_totalcoins::%arg-2%} is not set:
+					set {p_totalcoins::%arg-2%} to 0
+				if {p_totalwrath::%arg-2%} is not set:
+					set {p_totalwrath::%arg-2%} to 0
+				if {p_kill::%arg-2%} is not set:
+					set {p_kill::%arg-2%} to 0
+				if {p_death::%arg-2%} is not set:
+					set {p_death::%arg-2%} to 0
+				if {p_rebirth::%arg-2%} is not set:
+					set {p_rebirth::%arg-2%} to 0
+				if {p_damage::%arg-2%} is not set:
+					set {p_damage::%arg-2%} to 1
+				if {p_health::%arg-2%} is not set:
+					set {p_health::%arg-2%} to 20
+				if {p_maxhealth::%arg-2%} is not set:
+					set {p_maxhealth::%arg-2%} to 20
+				if {p_defense::%arg-2%} is not set:
+					set {p_defense::%arg-2%} to 5
+				if {p_maxdefense::%arg-2%} is not set:
+					set {p_maxdefense::%arg-2%} to 5
+				send "{@admin} &7Done Checking"
+
+
+
+			else if arg-1 is "blessing":
+				if arg-2 is set:
+					set {blessing} to arg-2 parsed as integer
+					send "{@admin} &7Set Global Blessing to %arg-2%%%"
+					# send "```Blessing: %arg-2%%%```" to channel with id "886738161491914772" with "Charging"
+		
+
+
+			else if arg-1 is "jumplock":
+				if {launchpad} is false:
+					set {launchpad} to true
+					send "{@admin} &7Turned Launch Pad <##BBEFE0>&lUNLOCKED"
+				else if {launchpad} is true:
+					set {launchpad} to false
+					send "{@admin} &7Turned Launch Pad <##BBEFE0>&lLOCKED"
+
+
+
+			else if arg-1 is "invlock":
+				if {unlock.%player%} is set:
+					delete {unlock.%player%}
+					send "{@admin} &7Inventory <##8fb6ab>&lLOCKED"
+				else:
+					set {unlock.%player%} to true
+					send "{@admin} &7Inventory <##8fb6ab>&lUNLOCKED"
+
+
+
+			else if arg-1 is "dailyreset":
+				if arg-2 is set:
+					set {_player} to arg-2 parsed as player
+					clear {daily.%{_player}%.lastused}
+					send "{@admin} &7Reset daily reward of <##BBEFE0>%{_player}%"
+					send "{@prefix} &7Your daily reward has neen reset" to {_player}
+
+
+
+			else if arg-1 is "mobcap":
+				if {mobcap} is true:
+					set {mobcap} to false
+					send "{@admin} &7Mobcap set to false"
+				else if {mobcap} is false:
+					set {mobcap} to true
+					send "{@admin} &7Mobcap set to true"
+
+
+
+		else:
+			send "{@admin} {@permission}"
+
+function new(p: player):
+	set helmet of {_p} to {1_helmet}
+	set chestplate of {_p} to {1_chestplate}
+	set leggings of {_p} to {1_leggings}
+	set boots of {_p} to {1_boots}
+	set slot 0 of {_p} to {1_sword}
+	set slot 1 of {_p} to {1_bow}
+	set slot 40 of {_p} to {1_shield}
+	set slot 8 of {_p} to skull of {_p} named "<##BBEFE0>&lMENU" with lore " &8╹ &7Click to Open"
+
+function newcenter(p: player):
+	set slot 12 of {_p} to {pegasuslock}
+	set slot 13 of {_p} to {athenalock}
+	set slot 14 of {_p} to {poseidonlock}
+	set slot 21 of {_p} to {apollolock}
+	set slot 22 of {_p} to {hadeslock}
+	set slot 23 of {_p} to {kronoslock}
+	set slot 30 of {_p} to {talarialock}
+	set slot 31 of {_p} to {zeuslock}
+	set slot 32 of {_p} to {hermeslock}

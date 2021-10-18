@@ -1,0 +1,27 @@
+every second in "dungeon":
+    loop all players:     
+        if stylish scoreboard "%loop-player%" does not exist:
+            create new stylish scoreboard named "%loop-player%"
+            loop 15 times:
+                if loop-number is not 15:
+                    add loop-number to {list::*}
+                create a new id based score "%loop-player%Slot%loop-number%" with text "%{_d::%loop-number%}%" slot loop-number for stylish scoreboard "%loop-player%"
+        set title of stylish scoreboard "%loop-player%" to "<##BBEFE0>&lCHARGING"
+        set stylish scoreboard of loop-player to "%loop-player%"
+        set the text of id "%loop-player%Slot13" to "&c"
+        set the text of id "%loop-player%Slot12" to "<##8fb6ab>&lPLAYER"
+        set the text of id "%loop-player%Slot15" to "&a&lSkellett stylish scoreboards ftw"
+        set the text of id "%loop-player%Slot15" to "&a&lSkellett stylish scoreboards ftw"
+        set the text of id "%loop-player%Slot15" to "&a&lSkellett stylish scoreboards ftw"
+        set the text of id "%loop-player%Slot15" to "&a&lSkellett stylish scoreboards ftw"
+        set the text of id "%loop-player%Slot15" to "&a&lSkellett stylish scoreboards ftw"
+        set the text of id "%loop-player%Slot15" to "&a&lSkellett stylish scoreboards ftw"
+        delete {list::*}
+        wait a second
+
+on disconnect:
+    loop 15 times:
+        delete the id based score "%player%Slot%loop-number%" in stylish scoreboard "%player%"
+    delete stylish scoreboard "%player%"
+
+# NO

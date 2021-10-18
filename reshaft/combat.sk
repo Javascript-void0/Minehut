@@ -19,10 +19,26 @@ function pvpToggle(p: player):
 		set {pvp::%{_p}%} to true
 		send "{@prefix} &7PvP turned on" to {_p}
 
+function combatFormat(n: number) :: text:
+	set {_data} to "f,18:e,15:d,12:3,9:b,6:a,3"
+	loop split {_data} at ":":
+		set {_s::*} to split loop-value at ","
+		{_n} >= 10 ^ {_s::2} parsed as number
+		set {_nn} to scoreboardRound({_n} / 10 ^ {_s::2} parsed as number, 1)
+		return "%{_nn}%%{_s::1}%"
+	return "%{_n}%"
+
+function combatRound(n: number, to: number) :: number:
+   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
+
+
 every 5 tick:
 	loop all players:
 		if {staffchat::%loop-player%} is not set:
-			set action bar of loop-player to "&c%{p_health::%loop-player%}%/%{p_maxhealth::%loop-player%}% ❤ &8| &7%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| &c+%{p_damage::%loop-player%}% dmg"
+			set {_health} to combatFormat({p_health::%loop-player%})
+			set {_maxhealth} to combatFormat({p_maxhealth::%loop-player%})
+			set {_damage} to combatFormat({p_damage::%loop-player%})
+			set action bar of loop-player to "&c%{_health}%/%{_maxhealth}% ❤ &8| &7%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| &c+%{_damage}% dmg"
 		if {dead.%loop-player%} is set:
 			teleport loop-player to {spawn}
 

@@ -137,18 +137,6 @@ on spawn of donkey:
 # 	else:
 # 		set {mobcap} to false
 
-command /mobcap:
-	trigger:
-		if player is op:
-			if {mobcap} is true:
-				set {mobcap} to false
-				send "{@admin} &7Mobcap set to false"
-			else if {mobcap} is false:
-				set {mobcap} to true
-				send "{@admin} &7Mobcap set to true"
-		else:
-			send "{@admin} {@permission}"
-
 on load:
 	loop all entities:
 		loop-entity is not a player
