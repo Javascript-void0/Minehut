@@ -53,6 +53,23 @@ command /unlink [<player>]:
 		else:
 			send "{@admin} {@permission}"
 
+command /discord:
+	trigger:
+		send " "
+		send "  {@discord}"
+		send " "
+		send "  <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&7Click Here to Join!<reset>"
+		send " "
+
+every 10 minutes:
+	loop all players:
+		send " " to loop-player
+		send "  {@discord}" to loop-player
+		send " " to loop-player
+		send "  &7Join our <##BBEFE0>/discord &7for events, updates, and extra features" to loop-player
+		send "  &7Link your account (<##BBEFE0>/link&7) to recieve perks! <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&8[<##BBEFE0>&lCLICK HERE&8]<reset>" to loop-player
+		send " " to loop-player
+
 command /link:
 	trigger:
 		if {discord::*} contains name of player:
@@ -60,23 +77,32 @@ command /link:
 			stop
 		set {_code} to a random integer between 11111 and 99999
 		set {code::%{_code}%} to name of player
-		set {_copy} to new text component of "{@discord} <##BBEFE0>Click here &7to copy command to clipboard. "
+		set {_copy} to new text component of "  <##BBEFE0>Click here &7to copy command to clipboard. "
 		set click event of {_copy} to a new click event to copy ".link %{_code}%" to clipboard
 		set hover event of {_copy} to a new hover event showing "<##BBEFE0>Copy to Clipboard"
-		send "{@discord} &7Run the command <##BBEFE0>.link %{_code}% &7in <##BBEFE0>##link &7to link your account"
-		send "{@discord} <##BBEFE0>Rewards: &710b coins and 10a wrath  &8|  &7Valid for 1 minute"
+		send " "
+		send "  {@discord}"
+		send " "
+		send "  &7Run the command <##BBEFE0>.link %{_code}% &7in <##BBEFE0>##link &7to link your account"
+		send "  <##BBEFE0>Rewards: &710b coins and 10a wrath  &8|  &7Valid for <##BBEFE0>1 &7minute"
 		send components {_copy} to player
+		send " " 
 		wait 1 minute
 		delete {code::%{_code}%}
 
 discord command link [<text>]:
 	prefixes: "."
 	trigger:
+		if the name of the channel is not "link":
+			delete discord entity event-message
+			stop
 		if arg-1 is not set:
 			reply with "```.link <code>```"
+			delete discord entity event-message
 			stop
 		if {code::%arg-1%} is not set:
 			reply with "```Invalid code```"
+			delete discord entity event-message
 			stop
 		set {discord::%discord id of event-member%} to {code::%arg-1%}
 		reply with "```Sucessfully Linked with %{code::%arg-1%}%. Rewards have been added to your account. ```"
@@ -86,7 +112,6 @@ discord command link [<text>]:
 		add 10000 to {p_totalwrath::%{code::%arg-1%}%}
 		send "```Link: %discord id of event-member%, %{code::%arg-1%}%```" to channel with id "886738161491914772" with "Charging"
 		delete {code::%arg-1%}
-
 
 discord command top [<text>]:
 	prefixes: "."

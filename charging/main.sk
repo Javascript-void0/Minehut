@@ -77,14 +77,6 @@ command /setspawn:
 		else:
 			send "{@admin} {@permission}"
 
-command /discord:
-	trigger:
-		send "{@discord} <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&7Click Here to Join!<reset>"
-
-every 10 minutes:
-	loop all players:
-		message "{@discord} &7Join our <##BBEFE0>Discord &7for events, updates, and extra features (offline bonuses) <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&8[<##BBEFE0>&lCLICK HERE&8]<reset>" to loop-player
-
 command /tps:
 	trigger:
 		set {_tps} to tps from the last 1 minute

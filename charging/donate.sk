@@ -8,4 +8,6 @@ options:
 command /buy:
 	aliases: /donate, /store
 	trigger:
-		stop
+		send " "
+		send "  {@store} <tooltip:<##BBEFE0>&lCLICK HERE!><link:https://charging.tebex.io/>&7Support us <##BBEFE0>@<##8fb6ab> https://charging.tebex.io!<reset>"
+		send " "
