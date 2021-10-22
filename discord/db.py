@@ -20,9 +20,9 @@ portal = None
 @client.event
 async def on_ready():
     global db, guild, log, file_log, portal
-    guild = client.get_guild(872657348299227218)
+    guild = client.get_guild(747233433511788637)
     test = client.get_guild(805299220935999509)
-    db = guild.get_channel(872657351461732395)
+    db = guild.get_channel(900146904632025148)
     log = test.get_channel(872829816624271381)
     file_log = test.get_channel(872829900485193758)
     portal = guild.get_channel(886738161491914772)

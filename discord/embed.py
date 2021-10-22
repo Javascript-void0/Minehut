@@ -5,7 +5,7 @@ from discord.ext import commands
 from discord.utils import get
 
 client = commands.Bot(command_prefix='.')
-TOKEN = os.getenv("TOKEN")
+TOKEN = os.getenv("CHAT")
 
 @client.event
 async def on_ready():
@@ -29,7 +29,7 @@ async def rules2(ctx):
 
 @client.command(help='Rules Embed')
 async def rules(ctx):
-    embed = discord.Embed(title='FarminFarm Discord Rules', description='', color=discord.Color(0xECA37E))
+    embed = discord.Embed(title='Charging Discord Rules', description='', color=discord.Color(0xECA37E))
     embed.add_field(name='`1.` Keep All Channels SFW', value="> Keep all topics and images clean. Limit swearing. \n> **`2.` Use channels For Their Proper Use**\n> Don't misuse channels. Each of them have their uses. \n> :\n> **`3.` English Only**\n> Due to all of out staff mainly speaking English, it is required to \n> speak English only. They can not moderate something theat they \n> do not understand.", inline=False)
     embed.add_field(name="`4.` Don't Spam / Flood", value="> This includes character spam, image spam, copy and pasting \n> large text, etc.", inline=False)
     embed.add_field(name='`5.` Respect Everyone', value="> Respect all users and their opinions. Please don't insult, bully, or \n> harass anyone.", inline=False)
