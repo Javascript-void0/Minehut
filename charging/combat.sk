@@ -68,14 +68,14 @@ on damage:
 		victim is a player
 		{pvp::%victim%} is set
 		cancel event
-		set action bar of attacker to "{@prefix} &7PvP is <##BBEFE0>&lDISABLED &7 for %victim%"
+		send action bar "{@prefix} &7PvP is <##BBEFE0>&lDISABLED &7 for %victim%" to attacker
 		stop
 	if attacker is set:
 		attacker is a player
 		victim is a player
 		{pvp::%attacker%} is set
 		cancel event
-		set action bar of attacker to "{@prefix} &7Your PvP is <##BBEFE0>&lDISABLED"
+		send action bar "{@prefix} &7Your PvP is <##BBEFE0>&lDISABLED" to attacker
 		stop
 	if victim is not a player:
 		if attacker is not a player:

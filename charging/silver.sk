@@ -21,6 +21,21 @@ command /silver:
 every second:
 	show 50 flying glyph at {well}
 
+npc right click:
+	if citizen is 8:
+		if player's tool is {weatheredsilver}:
+			show large explosion at {well}
+			remove 1 of tool from tool
+			weatheredReward(player)
+		if player's tool is {tarnishedsilver}:
+			show large explosion at {well}
+			remove 1 of tool from tool
+			tarnishedReward(player)
+		if player's tool is {polishedsilver}:
+			show large explosion at {well}
+			remove 1 of tool from tool
+			polishedReward(player)
+
 on right click:
 	if player is sneaking:
 		player's tool is {weatheredsilver} or {tarnishedsilver} or {polishedsilver}
@@ -41,6 +56,17 @@ on right click:
 			show large explosion at {well}
 			remove 1 of tool from tool
 			polishedReward(player)
+
+npc left click:
+	if citizen is 8:
+		open virtual chest inventory with size 3 named "&8Shaft Rewards" to player
+		format gui slot 10 of player with {tarnishedsilver} to run function tarnishedList(player)
+		format gui slot 1 and 19 of player with brown stained glass pane named "&6&lTARNISHED" to run function tarnishedList(player)
+		format gui slot 13 of player with {weatheredsilver}
+		format gui slot 4 and 22 of player with green stained glass pane named "&a&lWEATHERED"
+		format gui slot 16 of player with {polishedsilver}
+		format gui slot 7 and 25 of player with light blue stained glass pane named "&3&lPOLISHED"
+		format gui slot 0, 2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, and 26 of player with gray stained glass pane named " "
 
 on left click:
 	event-block is {well}

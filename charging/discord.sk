@@ -66,8 +66,8 @@ every 10 minutes:
 		send " " to loop-player
 		send "  {@discord}" to loop-player
 		send " " to loop-player
-		send "  &7Join our <##BBEFE0>/discord &7for events, updates, and extra features" to loop-player
-		send "  &7Link your account (<##BBEFE0>/link&7) to recieve perks! <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&8[<##BBEFE0>&lCLICK HERE&8]<reset>" to loop-player
+		send "  &7Join our <##BBEFE0>Discord &7for events, updates, and extra features" to loop-player
+		send "  &7Link your account &7(<tooltip:<##BBEFE0>Click to link!><suggest command:/link><##BBEFE0>/link<reset>&7) to recieve perks! <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&7(<##BBEFE0>/discord&7)<reset>" to loop-player
 		send " " to loop-player
 
 command /link:
@@ -79,7 +79,7 @@ command /link:
 		set {code::%{_code}%} to name of player
 		set {_copy} to new text component of "  <##BBEFE0>Click here &7to copy command to clipboard. "
 		set click event of {_copy} to a new click event to copy ".link %{_code}%" to clipboard
-		set hover event of {_copy} to a new hover event showing "<##BBEFE0>Copy to Clipboard"
+		set hover event of {_copy} to a new hover event showing "Copy to Clipboard"
 		send " "
 		send "  {@discord}"
 		send " "

@@ -120,6 +120,8 @@ on spawn of cow:
 	cancel event
 on spawn of donkey:
 	cancel event
+on spawn of bat:
+	cancel event
 
 # every 10 seconds:
 # 	loop all entities:

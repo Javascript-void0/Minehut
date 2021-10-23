@@ -1,0 +1,1403 @@
+# Citizens NPC Storage
+
+
+last-created-npc-id: 37
+npc:
+  '3':
+    metadata:
+      cached-skin-uuid-name: kinamet
+      cached-skin-uuid: 01f72d6b-922f-4add-bd67-e7d2a023988c
+    name: §9West Guard II
+    uuid: af08e77a-ef73-4270-84bf-c2ce4b4d99e8
+    traits:
+      location:
+        bodyYaw: -95.721466
+        world: Skyland
+        x: '-208.4746'
+        y: '78.0'
+        z: '266.5358'
+        yaw: '-135.7215'
+        pitch: '0.0'
+      spawned: true
+      type: PLAYER
+      skintrait:
+        fetchDefaultSkin: true
+        signature: g4bJrF6N6skoAWhJTnm0rRWseDakxWvcxX9lqMnEv25kq0LpHXKQhBUHLPpo0PKmvaSGlODV2V0LdIJiORWv8SbSVVeJiSzOjU/nkHx9SaZU1x1T8oqybfnU/z/M5KOukag73i08lIC45tQRjgbOOpMp2FFiLMMeIhwWtavfdAi7WhtFURMQtu4V0XnDSYHZU7kSHsjxNHHHHUABQaVUqXzC15txGJmbyJTEl6650Sz6vI5RCS4tGRemlwrHRF1a3HTuQR8qyJap7s7ptssRxve3rpNoQGzU7XOTx+oIchokOEGkGeALxBlyZ5cx9glD1Oc6Moy7bbg08B4CmAudgXeYWR4DZJ/zU24Du2EqoyzuSK8ptwvjCktkPSZd9SPaZ/32KlmViktbN6qCEnmFlAfQLsmziHzzip60axGxMTMI8ruaY67gbjGDqaq81Z2gCUkg2/+bRlPKEZyJBSG8ANC8AAS861Fd/sLDqDDq6BqBKePeAOLU2XoWIkCDqmJsu9JGZGt/p0QaJdoBXl7dZRjp0rt81SaFkBoBkWdRA+0HxEYGBV5hKJNt+qkwFU+ZfdS+k+QMIOwKePRoCRR0qWuNBVXUG+cQ8bGgezGaZyxXZJhvGSu2MAI3h8NSCCjVFbM6vWGfJPm93jaODfM+ucCoBjZrQ/qborqzxVWmf84=
+        skinName: kinamet
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjU3OTE2NTQxNCwKICAicHJvZmlsZUlkIiA6ICIwMWY3MmQ2YjkyMmY0YWRkYmQ2N2U3ZDJhMDIzOTg4YyIsCiAgInByb2ZpbGVOYW1lIiA6ICJLaW5hbWV0IiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzIxZWY5MmIwNTM0ZTU5MDcwMzJkN2NiMzNkOGU1MTVjMmZkZjRkYzc0MzU1M2IwNDQzMzlhNjAxYTQwMWU1YWIiCiAgICB9CiAgfQp9
+        updateSkins: false
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: netherite_sword
+          amount: 1
+          durability: 0
+        chestplate:
+          type_namespace: minecraft
+          type_key: netherite_chestplate
+          amount: 1
+          durability: 0
+        offhand:
+          type_namespace: minecraft
+          type_key: shield
+          amount: 1
+          durability: 0
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: netherite_sword
+          amount: 1
+          durability: 0
+        '38':
+          type_namespace: minecraft
+          type_key: netherite_chestplate
+          amount: 1
+          durability: 0
+        '40':
+          type_namespace: minecraft
+          type_key: shield
+          amount: 1
+          durability: 0
+      owner:
+        owner: Javascript_void0
+        uuid: 618c8c8d-506b-4990-8015-91e0987fc24b
+    traitnames: location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '2':
+    metadata:
+      cached-skin-uuid-name: kinamet
+      cached-skin-uuid: 01f72d6b-922f-4add-bd67-e7d2a023988c
+    name: §9West Guard I
+    uuid: 1bb58b09-49b8-4cd2-8558-4ec35412a4a6
+    traits:
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      location:
+        bodyYaw: -98.329865
+        world: Skyland
+        x: '-208.553'
+        y: '78.0'
+        z: '257.6017'
+        yaw: '-66.8436'
+        pitch: '0.0'
+      spawned: false
+      type: PLAYER
+      skintrait:
+        fetchDefaultSkin: true
+        signature: g4bJrF6N6skoAWhJTnm0rRWseDakxWvcxX9lqMnEv25kq0LpHXKQhBUHLPpo0PKmvaSGlODV2V0LdIJiORWv8SbSVVeJiSzOjU/nkHx9SaZU1x1T8oqybfnU/z/M5KOukag73i08lIC45tQRjgbOOpMp2FFiLMMeIhwWtavfdAi7WhtFURMQtu4V0XnDSYHZU7kSHsjxNHHHHUABQaVUqXzC15txGJmbyJTEl6650Sz6vI5RCS4tGRemlwrHRF1a3HTuQR8qyJap7s7ptssRxve3rpNoQGzU7XOTx+oIchokOEGkGeALxBlyZ5cx9glD1Oc6Moy7bbg08B4CmAudgXeYWR4DZJ/zU24Du2EqoyzuSK8ptwvjCktkPSZd9SPaZ/32KlmViktbN6qCEnmFlAfQLsmziHzzip60axGxMTMI8ruaY67gbjGDqaq81Z2gCUkg2/+bRlPKEZyJBSG8ANC8AAS861Fd/sLDqDDq6BqBKePeAOLU2XoWIkCDqmJsu9JGZGt/p0QaJdoBXl7dZRjp0rt81SaFkBoBkWdRA+0HxEYGBV5hKJNt+qkwFU+ZfdS+k+QMIOwKePRoCRR0qWuNBVXUG+cQ8bGgezGaZyxXZJhvGSu2MAI3h8NSCCjVFbM6vWGfJPm93jaODfM+ucCoBjZrQ/qborqzxVWmf84=
+        skinName: kinamet
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjU3OTE2NTQxNCwKICAicHJvZmlsZUlkIiA6ICIwMWY3MmQ2YjkyMmY0YWRkYmQ2N2U3ZDJhMDIzOTg4YyIsCiAgInByb2ZpbGVOYW1lIiA6ICJLaW5hbWV0IiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzIxZWY5MmIwNTM0ZTU5MDcwMzJkN2NiMzNkOGU1MTVjMmZkZjRkYzc0MzU1M2IwNDQzMzlhNjAxYTQwMWU1YWIiCiAgICB9CiAgfQp9
+        updateSkins: false
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: netherite_sword
+          amount: 1
+          durability: 0
+        chestplate:
+          type_namespace: minecraft
+          type_key: netherite_chestplate
+          amount: 1
+          durability: 0
+        offhand:
+          type_namespace: minecraft
+          type_key: shield
+          amount: 1
+          durability: 0
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: netherite_sword
+          amount: 1
+          durability: 0
+        '38':
+          type_namespace: minecraft
+          type_key: netherite_chestplate
+          amount: 1
+          durability: 0
+        '40':
+          type_namespace: minecraft
+          type_key: shield
+          amount: 1
+          durability: 0
+      owner:
+        owner: Javascript_void0
+        uuid: 618c8c8d-506b-4990-8015-91e0987fc24b
+    traitnames: location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '4':
+    metadata:
+      cached-skin-uuid-name: varlhax_
+      cached-skin-uuid: 25720232-9239-41db-866b-39164d25ed43
+      nameplate-visible: 'true'
+    name: §3Brennus
+    uuid: 6de9c051-b40c-4879-a6aa-ea232c815c34
+    traits:
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      location:
+        bodyYaw: -19.824394
+        world: Skyland
+        x: '-118.7826'
+        y: '78.0'
+        z: '261.1797'
+        yaw: '20.1756'
+        pitch: '0.0'
+      spawned: true
+      type: PLAYER
+      skintrait:
+        fetchDefaultSkin: true
+        signature: Lol2RryykCGzPXBEjpMPFv8S3a0XbeLYA5UZoFVxyxmx5f0x2Rg7n2rvL8xZxK1j6s8VOM6cwa0WdvqrJRrZwC6bFPjB1re7/johZYra/2GS8KIS2UU0qGkfsf/hlVLnLk2WKt81gjvym5QFoR9Neec0x7UcgKqBoItqsk5edx/bu8d547ZMNbDMTa3IHlOhwddbhmvjLLlpBUwUSWx4RFfdWMVCaAPmaBkXW6lwiDtROpHuwtqWSHyMCKln2lU8th0Tc2T8QocnmyQNNNQUwXYpDdhOKPegcfb5GVWI+F2k8wNI/Fz+1M0i3Oau5O3rzvNK1NW4V7WfRd8217jg51fjkDco4QQuOUuXYDqZ5JzXx0wQg2K+JFsDJDEznjRreqVkxGZbDfXtZxTU20n7BrO+0dYVx0RVUaJh4n2y7/AqGYGvC36tmLV6SedCytQgInG8MJrw+BZrQ+1RdqhC9stA9z6rcdTnGU50wbn/VfuiM2PwE6A0n20HGkwu0yd8p9BMpW+4jn6KK/wxjf3DLSbwKRoY8K3+WmV9bAoVKGCdHO8+lITrGZty9bsS+wHERr53vyd/YS1/fuy+idAzp0J6+BEyedrsBDUTLC8DoyA6I/wNhvsXQrr10mfdBZg1+glPZWM0jQx/WM7C3ibM+vBIIwkkSCtwlWMSHW/uleg=
+        skinName: varlhax_
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjU3OTQ0NzM1OCwKICAicHJvZmlsZUlkIiA6ICIyNTcyMDIzMjkyMzk0MWRiODY2YjM5MTY0ZDI1ZWQ0MyIsCiAgInByb2ZpbGVOYW1lIiA6ICJWYXJsaGF4XyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8xODgwNWU3NTNkOTZmYmMyNjFlYjJlMGZmZmMwNTBhYmRiNTEzMjZmYjI1OTE0N2VhZWM0OGIyOWZlMjVmNmFkIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=
+        updateSkins: false
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: iron_axe
+          amount: 1
+          durability: 0
+        '36':
+          type_namespace: minecraft
+          type_key: iron_boots
+          amount: 1
+          durability: 0
+        '37':
+          type_namespace: minecraft
+          type_key: chainmail_leggings
+          amount: 1
+          durability: 0
+        '40':
+          type_namespace: minecraft
+          type_key: iron_ingot
+          amount: 64
+          durability: 0
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: iron_axe
+          amount: 1
+          durability: 0
+        leggings:
+          type_namespace: minecraft
+          type_key: chainmail_leggings
+          amount: 1
+          durability: 0
+        boots:
+          type_namespace: minecraft
+          type_key: iron_boots
+          amount: 1
+          durability: 0
+        offhand:
+          type_namespace: minecraft
+          type_key: iron_ingot
+          amount: 64
+          durability: 0
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,skintrait,scoreboardtrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '5':
+    metadata:
+      cached-skin-uuid-name: contradiction64
+      cached-skin-uuid: a59c2ea9-5355-4235-889d-a973c60dafc8
+      nameplate-visible: 'true'
+    name: §3Volos
+    uuid: f760147e-c00b-4dbf-ba30-b6cb786ec634
+    traits:
+      type: PLAYER
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      spawned: true
+      location:
+        bodyYaw: -10.598305
+        world: Skyland
+        x: '-123.5'
+        y: '78.0'
+        z: '262.5'
+        yaw: '-46.3562'
+        pitch: '0.0'
+      skintrait:
+        fetchDefaultSkin: true
+        signature: a4ilR8q3lI2arLxfvZRQMSatLtPkDjUaLw1zMIfOuzwQ/2T5rHdNiqVACkxXyRuLsIAGmWOSVqmpHNl1lW8+4udmVgYn+aIygaNKAnv0AtZYSzIN4YAD9cxnqJjK7d1KVQxX6unQ77KQBe+PShMNkkIKIguZDyiZIQcRxXthv/jkVBy5GzRkqvhuxJXpI/850dWG/U5fo1GHTHUymufbxiGrmR7+oZXr84Q3hOq40N8u/VVSqDopPfo+/KsCkcxe86zShykokJBaM3AB87BUqz7Fh2DG2/KipSQNUr3dO9fSqQXHyiCeCF+Qjc8LSaWkJbLAkc5plV7VXzfxkIPaT2HfgTfvNJS/E7JClBMhzgdBj/FbVbLBzWJgFbnAkQsUndZRpe24Xy4demYqKQuIRsEoF/bnMrxeZtoiUh7C6/XxBLQ/EIpI95DQDqqRFmPyu/hhARE8DTCKvIFWzYnOMz8DTitwkcIYE+lgWUY2QD6kenQsNfTYc6CS9/IkcoOX55WTAxvHtCCcl9194nF+lJOg10hDBS/98Lr1aIBKBHjtOdv/r7cEkEjy3RmsQQOUmr48o3FDKOZALcXwlHYungMhhTrdsvf7J3jHPaWlAaC+048Z1WCpxUPrbKES8ZHtZU19xV+MP5P9vI5xi1hoCBEvYqxy2RsHJCpJJ6Gb38w=
+        skinName: contradiction64
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjYwMDg4MDMyMiwKICAicHJvZmlsZUlkIiA6ICJhNTljMmVhOTUzNTU0MjM1ODg5ZGE5NzNjNjBkYWZjOCIsCiAgInByb2ZpbGVOYW1lIiA6ICJDb250cmFkaWN0aW9uNjQiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODM1YmU0NjliNDE4YWM4MTQzMTEzMDBmMjQ0MDBiM2MzMGZiY2ZmZDUyMzQyZjhlZWJhM2JmNTcxODI3YzI1ZCIKICAgIH0KICB9Cn0=
+        updateSkins: false
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: netherite_sword
+          amount: 1
+          durability: 0
+        '36':
+          type_namespace: minecraft
+          type_key: netherite_boots
+          amount: 1
+          durability: 0
+        '37':
+          type_namespace: minecraft
+          type_key: netherite_leggings
+          amount: 1
+          durability: 0
+        '40':
+          type_namespace: minecraft
+          type_key: shield
+          amount: 1
+          durability: 0
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: netherite_sword
+          amount: 1
+          durability: 0
+        offhand:
+          type_namespace: minecraft
+          type_key: shield
+          amount: 1
+          durability: 0
+        leggings:
+          type_namespace: minecraft
+          type_key: netherite_leggings
+          amount: 1
+          durability: 0
+        boots:
+          type_namespace: minecraft
+          type_key: netherite_boots
+          amount: 1
+          durability: 0
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '7':
+    metadata:
+      cached-skin-uuid-name: itzangelgamer04
+      cached-skin-uuid: e61c52ff-1f22-4cec-8ba4-4cee40d03fd0
+      nameplate-visible: 'true'
+      minecraft-ai: false
+    name: §3Prometheus
+    uuid: 32f801b8-10ab-48f5-9605-7da640e31145
+    traits:
+      type: PLAYER
+      location:
+        bodyYaw: 179.05417
+        world: Skyland
+        x: '-121.7'
+        y: '78.0'
+        z: '277.7'
+        yaw: '-140.9458'
+        pitch: '0.0'
+      skinlayers:
+        cape: false
+        hat: true
+        jacket: true
+        left-pants: true
+        left-sleeve: true
+        right-pants: true
+        right-sleeve: true
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      spawned: true
+      skintrait:
+        fetchDefaultSkin: true
+        signature: FKgZ7hXsgAFAqNq1Hps+5Jtky9ltwyp87M907s6EuvdfglsM+GHZSZt8U1FSOhpwyS9Mjd+Rx0VMNUcpgUjFBoqiXGQ6pP+nyMKSx+YsafKR4gGkrfOyU6XMTlsgFM+4BW2vDgl1SKynHRzLXscAtjVYmTY1QWFhT1qNKA4e4yMcCUF6M5296HRnvd7xOdfl9dHVZa2JnkgFtdL+Fvu/Yo32Jbf30KJ+U0bXQcu5YOaK/Jq4bit/htArWmFLcszQfrJaY9IHeQUXmucCeaC38uGEEdzVhK0I7/OA3kg0BrxTzdS7Hlxw18HdbvBpngxbPQFA3zdNhjjfnP4i7VFoXR/4ZYzOWmg+l4KNpPJeVsBbxiHUCpu9d4DlKaSrOVEjzR+3vC1oFl/SBnttsfrtizQxtV1jRkGZQz/IzCPGcxLXR1yG+8zBjW9EBxzm9nQM4p7XIC1WJMcMHcl072LHBHwWN142MLVMmpusIrHMBEQVwW39ClonKp5OZu74ItrSN+1O2DXDge6AjFr8Edzbh6dLBckV+Pn+mFUomxBkDohN0e07i6q+OSZv5qHsmhPEOqSWkpMMs5YCQfJ1s7IlrMsFJc/1FZuIriWtpe/9CcFrQnOAXlt95NiioLwKunA90QQjvgBZahvyLl45gBoYgGTvsj4F3dcd9LUeMfR5chI=
+        skinName: itzangelgamer04
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjYwMTE5MjMyMywKICAicHJvZmlsZUlkIiA6ICJlNjFjNTJmZjFmMjI0Y2VjOGJhNDRjZWU0MGQwM2ZkMCIsCiAgInByb2ZpbGVOYW1lIiA6ICJJdHpBbmdlbEdhbWVyMDQiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWVmMzY2YWQxODlhNmRhOWYyYzg0NjFmM2MwM2VjY2FhNDdjMDZmYTcxZmNjNjRiNDYwY2I3NjQ1ODYyMjExNCIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9
+        updateSkins: false
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: netherite_pickaxe
+          amount: 1
+          durability: 0
+        '36':
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAAlc3EAfgAWAAAAd3NxAH4AFgAAAFQ=
+        '39':
+          type_namespace: minecraft
+          type_key: lantern
+          amount: 64
+          durability: 0
+        '40':
+          type_namespace: minecraft
+          type_key: iron_pickaxe
+          amount: 1
+          durability: 0
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: netherite_pickaxe
+          amount: 1
+          durability: 0
+        helmet:
+          type_namespace: minecraft
+          type_key: lantern
+          amount: 64
+          durability: 0
+        offhand:
+          type_namespace: minecraft
+          type_key: iron_pickaxe
+          amount: 1
+          durability: 0
+        boots:
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAAlc3EAfgAWAAAAd3NxAH4AFgAAAFQ=
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: skinlayers,lookclose,scoreboardtrait,anchors,mounttrait,owner,location,inventory,dropstrait,type,skintrait,spawned,equipment
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '6':
+    metadata:
+      cached-skin-uuid-name: leomonblau
+      cached-skin-uuid: 4edb0e05-4b50-4151-bae0-abfbef2b7d75
+      nameplate-visible: 'true'
+      minecraft-ai: false
+    name: §3Ophelia
+    uuid: ddf2fb47-627c-45e0-a75c-a7d6ac74614c
+    traits:
+      type: PLAYER
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      spawned: true
+      location:
+        bodyYaw: 75.99773
+        world: Skyland
+        x: '-106.5211'
+        y: '78.0'
+        z: '264.8041'
+        yaw: '70.8339'
+        pitch: '-16.9799'
+      skintrait:
+        fetchDefaultSkin: true
+        signature: ihpego15WpztjZVX0D7NypiRHO66IqmxoVO85ADyc/De2SfEp2tcsH20Zms4hklj5ee/5ZEMTsvnOgbwm4EaZS7Rhrp24h12l3Mjq5SQpbdnbaIzehcUeXBXTQmUSkGbO4bA+p1XcNlxtRaOwMDErqjJovYnGycQXdR4WvnlUGMNvR0by++tFnh+PJxUKWr3OQAZRF1DnwEOHrsHBHw5p5u/Y4ugo2YGi3nvEnVNdrgzvh8BXxZsVUptucg4GM4DjsAnIVUI5LQEXaohGLT2mAzsICHjGsrF1aB8EfNecmTznkf+WMn4VxhK/pyHOTQVVbadA6StMSf/FLwdwKGzUyS0pg/x9vnIAL+sM2KrgduAz65lrIWlmvj199YBBiw1SX1TW+SQsGb2HId+wS2gzwl6myOqlatqyZiR2ub/uPDNz+1r1jwhDrlnmEHEoUklmDK3B5tTt2gm+tMHOTbeeX88yznHXBrcDrBBXF/7wBj3pQg34GL2A7fE14xS7C6pcr6z3K3eTmLxNaNWcGE5VfLAF7QsK7rZD/brHjcawK9BiIjkWaYmAuilKMNXuXNi+XfjoVO8uNYV5mb6XOdV+/HqV5xFc4J1cssS3uTsQd8HolXG/h1TxeBL36z+SooJkV3hdw4ockJgx3k2NDpI7MK5xOoSUtPmwYtvQf4UW5w=
+        skinName: leomonblau
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjYwMDk0OTMyMSwKICAicHJvZmlsZUlkIiA6ICI0ZWRiMGUwNTRiNTA0MTUxYmFlMGFiZmJlZjJiN2Q3NSIsCiAgInByb2ZpbGVOYW1lIiA6ICJMZW9tb25ibGF1IiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzRkZDRkOWI2MmI5YzAyNmJlZTE2YmY5MDhkYTA0NjQyYWJkMjFkYzJhYWY0MDNlMzFhZmYxZGYwYTc3OGEwY2EiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==
+        updateSkins: false
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: blaze_rod
+          amount: 1
+          durability: 0
+        '36':
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAABLc3EAfgAWAAAAgXNxAH4AFgAAADE=
+        '40':
+          type_namespace: minecraft
+          type_key: splash_potion
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQAC3BvdGlvbi10eXBldXEAfgAGAAAAA3QACEl0ZW1NZXRhdAAGUE9USU9OdAAebWluZWNyYWZ0OmxvbmdfZmlyZV9yZXNpc3RhbmNl
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: blaze_rod
+          amount: 1
+          durability: 0
+        boots:
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAABLc3EAfgAWAAAAgXNxAH4AFgAAADE=
+        offhand:
+          type_namespace: minecraft
+          type_key: splash_potion
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQAC3BvdGlvbi10eXBldXEAfgAGAAAAA3QACEl0ZW1NZXRhdAAGUE9USU9OdAAebWluZWNyYWZ0OmxvbmdfZmlyZV9yZXNpc3RhbmNl
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '11':
+    metadata:
+      cached-skin-uuid-name: bunfuu
+      cached-skin-uuid: ab4cdb2e-09ad-4a39-bf2d-f066c8edd16c
+      nameplate-visible: 'true'
+    name: §bFeli
+    uuid: 1be9d9ae-e0b6-4872-b03b-5214660d333d
+    traits:
+      type: PLAYER
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      spawned: true
+      location:
+        bodyYaw: -98.08252
+        world: Skyland
+        x: '-116.1124'
+        y: '78.0'
+        z: '276.1812'
+        yaw: '-126.5836'
+        pitch: '0.0'
+      skintrait:
+        fetchDefaultSkin: true
+        signature: exUw1HbAylb0YOmS5c2vBbTcwcd0F7ii1Pj6magMPMyZDQ6F1bR5B+al/UrgJfcUVtfdAwsSjMj4w4wuaR3qfwb0fDOi04a+9XPU/6MGZ23x/2MJnwaMPnMCW8M4s5uUuT6O2xvhXiOGQUwNUdHLm0KPziDpOopJosQyK39JyEyaJVFOTFDjw5jiqeP/dV7KQR5pI7tT/Xy6anRHYcSdaXHkB0BCDUVg1ulkJ5y3Py47Uac9pSWGI89v4BWmE+MqBVURrXHNTbhu2xxuXsKh7ndIB1SrmcXsykN7j+ZXGrBViMNTLj9wYs/8zdN7S0C5/6z/LXVmJnCOKngDMuR5jq+tpw4TeyjV4HzuehR2tkwCmAmkEf9B66M6dbiZlI24rhc46lTv6/ZW0lD7NliWVcUvX7JsgDZVlSGay4wx88rX88hXTOFnw487C9mcYoyZerMIQBBhvHRc4x9CKg4wm3J/kXAYyPVjNxFbM4nVNoBr8KaEcKicyzTJaomG5fN9E5s34RAB+4OBHF/5GNcLh/84z+bjd2eGBYPrhPWcfjrOyplJE/FuQaeL/qjcBBWEbfFmj39RrA+l57Zkqa3wQjJObmnUaWlzicKLgL9znYXklzGIM7hv5MZTao1p+hYTDF7OFiNC6EbU/FxmWRiHEVWDTeV3s1NrJ0JopN5DKTY=
+        skinName: bunfuu
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjYwMTkzOTM0NiwKICAicHJvZmlsZUlkIiA6ICJhYjRjZGIyZTA5YWQ0YTM5YmYyZGYwNjZjOGVkZDE2YyIsCiAgInByb2ZpbGVOYW1lIiA6ICJCdW5mdXUiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODRjZGFjZWQ5MmMyNzNlYjYyZTdiY2ExMTY1MDZlYmRhMmMzMjA4OGEyNzY0OGFkNTYwODQ0NGZjM2E4MTRhNiIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9
+        updateSkins: false
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: crossbow
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAR0AAI9PXQACW1ldGEtdHlwZXQACGVuY2hhbnRzdAAHY2hhcmdlZHVxAH4ABgAAAAR0AAhJdGVtTWV0YXQACENST1NTQk9Xc3IAN2NvbS5nb29nbGUuY29tbW9uLmNvbGxlY3QuSW1tdXRhYmxlQmlNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAHhxAH4AA3VxAH4ABgAAAAF0AApEVVJBQklMSVRZdXEAfgAGAAAAAXNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAABc3IAEWphdmEubGFuZy5Cb29sZWFuzSBygNWc+u4CAAFaAAV2YWx1ZXhwAA==
+          enchantments:
+            unbreaking: 1
+        '36':
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAABec3EAfgAWAAAAFnNxAH4AFgAAAHw=
+        '40':
+          type_namespace: minecraft
+          type_key: clock
+          amount: 64
+          durability: 0
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: crossbow
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAR0AAI9PXQACW1ldGEtdHlwZXQACGVuY2hhbnRzdAAHY2hhcmdlZHVxAH4ABgAAAAR0AAhJdGVtTWV0YXQACENST1NTQk9Xc3IAN2NvbS5nb29nbGUuY29tbW9uLmNvbGxlY3QuSW1tdXRhYmxlQmlNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAHhxAH4AA3VxAH4ABgAAAAF0AApEVVJBQklMSVRZdXEAfgAGAAAAAXNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAABc3IAEWphdmEubGFuZy5Cb29sZWFuzSBygNWc+u4CAAFaAAV2YWx1ZXhwAA==
+          enchantments:
+            unbreaking: 1
+        boots:
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAABec3EAfgAWAAAAFnNxAH4AFgAAAHw=
+        offhand:
+          type_namespace: minecraft
+          type_key: clock
+          amount: 64
+          durability: 0
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '10':
+    metadata:
+      cached-skin-uuid-name: yumppppp
+      cached-skin-uuid: 334e5baf-b3cf-4816-9339-02a55fab7839
+      nameplate-visible: 'true'
+    name: §bAltas
+    uuid: 49e22be0-4ed0-488a-916c-008655d3d2f7
+    traits:
+      type: PLAYER
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      spawned: true
+      location:
+        bodyYaw: 179.1305
+        world: Skyland
+        x: '-114.7318'
+        y: '78.0'
+        z: '278.5413'
+        yaw: '-140.8695'
+        pitch: '0.0'
+      skintrait:
+        fetchDefaultSkin: true
+        signature: wOJjl9KOJKzefKPmPsJJ9pYJzVgY6dmK24ulzi6sRB6gYfHi9A2JM7c7ajKgw/eCirU/fFvEbd997Mnq1335Jz50ny6lzMGiJoBppnxm77jFTD19KtOSOmZujhh/AwChBPijtd6DjE+QNJpqBhds2LBSE/I9kpOdxg1PkhYO/7tMwZ/9A/6at+ChnAm8a1KbY+DcZKU4Plg0gaCz3sTbLQl4rKi4qDLF0lsF09k9hORDjGv72m28lgGJyabpfx/a6P7lmY5L6s2IKOy86NsoUYGfgxgIHkj0xAl1FpcyaG8/uuq/5CrQv9b2iTB9m9hYVjx08qoSdAEDErgPP3Qgl822wHnGwFXej1sHq4vXL1Q1Ayw9aETOqXKyNOLecK5oNPFuWV3i1K2k9dTLBDjEOjP3h+AJWfaF26DxZRyLrscWHApVYcqjsbmE7bYNUr2gb12B18QGOTz2ocwdzsDJg/x/TwXY6d6O45bq7aWxJ7C3Eb2aA1i6f0+Z9bhOTzLMOY3ZQIvkrMd8XvU6fihEeqw6wOEpe+eEOxgSbjkc4AcPAnjP8husnbJSj5nZnIXHghcDUp13H4O+FvaCthP+QWprvtJHS6FgGo6MC3FbQ8ZKxYqLk5VBk9tloQdfs2wV7CZNwwkDO23M5uqoKKcWNwotmHwcqpLquLXlutSwQUo=
+        skinName: yumppppp
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjYwMTgzMDM1MywKICAicHJvZmlsZUlkIiA6ICIzMzRlNWJhZmIzY2Y0ODE2OTMzOTAyYTU1ZmFiNzgzOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJ5dW1wcHBwcCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9hZGVjMjZlYzkzZDIxNTBkNjYwYzQ2YWZmMGUwZmRkMzE5MjgyNjA2Y2E3OTg3MTFjMWM2ODQ4YzU2ODMyMTZjIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=
+        updateSkins: false
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: bow
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQACGVuY2hhbnRzdXEAfgAGAAAAA3QACEl0ZW1NZXRhdAAKVU5TUEVDSUZJQ3NyADdjb20uZ29vZ2xlLmNvbW1vbi5jb2xsZWN0LkltbXV0YWJsZUJpTWFwJFNlcmlhbGl6ZWRGb3JtAAAAAAAAAAACAAB4cQB+AAN1cQB+AAYAAAABdAAKRFVSQUJJTElUWXVxAH4ABgAAAAFzcgARamF2YS5sYW5nLkludGVnZXIS4qCk94GHOAIAAUkABXZhbHVleHIAEGphdmEubGFuZy5OdW1iZXKGrJUdC5TgiwIAAHhwAAAAAQ==
+          enchantments:
+            unbreaking: 1
+        '36':
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAD5c3EAfgAWAAAAHXNxAH4AFgAAAIA=
+        '39':
+          type_namespace: minecraft
+          type_key: end_rod
+          amount: 64
+          durability: 0
+        '40':
+          type_namespace: minecraft
+          type_key: filled_map
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABm1hcC1pZHVxAH4ABgAAAAN0AAhJdGVtTWV0YXQAA01BUHNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAAC
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: bow
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQACGVuY2hhbnRzdXEAfgAGAAAAA3QACEl0ZW1NZXRhdAAKVU5TUEVDSUZJQ3NyADdjb20uZ29vZ2xlLmNvbW1vbi5jb2xsZWN0LkltbXV0YWJsZUJpTWFwJFNlcmlhbGl6ZWRGb3JtAAAAAAAAAAACAAB4cQB+AAN1cQB+AAYAAAABdAAKRFVSQUJJTElUWXVxAH4ABgAAAAFzcgARamF2YS5sYW5nLkludGVnZXIS4qCk94GHOAIAAUkABXZhbHVleHIAEGphdmEubGFuZy5OdW1iZXKGrJUdC5TgiwIAAHhwAAAAAQ==
+          enchantments:
+            unbreaking: 1
+        helmet:
+          type_namespace: minecraft
+          type_key: end_rod
+          amount: 64
+          durability: 0
+        boots:
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAD5c3EAfgAWAAAAHXNxAH4AFgAAAIA=
+        offhand:
+          type_namespace: minecraft
+          type_key: filled_map
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABm1hcC1pZHVxAH4ABgAAAAN0AAhJdGVtTWV0YXQAA01BUHNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAAC
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '9':
+    metadata:
+      cached-skin-uuid-name: foho
+      cached-skin-uuid: a9ede5b5-06e0-4f62-a0df-94e10d8ffb8d
+      nameplate-visible: 'true'
+    name: §bFoho
+    uuid: be914c62-8008-42b9-b14e-1966b6d3bd95
+    traits:
+      type: PLAYER
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      spawned: true
+      location:
+        bodyYaw: 159.07793
+        world: Skyland
+        x: '-112.1421'
+        y: '78.0'
+        z: '278.733'
+        yaw: '-160.9221'
+        pitch: '0.0'
+      skintrait:
+        fetchDefaultSkin: true
+        signature: lOquucqMScR/M4B+4Jg5+A4Kxa1i8S4Lfdpn+B/BwEtZmKOwIaTVoKqqxqwkEH7Mmp4nvZW/mbWfrGrEYBtTVKqVyU6EX6uCXgaggzlp6eHShlsjVBLy0gkEIYBHZyHQ8uh8dlymBdAelIsiRjDjVD3ucyXwr25OTD/pH/7kDzXiSwo6lBknCVfPzjIQygyGRgFTVe8523Qvc8H5jTSibVbAyAW4Z8BTttb1CNirDgJKqPnNyz2AGz90FLrkB7sCoGtspOa2nWdcASsZBx3az7vNWWbXhlWwYBa5vmK7EpfnGyM4ZPn1Q8ceE64fABHxpmCEqKBvitxHiaWA6zAsV3lg8JZGFc8NS/btDvhLAuCmjqnrjhcFGrAI9gc8urA+czeLNHSSNcFuwARu0Y6c2cfStXtO91SMUui/N2crDFYMXEUiM/XgikxQSxVT1MwtoJ8kBpf/xc7vGAivjA/vb9OXShmFF5m9tdtc1n8dzfzerh+ngmoUbr9V8Pl4t86chd4jaPLI+ZwpCjnjF9l3Ec9LCyV8yyMP/kxLyTL9yRfQZhAb9nXI2koYftXiPkfhZtCIxWLx8/g9AzZct7rBsNcnuMc35HCSfhF9UKukZVxwRrmVKc11LRuHEmuDc2zyPjN5sWrb3dTrpxDhWCnQH7ejpB0yFtLWREI6DdMsqWI=
+        skinName: foho
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjYwMTcyMzMzMSwKICAicHJvZmlsZUlkIiA6ICJhOWVkZTViNTA2ZTA0ZjYyYTBkZjk0ZTEwZDhmZmI4ZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJGb2hvIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzYxMWFlZWMwYmNmZDg4Y2E3OWU5NWU5OGI0NTc3MzU4MWRhMzAwMmE2ODM3YzM4OTNiMjIyZmRlZjNmY2FjNzgiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==
+        updateSkins: false
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: trident
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQACGVuY2hhbnRzdXEAfgAGAAAAA3QACEl0ZW1NZXRhdAAKVU5TUEVDSUZJQ3NyADdjb20uZ29vZ2xlLmNvbW1vbi5jb2xsZWN0LkltbXV0YWJsZUJpTWFwJFNlcmlhbGl6ZWRGb3JtAAAAAAAAAAACAAB4cQB+AAN1cQB+AAYAAAABdAAKRFVSQUJJTElUWXVxAH4ABgAAAAFzcgARamF2YS5sYW5nLkludGVnZXIS4qCk94GHOAIAAUkABXZhbHVleHIAEGphdmEubGFuZy5OdW1iZXKGrJUdC5TgiwIAAHhwAAAAAQ==
+          enchantments:
+            unbreaking: 1
+        '36':
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAA6c3EAfgAWAAAA2nNxAH4AFgAAALM=
+        '40':
+          type_namespace: minecraft
+          type_key: compass
+          amount: 64
+          durability: 0
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: trident
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQACGVuY2hhbnRzdXEAfgAGAAAAA3QACEl0ZW1NZXRhdAAKVU5TUEVDSUZJQ3NyADdjb20uZ29vZ2xlLmNvbW1vbi5jb2xsZWN0LkltbXV0YWJsZUJpTWFwJFNlcmlhbGl6ZWRGb3JtAAAAAAAAAAACAAB4cQB+AAN1cQB+AAYAAAABdAAKRFVSQUJJTElUWXVxAH4ABgAAAAFzcgARamF2YS5sYW5nLkludGVnZXIS4qCk94GHOAIAAUkABXZhbHVleHIAEGphdmEubGFuZy5OdW1iZXKGrJUdC5TgiwIAAHhwAAAAAQ==
+          enchantments:
+            unbreaking: 1
+        boots:
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAA6c3EAfgAWAAAA2nNxAH4AFgAAALM=
+        offhand:
+          type_namespace: minecraft
+          type_key: compass
+          amount: 64
+          durability: 0
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '8':
+    metadata:
+      cached-skin-uuid-name: themeathead
+      cached-skin-uuid: 8204c306-2402-4817-a094-701e1a1b020f
+      nameplate-visible: 'true'
+    name: §3Philon
+    uuid: 4b3c4398-b7b2-4f3b-9814-34b5461d05db
+    traits:
+      type: PLAYER
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      spawned: true
+      location:
+        bodyYaw: 38.4541
+        world: Skyland
+        x: '-109.5'
+        y: '78.0'
+        z: '281.5'
+        yaw: '78.4541'
+        pitch: '-3.7304'
+      skintrait:
+        fetchDefaultSkin: true
+        signature: UGQeH75iTvuNcO8EoaVOa4fmDsDSt5MnV+qtUlvB/+E7R0ltSVKxbY2Vm4s1vNLpUKeVi1ohKiE39ShMtiLLVQ6CJnmqRrtXrE6cmtpfnY0wk/aM3Ty9C3OwehhoswnanGa1FnXJWiU2uf6T9AD6+JiAfVIY/Jo9CAqkNjxPVQy6QB97P0Mva03vLPBDFHimApjw7FTNrPwNMJpN6lTZhanspPa3/tRu3zNYArGhCfKHoAfTvE4YEXk3yRPk+sLpnOoEx34su4HmzOn78p/XkipUal9omKWnxdy3Obk3cVBGgrshH+ACUOF93tFlwq60pLgdFx6caCAhOLh3jxg+D77D6EGXIiRUzGANerWhdkYdr1OYOCPzm61FYeVjfWuOMYcH+borZlqI/cFzCrsyhKIJvkHToDENrdKEyAf6yEQZBjauBQJa371kd7NPGu4G/uPoeQQJmU4id2u8XrROMJVtDVdx4Tw29TQMpq/P6cfrKALkMj5eDiO07GFThTmYOPUkBVfn6bZ2xV01xqY+s7szqwlABdIn+H6ANVXCB5Y1FYZpAc7y6jDmE6lGeeJ97b+EJ0ndcuV188i9LwpG+o7BqZhcPc/HtvM+t10neTbAeBpPdl7HVDc1wkfirlyOv2GkZi3nRAgu47erUQlou0pETv5ad9athbeR8QjoWw8=
+        skinName: themeathead
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjYwMTMzMDM0MywKICAicHJvZmlsZUlkIiA6ICI4MjA0YzMwNjI0MDI0ODE3YTA5NDcwMWUxYTFiMDIwZiIsCiAgInByb2ZpbGVOYW1lIiA6ICJUaGVNZWF0aGVhZCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8zZWRkMjk5MmI1YTc2ZjhlNmMxYzEyMjE1MTNkYjQ1NjlhY2M5ODAzNDljZWIzNDk3Yzk0ZDdiZjMyMTljOWNkIgogICAgfQogIH0KfQ==
+        updateSkins: false
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: porkchop
+          amount: 64
+          durability: 0
+        leggings:
+          type_namespace: minecraft
+          type_key: leather_leggings
+          amount: 1
+          durability: 0
+        boots:
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: porkchop
+          amount: 64
+          durability: 0
+        '36':
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+        '37':
+          type_namespace: minecraft
+          type_key: leather_leggings
+          amount: 1
+          durability: 0
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '15':
+    metadata:
+      nameplate-visible: 'false'
+    name: horse
+    uuid: d02f72c3-9e50-4755-954d-52082640d1af
+    traits:
+      type: HORSE
+      horsemodifiers:
+        armor:
+          type_namespace: minecraft
+          type_key: leather_horse_armor
+          amount: 1
+          durability: 0
+          meta:
+            encoded-meta: rO0ABXNyABpvcmcuYnVra2l0LnV0aWwuaW8uV3JhcHBlcvJQR+zxEm8FAgABTAADbWFwdAAPTGphdmEvdXRpbC9NYXA7eHBzcgA1Y29tLmdvb2dsZS5jb21tb24uY29sbGVjdC5JbW11dGFibGVNYXAkU2VyaWFsaXplZEZvcm0AAAAAAAAAAAIAAlsABGtleXN0ABNbTGphdmEvbGFuZy9PYmplY3Q7WwAGdmFsdWVzcQB+AAR4cHVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cAAAAAN0AAI9PXQACW1ldGEtdHlwZXQABWNvbG9ydXEAfgAGAAAAA3QACEl0ZW1NZXRhdAANTEVBVEhFUl9BUk1PUnNxAH4AAHNxAH4AA3VxAH4ABgAAAARxAH4ACHQAA1JFRHQABEJMVUV0AAVHUkVFTnVxAH4ABgAAAAR0AAVDb2xvcnNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAABxc3EAfgAWAAAAH3NxAH4AFgAAAH0=
+        carryingChest: false
+        color: CREAMY
+        style: NONE
+        saddle:
+          type: ''
+      spawned: true
+      age:
+        age: 0
+        locked: true
+      location:
+        bodyYaw: 93.52396
+        world: Skyland
+        x: '-129.8771'
+        y: '78.0'
+        z: '271.0103'
+        yaw: '93.7967'
+        pitch: '0.0'
+      owner:
+        owner: Javascript_void0
+        uuid: 618c8c8d-506b-4990-8015-91e0987fc24b
+    traitnames: location,horsemodifiers,age,type,spawned,mounttrait,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '23':
+    metadata:
+      nameplate-visible: 'true'
+      cached-skin-uuid-name: cbananaa
+      cached-skin-uuid: 18665ab5-745a-4f78-b7b8-6754f3e6b179
+    name: §6Idunn
+    uuid: 3f7beda0-4b7f-4caf-8dcc-e9b6cca2ed21
+    traits:
+      skintrait:
+        fetchDefaultSkin: true
+        skinName: cbananaa
+        updateSkins: false
+        signature: PY/JopWz0jrSkVYrGvB4sM3sV4Bp6v3TiQWyAcsj2YZYN19oETckV7OwYSYaeaBVfuJ4wAcMtbAcBQpqvehU2WqtshjJxPrmggBfIVRPgN6WdsL93PdJ/rV3U8ZbafH2Xo5ytBZmmsooqPS3mYuRAtjtLcKVPgMaTo1055ji8nnBZ/0hOR1qY+neAVbj07CUgaau40GI9h6O9KMNR20fWCyHJ0Bz+T/dMP0EbfDC5ycQ4NjaEVCTNIQRCDp5ICv/ugeMmJ3TBMkjNOvJME38crcQoDMXtWqkmSDCnZg8arvpVNB4LQ6NvWzmLrE5ZBUav2qlB49vKzoCoVqoXUbefS6eilQcfnvtvvZK+nOn0a0WJw7FYoysuaDs3HEXMcmN+ARGvw/CiQfzyi1rq44bvQKY9dKW6snTu4swwlZqUgMUZVe/if41IUInxYnmIMoFdcQOsdFrsBxqn03k4MYRMmCeiqMC6xBexKGnA3vtpo2S6Bj2MVoizFAlev1GVybYCEJyQ719uIVQJvH4UnK9Gz4i08OAwq6xSG81Zwa3FMzS1EqFpokitzrlmskK26IEdGIOs8gI0PHTjiZxD9Qpod8GAaYMvBBNYlpNDHrJOXLPJRc9namgbKklk6Iashe09qDwf4A8yfrIBeUFqR38Ju56yxNrYgsHTBd8LQWhw64=
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjYzNDA5NDI2MCwKICAicHJvZmlsZUlkIiA6ICIxODY2NWFiNTc0NWE0Zjc4YjdiODY3NTRmM2U2YjE3OSIsCiAgInByb2ZpbGVOYW1lIiA6ICJjQmFuYW5hYSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS85NzVjYzgwMTFlOGFkYzkyOTVmMjllMjZlYWM3M2E1ODlkOTJmY2Q5MzNhODk3NTA0NDhjYWRhODIzZmNkNzkxIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=
+      spawned: true
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      type: PLAYER
+      location:
+        bodyYaw: -91.3233
+        world: Skyland
+        x: '-126.5'
+        y: '79.0'
+        z: '271.5'
+        yaw: '-108.9548'
+        pitch: '-17.2466'
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: map
+          amount: 64
+          durability: 0
+        '36':
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+        '39':
+          type_namespace: minecraft
+          type_key: feather
+          amount: 64
+          durability: 0
+        '40':
+          type_namespace: minecraft
+          type_key: compass
+          amount: 64
+          durability: 0
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: map
+          amount: 64
+          durability: 0
+        helmet:
+          type_namespace: minecraft
+          type_key: feather
+          amount: 64
+          durability: 0
+        boots:
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+        offhand:
+          type_namespace: minecraft
+          type_key: compass
+          amount: 64
+          durability: 0
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,skintrait,scoreboardtrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '25':
+    metadata:
+      cached-skin-uuid-name: stormguard0679
+      cached-skin-uuid: 6760791d-45b1-4cf6-98db-5ba6dcef9185
+      nameplate-visible: 'true'
+    name: §3Belenos
+    uuid: b1b560e9-71c9-45d6-90e5-053393df8ab1
+    traits:
+      skintrait:
+        fetchDefaultSkin: true
+        signature: yTsqselWiniL2MR8JCJy/KaSnFl64LfuqYRoIFUf73Ma5XlZEwykxEGh0vJIgcohTUsgwcorbu/FjhA8E/YDrErJ8Dv6GafMfjDQmXUQyeX7Txu3ZwGM+8m9/PLL/Kl+KZPFhTjun3dtkXoEiuWXnpj8w4/J+8xNoTx+cDXkjeq7SoBLFjWJGqyOfSyUjaUTqdc1gghVU3VuSS5GxutnFr5tkeO2mRW+7h8WCuMpYFn4yWngcdOuVseVBhcYOxBcdItB+Q0dfBcO5S3+uyiDUVq+RSBivDmm4wsQ468QQ9M4tGKVMzFfXjTSeVtqOTJqqpaf4MTV0degZYj4LSeBosZZAsfVdnafxSrE51O6Ij2cN+vwyimG6V/0X4T9/goP1o2E7pqP4KLYy4/ggvuXQT4ik5+nku0njOQmiNyOniTM7if2C7Jkdl4wCQtIpjUAjuSa8p7g8bHXZw7x3IEEafw5Gh1Er6uNvwl6sMcy0qaxidi5EiwZKXVdKIEuMT0NTVRikrDAdBcox/QHTwioxKifjBMBAhqLfWZtJOdA/TC8Qv4VU4HHVzhCytAw0hbKHkgZ649WfywYREK4T6PChsZ9DGlTx+o2iIAjWsgP+yKuOND46GaCnYgA/yd1iUTe5dMNHx9pBOqvu43F1WrXgYxpyo2P5TyBY9hGB4v8aMw=
+        skinName: stormguard0679
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjYzNDEyNTkyOSwKICAicHJvZmlsZUlkIiA6ICI2NzYwNzkxZDQ1YjE0Y2Y2OThkYjViYTZkY2VmOTE4NSIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdG9ybUd1YXJkMDY3OSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9iNjA5Y2ZkYThjNzA3N2E4MGZiZmYwODE0YWQzOTgzZjQ0M2UxZWFiNWU0MDZmNzUwY2Y1OTgwMmEwYmVlMTFiIgogICAgfQogIH0KfQ==
+        updateSkins: false
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      location:
+        bodyYaw: 53.849144
+        world: Skyland
+        x: '-104.5'
+        y: '78.0'
+        z: '278.5'
+        yaw: '13.8491'
+        pitch: '-27.5766'
+      spawned: true
+      type: PLAYER
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: iron_hoe
+          amount: 1
+          durability: 0
+        '36':
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+        '40':
+          type_namespace: minecraft
+          type_key: wheat
+          amount: 64
+          durability: 0
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: iron_hoe
+          amount: 1
+          durability: 0
+        boots:
+          type_namespace: minecraft
+          type_key: leather_boots
+          amount: 1
+          durability: 0
+        offhand:
+          type_namespace: minecraft
+          type_key: wheat
+          amount: 64
+          durability: 0
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,skintrait,scoreboardtrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '26':
+    metadata:
+      cached-skin-uuid-name: soval
+      cached-skin-uuid: b544f2e5-235b-4603-9986-731d2717459d
+      nameplate-visible: 'true'
+    name: §aOdin
+    uuid: c34631cf-30e6-4f4a-b2bb-5508f38de0ad
+    traits:
+      type: PLAYER
+      spawned: true
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: netherite_sword
+          amount: 1
+          durability: 0
+        '36':
+          type_namespace: minecraft
+          type_key: netherite_boots
+          amount: 1
+          durability: 0
+        '40':
+          type_namespace: minecraft
+          type_key: shield
+          amount: 1
+          durability: 0
+      location:
+        bodyYaw: 12.564339
+        world: Skyland
+        x: '-101.5221'
+        y: '78.0'
+        z: '267.4256'
+        yaw: '18.7033'
+        pitch: '0.0'
+      skintrait:
+        fetchDefaultSkin: true
+        signature: Sifq+bn0V4wQ0UQTpfc5aPiQ9qIkTNT5MHGovw1I5WNs0ST3I+Fbvczbh65jI95q9oTdv725kcUiYwvdIAU+Cju7j905Sh5qNPHJVCQSSm2wJSgX3cPGaBqPDn1ADcnh2S09ns1mREWJPNBlaUsGpDL9qqiTSdMFZ1JpRJ4iPU48KDq7eZmKoZHnLqq5w6t3zzWGC+nb7VXanuUe91HmHjydZfMdnij1l9efTiTSBqPc0xfI+TQ/x37o6Xdf2PHbGZLBl+zRvYAXFTpWQ4W1kj5gLOvrRcbtU772TqSi4CaW9S95+RpTCP3cEjOQ0h1FuSCOoK54+KYm+T3kkuToH8O2QyzSMBN1fAGw2c0rChZdMjx/mil1oF/efv8XOeNAKeOnZTDGAWQeazyjvfD0JA6wFcM0vlni20Bi3ctJCEOe6+Fk/r2E8KsKUGiWVdcyONe+1Z2UUJG8F/ptmuP2AfkLLRwGooQprSpFsaNgpVzWx0TsWoQvWHiEEgfNL8lleN+JupTVRuXQUXFn3dqwTdqIB86CNOi+yX8D+tvn4+6oeWzy8GZ3/fi3YnkmEVfarP0TL/kBURuu7ndVivkgaRchW2E/ueIYlYEpfGC7sq5Kh0TuNXjpSlyzvjajiDmhUoANSO6BBzpX5c9oVxPOw/rR5403GqC8C8duIqJMs74=
+        skinName: soval
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjY1ODEyMzY1MywKICAicHJvZmlsZUlkIiA6ICJiNTQ0ZjJlNTIzNWI0NjAzOTk4NjczMWQyNzE3NDU5ZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJTb3ZhbCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9kZTQzMTViZDg1MmFhZjNjY2RlNWY0NjE4YmZhN2NiMmMzNzdlM2I2OTdkZjBlZTJlYTM3ZTc4ZGNjMmZhMjViIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0sCiAgICAiQ0FQRSIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjM0MGMwZTAzZGQyNGExMWIxNWE4YjMzYzJhN2U5ZTMyYWJiMjA1MWIyNDgxZDBiYTdkZWZkNjM1Y2E3YTkzMyIKICAgIH0KICB9Cn0=
+        updateSkins: false
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: netherite_sword
+          amount: 1
+          durability: 0
+        boots:
+          type_namespace: minecraft
+          type_key: netherite_boots
+          amount: 1
+          durability: 0
+        offhand:
+          type_namespace: minecraft
+          type_key: shield
+          amount: 1
+          durability: 0
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '27':
+    metadata:
+      cached-skin-uuid-name: sodden17
+      cached-skin-uuid: e71abe00-1f39-480d-a0ac-ef45e7e3d260
+      nameplate-visible: 'true'
+    name: §eSodden
+    uuid: b88f2210-c529-4e0f-ad36-a8b465a18b61
+    traits:
+      location:
+        bodyYaw: -31.536705
+        world: Skyland
+        x: '-113.9333'
+        y: '78.0'
+        z: '260.6234'
+        yaw: '-9.1534'
+        pitch: '-37.7808'
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      skintrait:
+        fetchDefaultSkin: true
+        signature: ykiiAtKoazAp2POc4jrV6pX8BsB2Lf9LfCg3ObcG38O9Ht0L4XnHNICqK2zcpbW2i0DuhNMoXyZ9b+bmH8lgm5B4K72RgaXV7d68YVeV9ksc6w0kK1fQ35T9DxNOO5nRX1DWPP6w2D5Rv+jxzHUmvjvYCPyzKtiE+6azxdynekRs3cUbEQkEiRlsJi93k/Uv0l3jeilAJYh5LuVnM1eFvABswyBN4Y74Y1l1fGZumyH3E35BuBpJ+3ai5SR21itt8Q/ugTComiyomVnftffgoYkVEayKRN0ptEsY645BmYCJF4/y3WXtMlnwEig4YH2GM2S217APkCrF22jrqOYd1iLbpVxL5obUOw4vgN9bDIFBNmTg8gq06UzkyJE071WCFkEdb4ZrbdqhjTUKndhxtjGS8PL+8rhXcCpHtz+EYhNGEU2mAdNsoiXTNzJrWxsJzrPRmSuzqU1Gqww7dV4+wfxkMjh9E7g2CUKDnxiHIFL7NqtJC2Q9eRuR8nE9hfIVeLWIdHOqs/z3QwuPl7l6tJQBwkcbW8rMAi5sR4jKBJzn+eUEbp12utLS0tzTVSUaX9rMfCmAI4bgSfz1Ys1E0OeH25ySdmcH55fgvFIRLn3HDqf52i0YBDkERVUra6mMPPRf/Afwxq611UOmdhC8fcfclKg+sHrrzZ4h/+hk2qY=
+        skinName: sodden17
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMjY2MDc0MTkxNSwKICAicHJvZmlsZUlkIiA6ICJlNzFhYmUwMDFmMzk0ODBkYTBhY2VmNDVlN2UzZDI2MCIsCiAgInByb2ZpbGVOYW1lIiA6ICJTb2RkZW4xNyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9iZTg5OTUyZWVhZmEwZWUwNWZmNzdlMDlhMmVjNjkxYmU4OTIxMjA5MWQ1M2M1ZDQ0Yjc0YmVmYzQxYTIxZTZhIgogICAgfQogIH0KfQ==
+        updateSkins: false
+      type: PLAYER
+      spawned: true
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: writable_book
+          amount: 1
+          durability: 0
+        '39':
+          type_namespace: minecraft
+          type_key: lantern
+          amount: 64
+          durability: 0
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: writable_book
+          amount: 1
+          durability: 0
+        helmet:
+          type_namespace: minecraft
+          type_key: lantern
+          amount: 64
+          durability: 0
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '28':
+    metadata:
+      cached-skin-uuid-name: lillsev
+      cached-skin-uuid: 70061a1a-cd50-4ecb-8df0-7c8594893828
+      nameplate-visible: 'true'
+    name: §aHildr
+    uuid: 9f660036-6e96-46b6-ad5f-098c8ebe97fd
+    traits:
+      inventory:
+        '0':
+          type_namespace: minecraft
+          type_key: sunflower
+          amount: 64
+          durability: 0
+        '39':
+          type_namespace: minecraft
+          type_key: feather
+          amount: 64
+          durability: 0
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      equipment:
+        hand:
+          type_namespace: minecraft
+          type_key: sunflower
+          amount: 64
+          durability: 0
+        helmet:
+          type_namespace: minecraft
+          type_key: feather
+          amount: 64
+          durability: 0
+      skintrait:
+        fetchDefaultSkin: true
+        signature: r8hsb5KC8Psd2XqoPT5WB9soAWzLMbADMfAammcnOvtbA31GcrTKzs9mIcMmOGMj0CMUHxzq4NhG9u14wonJJIUKaB+7wu91+X7Q05tNO63L3Yv3HNoRdYukQROfGyM9V/Lx7dxNTjyzfmQw0M/ogs2DiNuRkNCC6CmVH9ueAQJXjEHwxccGh+40adcWaxaZ1qE7YDzOGQCTfUVwllFmfMeqO1hWHAp8gKY8OZccPtfQDgmZB2OvMcVmZF3R45Yg6a4llT/Q+rUN2JrfYrI+AI8WpkpSkwGgaOvKK7nmkWIYHGGhRmFuolczrxGp92zmGkDK9lUjLLcIBRSwLtPDw4MVZqg6l9sSk7ImsljfLP9ekR8qQEofaYszbIgmTVdv68aLnLoxId/LLG9JWSmFDATbuTyPwLjaC2NbvfhMov6WzNd7dLAN2nIuCfGbe2raz4kM+v8+eDuwwXFusjjLcFJotgKdYhPFG9XFP+OEZekfjzf2DZA1SSWoyL7RIibVbRn887v0qCBNfv2P1UNlGZtGlCCIjgAShiPTWooBpi9BRX2iDsWzK0MwqwupHtbc+co7RnQJCoNx5oK/xsnFdUC7EaogqflWaVqNds47scCdJ7OwYLoCzio3G1lO1G2m2fEIk5iFFXUziV6/Suorx+XwGg4cA6/NNGhmNYnQHP4=
+        skinName: lillsev
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzMzE4MjQ3ODMzNywKICAicHJvZmlsZUlkIiA6ICI3MDA2MWExYWNkNTA0ZWNiOGRmMDdjODU5NDg5MzgyOCIsCiAgInByb2ZpbGVOYW1lIiA6ICJMaWxsc2V2IiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzE4ZWNiYzkwYTU4NDRlZjY4ZjQ4MTQ1NGFiZGNmOGEzY2FiMGM2YjRhNGM0YWQ5ZTYzYWJkNDQ5YmUwZGRmMGYiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==
+        updateSkins: false
+      location:
+        bodyYaw: 99.83011
+        world: Skyland
+        x: '-79.4605'
+        y: '78.0'
+        z: '276.2036'
+        yaw: '125.615'
+        pitch: '-13.8459'
+      spawned: true
+      type: PLAYER
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: location,inventory,lookclose,type,skintrait,scoreboardtrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '36':
+    metadata:
+      cached-skin-uuid-name: novu7
+      cached-skin-uuid: a2ffe364-0660-47bb-acb3-2badbe1d4b06
+    name: §8§x§b§b§e§f§e§0Mercenary§8] §x§b§b§e§f§e§0Atlas
+    uuid: 06252158-cba4-4588-9e25-1bf74446f268
+    traits:
+      skintrait:
+        fetchDefaultSkin: true
+        signature: wl/XtaomeiAFVNt5AqjVHcFHm9KWifiPPfRRBIVW4CSB2dE+CYmqZukdV/uGrp0yfWrQh/5FLCQpnTRu0iZTzo6Sjg7rnphKw/4HmYeKlcuQZPscIo9ZxlEDjfVUriL1xA/a7xSFzTVKmMXriWR1b1g6Qp/Pm4lOZmIuzWo91ouPoIovEZR4UtlUSBNFy1mI3xEhz3Mv1rSljiH9KPNajbCITPPWT7e0qjDv01ikweuzztiFbj5nRWEG3n28m1CWSm1znjsDKhg/MXl5sl4f/XStbdN0S1Sy2hUsGGYYUxurvNIGh+sxUjUDW8y5ilw8eh4Sms8Ga98u1+2bKbkeSIo9oJ7P9vdglDYONv6u7W9IWkNyxNnE0cXQ2HDNOc42A1vxzMp4+KN3U8QtJlSgQlHf9lyReMdtZH2ZjZU/DTarRdw0k6Nk5/EGuftwu8KdVnauqga24mcbDhv4JSubIdESL1vfFrw/XP8MWbefpzvKChc4OQq3VzU6XDUDiUiVfL6rP6NhdmEhL5W7CQWGEczAoRdALAb3TiH/lzbGPnzr6jbFFXa4OAq6ZaB+8Z0atSw8Xx/HSzMOiliF/PZPHlIN3MkcPh6wqjzc9Ea++LugKki+ED2yvNulxA2kh0dO5ADNH4Lq2kxNkaGcfcj1kc4q75tBT4IZx6Yyc6PQlds=
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzNTAxMDU4NDY5MSwKICAicHJvZmlsZUlkIiA6ICJhMmZmZTM2NDA2NjA0N2JiYWNiMzJiYWRiZTFkNGIwNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJub3Z1NyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9hZGVjMjZlYzkzZDIxNTBkNjYwYzQ2YWZmMGUwZmRkMzE5MjgyNjA2Y2E3OTg3MTFjMWM2ODQ4YzU2ODMyMTZjIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=
+        updateSkins: false
+      location:
+        bodyYaw: -52.611816
+        world: piratehub
+        x: '271.2734'
+        y: '71.0'
+        z: '-232.6036'
+        yaw: '-52.6118'
+        pitch: '15.5081'
+      spawned: true
+      hologramtrait:
+        direction: BOTTOM_UP
+        lineHeight: -1.0
+      type: PLAYER
+      owner:
+        owner: Javascript_void0
+        uuid: 618c8c8d-506b-4990-8015-91e0987fc24b
+    traitnames: hologramtrait,location,inventory,type,skintrait,scoreboardtrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '35':
+    metadata:
+      cached-skin-uuid-name: foho
+      cached-skin-uuid: a9ede5b5-06e0-4f62-a0df-94e10d8ffb8d
+    name: §8§x§b§b§e§f§e§0Mercenary§8] §x§b§b§e§f§e§0Foho
+    uuid: 093dd150-2e7e-410f-b711-076c3270a1c4
+    traits:
+      skintrait:
+        fetchDefaultSkin: true
+        signature: HY6bsQJaO8sIrG50OF10jdwmbFacFRRsMSQjlGC4//QIIU8Cq2yAhklk74LL4MWQ2oMQ9zkDT23A49A5HgQhQ2O+dqkU1f+FHo8XZMDo55T/Qi/+Kw5meS0oJhjbaAmTAKIdh/l0LmvCYGvT7kgx0jI7n0tp0fyjCbdGyDTK59KEBopOeprcsiHdvtIicjD8th7k1KIxRRZDU8Bf7APNsf+j2QapSYKVSJSB8g3cV6XZgBneOVZBFzBL6ntwPHn4AqRx3ZRcfzgL2BWP74ndIBCDLkVgk7v79SC97JyX4oQOB6oOPboz11CxZw/ThYzRmHwqejaNb4YkvrEUAggVruhoVc1EfLqXH2KyDITDHaNNzqG0+kw4LUbcGm7bS2/B76YJYrfMPjBKAro+zahEu+rRuVcH6yykYvfg7rJ9TX/wOpz484zxFaOd9eBWcdtnE2F8JtBB2hrBUyLfdEC0QHKEsuCRSSb0dzXlsuBVuWTAoo0P73k2q7ieVMWuCQHm6sLlzdsDnqmthi750x/HaA/Pvl3tP05jbUgB33qqZbtGMje4+CdapgOqP2jffrmDrI2tELKNnRIuCLwHXweKWMkdHxt+PbO/apau3sOEYswEpE4CanR8E/QV+2EM3lh9IZ/bII5mmJyOBkCvJNMbrs+vmmgN9u0g2uLeEYCNscg=
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzNTAxMDU2MTcwNSwKICAicHJvZmlsZUlkIiA6ICJhOWVkZTViNTA2ZTA0ZjYyYTBkZjk0ZTEwZDhmZmI4ZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJGb2hvIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzYxMWFlZWMwYmNmZDg4Y2E3OWU5NWU5OGI0NTc3MzU4MWRhMzAwMmE2ODM3YzM4OTNiMjIyZmRlZjNmY2FjNzgiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==
+        updateSkins: false
+        skinName: foho
+      location:
+        bodyYaw: -61.56919
+        world: piratehub
+        x: '268.5832'
+        y: '71.0'
+        z: '-223.6256'
+        yaw: '-61.5692'
+        pitch: '14.3507'
+      spawned: true
+      hologramtrait:
+        direction: BOTTOM_UP
+        lineHeight: -1.0
+      type: PLAYER
+      owner:
+        owner: Javascript_void0
+        uuid: 618c8c8d-506b-4990-8015-91e0987fc24b
+    traitnames: hologramtrait,location,inventory,type,skintrait,scoreboardtrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '37':
+    metadata:
+      cached-skin-uuid-name: 0mily0
+      cached-skin-uuid: 5c3ca9ec-dd02-4e07-b529-a5d4512a2aea
+    name: §8§x§b§b§e§f§e§0Mercenary§8] §x§b§b§e§f§e§0Feli
+    uuid: 24c42f57-92a8-4e02-b258-637bca94edd8
+    traits:
+      hologramtrait:
+        direction: BOTTOM_UP
+        lineHeight: -1.0
+      location:
+        bodyYaw: -90.000015
+        world: piratehub
+        x: '264.7'
+        y: '74.0'
+        z: '-222.7'
+        yaw: '-77.9277'
+        pitch: '59.8555'
+      lookclose:
+        range: '5.0'
+        disablewhilenavigating: true
+        enabled: true
+        enableRandomLook: false
+        randomLookDelay: 60
+        realisticlooking: false
+        randomPitchRange:
+          '0': -10.0
+          '1': 0.0
+        randomYawRange:
+          '0': 0.0
+          '1': 360.0
+      type: PLAYER
+      skintrait:
+        fetchDefaultSkin: true
+        signature: J5sxYOZCEZjGaF8yfka618NV7vXx59yPyTI00xI9hmfl+wRjuPWUgT2RLU5oP9LtitC18lRWg+/JXYCFBlbEtxK6VVXP0NICw9OGojtVnKpBI5Q42GniivAIG777HvHglY2+lJERucNUTVtOfxamVNuZnYeH1umj2hcDgx+9ngyCPpKL7OBgln8I6I6Ww+K+FykKiGw6IgcbpdOzuq9wQh3D4Evu2GRqmvXCn5XSNdDL3z/PfIZsVbE+EL7Bv2vtM4Wd86/nLuh14/Ti+W+CEW/kIZl7Vtzt00BS4yCDqlNAYYHx8JwfzSStRDU7y9UUU2wul0QGzwF267dZO8WT0B1uNR6NuRixIEDl4xW7BUDVQ1i+KYRZGVxQc3VnJLsdWALtDQJQEsDmnyf6hL6uhmYRkFHSjMIDjM7pK3FY3z1RJSeq14sF3HNQCXDPYw8iQh/EDNYrd/ExycRCUPHVPgzaBz51wnBwzKQIAlo3/WcExmCsykuYJvNXT8RgxuRvVbI4mqQhvPdshU8fWYVmTRNMCwMHOeDDuEx/t6T25HuD9NY02d0Nl9G83JaAey/E730YJrSDE4UDSnqOUiIyLQH+LA4iR7uRZDvUhgK72vWuyMS1gvDEkZUpWFdgqUkw/+VRK6y1gDHHZU1LtW3NVh/t3/Sku4rFIARnDUDHGcc=
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYzNTAxMDgzODU5NywKICAicHJvZmlsZUlkIiA6ICI1YzNjYTllY2RkMDI0ZTA3YjUyOWE1ZDQ1MTJhMmFlYSIsCiAgInByb2ZpbGVOYW1lIiA6ICIwbWlseTAiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODRjZGFjZWQ5MmMyNzNlYjYyZTdiY2ExMTY1MDZlYmRhMmMzMjA4OGEyNzY0OGFkNTYwODQ0NGZjM2E4MTRhNiIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9
+        updateSkins: false
+      spawned: true
+      owner:
+        owner: Javascript_void0
+        uuid: 618c8c8d-506b-4990-8015-91e0987fc24b
+    traitnames: hologramtrait,location,inventory,lookclose,type,scoreboardtrait,skintrait,spawned,mounttrait,equipment,owner
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
