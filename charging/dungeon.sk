@@ -1,8 +1,7 @@
 function copyDungeon(loc: location, name: text, yt: integer, zt: integer, xt: integer):
-	remove 1 from y-coordinate of {_loc}
+	remove 3 from y-coordinate of {_loc}
 	set {_n} to {_zt} / 2
 	remove floor({_n}) from z-coordinate of {_loc}
-	broadcast "%floor({_n})%"
 	set {_x} to x-location of {_loc}
 	set {_y} to y-location of {_loc}
 	set {_z} to z-location of {_loc}
@@ -23,7 +22,7 @@ function copyDungeon(loc: location, name: text, yt: integer, zt: integer, xt: in
 
 function pasteDungeon(loc: location, name: text):
 	set {_dimensions::*} to {d_%{_name}%::dimensions} split by ", "
-	remove 1 from y-coordinate of {_loc}
+	remove 3 from y-coordinate of {_loc}
 	set {_n} to ({_dimensions::2} parsed as integer) / 2
 	remove floor({_n}) from z-coordinate of {_loc}
 	set {_x} to x-location of {_loc}
@@ -47,7 +46,7 @@ function pasteDungeon(loc: location, name: text):
 	set y-coordinate of {_loc} to {_y}
 
 on tab complete of "/dungeon":
-	set tab completions for position 1 to "clearStart", "listStart", "listRoom", "copy", "delete", "save", "load", "remove", and "paste"
+	set tab completions for position 1 to "clearStart", "listStart", "listRoom", "copy", "delete", "save", "load", "remove", "start", "end", and "paste"
 	set tab completions for position 2 to {d_roomList::*}
 
 command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
@@ -57,60 +56,81 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 			stop
 		if arg-1 is "clearStart":
 			delete {dungeonStart::*}
-			broadcast "deleted all dungeon start"
+			send "deleted all dungeon start"
 			stop
 		if arg-1 is "listStart":
 			loop {dungeonStart::*}:
-				broadcast "%loop-index%, %loop-value%, %block at loop-value%"
+				if block at loop-value is emerald block:
+					set {_status} to "&aOpen: "
+				else if block at loop-value is redstone block:
+					set {_status} to "&cActive: "
+				else if block at loop-value is coal block:
+					set {_status} to "&8Disabled: "
+				else:
+					set {_status} to "&7Error: "
+				send "%{_status}%%loop-index%, &7%loop-value%"
 		if arg-1 is "listRoom":
 			loop {d_roomList::*}:
-				broadcast "&f%loop-value%&7: %{d_%loop-value%::dimensions}%"
+				send "&f%loop-value%&7: %{d_%loop-value%::dimensions}%"
 		if arg-1 is "copy" or "save":
 			if arg-2 is not set:
-				broadcast "/dungeon <copy> <name>"
+				send "/dungeon <copy> <name>"
 				stop
 			else:
 				copyDungeon({dungeonStart.pos}, arg-2, arg-3, arg-4, arg-5)
-				broadcast "copied new dungeon to %arg-2%"
+				send "copied new dungeon to %arg-2%"
 				if {d_roomList::*} does not contain arg-2:
 					add arg-2 to {d_roomList::*}
 				stop
 		if arg-1 is "paste" or "load":
 			if arg-2 is not set:
-				broadcast "/dungeon <paste> <name>"
+				send "/dungeon <paste> <name>"
 				stop
 			else:
 				pasteDungeon({dungeonStart.pos}, arg-2)
-				broadcast "pasted %arg-2%"
+				send "pasted %arg-2%"
+				if arg-2 is "start":
+					set {_x} to x-coordinate of {dungeonStart.pos} + 7
+					set {_y} to y-coordinate of {dungeonStart.pos} + 1
+					set {_z} to z-coordinate of {dungeonStart.pos}
+					teleport player to location({_x}, {_y}, {_z}, world "dungeon", -90, 0)
 				stop
 		if arg-1 is "delete" or "remove":
 			if arg-2 is not set:
-				broadcast "/dungeon <delete> <name>"
+				send "/dungeon <delete> <name>"
 				stop
 			else:
-				broadcast "deleted %arg-2%"
+				send "deleted %arg-2%"
 				if {d_roomList::*} contains arg-2:
 					remove arg-2 from {d_roomList::*}
 				stop
-		arg-1 is not set
-		loop {dungeonStart::*}:
-			if block at loop-value is emerald block:
-				broadcast "&aOpen: &7%loop-index%, %loop-value%"
-				teleport player to location above loop-value
-				stop
-			else if block at loop-value is redstone block:
-				broadcast "&cActive: &7%loop-index%, %loop-value%"
-			else if block at loop-value is coal block:
-				broadcast "&8Disabled: &7%loop-index%, %loop-value%"
+		if arg-1 is "start":
+			loop {dungeonStart::*}:
+				if block at loop-value is emerald block:
+					send "&aOpen: &7%loop-index%, %loop-value%"
+					pasteDungeon(loop-value, "start")
+					set {_x} to x-coordinate of loop-value
+					set {_y} to y-coordinate of loop-value
+					set {_z} to z-coordinate of loop-value
+					teleport player to location({_x} + 7, {_y} + 1, {_z}, world "dungeon", -90, 0)
+					set {dungeonActive::%player%} to loop-value
+					stop
+				else if block at loop-value is redstone block:
+					send "&cActive: &7%loop-index%, %loop-value%"
+				else if block at loop-value is coal block:
+					send "&8Disabled: &7%loop-index%, %loop-value%"
+		if arg-1 is "end":
+			if {dungeonActive::%player%} is set:
+				pasteDungeon({dungeonActive::%player%}, "start")
+				send "&cRestarted: %{dungeonActive::%player%}%"
 
 on left click with blaze rod:
 	cancel event
 	player is op
-	if event-block is obsidian or lapis lazuli block or diamond block:
+	if event-block is obsidian or lapis lazuli block or diamond block or emerald block:
 		set {dungeonStart.pos} to location of event-block
-		broadcast "&3Selection: &7%location of event-block%"
-		stop
-	else if event-block is redstone block or emerald block or coal block:
+		send "&3Selection: &7%location of event-block%"
+	if event-block is redstone block or emerald block or coal block:
 		if {dungeonStart::%location of event-block%} is set:
 			delete {dungeonStart::%location of event-block%}
 			send "removed %location of event-block%"

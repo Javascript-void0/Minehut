@@ -67,7 +67,7 @@ every 10 minutes:
 		send "  {@discord}" to loop-player
 		send " " to loop-player
 		send "  &7Join our <##BBEFE0>Discord &7for events, updates, and extra features" to loop-player
-		send "  &7Link your account &7(<tooltip:<##BBEFE0>Click to link!><suggest command:/link><##BBEFE0>/link<reset>&7) to recieve perks! <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&7(<##BBEFE0>/discord&7)<reset>" to loop-player
+		send "  &7Link your account &7(<tooltip:<##BBEFE0>Click to link!><command:/link><##BBEFE0>/link<reset>&7) to recieve perks! <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&7(<##BBEFE0>/discord&7)<reset>" to loop-player
 		send " " to loop-player
 
 command /link:
