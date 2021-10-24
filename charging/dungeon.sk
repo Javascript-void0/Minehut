@@ -46,7 +46,7 @@ function pasteDungeon(loc: location, name: text):
 	set y-coordinate of {_loc} to {_y}
 
 on tab complete of "/dungeon":
-	set tab completions for position 1 to "clearStart", "listStart", "listRoom", "copy", "delete", "save", "load", "remove", "start", "end", and "paste"
+	set tab completions for position 1 to "wand", "clearStart", "listStart", "listRoom", "copy", "delete", "save", "load", "remove", "start", "end", "openAll", and "paste"
 	set tab completions for position 2 to {d_roomList::*}
 
 command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
@@ -67,7 +67,7 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 				else if block at loop-value is coal block:
 					set {_status} to "&8Disabled: "
 				else:
-					set {_status} to "&7Error: "
+					set {_status} to "&7Error: (%block at loop-value%)"
 				send "%{_status}%%loop-index%, &7%loop-value%"
 		if arg-1 is "listRoom":
 			loop {d_roomList::*}:
@@ -105,6 +105,7 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 					remove arg-2 from {d_roomList::*}
 				stop
 		if arg-1 is "start":
+			# {dungeonActive::%player%} is not set
 			loop {dungeonStart::*}:
 				if block at loop-value is emerald block:
 					send "&aOpen: &7%loop-index%, %loop-value%"
@@ -114,6 +115,7 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 					set {_z} to z-coordinate of loop-value
 					teleport player to location({_x} + 7, {_y} + 1, {_z}, world "dungeon", -90, 0)
 					set {dungeonActive::%player%} to loop-value
+					set block at {dungeonActive::%player%} to redstone block
 					stop
 				else if block at loop-value is redstone block:
 					send "&cActive: &7%loop-index%, %loop-value%"
@@ -122,7 +124,16 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 		if arg-1 is "end":
 			if {dungeonActive::%player%} is set:
 				pasteDungeon({dungeonActive::%player%}, "start")
-				send "&cRestarted: %{dungeonActive::%player%}%"
+				send "&4Restarted: &c%{dungeonActive::%player%}%"
+				set block at {dungeonActive::%player%} to emerald block
+				delete {dungeonActive::%player%}
+			else:
+				send "&4Restarted: &cNo Active Dungeon"
+		if arg-1 is "openAll":
+			loop {dungeonStart::*}:
+				set block at loop-value to emerald block
+		if arg-1 is "wand":
+			give player blaze rod
 
 on left click with blaze rod:
 	cancel event

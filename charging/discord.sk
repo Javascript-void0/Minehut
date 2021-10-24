@@ -7,7 +7,7 @@ options:
 	world: world
 
 on load:
-	login to "{@token}" with the name "Charging"
+	login to "%{token}%" with the name "Charging"
 
 discord command list:
 	prefixes: "."
@@ -28,7 +28,7 @@ discord command tps:
 command /login:
 	trigger:
 		if player is op:
-			login to "{@token}" with the name "Charging"
+			login to "%{token}%" with the name "Charging"
 			send "{@admin} &7Logged In"
 		else:
 			send "{@admin} {@permission}"
