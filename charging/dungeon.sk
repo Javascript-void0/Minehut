@@ -54,6 +54,11 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 		if player is not op:
 			send "no permission"
 			stop
+		if arg-1 is not set:
+			if {activeDungeon::%player%} is set:
+				send "&aActive Dungeon: &7%{activeDungeon::%player%}%"
+			else:
+				send "&cActive Dungeon: &7none"
 		if arg-1 is "clearStart":
 			delete {dungeonStart::*}
 			send "deleted all dungeon start"
@@ -75,7 +80,12 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 		if arg-1 is "copy" or "save":
 			if arg-2 is not set:
 				send "/dungeon <copy> <name>"
-				stop
+			else if arg-3 is not set:
+				send "/dungeon <copy> <%arg-2%> <dim-y> <dim-z> <dim-x>"
+			else if arg-4 is not set:
+				send "/dungeon <copy> <%arg-2%> <%arg-3%> <dim-z> <dim-x>"
+			else if arg-5 is not set:
+				send "/dungeon <copy> <%arg-2%> <%arg-3%> <%arg-4%> <dim-x>"
 			else:
 				copyDungeon({dungeonStart.pos}, arg-2, arg-3, arg-4, arg-5)
 				send "copied new dungeon to %arg-2%"
@@ -115,6 +125,8 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 					set {_z} to z-coordinate of loop-value
 					teleport player to location({_x} + 7, {_y} + 1, {_z}, world "dungeon", -90, 0)
 					set {dungeonActive::%player%} to loop-value
+					set {p_floor::%player%} to 1
+					set {p_room::%player%} to 1
 					set block at {dungeonActive::%player%} to redstone block
 					stop
 				else if block at loop-value is redstone block:
@@ -122,18 +134,27 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 				else if block at loop-value is coal block:
 					send "&8Disabled: &7%loop-index%, %loop-value%"
 		if arg-1 is "end":
-			if {dungeonActive::%player%} is set:
-				pasteDungeon({dungeonActive::%player%}, "start")
-				send "&4Restarted: &c%{dungeonActive::%player%}%"
-				set block at {dungeonActive::%player%} to emerald block
-				delete {dungeonActive::%player%}
-			else:
-				send "&4Restarted: &cNo Active Dungeon"
+			dungeonEnd(player)
 		if arg-1 is "openAll":
 			loop {dungeonStart::*}:
 				set block at loop-value to emerald block
 		if arg-1 is "wand":
 			give player blaze rod
+
+function dungeonEnd(p: player):
+	if {dungeonActive::%{_p}%} is set:
+		pasteDungeon({dungeonActive::%{_p}%}, "start")
+		send "&4Restarted: &c%{dungeonActive::%{_p}%}%" to {_p}
+		set block at {dungeonActive::%{_p}%} to emerald block
+		delete {dungeonActive::%{_p}%}
+		delete {p_mobRemain::%{_p}%}
+		delete {p_floor::%{_p}%}
+		delete {p_room::%{_p}%}
+	else:
+		send "&4Restarted: &cNo Active Dungeon" to {_p}
+
+on disconnect:
+	dungeonEnd(player)
 
 on left click with blaze rod:
 	cancel event
@@ -153,10 +174,13 @@ on left click with blaze rod:
 
 on walking on lapis lazuli block:
 	world of player is "dungeon"
-	pasteDungeon(location of event-block, "corridor")
+	{dungeonActive::%player%} is set
+	# {p_mobRemain::%{_p}%} is 0
+	pasteDungeon(location of event-block, "bigCave")
 	set event-block to stone bricks
+	add 1 to {p_room::%player%}
 
 on walking on diamond block:
 	world of player is "dungeon"
-	pasteDungeon(location of event-block, "defaultEmpty")
+	pasteDungeon(location of event-block, "bigCave")
 	set event-block to stone bricks

@@ -76,7 +76,7 @@ every 2 ticks:
 		if loop-player is in world "dungeon":
 			set line 5 of loop-player's scoreboard to " <##BBEFE0>&lDUNGEON"
 			set line 4 of loop-player's scoreboard to " &8┃ &7Remaining: &f%{p_mobRemain::%loop-player%}%"
-			set line 3 of loop-player's scoreboard to " &8┃ &7Floor: &f%{_coin}%"
+			set line 3 of loop-player's scoreboard to " &8┃ &7Floor: &f%{p_floor::%loop-player%}%"
 			set line 2 of loop-player's scoreboard to " &8╹ &7Room: &f%{p_room::%loop-player%}%&7/&f9"
 			set line 1 of loop-player's scoreboard to "&c"
 		else:

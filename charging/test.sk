@@ -17,3 +17,7 @@ on load:
 	execute console command "/mv unload dupemp3_the_nether"
 	execute console command "/mv unload voidworld"
 	execute console command "/mv unload build_the_end"
+	execute console command "/mv unload world_nether"
+	execute console command "/mv unload Skyland"
+	execute console command "/mv unload islands"
+	execute console command "/mv unload world"
