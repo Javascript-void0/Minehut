@@ -113,30 +113,30 @@ function tarnishedReward(p: player):
 	set {_n} to random integer between 1 and 100
 	if {_n} is between 1 and 35:
 		add 10000 to {p_coins::%{_p}%}
-		send "{@prefix} &7Recieved <##BBEFE0>10a coins &7(35%%)" to {_p}
+		send title "&c" with subtitle "Recieved <##BBEFE0>10a coins &7(35%%)" to {_p} for 2 seconds
 	else if {_n} is between 35 and 50:
 		add 20000 to {p_coins::%{_p}%}
-		send "{@prefix} &7Recieved <##BBEFE0>20a coins &7(15%%)" to {_p}
+		send title "&c" with subtitle "&7Recieved <##BBEFE0>20a coins &7(15%%)" to {_p} for 2 seconds
 	else if {_n} is between 50 and 58:
 		add 30000 to {p_coins::%{_p}%}
-		send "{@prefix} &7Recieved <##BBEFE0>30a coins &7(8%%)" to {_p}
+		send title "&c" with subtitle "&7Recieved <##BBEFE0>30a coins &7(8%%)" to {_p} for 2 seconds
 	else if {_n} is between 58 and 63:
 		add 40000 to {p_coins::%{_p}%}
-		send "{@prefix} &7Recieved <##BBEFE0>40a coins &7(5%%)" to {_p}
+		send title "&c" with subtitle "&7Recieved <##BBEFE0>40a coins &7(5%%)" to {_p} for 2 seconds
 	else if {_n} is between 63 and 73:
 		add 100 to {p_wrath::%{_p}%}
-		send "{@prefix} &7Recieved <##BBEFE0>100 wrath &7(10%%)" to {_p}
+		send title "&c" with subtitle "&7Recieved <##BBEFE0>100 wrath &7(10%%)" to {_p} for 2 seconds
 	else if {_n} is between 73 and 78:
 		add 300 to {p_wrath::%{_p}%}
-		send "{@prefix} &7Recieved <##BBEFE0>300 wrath &7(5%%)" to {_p}
+		send title "&c" with subtitle "&7Recieved <##BBEFE0>300 wrath &7(5%%)" to {_p} for 2 seconds
 	else if {_n} is between 78 and 80:
 		add 500 to {p_wrath::%{_p}%}
-		send "{@prefix} &7Recieved <##BBEFE0>500 wrath &7(2%%)" to {_p}
+		send title "&c" with subtitle "&7Recieved <##BBEFE0>500 wrath &7(2%%)" to {_p} for 2 seconds
 	else if {_n} is between 80 and 90:
 		give {_p} 1 of {weatheredsilver}
-		send "{@prefix} &7Recieved <##BBEFE0>1 weathered coin &7(10%%)" to {_p}
+		send title "&c" with subtitle "&7Recieved <##BBEFE0>1 weathered coin &7(10%%)" to {_p for 2 seconds}
 	else if {_n} is between 90 and 100:
 		give {_p} 1 of {polishedsilver}
-		send "{@prefix} &7Recieved <##BBEFE0>1 polished coin &7(3%%)" to {_p}
+		send title "&c" with subtitle "&7Recieved <##BBEFE0>1 polished coin &7(3%%)" to {_p for 2 seconds}
 	else:
 		send "{@prefix} &cError: %{_n}%" to {_p}

@@ -176,11 +176,29 @@ on walking on lapis lazuli block:
 	world of player is "dungeon"
 	{dungeonActive::%player%} is set
 	# {p_mobRemain::%{_p}%} is 0
-	pasteDungeon(location of event-block, "bigCave")
+	if {p_room::%player%} is less than 8:
+		loop {d_roomList::*}:
+			loop-value does not contain "Empty"
+			loop-value is not "start"
+			loop-value is not "corridor"
+			add loop-value to {_list::*}
+			set {_room} to random element out of {_list::*}
+	else:
+		set {_room} to "corridor"
+	pasteDungeon(location of event-block, {_room})
 	set event-block to stone bricks
 	add 1 to {p_room::%player%}
 
 on walking on diamond block:
 	world of player is "dungeon"
-	pasteDungeon(location of event-block, "bigCave")
+	{dungeonActive::%player%} is set
+	pasteDungeon({dungeonActive::%player%}, "start")
 	set event-block to stone bricks
+	set {p_room::%player%} to 1
+	add 1 to {p_floor::%player%}
+	set {_x} to x-coordinate of {dungeonActive::%player%}
+	set {_y} to y-coordinate of {dungeonActive::%player%}
+	set {_z} to z-coordinate of {dungeonActive::%player%}
+	teleport player to location({_x} + 7, {_y} + 1, {_z}, world "dungeon", -90, 0)
+	set block at {dungeonActive::%player%} to redstone block
+					
