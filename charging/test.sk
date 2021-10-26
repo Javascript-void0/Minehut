@@ -21,3 +21,4 @@ on load:
 	execute console command "/mv unload Skyland"
 	execute console command "/mv unload islands"
 	execute console command "/mv unload world"
+	execute console command "/mv unload piratehub_nether"

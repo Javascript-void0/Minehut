@@ -1,0 +1,13 @@
+name: Charging
+version: 1.0
+author: Javascript-void0
+main: me.javascript_void0.charging.Main
+api-version: 1.16
+
+commands:
+  test:
+    description: Command for Charging
+    usage: /test
+  givetest:
+    description: give wand
+    ussage: /givetest
