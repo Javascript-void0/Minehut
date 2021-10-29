@@ -156,6 +156,7 @@ on chat:
 		replace "]" with "" in {_messageFormat::*}
 		replace "build" with "" in {_messageFormat::*}
 		replace "Skyland" with "" in {_messageFormat::*}
+		replace "dungeon" with "" in {_messageFormat::*}
 		if message format contains message:
 			set {_messageFormat::*} to message format split at message
 		set {_temp} to a new text component of "%{_messageFormat::1}%"
@@ -169,17 +170,17 @@ on chat:
 			send components {_p}, {_level}, {_s}, {_player}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
 		send components {_p}, {_level}, {_s}, {_player}, {_temp}, {_messages::*} and {_messageFormat::*} to console
 		if group of player is "admin":
-			send "[**ADMIN**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[**ADMIN**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 		else if group of player is "mod":
-			send "[**MOD**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[**MOD**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 		else if group of player is "tier3":
-			send "[**TIER__3__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[**TIER__3__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 		else if group of player is "tier2":
-			send "[**TIER__2__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[**TIER__2__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 		else if group of player is "tier1":
-			send "[**TIER__1__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[**TIER__1__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 		else:
-			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 	else:
 		if group of player is "admin" or "mod":
 			set {_cc} to "&f"
@@ -187,7 +188,6 @@ on chat:
 			set {_cc} to "&7"
 		cancel event
 		set {_message} to a new text component of "%{_cc}%%message%"
-		set {_player} to a new text component of {_player}
 		set {_p} to a new text component of "&8[%{_prefix}%"
 		set {_s} to a new text component of "&8] &f"
 		set {_} to a new text component of "&7: "
@@ -195,14 +195,14 @@ on chat:
 			send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to loop-player
 		send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to console
 		if group of player is "admin":
-			send "[**ADMIN**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[**ADMIN**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 		else if group of player is "mod":
-			send "[**MOD**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[**MOD**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 		else if group of player is "tier3":
-			send "[**TIER__3__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[**TIER__3__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 		else if group of player is "tier2":
-			send "[**TIER__2__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[**TIER__2__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 		else if group of player is "tier1":
-			send "[**TIER__1__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[**TIER__1__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
 		else:
-			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "872657350316687362" with "Charging"
+			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436" with "Charging"
