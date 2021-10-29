@@ -1,4 +1,4 @@
-options:
+options: # NEED TO CHANGE FROM TUSKE TO VANILLA GUI
 	prefix: &8[<##BBEFE0>&lCHARGING&8]&7
 	permission: &7Insufficient Permissions
 	admin: &8[<##BBEFE0>&lADMIN&8]&7
@@ -16,7 +16,7 @@ function inventoryFormat(n: number) :: text:
 		{_n} >= 10 ^ {_s::2} parsed as number
 		set {_nn} to inventoryRound({_n} / 10 ^ {_s::2} parsed as number, 1)
 		return "%{_nn}%%{_s::1}%"
-	return "%{_n}%"
+	return "%{_n}%" 
 
 function stats(p: player):
 	open virtual chest inventory with size 3 named "&8Statistics: %{_p}%" to {_p}

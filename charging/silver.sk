@@ -1,4 +1,4 @@
-options:
+options: # NEED TO CHANGE FROM TUSKE TO VANILLA GUI
 	prefix: &8[<##BBEFE0>&lCHARGING&8]&r
 	permission: &7Insufficient Permissions
 	admin: &8[<##BBEFE0>&lADMIN&8]&r
