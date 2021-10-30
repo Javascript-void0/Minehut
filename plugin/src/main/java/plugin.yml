@@ -5,9 +5,9 @@ main: me.javascript_void0.charging.Main
 api-version: 1.16
 
 commands:
+  charging:
+    description: Command for Charging
   test:
     description: Command for Charging
-    usage: /test
   givetest:
     description: give wand
-    ussage: /givetest
