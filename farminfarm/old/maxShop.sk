@@ -1,0 +1,648 @@
+command /shop:
+	trigger:
+		shop(player)
+
+function shop(p: player):
+	set metadata tag "shop" of {_p} to chest inventory with 3 rows named "&2&lShops"
+	set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 21, 22, 23, 24, 25 and 26 of metadata tag "shop" of {_p} to orange glass pane named " "
+	set slot 9 of metadata tag "shop" of {_p} to glowing netherite pickaxe named "&5Tools"
+	set slot 10 of metadata tag "shop" of {_p} to tnt named "&2Other"
+	set slot 11 of metadata tag "shop" of {_p} to redstone named "&cRedstone"
+	set slot 12 of metadata tag "shop" of {_p} to diamond sword named "&3PvP"
+	set slot 13 of metadata tag "shop" of {_p} to grass block named "&2Blocks"
+	set slot 14 of metadata tag "shop" of {_p} to red dye named "&5Colors"
+	set slot 15 of metadata tag "shop" of {_p} to netherite hoe named "&2Farming"
+	set slot 16 of metadata tag "shop" of {_p} to white concrete named "&fConcrete"
+	set slot 17 of metadata tag "shop" of {_p} to barrier named "&cExit" with lore "&5Click here to exit!"
+	open (metadata tag "shop" of {_p}) to {_p}
+
+function shopBuy(p: player, c: integer, i: item):
+	if balance of {_p} is greater or equal to {_c}:
+		remove {_c} from balance of {_p}
+		give {_p} 1 of {_i}
+	else:
+		send "&c&lyou dont have enough money!" to {_p}
+
+function shopBuyQuantity(p: player, c: integer, i: item, n: integer):
+	if balance of {_p} is greater or equal to {_c}:
+		remove {_c} from balance of {_p}
+		give {_p} {_n} of {_i}
+	else:
+		send "&c&lyou dont have enough money!" to {_p}
+
+on inventory click:
+	if name of player's inventory is "&2&lShops":
+		cancel event
+		if clicked slot is 9:
+			toolShop(player)
+		else if clicked slot is 10:
+			otherShop(player)
+		else if clicked slot is 11:
+			redstoneShop(player)
+		else if clicked slot is 12:
+			pvpShop(player)
+		else if clicked slot is 13:
+			blockShop(player)
+		else if clicked slot is 14:
+			dyeShop(player)
+		else if clicked slot is 15:
+			farmingShop(player)
+		else if clicked slot is 16:
+			concreteShop(player)
+		else if clicked slot is 17:
+			close inventory of player
+
+	else if name of player's inventory is "&5Tools":
+		cancel event
+		if clicked slot is 0:
+			shop(player)
+		else if clicked slot is 11:
+			unenchantedTools(player)
+		else if clicked slot is 14:
+			enchantedTools(player)
+
+	else if name of player's inventory is "&cUNENCHANTED TOOLS":
+		cancel event
+		if clicked slot is 0:
+			shop(player)
+		else if clicked slot is 10:
+			shopBuy(player, 500, stone sword)
+		else if clicked slot is 12:
+			shopBuy(player, 1000, stone pickaxe)
+		else if clicked slot is 14:
+			shopBuy(player, 1000, stone shovel)
+		else if clicked slot is 16:
+			shopBuy(player, 1000, stone axe)
+		else if clicked slot is 19:
+			shopBuy(player, 2000, iron sword)
+		else if clicked slot is 21:
+			shopBuy(player, 2500, iron pickaxe)
+		else if clicked slot is 23:
+			shopBuy(player, 2500, iron shovel)
+		else if clicked slot is 25:
+			shopBuy(player, 2500, iron axe)
+		else if clicked slot is 28:
+			shopBuy(player, 5000, gold sword)
+		else if clicked slot is 30:
+			shopBuy(player, 6500, gold pickaxe)
+		else if clicked slot is 32:
+			shopBuy(player, 6500, gold shovel)
+		else if clicked slot is 34:
+			shopBuy(player, 6500, gold axe)
+		else if clicked slot is 37:
+			shopBuy(player, 10000, diamond sword)
+		else if clicked slot is 39:
+			shopBuy(player, 1100, diamond pickaxe)
+		else if clicked slot is 41:
+			shopBuy(player, 1100, diamond shovel)
+		else if clicked slot is 43:
+			shopBuy(player, 1100, diamond axe)
+
+	else if name of player's inventory is "&aENCHANTED TOOLS":
+		cancel event
+		if clicked slot is 0:
+			shop(player)
+		else if clicked slot is 10:
+			shopBuy(player, 5000, (stone sword of sharpness 5,unbreaking 1))
+		else if clicked slot is 12:
+			shopBuy(player, 10000, (stone pickaxe of efficiency 5,unbreaking 3))
+		else if clicked slot is 14:
+			shopBuy(player, 10000, (stone shovel of efficiency 5,unbreaking 3))
+		else if clicked slot is 16:
+			shopBuy(player, 10000, (stone axe of efficiency 5,unbreaking 3))
+		else if clicked slot is 19:
+			shopBuy(player, 15000, (iron sword of sharpness 5,unbreaking 2,mending 1))
+		else if clicked slot is 21:
+			shopBuy(player, 20000, (iron pickaxe of efficiency 6,unbreaking 3))
+		else if clicked slot is 23:
+			shopBuy(player, 20000, (iron shovel of efficiency 6,unbreaking 3))
+		else if clicked slot is 25:
+			shopBuy(player, 20000, (iron axe of efficiency 6,unbreaking 3))
+		else if clicked slot is 28:
+			shopBuy(player, 25000, (gold sword of sharpness 8))
+		else if clicked slot is 30:
+			shopBuy(player, 30000, (gold pickaxe of efficiency 10,unbreaking 1))
+		else if clicked slot is 32:
+			shopBuy(player, 30000, (gold shovel of efficiency 10,unbreaking 1))
+		else if clicked slot is 34:
+			shopBuy(player, 30000, (gold axe of efficiency 10,unbreaking 1))
+		else if clicked slot is 37:
+			shopBuy(player, 55000, (diamond sword of sharpness 5,mending 1,unbreaking 3,knockback 3,fire aspect 2))
+		else if clicked slot is 39:
+			shopBuy(player, 60000, (diamond pickaxe of efficiency 6,unbreaking 3,mending 1,silk touch 1))
+		else if clicked slot is 41:
+			shopBuy(player, 60000, (diamond shovel of efficiency 6,unbreaking 3,mending 1,silk touch 1))
+		else if clicked slot is 43:
+			shopBuy(player, 60000, (diamond axe of efficiency 6,unbreaking 3,mending 1))
+
+	else if name of player's inventory is "&2&lOther":
+		cancel event
+		if clicked slot is 0:
+			shop(player)
+		else if clicked slot is 9:
+			tempSellwand(player)
+		else if clicked slot is 10:
+			shopBuyQuantity(player, 2500, iron block, 8)
+		else if clicked slot is 11:
+			shopBuyQuantity(player, 5500, gold block, 8)
+		else if clicked slot is 12:
+			shopBuyQuantity(player, 8500, diamond block, 8)
+		else if clicked slot is 14:
+			shopBuyQuantity(player, 164000, emerald block, 164)
+		else if clicked slot is 15:
+			shopBuy(player, 25000, beacon)
+		else if clicked slot is 16:
+			shopBuyQuantity(player, 30000, ancient debris, 16)
+		else if clicked slot is 13:
+			shopBuyQuantity(player, 1000, coal block, 8)
+		else if clicked slot is 17:
+			shopBuy(player, 75000, (bow of infinity ,power 5,flame 1,unbreaking 1, named "&4T&fN&4T &4B&fO&4W"))
+
+	else if name of player's inventory is "&c&lRedstone":
+		cancel event
+		if clicked slot is 12:
+			shopBuyQuantity(player, 5600, observer, 16)
+		else if clicked slot is 9:
+			shopBuyQuantity(player, 500, redstone block, 4)
+		else if clicked slot is 10:
+			shopBuyQuantity(player, 4500, sticky piston, 16)
+		else if clicked slot is 11:
+			shopBuyQuantity(player, 3500, piston, 16)
+		else if clicked slot is 13:
+			shopBuyQuantity(player, 1500, redstone repeater, 16)
+		else if clicked slot is 14:
+			shopBuyQuantity(player, 1500, comparator, 16)
+		else if clicked slot is 15:
+			shopBuyQuantity(player, 3500, hopper, 16)
+		else if clicked slot is 16:
+			shopBuyQuantity(player, 3500, dropper, 16)
+		else if clicked slot is 17:
+			shopBuyQuantity(player, 3500, dispenser, 16)
+		else if clicked slot is 0:
+			shop(player)
+		else if clicked slot is 18:
+			shopBuyQuantity(player, 1500, honey block, 16)
+		else if clicked slot is 19:
+			shopBuyQuantity(player, 1500, slime block, 16)
+		else if clicked slot is 20:
+			shopBuyQuantity(player, 2500, redstone lamp, 16)
+		else if clicked slot is 21:
+			shopBuyQuantity(player, 2500, daylight sensor, 16)
+		else if clicked slot is 22:
+			shopBuyQuantity(player, 250, lever, 16)
+		else if clicked slot is 23:
+			shopBuyQuantity(player, 250, redstone torch, 16)
+		else if clicked slot is 24:
+			shopBuyQuantity(player, 150, string, 32)
+
+	else if name of player's inventory is "&3&lPvP":
+		cancel event
+		if clicked slot is 0:
+			shop(player)
+		else if clicked slot is 9:
+			shopBuy(player, 25000, enchanting table)
+		else if clicked slot is 10:
+			shopBuyQuantity(player, 4500, book shelf, 4)
+		else if clicked slot is 11:
+			shopBuyQuantity(player, 1500, experience bottle, 16)
+		else if clicked slot is 12:
+			shopBuy(player, 750, bow)
+		else if clicked slot is 13:
+			shopBuyQuantity(player, 500, arrow, 32)
+		else if clicked slot is 14:
+			shopBuyQuantity(player, 1250, lapis lazuli, 16)
+		else if clicked slot is 15:
+			shopBuyQuantity(player, 1750, golden apple, 16)
+		else if clicked slot is 16:
+			shopBuy(player, 50000, totem of undying)
+		else if clicked slot is 17:
+			shopBuy(player, 20000, brewing stand)
+		else if clicked slot is 18:
+			shopBuyQuantity(player, 5000, ghast tear, 32)
+		else if clicked slot is 19:
+			shopBuyQuantity(player, 2000, gunpowder, 32)
+		else if clicked slot is 20:
+			shopBuyQuantity(player, 5000, blaze powder, 12)
+		else if clicked slot is 21:
+			shopBuyQuantity(player, 7500, glistering melon, 16)
+		else if clicked slot is 22:
+			shopBuyQuantity(player, 1000, spider eye, 16)
+		else if clicked slot is 23:
+			shopBuyQuantity(player, 6000, fermented spider eye, 16)
+		else if clicked slot is 24:
+			shopBuyQuantity(player, 4000, rabbit's foot, 16)
+		else if clicked slot is 25:
+			shopBuyQuantity(player, 1000, golden carrot, 16)
+		else if clicked slot is 26:
+			shopBuyQuantity(player, 3500, magma cream, 16)
+
+	else if name of player's inventory is "&2&lBlocks Page 1":
+		cancel event
+		if clicked slot is 53:
+			blockShop2(player)
+		else if clicked slot is 9:
+			shopBuyQuantity(player, 250, grass block, 16)
+		else if clicked slot is 10:
+			shopBuyQuantity(player, 250, dirt, 16)
+		else if clicked slot is 11:
+			shopBuyQuantity(player, 250, stone, 16)
+		else if clicked slot is 12:
+			shopBuyQuantity(player, 250, cobblestone, 16)
+		else if clicked slot is 13:
+			shopBuyQuantity(player, 500, oak log, 16)
+		else if clicked slot is 14:
+			shopBuyQuantity(player, 500, spruce log, 16)
+		else if clicked slot is 15:
+			shopBuyQuantity(player, 500, birch log, 16)
+		else if clicked slot is 16:
+			shopBuyQuantity(player, 500, jungle log, 16)
+		else if clicked slot is 17:
+			shopBuyQuantity(player, 500, acacia log, 16)
+		else if clicked slot is 18:
+			shopBuyQuantity(player, 500, dark oak log, 16)
+		else if clicked slot is 19:
+			shopBuyQuantity(player, 750, stone brick, 16)
+		else if clicked slot is 20:
+			shopBuyQuantity(player, 500, white wool, 16)
+		else if clicked slot is 21:
+			shopBuyQuantity(player, 750, glass, 16)
+		else if clicked slot is 22:
+			shopBuyQuantity(player, 500, sand, 16)
+		else if clicked slot is 23:
+			shopBuyQuantity(player, 500, gravel, 16)
+		else if clicked slot is 24:
+			shopBuyQuantity(player, 750, packed ice, 16)
+		else if clicked slot is 25:
+			shopBuyQuantity(player, 750, blue ice, 16)
+		else if clicked slot is 26:
+			shopBuyQuantity(player, 750, soul sand, 16)
+		else if clicked slot is 27:
+			shopBuyQuantity(player, 750, terracotta, 16)
+		else if clicked slot is 28:
+			shopBuyQuantity(player, 750, diorite, 16)
+		else if clicked slot is 29:
+			shopBuyQuantity(player, 750, andesite, 16)
+		else if clicked slot is 30:
+			shopBuyQuantity(player, 750, sandstone, 16)
+		else if clicked slot is 31:
+			shopBuyQuantity(player, 750, magma block, 16)
+		else if clicked slot is 32:
+			shopBuyQuantity(player, 500, granite, 16)
+		else if clicked slot is 33:
+			shopBuyQuantity(player, 500, soul torch, 32)
+		else if clicked slot is 34:
+			shopBuyQuantity(player, 500, torch, 32)
+		else if clicked slot is 35:
+			shopBuyQuantity(player, 500, soul lantern, 16)
+		else if clicked slot is 36:
+			shopBuyQuantity(player, 500, lantern, 16)
+		else if clicked slot is 37:
+			shopBuyQuantity(player, 750, sea lantern, 16)
+		else if clicked slot is 38:
+			shopBuyQuantity(player, 750, glowstone, 16)
+		else if clicked slot is 39:
+			shopBuyQuantity(player, 750, warped stem, 16)
+		else if clicked slot is 40:
+			shopBuyQuantity(player, 750, crimson stem, 16)
+		else if clicked slot is 41:
+			shopBuyQuantity(player, 750, blackstone, 16)
+		else if clicked slot is 42:
+			shopBuyQuantity(player, 750, endstone, 16)
+		else if clicked slot is 43:
+			shopBuyQuantity(player, 750, scaffolding, 16)
+		else if clicked slot is 44:
+			shopBuyQuantity(player, 15000, shulker box, 8)
+		else if clicked slot is 0:
+			shop(player)
+
+	else if name of player's inventory is "&2&lBlocks Page 2":
+		cancel event
+		if clicked slot is 45:
+			blockShop(player)
+		else if clicked slot is 9:
+			shopBuyQuantity(player, 1500, chest, 8)
+		else if clicked slot is 10:
+			shopBuyQuantity(player, 4500, obsidian, 4)
+
+	else if name of player's inventory is "&5&lColors":
+		cancel event
+		if clicked slot is 9:
+			shopBuyQuantity(player, 250, black dye, 16)
+		else if clicked slot is 10:
+			shopBuyQuantity(player, 250, white dye, 16)
+		else if clicked slot is 11:
+			shopBuyQuantity(player, 250, light gray dye, 16)
+		else if clicked slot is 12:
+			shopBuyQuantity(player, 250, gray dye, 16)
+		else if clicked slot is 13:
+			shopBuyQuantity(player, 250, yellow dye, 16)
+		else if clicked slot is 14:
+			shopBuyQuantity(player, 250, orange dye, 16)
+		else if clicked slot is 15:
+			shopBuyQuantity(player, 250, pink dye, 16)
+		else if clicked slot is 16:
+			shopBuyQuantity(player, 250, magenta dye, 16)
+		else if clicked slot is 17:
+			shopBuyQuantity(player, 250, purple dye, 16)
+		else if clicked slot is 18:
+			shopBuyQuantity(player, 250, green dye, 16)
+		else if clicked slot is 19:
+			shopBuyQuantity(player, 250, lime dye, 16)
+		else if clicked slot is 20:
+			shopBuyQuantity(player, 250, brown dye, 16)
+		else if clicked slot is 21:
+			shopBuyQuantity(player, 250, light blue dye, 16)
+		else if clicked slot is 22:
+			shopBuyQuantity(player, 250, cyan dye, 16)
+		else if clicked slot is 23:
+			shopBuyQuantity(player, 250, blue dye, 16)
+		else if clicked slot is 24:
+			shopBuyQuantity(player, 250, red dye, 16)
+		else if clicked slot is 0:
+			shop(player)
+
+	else if name of player's inventory is "&2&lFarming":
+		cancel event
+		if clicked slot is 10:
+			shopBuy(player, 500, water bucket)
+		else if clicked slot is 11:
+			shopBuy(player, 500, lava bucket)
+		else if clicked slot is 14:
+			shopBuyQuantity(player, 250, seeds, 16)
+		else if clicked slot is 15:
+			shopBuyQuantity(player, 750, potato, 16)
+		else if clicked slot is 16:
+			shopBuyQuantity(player, 500, carrot, 16)
+		else if clicked slot is 17:
+			shopBuyQuantity(player, 500, melon seeds, 16)
+		else if clicked slot is 18:
+			shopBuyQuantity(player, 2500, pumpkin seeds, 16)
+		else if clicked slot is 19:
+			shopBuyQuantity(player, 750, kelp, 16)
+		else if clicked slot is 0:
+			shop(player)
+
+	else if name of player's inventory is "&9&lConcrete":
+		cancel event
+		if clicked slot is 9:
+			shopBuyQuantity(player, 850, black concrete, 16)
+		else if clicked slot is 10:
+			shopBuyQuantity(player, 850, white concrete, 16)
+		else if clicked slot is 11:
+			shopBuyQuantity(player, 850, light gray concrete, 16)
+		else if clicked slot is 12:
+			shopBuyQuantity(player, 850, gray concrete, 16)
+		else if clicked slot is 13:
+			shopBuyQuantity(player, 850, yellow concrete, 16)
+		else if clicked slot is 14:
+			shopBuyQuantity(player, 850, orange concrete, 16)
+		else if clicked slot is 15:
+			shopBuyQuantity(player, 850, pink concrete, 16)
+		else if clicked slot is 16:
+			shopBuyQuantity(player, 850, magenta concrete, 16)
+		else if clicked slot is 17:
+			shopBuyQuantity(player, 850, purple concrete, 16)
+		else if clicked slot is 18:
+			shopBuyQuantity(player, 850, green concrete, 16)
+		else if clicked slot is 19:
+			shopBuyQuantity(player, 850, lime concrete, 16)
+		else if clicked slot is 20:
+			shopBuyQuantity(player, 850, brown concrete, 16)
+		else if clicked slot is 21:
+			shopBuyQuantity(player, 850, light blue concrete, 16)
+		else if clicked slot is 22:
+			shopBuyQuantity(player, 850, cyan concrete, 16)
+		else if clicked slot is 23:
+			shopBuyQuantity(player, 850, blue concrete, 16)
+		else if clicked slot is 24:
+			shopBuyQuantity(player, 850, red concrete, 16)
+		else if clicked slot is 0:
+			shop(player)
+
+# CHANGE FUNCTION TO READ SELLWAAND
+# CHANGE FUNCTION TO READ SELLWAAND
+# CHANGE FUNCTION TO READ SELLWAAND
+
+function tempSellwand(p: player):
+	broadcast "TOSCA USE YOUR FUNCTION HERE (idk)" to {_p}
+
+function toolShop(p: player):
+	set metadata tag "toolShop" of {_p} to chest inventory with 3 rows named "&5Tools"
+	set slot 0 of metadata tag "toolShop" of {_p} to barrier named "&cGo back!" with lore "&5Click here to go back!"
+	set slot 11 of metadata tag "toolShop" of {_p} to netherite pickaxe named "&cUNENCHANTED TOOLS"
+	set slot 14 of metadata tag "toolShop" of {_p} to glowing netherite pickaxe named "&aENCHANTED TOOLS"
+	open (metadata tag "toolShop" of {_p}) to {_p}
+
+function unenchantedTools(p: player):
+	set metadata tag "unenchantedTools" of {_p} to chest inventory with 5 rows named "&cUNENCHANTED TOOLS"
+	set slot 0 of metadata tag "unenchantedTools" of {_p} to barrier named "&cGo back!" with lore "&5Click here to go back!"
+	set slot 10 of metadata tag "unenchantedTools" of {_p} to stone sword named "&fStone sword - &b500"
+	set slot 12 of metadata tag "unenchantedTools" of {_p} to stone pickaxe named "&fStone pickaxe - &b1K"
+	set slot 14 of metadata tag "unenchantedTools" of {_p} to stone shovel named "&fStone shovel - &b1K"
+	set slot 16 of metadata tag "unenchantedTools" of {_p} to stone axe named "&fStone axe - &b1K"
+	set slot 19 of metadata tag "unenchantedTools" of {_p} to iron sword named "&fIron sword - &b2k"
+	set slot 21 of metadata tag "unenchantedTools" of {_p} to iron pickaxe named "&fIron Pickaxe - &b2.5k"
+	set slot 23 of metadata tag "unenchantedTools" of {_p} to iron shovel named "&fIron shovel - &b2.5k"
+	set slot 25 of metadata tag "unenchantedTools" of {_p} to iron axe named "&fIron axe - &b2.5k"
+	set slot 28 of metadata tag "unenchantedTools" of {_p} to gold sword named "&fGold sword - &b5k"
+	set slot 30 of metadata tag "unenchantedTools" of {_p} to gold pickaxe named "&fGold Pickaxe - &b6.5k"
+	set slot 32 of metadata tag "unenchantedTools" of {_p} to gold shovel named "&fgold shovel - &b6.5k"
+	set slot 34 of metadata tag "unenchantedTools" of {_p} to gold axe named "&fgold axe - &b6.5k"
+	set slot 37 of metadata tag "unenchantedTools" of {_p} to diamond sword named "&fdiamond sword - &b10k"
+	set slot 39 of metadata tag "unenchantedTools" of {_p} to diamond pickaxe named "&fdiamond Pickaxe - &b11k"
+	set slot 41 of metadata tag "unenchantedTools" of {_p} to diamond shovel named "&fdiamond shovel - &b11k"
+	set slot 43 of metadata tag "unenchantedTools" of {_p} to diamond axe named "&fdiamond axe - &b11K"
+	set slot 1, 2, 3, 4, 5, 6, 7, 8, 9, 44, 11, 13, 15, 17, 18, 20, 22, 24, 26, 27, 29, 31, 33, 35, 36, 38, 40 and 42 of metadata tag "unenchantedTools" of {_p} to red glass pane named " "
+	open (metadata tag "unenchantedTools" of {_p}) to {_p}
+
+function enchantedTools(p: player):
+	set metadata tag "enchantedTools" of {_p} to chest inventory with 5 rows named "&aENCHANTED TOOLS"
+	set slot 0 of metadata tag "enchantedTools" of {_p} to barrier named "&cGo back!" with lore "&5Click here to go back!"
+	set slot 10 of metadata tag "enchantedTools" of {_p} to stone sword of sharpness 5,unbreaking 1 named "&fStone sword - &b5K"
+	set slot 12 of metadata tag "enchantedTools" of {_p} to stone pickaxe of efficiency 5,unbreaking 3 named "&fStone pickaxe - &b10K"
+	set slot 14 of metadata tag "enchantedTools" of {_p} to stone shovel of efficiency 5,unbreaking 3 named "&fStone shovel - &b10K"
+	set slot 16 of metadata tag "enchantedTools" of {_p} to stone axe of efficiency 5,unbreaking 3 named "&fStone axe - &b10K"
+	set slot 19 of metadata tag "enchantedTools" of {_p} to iron sword of sharpness 5,unbreaking 2,mending 1 named "&fIron sword - &b15k"
+	set slot 21 of metadata tag "enchantedTools" of {_p} to iron pickaxe of efficiency 6,unbreaking 3 named "&fIron Pickaxe - &b20k"
+	set slot 23 of metadata tag "enchantedTools" of {_p} to iron shovel of efficiency 6,unbreaking 3 named "&fIron shovel - &b20k"
+	set slot 25 of metadata tag "enchantedTools" of {_p} to iron axe of efficiency 6,unbreaking 3 named "&fIron axe - &b20k"
+	set slot 28 of metadata tag "enchantedTools" of {_p} to gold sword of sharpness 8 named "&fGold sword - &b25k"
+	set slot 30 of metadata tag "enchantedTools" of {_p} to gold pickaxe of efficiency 10,unbreaking 1 named "&fGold Pickaxe - &b30k"
+	set slot 32 of metadata tag "enchantedTools" of {_p} to gold shovel of efficiency 10,unbreaking 1 named "&fgold shovel - &b30k"
+	set slot 34 of metadata tag "enchantedTools" of {_p} to gold axe of efficiency 10,unbreaking 1 named "&fgold axe - &b30k"
+	set slot 37 of metadata tag "enchantedTools" of {_p} to diamond sword of sharpness 5,mending 1,unbreaking 3,knockback 3,fire aspect 2 named "&fdiamond sword - &b55k"
+	set slot 39 of metadata tag "enchantedTools" of {_p} to diamond pickaxe of efficiency 6,unbreaking 3,mending 1,silk touch 1 named "&fdiamond Pickaxe - &b60k"
+	set slot 41 of metadata tag "enchantedTools" of {_p} to diamond shovel of efficiency 6,unbreaking 3,mending 1,silk touch 1 named "&fdiamond shovel - &b60k"
+	set slot 43 of metadata tag "enchantedTools" of {_p} to diamond axe of efficiency 6,unbreaking 3,mending 1 named "&fdiamond axe - &b60K"
+	set slot 1, 2, 3, 4, 5, 6, 7, 8, 9, 44, 11, 13, 15, 17, 18, 20, 22, 24, 26, 27, 29, 31, 33, 35, 36, 38, 40 and 42 of metadata tag "enchantedTools" of {_p} to lime glass pane named " "
+	open (metadata tag "enchantedTools" of {_p}) to {_p}
+
+function otherShop(p: player):
+	set metadata tag "otherShop" of {_p} to chest inventory with 4 rows named "&2&lOther"
+	set slot 1, 2, 3, 4, 5, 6, 7, 8, 35, 27, 28, 29, 30, 31, 32, 33 and 34 of metadata tag "otherShop" of {_p} to green glass pane named " "
+	set slot 9 of metadata tag "otherShop" of {_p} to diamond hoe of unbreaking 1 named "&6Sell Wand &f- &b€1m"
+	set slot 10 of metadata tag "otherShop" of {_p} to iron block named "&fIron block &f- &b€2500" with lore "&5x8"
+	set slot 11 of metadata tag "otherShop" of {_p} to gold block named "&fGold block &f- &b€5500" with lore "&5x8"
+	set slot 12 of metadata tag "otherShop" of {_p} to diamond block named "&fDiamond block &f- &b€8500" with lore "&5x8"
+	set slot 14 of metadata tag "otherShop" of {_p} to glowing emerald block named "&fBeacon tower &f- &b€164k" with lore "&5x164 emerald blocks"
+	set slot 15 of metadata tag "otherShop" of {_p} to beacon named "&fBeacon &f- &b€25k" with lore "&5x1"
+	set slot 16 of metadata tag "otherShop" of {_p} to ancient debris named "&fAncient debris &f- &b€30k" with lore "&5x16"
+	set slot 13 of metadata tag "otherShop" of {_p} to coal block named "&fCoal block &f- &b€1000" with lore "&5x8"
+	set slot 17 of metadata tag "otherShop" of {_p} to bow of infinity ,power 5,flame 1,unbreaking 1, named "&4T&fN&4T &4B&fO&4W &f- &b€75k" with lore "&5x1"
+	set slot 0 of metadata tag "otherShop" of {_p} to barrier named "&cGo back!" with lore "&5Click here to go back!"
+	open (metadata tag "otherShop" of {_p}) to {_p}
+
+function redstoneShop(p: player):
+	set metadata tag "redstoneShop" of {_p} to chest inventory with 4 rows named "&c&lRedstone"
+	set slot 1, 2, 3, 4, 5, 6, 7, 8, 35, 27, 28, 29, 30, 31, 32, 33 and 34 of metadata tag "redstoneShop" of {_p} to red glass pane named " "
+	set slot 12 of metadata tag "redstoneShop" of {_p} to observer named "&fObserver &f- &b€5600" with lore "&5x16"
+	set slot 9 of metadata tag "redstoneShop" of {_p} to redstone block named "&fRedstone block &f- &b€500" with lore "&5x4"
+	set slot 10 of metadata tag "redstoneShop" of {_p} to sticky piston named "&fSticky piston &f- &b€4500" with lore "&5x16"
+	set slot 11 of metadata tag "redstoneShop" of {_p} to piston named "&fPiston &f- &b€3500" with lore "&5x16"
+	set slot 13 of metadata tag "redstoneShop" of {_p} to redstone repeater named "&fRedstone repeater &f- &b€1500" with lore "&5x16"
+	set slot 14 of metadata tag "redstoneShop" of {_p} to redstone comparator named "&fRedstone comparator &f- &b€1500" with lore "&5x16"
+	set slot 15 of metadata tag "redstoneShop" of {_p} to hopper named "&fHopper &f- &b€3500" with lore "&5x16"
+	set slot 16 of metadata tag "redstoneShop" of {_p} to dropper named "&fDropper &f- &b€3500" with lore "&5x16"
+	set slot 17 of metadata tag "redstoneShop" of {_p} to dispenser named "&fDispenser &f- &b€3500" with lore "&5x16"
+	set slot 0 of metadata tag "redstoneShop" of {_p} to barrier named "&cGo back!" with lore "&5Click here to go back!"
+	set slot 18 of metadata tag "redstoneShop" of {_p} to honey block named "&fHoney block &f- &b€1500" with lore "&5x16"
+	set slot 19 of metadata tag "redstoneShop" of {_p} to slime block named "&fSlime block &f- &b€1500" with lore "&5x16"
+	set slot 20 of metadata tag "redstoneShop" of {_p} to redstone lamp named "&fRedstone lamp &f- &b€2500" with lore "&5x16"
+	set slot 21 of metadata tag "redstoneShop" of {_p} to daylight sensor named "&fDaylight sensor &f- &b€2500" with lore "&5x16"
+	set slot 22 of metadata tag "redstoneShop" of {_p} to lever named "&flever &f- &b€250" with lore "&5x16"
+	set slot 23 of metadata tag "redstoneShop" of {_p} to redstone torch named "&fRedstone torch &f- &b€250" with lore "&5x16"
+	set slot 24 of metadata tag "redstoneShop" of {_p} to string named "&fString &f- &b€150" with lore "&5x32"
+	open (metadata tag "redstoneShop" of {_p}) to {_p}
+
+function pvpShop(p: player):
+	set metadata tag "pvpShop" of {_p} to chest inventory with 4 rows named "&3&lPvP"
+	set slot 1, 2, 3, 4, 5, 6, 7, 8, 35, 27, 28, 29, 30, 31, 32, 33 and 34 of metadata tag "pvpShop" of {_p} to cyan glass pane named " "
+	set slot 0 of metadata tag "pvpShop" of {_p} to barrier named "&cGo back!" with lore "&5Click here to go back!"
+	set slot 9 of metadata tag "pvpShop" of {_p} to enchanting table named "&fEnchanting table &f- &b€25k" with lore "&5x1"
+	set slot 10 of metadata tag "pvpShop" of {_p} to book shelf named "&fBook shelf &f- &b€4500" with lore "&5x4"
+	set slot 11 of metadata tag "pvpShop" of {_p} to experience bottle named "&fBottle o' Enchanting &f- &b€1500" with lore "&5x16"
+	set slot 12 of metadata tag "pvpShop" of {_p} to bow named "&fBow &f- &b€750" with lore "&5x1"
+	set slot 13 of metadata tag "pvpShop" of {_p} to arrow named "&fArrow &f- &b€500" with lore "&5x32"
+	set slot 14 of metadata tag "pvpShop" of {_p} to lapis lazuli named "&fLapis lazuli &f- &b€1250" with lore "&5x16"
+	set slot 15 of metadata tag "pvpShop" of {_p} to golden apple named "&fGolden apple &f- &b€1750" with lore "&5x16"
+	set slot 16 of metadata tag "pvpShop" of {_p} to totem of undying named "&fTotem of undying &f- &b€50k" with lore "&5x1"
+	set slot 17 of metadata tag "pvpShop" of {_p} to brewing stand named "&fBrewing stand &f- &b€20k" with lore "&5x1"
+	set slot 18 of metadata tag "pvpShop" of {_p} to ghast tear named "&fGhast tear &f- &b€5k" with lore "&5x32"
+	set slot 19 of metadata tag "pvpShop" of {_p} to gunpowder named "&fGunpowder &f- &b€2k" with lore "&5x32"
+	set slot 20 of metadata tag "pvpShop" of {_p} to blaze powder named "&fBlaze powder &f- &b€5k" with lore "&5x12"
+	set slot 21 of metadata tag "pvpShop" of {_p} to glistering melon named "&fGlistering melon &f- &b€7.5k" with lore "&5x16"
+	set slot 22 of metadata tag "pvpShop" of {_p} to spider eye named "&fSpider eye &f- &b€1k" with lore "&5x16"
+	set slot 23 of metadata tag "pvpShop" of {_p} to fermented spider eye named "&fFermented spider eye &f- &b€6k" with lore "&5x16"
+	set slot 24 of metadata tag "pvpShop" of {_p} to rabbit foot named "&fRabitt's foot &f- &b€4k" with lore "&5x16"
+	set slot 25 of metadata tag "pvpShop" of {_p} to golden carrot named "&fGolden carrot &f- &b€1k" with lore "&5x16"
+	set slot 26 of metadata tag "pvpShop" of {_p} to magma cream named "&fMagma cream &f- &b€3500" with lore "&5x16"
+	open (metadata tag "pvpShop" of {_p}) to {_p}
+
+function blockShop(p: player):
+	set metadata tag "blockShop" of {_p} to chest inventory with 6 rows named "&2&lBlocks Page 1"
+	set slot 1, 2, 3, 4, 5, 6, 7, 8, 45, 46, 47, 48, 49, 50, 51 and 52 of metadata "blockShop" of {_p} to lime glass pane named " "
+	set slot 53 of metadata tag "blockShop" of {_p} to arrow named "&bNext page!" with lore "&5Click this to go to the next page!"
+	set slot 9 of metadata tag "blockShop" of {_p} to grass block named "&fGrass block &f- &b€250" with lore "&5x16"
+	set slot 10 of metadata tag "blockShop" of {_p} to dirt named "&fDirt &f- &b€250" with lore "&5x16"
+	set slot 11 of metadata tag "blockShop" of {_p} to stone named "&fStone &f- &b€250" with lore "&5x16"
+	set slot 12 of metadata tag "blockShop" of {_p} to cobblestone named "&fCobblestone &f- &b€250" with lore "&5x16"
+	set slot 13 of metadata tag "blockShop" of {_p} to oak log named "&fOak log &f- &b€500" with lore "&5x16"
+	set slot 14 of metadata tag "blockShop" of {_p} to spruce log named "&fSpruce log &f- &b€500" with lore "&5x16"
+	set slot 15 of metadata tag "blockShop" of {_p} to birch log named "&fBirch log &f- &b€500" with lore "&5x16"
+	set slot 16 of metadata tag "blockShop" of {_p} to jungle log named "&fJungle log &f- &b€500" with lore "&5x16"
+	set slot 17 of metadata tag "blockShop" of {_p} to acacia log named "&fAcacia log &f- &b€500" with lore "&5x16"
+	set slot 18 of metadata tag "blockShop" of {_p} to dark oak log named "&fDark oak log &f- &b€500" with lore "&5x16"
+	set slot 19 of metadata tag "blockShop" of {_p} to stone brick named "&fStone brick &f- &b€750" with lore "&5x16"
+	set slot 20 of metadata tag "blockShop" of {_p} to white wool named "&fWhite wool &f- &b€500" with lore "&5x16"
+	set slot 21 of metadata tag "blockShop" of {_p} to glass named "&fGlass &f- &b€750" with lore "&5x16"
+	set slot 22 of metadata tag "blockShop" of {_p} to sand named "&fSand &f- &b€500" with lore "&5x16"
+	set slot 23 of metadata tag "blockShop" of {_p} to gravel named "&fGravel &f- &b€500" with lore "&5x16"
+	set slot 24 of metadata tag "blockShop" of {_p} to packed ice named "&fPacked ice &f- &b€750" with lore "&5x16"
+	set slot 25 of metadata tag "blockShop" of {_p} to blue ice named "&fBlue ice &f- &b€750" with lore "&5x16"
+	set slot 26 of metadata tag "blockShop" of {_p} to soul sand named "&fSoul sand &f- &b€750" with lore "&5x16"
+	set slot 27 of metadata tag "blockShop" of {_p} to terracotta named "&fTerracotta &f- &b€750" with lore "&5x16"
+	set slot 28 of metadata tag "blockShop" of {_p} to diorite named "&fDiorite &f- &b€500" with lore "&5x16"
+	set slot 29 of metadata tag "blockShop" of {_p} to andesite named "&fAndsite &f- &b€500" with lore "&5x16"
+	set slot 30 of metadata tag "blockShop" of {_p} to sandstone named "&fSandstone &f- &b€750" with lore "&5x16"
+	set slot 31 of metadata tag "blockShop" of {_p} to magma block named "&fMagma block &f- &b€750" with lore "&5x16"
+	set slot 32 of metadata tag "blockShop" of {_p} to granite named "&fGranite &f- &b€500" with lore "&5x16"
+	set slot 33 of metadata tag "blockShop" of {_p} to soul torch named "&fSoul torch &f- &b€500" with lore "&5x32"
+	set slot 34 of metadata tag "blockShop" of {_p} to torch named "&fTorch &f- &b€500" with lore "&5x32"
+	set slot 35 of metadata tag "blockShop" of {_p} to soul lantern named "&fSoul lantern &f- &b€500" with lore "&5x16"
+	set slot 36 of metadata tag "blockShop" of {_p} to lantern named "&fLantern &f- &b€500" with lore "&5x16"
+	set slot 37 of metadata tag "blockShop" of {_p} to sea lantern named "&fSea lantern &f- &b€750" with lore "&5x16"
+	set slot 38 of metadata tag "blockShop" of {_p} to glowstone named "&fGlowstone &f- &b€750" with lore "&5x16"
+	set slot 39 of metadata tag "blockShop" of {_p} to warped stem named "&fWarped stem &f- &b€750" with lore "&5x16"
+	set slot 40 of metadata tag "blockShop" of {_p} to crimson stem named "&fCrimson stem &f- &b€750" with lore "&5x16"
+	set slot 41 of metadata tag "blockShop" of {_p} to blackstone named "&fBlackstone &f- &b€750" with lore "&5x16"
+	set slot 42 of metadata tag "blockShop" of {_p} to endstone named "&fEndstone &f- &b€750" with lore "&5x16"
+	set slot 43 of metadata tag "blockShop" of {_p} to scaffolding named "&fScaffolding &f- &b€750" with lore "&5x16"
+	set slot 44 of metadata tag "blockShop" of {_p} to shulker box named "&fShulker box &f- &b€15000" with lore "&5x8"
+	set slot 0 of metadata tag "blockShop" of {_p} to barrier named "&cGo back!" with lore "&5Click here to go back!"
+	open (metadata tag "blockShop" of {_p}) to {_p}
+
+function blockShop2(p: player):
+	set metadata tag "blockShop2" of {_p} to chest inventory with 6 rows named "&2&lBlocks Page 2"
+	set slot 0, 1, 2, 3, 4, 5, 6, 7, 8, 45, 46, 47, 48, 49, 50, 51, 52, and 53 of metadata "blockShop2" of {_p} to lime glass pane named " "
+	set slot 45 of metadata tag "blockShop2" of {_p} to arrow named "&bPrevious page!" with lore "Click here to go to the previous page!"
+	set slot 9 of metadata tag "blockShop2" of {_p} to chest named "&fChest &f- &b€1500" with lore "&5x8"
+	set slot 10 of metadata tag "blockShop2" of {_p} to obsidian named "&fObsidian &f- &b€4500" with lore "&5x4"
+	open (metadata tag "blockShop2" of {_p}) to {_p}
+
+function dyeShop(p: player):
+	set metadata tag "dyeShop" of {_p} to chest inventory with 4 rows named "&5&lColors"
+	set slot 1, 2, 3, 4, 5, 6, 7, 8, 35, 27, 28, 29, 30, 31, 32, 33 and 34 of metadata tag "dyeShop" of {_p} to pink glass pane named " "
+	set slot 9 of metadata tag "dyeShop" of {_p} to black dye named "&fBlack dye &f- &b€250" with lore "&5x16"
+	set slot 10 of metadata tag "dyeShop" of {_p} to white dye named "&fWhite dye &f- &b€250" with lore "&5x16"
+	set slot 11 of metadata tag "dyeShop" of {_p} to light gray dye named "&fLight gray dye &f- &b€250" with lore "&5x16"
+	set slot 12 of metadata tag "dyeShop" of {_p} to gray dye named "&fGray dye &f- &b€250" with lore "&5x16"
+	set slot 13 of metadata tag "dyeShop" of {_p} to yellow dye named "&fYellow dye &f- &b€250" with lore "&5x16"
+	set slot 14 of metadata tag "dyeShop" of {_p} to orange dye named "&fOrange dye &f- &b€250" with lore "&5x16"
+	set slot 15 of metadata tag "dyeShop" of {_p} to pink dye named "&fPink dye &f- &b€250" with lore "&5x16"
+	set slot 16 of metadata tag "dyeShop" of {_p} to magenta dye named "&fMagenta dye &f- &b€250" with lore "&5x16"
+	set slot 17 of metadata tag "dyeShop" of {_p} to purple dye named "&fPurple dye &f- &b€250" with lore "&5x16"
+	set slot 18 of metadata tag "dyeShop" of {_p} to green dye named "&fGreen dye &f- &b€250" with lore "&5x16"
+	set slot 19 of metadata tag "dyeShop" of {_p} to lime dye named "&fLime dye &f- &b€250" with lore "&5x16"
+	set slot 20 of metadata tag "dyeShop" of {_p} to brown dye named "&fBrown dye &f- &b€250" with lore "&5x16"
+	set slot 21 of metadata tag "dyeShop" of {_p} to light blue dye named "&fLight blue dye &f- &b€250" with lore "&5x16"
+	set slot 22 of metadata tag "dyeShop" of {_p} to cyan dye named "&fCyan dye &f- &b€250" with lore "&5x16"
+	set slot 23 of metadata tag "dyeShop" of {_p} to blue dye named "&fBlue dye &f- &b€250" with lore "&5x16"
+	set slot 24 of metadata tag "dyeShop" of {_p} to red dye named "&fRed dye &f- &b€250" with lore "&5x16"
+	set slot 0 of metadata tag "dyeShop" of {_p} to barrier named "&cGo back!" with lore "&5Click here to go back!"
+	open (metadata tag "dyeShop" of {_p}) to {_p}
+
+function farmingShop(p: player):
+	set metadata tag "farmingShop" of {_p} to chest inventory with 4 rows named "&2&lFarming"
+	set slot 1, 2, 3, 4, 5, 6, 7, 8, 35, 27, 28, 29, 30, 31, 32, 33 and 34 of metadata tag "farmingShop" of {_p} to green glass pane named " "
+	set slot 0 of metadata tag "farmingShop" of {_p} to barrier named "&cGo back!" with lore "&5Click here to go back!"
+	set slot 10 of metadata tag "farmingShop" of {_p} to water bucket named "&fWater bucket &f- &b€500" with lore "&5x1"
+	set slot 11 of metadata tag "farmingShop" of {_p} to lava bucket named "&fLava bucket &f- &b€500" with lore "&5x1"
+	set slot 14 of metadata tag "farmingShop" of {_p} to seeds named "&fSeeds &f- &b€250" with lore "&5x16"
+	set slot 15 of metadata tag "farmingShop" of {_p} to potato named "&fPotato &f- &b€750" with lore "&5x16"
+	set slot 16 of metadata tag "farmingShop" of {_p} to carrot named "&fCarrot &f- &b€500" with lore "&5x16"
+	set slot 17 of metadata tag "farmingShop" of {_p} to melon seeds named "&fMelon seeds &f- &b€500" with lore "&5x16"
+	set slot 18 of metadata tag "farmingShop" of {_p} to pumpkin seeds named "&fPumpkin seeds &f- &b€2500" with lore "&5x16"
+	set slot 19 of metadata tag "farmingShop" of {_p} to kelp named "&fKelp &f- &b€750" with lore "&5x16"
+	open (metadata tag "farmingShop" of {_p}) to {_p}
+
+function concreteShop(p: player):
+	set metadata tag "concreteShop" of {_p} to chest inventory with 4 rows named "&9&lConcrete"
+	set slot 1, 2, 3, 4, 5, 6, 7, 8, 35, 27, 28, 29, 30, 31, 32, 33 and 34 of metadata tag "concreteShop" of {_p} to blue glass pane named " "
+	set slot 9 of metadata tag "concreteShop" of {_p} to black concrete named "&fBlack concrete &f- &b€850" with lore "&5x16"
+	set slot 10 of metadata tag "concreteShop" of {_p} to white concrete named "&fWhite concrete &f- &b€850" with lore "&5x16"
+	set slot 11 of metadata tag "concreteShop" of {_p} to light gray concrete named "&fLight gray concrete &f- &b€850" with lore "&5x16"
+	set slot 12 of metadata tag "concreteShop" of {_p} to gray concrete named "&fGray concrete &f- &b€850" with lore "&5x16"
+	set slot 13 of metadata tag "concreteShop" of {_p} to yellow concrete named "&fYellow concrete &f- &b€850" with lore "&5x16"
+	set slot 14 of metadata tag "concreteShop" of {_p} to orange concrete named "&fOrange concrete &f- &b€850" with lore "&5x16"
+	set slot 15 of metadata tag "concreteShop" of {_p} to pink concrete named "&fPink concrete &f- &b€850" with lore "&5x16"
+	set slot 16 of metadata tag "concreteShop" of {_p} to magenta concrete named "&fMagenta concrete &f- &b€850" with lore "&5x16"
+	set slot 17 of metadata tag "concreteShop" of {_p} to purple concrete named "&fPurple concrete &f- &b€850" with lore "&5x16"
+	set slot 18 of metadata tag "concreteShop" of {_p} to green concrete named "&fGreen concrete &f- &b€850" with lore "&5x16"
+	set slot 19 of metadata tag "concreteShop" of {_p} to lime concrete named "&fLime concrete &f- &b€850" with lore "&5x16"
+	set slot 20 of metadata tag "concreteShop" of {_p} to brown concrete named "&fBrown concrete &f- &b€850" with lore "&5x16"
+	set slot 21 of metadata tag "concreteShop" of {_p} to light blue concrete named "&fLight blue concrete &f- &b€850" with lore "&5x16"
+	set slot 22 of metadata tag "concreteShop" of {_p} to cyan concrete named "&fCyan concrete &f- &b€850" with lore "&5x16"
+	set slot 23 of metadata tag "concreteShop" of {_p} to blue concrete named "&fBlue concrete &f- &b€850" with lore "&5x16"
+	set slot 24 of metadata tag "concreteShop" of {_p} to red concrete named "&fRed concrete &f- &b€850" with lore "&5x16"
+	set slot 0 of metadata tag "concreteShop" of {_p} to barrier named "&cGo back!" with lore "&5Click here to go back!"
+	open (metadata tag "concreteShop" of {_p}) to {_p}
