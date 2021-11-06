@@ -48,6 +48,9 @@ function pasteDungeon(loc: location, name: text):
 on tab complete of "/dungeon":
 	set tab completions for position 1 to "wand", "clearStart", "listStart", "listRoom", "copy", "delete", "save", "load", "remove", "start", "end", "openAll", and "paste"
 	set tab completions for position 2 to {d_roomList::*}
+	set tab completions for position 3 to "11" and "21"
+	set tab completions for position 4 to "11" and "21"
+	set tab completions for position 5 to "11" and "21"
 
 command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 	trigger:

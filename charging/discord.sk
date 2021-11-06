@@ -1,5 +1,4 @@
 options:
-	token: Nzc5MTExNDQ5MzQzMTY0NDE4.X7byFA.hIo0NDj7aUo-F85ZmnbbPeFdhH0
 	charging: &8[<##BBEFE0>&lCHARGING&8]&7
 	discord: &8[<##BBEFE0>&lDISCORD&8]&7
 	permission: &7Insufficient Permissions
