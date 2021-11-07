@@ -139,7 +139,7 @@ function new(p: player):
 	set slot 0 of {_p} to {1_sword}
 	set slot 1 of {_p} to {1_bow}
 	set slot 40 of {_p} to {1_shield}
-	set slot 8 of {_p} to skull of {_p} named "<##BBEFE0>&lMENU" with lore " &8╹ &7Click to Open"
+	set slot 8 of {_p} to compass named "<##BBEFE0>&lMENU" with lore " &8╹ &7Click to Open"
 
 function newcenter(p: player):
 	set slot 12 of {_p} to {pegasuslock}

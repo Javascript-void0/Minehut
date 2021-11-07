@@ -26,15 +26,15 @@ npc left click:
 
 npc right click:
 	if citizen is 8:
-		if player's tool is {weatheredsilver}:
+		if line 2 of lore of player's tool contains "Weathered":
 			show large explosion at {well}
 			remove 1 of tool from tool
 			weatheredReward(player)
-		if player's tool is {tarnishedsilver}:
+		else if line 2 of lore of player's tool contains "Tarnished":
 			show large explosion at {well}
 			remove 1 of tool from tool
 			tarnishedReward(player)
-		if player's tool is {polishedsilver}:
+		else if line 2 of lore of player's tool contains "Polished":
 			show large explosion at {well}
 			remove 1 of tool from tool
 			polishedReward(player)
@@ -175,4 +175,4 @@ function tarnishedReward(p: player):
 		give {_p} 1 of {polishedsilver}
 		send title "&c" with subtitle "&7Recieved <##BBEFE0>1 polished coin &7(3%%)" to {_p for 2 seconds}
 	else:
-		send "{@prefix} &cError: %{_n}%" to {_p}
+		send "{@admin} &cError: %{_n}%" to {_p}

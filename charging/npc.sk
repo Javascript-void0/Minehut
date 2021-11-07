@@ -4,46 +4,41 @@ options:
 	admin: &8[<##BBEFE0>&lADMIN&8]&7
 	world: world
 
-command /quest [<text>]:
-	trigger:
-		set {activeQuest::%player%} to arg-1
-		send "{@charging} &7Quest Set to &e%arg-1%"
-		set the player's compass target to location of {spawn}
+on inventory click:
+	if event-inventory = (metadata tag "Map" of player):
+		cancel event
+	else if event-inventory = (metadata tag "Dungeon" of player):
+		clicked slot is 4
+		stop
 
 function Map(p: player):
 	set metadata tag "Map" of {_p} to dropper inventory named "Map"
 	set slot 4 of metadata tag "Map" of {_p} to compass named "&cSpawn"
 	open (metadata tag "Map" of {_p}) to {_p}
 
-on inventory click:
-	name of player's inventory is "Map" or "Dungeon"
-	cancel event
-function Sodden(p: player):
-	stop
-	# open virtual hopper inventory named "&8Sodden's Setup" to {_p}
+function Library(p: player):
+	set metadata tag "Library" of {_p} to chest inventory with 3 rows named "Library"
+	open (metadata tag "Library" of {_p}) to {_p}
 
 function Dungeon(p: player):
-	set metadata tag "Dungeon" of {_p} to hopper inventory named "Dungeon"
-	set slot 2 of metadata tag "Dungeon" of {_p} to emerald named "&cStart"
+	set metadata tag "Dungeon" of {_p} to dropper inventory named "Dungeon"
+	set slot 4 of metadata tag "Dungeon" of {_p} to emerald named "&cStart"
 	open (metadata tag "Dungeon" of {_p}) to {_p}
 
-function Atlas(p: player):
-	stop
-	# open virtual dropper inventory named "&8Atlas Quest Board" to {_p}
-	# format gui slot 1 of {_p} with emerald named "&7test"
+function Merchant(p: player):
+	set metadata tag "Merchant" of {_p} to chest inventory with 5 rows named "Merchant"
+	open (metadata tag "Merchant" of {_p}) to {_p}
 
-function Feli(p: player):
-	stop
-	# open virtual dropper inventory named "&8Feli Quest Board" to {_p}
-	# format gui slot 1 of {_p} with emerald named "&7test"
+function Banker(p: player):
+	set metadata tag "Banker" of {_p} to chest inventory with 5 rows named "Banker"
+	open (metadata tag "Banker" of {_p}) to {_p}
 
-function Odin(p: player):
+function Tutorial(p: player):
 	stop
-	# open virtual hopper inventory named "&8Odin's Traning Areas" to {_p}
 
-function Hildr(p: player):
-	stop
-	# open virtual chest inventory with size 3 named "Bank" to {_p}
+function Quest(p: player):
+	set metadata tag "Quest" of {_p} to chest inventory with 5 rows named "Quests"
+	open (metadata tag "Quest" of {_p}) to {_p}
 
 command /wait:
 	trigger:
@@ -61,7 +56,17 @@ function waitToggle(p: player):
 		send "{@charging} NPC chat delay turned off" to {_p}
 
 npc left click:
-	if citizen is 2:
+	if citizen is 0:
+		Quest(player)
+	else if citizen is 1:
+		Library(player)
+	else if citizen is 2:
 		Dungeon(player)
-	if citizen is 1:
+	else if citizen is 3:
+		Tutorial(player)
+	else if citizen is 4:
+		Merchant(player)
+	else if citizen is 5:
 		Map(player)
+	else if citizen is 6:
+		Banker(player)

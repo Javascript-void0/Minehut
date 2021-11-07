@@ -50,7 +50,7 @@ command /menu:
 		menu(player)
 
 on inventory click: 
-	name of player's inventory is "&8Menu"
+	event-inventory = (metadata tag "Menu" of player)
 	if clicked slot is 0:
 		cancel event
 		pvpToggle(player)

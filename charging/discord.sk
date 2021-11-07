@@ -1,4 +1,4 @@
-options:
+options: # Vixio broken
 	charging: &8[<##BBEFE0>&lCHARGING&8]&7
 	discord: &8[<##BBEFE0>&lDISCORD&8]&7
 	permission: &7Insufficient Permissions
