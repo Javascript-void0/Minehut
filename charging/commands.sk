@@ -7,8 +7,8 @@ options:
 
 
 on tab complete of "/commands" and "/cmd" and "/command" and "/c":
-	set tab completions for position 1 to "3x3", "new", "statcheck", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", and "tools"
-	if tab complete arg-1 is "statcheck" or "dailyreset":
+	set tab completions for position 1 to "3x3", "new", "statcheck", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", and "tools"
+	if tab complete arg-1 is "statcheck", or "dailyreset":
 		set tab completions for position 2 to all players
 
 
@@ -77,6 +77,8 @@ command /commands [<text>] [<text>]:
 					set {p_defense::%arg-2%} to 5
 				if {p_maxdefense::%arg-2%} is not set:
 					set {p_maxdefense::%arg-2%} to 5
+				if {p_bank::%arg-2%} is not set:
+					set {p_bank::%arg-2%} to 0
 				send "{@admin} &7Done Checking"
 
 
@@ -125,6 +127,13 @@ command /commands [<text>] [<text>]:
 				else if {mobcap} is false:
 					set {mobcap} to true
 					send "{@admin} &7Mobcap set to true"
+
+
+
+			else if arg-1 is "serverWorth":
+				if arg-2 is set:
+					set {server_worth} to arg-2 parsed as integer
+					send "{@admin} &7Set Server Worth to %arg-2%"
 
 
 

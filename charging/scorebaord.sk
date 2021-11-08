@@ -2,7 +2,7 @@ options: #8fb6ab
 	world: world
 
 function scoreboardFormat(n: number) :: text:
-	set {_data} to "f,18:e,15:d,12:3,9:b,6:a,3"
+	set {_data} to "f,18:e,15:d,12:c,9:b,6:a,3"
 	loop split {_data} at ":":
 		set {_s::*} to split loop-value at ","
 		{_n} >= 10 ^ {_s::2} parsed as number
