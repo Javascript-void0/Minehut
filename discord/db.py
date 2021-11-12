@@ -25,7 +25,7 @@ async def on_ready():
     db = guild.get_channel(900146904632025148)
     log = test.get_channel(872829816624271381)
     file_log = test.get_channel(872829900485193758)
-    portal = guild.get_channel(886738161491914772)
+    portal = guild.get_channel(900147959168118825)
     print('[ + ] Started {0.user}'.format(client))
     print(f'[ + ] Connected to database...')
     await log.send('```DATABASE: Started {0.user}```'.format(client))
