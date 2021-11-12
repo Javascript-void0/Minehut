@@ -204,4 +204,18 @@ on walking on diamond block:
 	set {_z} to z-coordinate of {dungeonActive::%player%}
 	teleport player to location({_x} + 7, {_y} + 1, {_z}, world "dungeon", -90, 0)
 	set block at {dungeonActive::%player%} to redstone block
-					
+
+on right click:
+	world of player is "dungeon"
+	if event-block is chest:
+		cancel event
+		chest(player)
+	else if event-block is trapped chest:
+		cancel event
+		tchest(player)
+
+function chest(p: player):
+	send "chest" to {_p}
+
+function tchest(p: player):
+	send "trap chest" to {_p}

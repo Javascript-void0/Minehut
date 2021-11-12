@@ -1,0 +1,177 @@
+options:
+	charging: &8[<##BBEFE0>&lCHARGING&8]&7
+	discord: &8[<##BBEFE0>&lDISCORD&8]&7
+	permission: &7Insufficient Permissions
+	admin: &8[<##BBEFE0>&lADMIN&8]&7
+	world: world
+
+on load:
+	make new discord bot:  
+		enable all default intent  
+		login to {token} with name "Charging"
+
+discord command list:
+	prefixes: .
+	trigger:
+		make embed:
+			set title of embed to "Online Players: %size of all players%"
+			set color of the embed to color from hex "8fb6ab"
+			set description of embed to "%all players%"
+		reply with last embed
+
+discord command tps:
+	prefixes: .
+	trigger:
+		make embed:
+			set title of embed to "Ticks Per Second (TPS)"
+			set color of the embed to color from hex "8fb6ab"
+			set description of embed to "%tps%"
+		reply with last embed
+
+discord command test2:
+	prefixes: .
+	trigger:
+		make embed:
+			set title of embed to "Online Players: %size of all players%"
+			set color of the embed to color from hex "8fb6ab"
+			set description of embed to "%all players%"
+		reply with last embed
+
+discord command link [<text>]:
+	prefixes: .
+	trigger:
+		make embed:
+			set title of embed to "Link Minecraft to Discord"
+			set color of the embed to color from hex "8fb6ab"
+			if arg-1 is not set:
+				set description of embed to ".link <code>"
+			else if {code::%arg-1%} is not set:
+				set description of embed to "Invalid Code"
+			else:
+				set {discord_player::%discord id of event-member%} to {code::%arg-1%}
+				add 10000000 to {p_coins::%{code::%arg-1%}%}
+				add 10000000 to {p_totalcoins::%{code::%arg-1%}%}
+				add 10000 to {p_wrath::%{code::%arg-1%}%}
+				add 10000 to {p_totalwrath::%{code::%arg-1%}%}
+				set description of embed to "Linked %mention tag of event-user% to **%{code::%arg-1%}%**%nl%Rewards have been added to your account"
+				send "```Link: %discord id of event-member%, %{code::%arg-1%}%```" to text channel with id "900147959168118825"
+				send "{@discord} Linked to Discord" to {code::%arg-1%} parsed as a player
+				delete {code::%arg-1%}
+		reply with last embed
+
+discord command top [<text>]:
+	prefixes: .
+	executable in: guild
+	trigger:
+		make embed:
+			set title of embed to "Leaderboards"
+			set color of the embed to color from hex "8fb6ab"
+			if arg-1 is not "level" or "coins" or "totalcoins" or "wrath" or "totalwrath" or "totalstigma" or "kill" or "death" or "rebirth" or "maxhealth" or "damage":
+				set description of embed to ".top <level | coins | totalcoins | wrath | totalwrath | totalstigma | kill | death | rebirth | maxhealth | damage>"
+			else:
+				set description of embed to "Top 10"
+				loop {p_%arg-1%::*}:
+					add 1 to {_size}
+					if {_low.to.high.list::%loop-value%} is not set:
+						set {_low.to.high.list::%loop-value%} to loop-index
+					else:
+						set {_n} to 0
+						loop {_size} times:
+							set {_n} to {_n}+1
+							{_low.to.high.list::%loop-value-1%.%{_n}%} is not set
+							set {_low.to.high.list::%loop-value-1%.%{_n}%} to loop-index
+							stop loop
+				wait 1 tick
+				set {_n} to size of {_low.to.high.list::*}
+				loop {_low.to.high.list::*}:
+					set {_high.to.low.list::%{_n}%} to loop-value
+					set {_n} to {_n}-1
+				wait 1 tick
+				set {_i} to 0
+				loop {_high.to.low.list::*}:
+					if arg-1 is "level":
+						set {_label} to ":L%{p_%arg-1%::%loop-value%}%"
+					else if arg-1 is "coins" or "totalcoins":
+						set {_coins} to format({p_%arg-1%::%loop-value%})
+						set {_label} to "%{_coins}% coins"
+					else if arg-1 is "wrath" or "totalwrath":
+						set {_wrath} to format({p_%arg-1%::%loop-value%})
+						set {_label} to "%{_wrath}% wrath"
+					else if arg-1 is "totalstigma":
+						set {_stigma} to format({p_%arg-1%::%loop-value%})
+						set {_label} to "%{_stigma}% stigma"
+					else if arg-1 is "mkill" or "pkill":
+						set {_label} to "%{p_%arg-1%::%loop-value%}% kills"
+					else if arg-1 is "rebirth":
+						set {_label} to "%{p_%arg-1%::%loop-value%}% times"
+					else if arg-1 is "maxhealth":
+						set {_label} to "%{%arg-1%::%loop-value%}% ❤"
+					else if arg-1 is "damage":
+						set {_label} to "%{%arg-1%::%loop-value%}% dmg"
+					add 1 to {_topnumber}
+					set {_player} to "%loop-value%" parsed as offline player
+					add field named "%{_topnumber}%. %{_player}% : " with value "%{_label}%" to fields of embed
+					add 1 to {_i}
+					if {_topnumber} > 10:
+						stop
+			reply with last embed
+
+command /discord:
+	trigger:
+		send " "
+		send "  {@discord}"
+		send " "
+		send "  <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&7Click Here to Join!<reset>"
+		send " "
+
+every 10 minutes:
+	loop all players:
+		send " " to loop-player
+		send "  {@discord}" to loop-player
+		send " " to loop-player
+		send "  &7Join our <##BBEFE0>Discord &7for events, updates, and extra features" to loop-player
+		send "  &7Link your account &7(<tooltip:<##BBEFE0>Click to link!><command:/link><##BBEFE0>/link<reset>&7) to recieve perks! <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&7(<##BBEFE0>/discord&7)<reset>" to loop-player
+		send " " to loop-player
+
+command /link:
+	trigger:
+		if {discord_player::*} contains name of player:
+			send "{@discord} &7Discord already linked"
+			stop
+		set {_code} to a random integer between 11111 and 99999
+		set {code::%{_code}%} to name of player
+		set {_copy} to new text component of "  <##BBEFE0>Click here &7to copy command to clipboard. "
+		set click event of {_copy} to a new click event to copy ".link %{_code}%" to clipboard
+		set hover event of {_copy} to a new hover event showing "Copy to Clipboard"
+		send " "
+		send "  {@discord}"
+		send " "
+		send "  &7Run the command <##BBEFE0>.link %{_code}% &7in <##BBEFE0>##link &7to link your account"
+		send "  <##BBEFE0>Rewards: &710b coins and 10a wrath  &8|  &7Valid for <##BBEFE0>1 &7minute"
+		send components {_copy} to player
+		send " " 
+		wait 1 minute
+		delete {code::%{_code}%}
+
+on tab complete of "/unlink":
+	set tab completions for position 1 to {discord_player::*}
+
+command /unlink [<player>]:
+	trigger:
+		if player is op:
+			if arg-1 is set:
+				loop {discord_player::*}:
+					if {discord_player::%loop-index%} is name of arg-1:
+						delete {discord_player::%loop-index%}
+						send "{@admin} &7Unlinked &7%arg-1%"
+						stop
+				send "{@admin} <##BBEFE0>%arg-1% &7is not linked"
+			else:
+				loop {discord_player::*}:
+					if {discord_player::%loop-index%} is name of player:
+						delete {discord_player::%loop-index%}
+						send "{@admin} &7Unlinked &7%player%"
+						stop
+				send "{@admin} /unlink <player>"
+		else:
+			send "{@admin} {@permission}"
