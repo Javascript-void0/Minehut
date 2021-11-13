@@ -100,7 +100,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 				set {_nn} to adminFormat({_n})
 				send "{@admin} &7Set %arg-1% &7%arg-2% &7to <##BBEFE0>%{_nn}%"
 			else if arg-3 is "reset":
-				if arg-2 is "level":
+				if arg-2 is "level" or "damage":
 					set {_n} to 1
 				else if arg-2 is "all":
 					set {p_level::%arg-1%} to 1

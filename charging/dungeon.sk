@@ -20,7 +20,7 @@ function copyDungeon(loc: location, name: text, yt: integer, zt: integer, xt: in
 		add 1 to y-coordinate of {_loc}
 	set y-coordinate of {_loc} to {_y}
 
-function pasteDungeon(loc: location, name: text):
+function pasteDungeon(loc: location, name: text) :: number: 
 	set {_dimensions::*} to {d_%{_name}%::dimensions} split by ", "
 	remove 3 from y-coordinate of {_loc}
 	set {_n} to ({_dimensions::2} parsed as integer) / 2
@@ -28,6 +28,7 @@ function pasteDungeon(loc: location, name: text):
 	set {_x} to x-location of {_loc}
 	set {_z} to z-location of {_loc}
 	set {_y} to y-location of {_loc}
+	set {_n} to 0
 	loop ({_dimensions::1} parsed as integer) times:
 		loop ({_dimensions::2} parsed as integer) times:
 			loop ({_dimensions::3} parsed as integer) times:
@@ -38,12 +39,27 @@ function pasteDungeon(loc: location, name: text):
 				set {_offsetY} to loop-number-1
 				remove 1 from {_offsetY}
 				set block at {_loc} to {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%}
+				if {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} is netherite block:
+					add 1 to {_n}
+					spawnMob({_loc})
 				add 1 to x-coordinate of {_loc}
 			set x-coordinate of {_loc} to {_x}
 			add 1 to z-coordinate of {_loc}
 		set z-coordinate of {_loc} to {_z}
 		add 1 to y-coordinate of {_loc}
 	set y-coordinate of {_loc} to {_y}
+	return {_n}
+
+function spawnMob(loc: location):
+	set {_n} to random integer between 1 and 4
+	if {_n} is 1:
+		boneWarrior({_loc})
+	else if {_n} is 2:
+		boneArcher({_loc})
+	else if {_n} is 3:
+		orcCaptain({_loc})
+	else if {_n} is 4:
+		orcWarrior({_loc})
 
 on tab complete of "/dungeon":
 	set tab completions for position 1 to "wand", "clearStart", "listStart", "listRoom", "copy", "delete", "save", "load", "remove", "start", "end", "openAll", and "paste"
@@ -100,7 +116,8 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 				send "/dungeon <paste> <name>"
 				stop
 			else:
-				pasteDungeon({dungeonStart.pos}, arg-2)
+				set {_} to pasteDungeon({dungeonStart.pos}, arg-2)
+				set {p_mobRemain::%player%} to 0
 				send "pasted %arg-2%"
 				if arg-2 is "start":
 					set {_x} to x-coordinate of {dungeonStart.pos} + 7
@@ -122,7 +139,8 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 			loop {dungeonStart::*}:
 				if block at loop-value is emerald block:
 					send "&aOpen: &7%loop-index%, %loop-value%"
-					pasteDungeon(loop-value, "start")
+					set {_} to pasteDungeon(loop-value, "start")
+					set {p_mobRemain::%player%} to 0
 					set {_x} to x-coordinate of loop-value
 					set {_y} to y-coordinate of loop-value
 					set {_z} to z-coordinate of loop-value
@@ -130,6 +148,7 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 					set {dungeonActive::%player%} to loop-value
 					set {p_floor::%player%} to 1
 					set {p_room::%player%} to 1
+					set {p_roomnum::%player%} to random integer between 10 and 20
 					set block at {dungeonActive::%player%} to redstone block
 					stop
 				else if block at loop-value is redstone block:
@@ -146,13 +165,15 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 
 function dungeonEnd(p: player):
 	if {dungeonActive::%{_p}%} is set:
-		pasteDungeon({dungeonActive::%{_p}%}, "start")
+		set {_} to pasteDungeon({dungeonActive::%{_p}%}, "start")
+		set {p_mobRemain::%{_p}%} to 0
 		send "&4Restarted: &c%{dungeonActive::%{_p}%}%" to {_p}
 		set block at {dungeonActive::%{_p}%} to emerald block
 		delete {dungeonActive::%{_p}%}
 		delete {p_mobRemain::%{_p}%}
 		delete {p_floor::%{_p}%}
 		delete {p_room::%{_p}%}
+		delete {p_roomnum::%{_p}%}
 	else:
 		send "&4Restarted: &cNo Active Dungeon" to {_p}
 
@@ -179,7 +200,7 @@ on walking on lapis lazuli block:
 	world of player is "dungeon"
 	{dungeonActive::%player%} is set
 	# {p_mobRemain::%{_p}%} is 0
-	if {p_room::%player%} is less than 8:
+	if {p_room::%player%} is less than {p_roomnum::%player%} - 1:
 		loop {d_roomList::*}:
 			loop-value does not contain "Empty"
 			loop-value is not "start"
@@ -188,16 +209,19 @@ on walking on lapis lazuli block:
 			set {_room} to random element out of {_list::*}
 	else:
 		set {_room} to "corridor"
-	pasteDungeon(location of event-block, {_room})
+	set {_n} to pasteDungeon(location of event-block, {_room})
+	set {p_mobRemain::%player%} to {_n}
 	set event-block to stone bricks
 	add 1 to {p_room::%player%}
 
 on walking on diamond block:
 	world of player is "dungeon"
 	{dungeonActive::%player%} is set
-	pasteDungeon({dungeonActive::%player%}, "start")
+	set {_} to pasteDungeon({dungeonActive::%player%}, "start")
+	set {p_mobRemain::%player%} to 0
 	set event-block to stone bricks
 	set {p_room::%player%} to 1
+	set {p_roomnum::%player%} to random integer between 10 and 20
 	add 1 to {p_floor::%player%}
 	set {_x} to x-coordinate of {dungeonActive::%player%}
 	set {_y} to y-coordinate of {dungeonActive::%player%}

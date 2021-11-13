@@ -4,10 +4,13 @@ options:
 	admin: &8[<##BBEFE0>&lADMIN&8]&r
 	world: world
 
-function boneWarrior(e: entity):
+function boneWarrior(loc: location) :: entity:
+	spawn skeleton at {_loc}
+	set {_e} to last spawned mob
 	set {m_maxhealth::%{_e}%} to 50
 	set {m_damage::%{_e}%} to 1
 	set {m_health::%{_e}%} to 50
+	set name of {_e} to "&8[<##BBEFE0>:L100&8] &fBone:Warrior &7(<##8fb6ab>%{m_health::%{_e}%}%<##8fb6ab>/%{m_maxhealth::%{_e}%}% ❤&7)"
 	set helmet of {_e} to bone
 	set chestplate of {_e} to iron chestplate
 	set leggings of {_e} to leather leggings
@@ -18,11 +21,15 @@ function boneWarrior(e: entity):
 	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant held item of {_e} with sharpness 7
+	return {_e}
 
-function boneArcher(e: entity):
+function boneArcher(loc: location) :: entity:
+	spawn skeleton at {_loc}
+	set {_e} to last spawned mob
 	set {m_maxhealth::%{_e}%} to 20
 	set {m_damage::%{_e}%} to 2
 	set {m_health::%{_e}%} to 20
+	set name of {_e} to "&8[<##BBEFE0>:L100&8] &fBone:Archer &7(<##8fb6ab>%{m_health::%{_e}%}%<##8fb6ab>/%{m_maxhealth::%{_e}%}% ❤&7)"
 	set helmet of {_e} to feather
 	set chestplate of {_e} to iron chestplate
 	set leggings of {_e} to leather leggings
@@ -34,11 +41,15 @@ function boneArcher(e: entity):
 	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant held item of {_e} with power 7
+	return {_e}
 
-function orcCaptain(e: entity):
+function orcCaptain(loc: location) :: entity:
+	spawn zombie at {_loc}
+	set {_e} to last spawned mob
 	set {m_maxhealth::%{_e}%} to 50
 	set {m_damage::%{_e}%} to 1
 	set {m_health::%{_e}%} to 50
+	set name of {_e} to "&8[<##BBEFE0>:L100&8] &fOrc:Captain &7(<##8fb6ab>%{m_health::%{_e}%}%<##8fb6ab>/%{m_maxhealth::%{_e}%}% ❤&7)"
 	set helmet of {_e} to fern
 	set chestplate of {_e} to leather chestplate
 	dye chestplate of {_e} green
@@ -51,11 +62,15 @@ function orcCaptain(e: entity):
 	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant held item of {_e} with power 7
+	return {_e}
 
-function orcWarrior(e: entity):
+function orcWarrior(loc: location) :: entity:
+	spawn zombie at {_loc}
+	set {_e} to last spawned mob
 	set {m_maxhealth::%{_e}%} to 50
 	set {m_damage::%{_e}%} to 1
 	set {m_health::%{_e}%} to 50
+	set name of {_e} to "&8[<##BBEFE0>:L100&8] &fOrc:Warrior &7(<##8fb6ab>%{m_health::%{_e}%}%<##8fb6ab>/%{m_maxhealth::%{_e}%}% ❤&7)"
 	set helmet of {_e} to dark prismarine slab
 	set chestplate of {_e} to leather chestplate
 	dye chestplate of {_e} green
@@ -68,35 +83,22 @@ function orcWarrior(e: entity):
 	enchant leggings of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant boots of {_e} with protection 5, fire protection 3, blast protection 3, and unbreaking 5
 	enchant held item of {_e} with power 7
+	return {_e}
 
 on combust:
 	if event-entity is zombie or skeleton:
 		cancel event
 
-on spawn of zombie:
-	set {_n} to random integer between 1 and 2
-	if {mobcap} is true:
+on spawn:
+	if {mobcap} is false:
+		if block at event-location is netherite block:
+			set block at event-location to air
+			stop
+		else:
+			cancel event
+	else:
 		cancel event
-	# else if block below event-location is not grass block:
-	# 	cancel event
-	if {_n} is 1:
-		orcCaptain(event-entity)
-		set name of event-entity to "&8[<##BBEFE0>:L100&8] &fOrc:Captain &7(<##8fb6ab>%{m_health::%event-entity%}%<##8fb6ab>/%{m_maxhealth::%event-entity%}% ❤&7)"
-	else if {_n} is 2:
-		orcWarrior(event-entity)
-		set name of event-entity to "&8[<##BBEFE0>:L100&8] &fOrc:Warrior &7(<##8fb6ab>%{m_health::%event-entity%}%<##8fb6ab>/%{m_maxhealth::%event-entity%}% ❤&7)"
-on spawn of skeleton:
-	set {_n} to random integer between 1 and 2
-	if {mobcap} is true:
-		cancel event
-	# else if block below event-location is not grass block:
-	# 	cancel event
-	if {_n} is 1:
-		boneWarrior(event-entity)
-		set name of event-entity to "&8[<##BBEFE0>:L100&8] &fBone:Warrior &7(<##8fb6ab>%{m_health::%event-entity%}%<##8fb6ab>/%{m_maxhealth::%event-entity%}% ❤&7)"
-	else if {_n} is 2:
-		boneArcher(event-entity)
-		set name of event-entity to "&8[<##BBEFE0>:L100&8] &fBone:Archer &7(<##8fb6ab>%{m_health::%event-entity%}%<##8fb6ab>/%{m_maxhealth::%event-entity%}% ❤&7)"
+
 on spawn of creeper:
 	cancel event
 on spawn of enderman:
@@ -108,7 +110,6 @@ on spawn of spider:
 on spawn of slime:
 	cancel event
 on spawn of horse:
-	world of event-entity is "dungeon"
 	cancel event
 on spawn of sheep:
 	cancel event
@@ -126,7 +127,6 @@ on spawn of bat:
 # every 10 seconds:
 # 	loop all entities:
 # 		loop-entity is not a player
-# 		loop-entity is not a horse
 # 		if "%region at loop-entity%" contains "spawn":
 # 			delete loop-entity
 # 			delete {m_maxhealth::%loop-entity%}
@@ -142,7 +142,6 @@ on spawn of bat:
 on load:
 	loop all entities:
 		loop-entity is not a player
-		loop-entity is not a horse
 		if {m_maxhealth::%loop-entity%} is not set:
 			delete loop-entity
 		else if {m_health::%loop-entity%} is not set:

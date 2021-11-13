@@ -60,6 +60,11 @@ function deathEffect(e: entity):
 	show 30 critical hit at location of {_e}
 
 on damage:
+
+	if attacker is player:
+		victim is player
+		cancel event
+
 	set damage to 0
 	if {dead.%victim%} is set:
 		cancel event
@@ -83,6 +88,7 @@ on damage:
 			stop
 		remove {p_damage::%attacker%} from {m_health::%victim%}
 		if {m_health::%victim%} is less than 1:
+			# player kill mob
 			attacker is a player
 			deathEffect(victim)
 			delete victim
@@ -91,6 +97,9 @@ on damage:
 			delete {m_health::%victim%}
 			delete {m_damage::%victim%}
 			add 3 to {p_exp::%attacker%}
+			if {p_mobRemain::%attacker%} is greater than 0:
+				remove 1 from {p_mobRemain::%attacker%}
+				set {mobcapnum} to {mobcapnum} - 1
 			if {p_exp::%attacker%} is greater or equal to {p_nextexp::%attacker%}:
 				set {_before} to {p_level::%attacker%}
 				set {p_exp::%attacker%} to 0

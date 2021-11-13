@@ -127,6 +127,9 @@ command /commands [<text>] [<text>]:
 				else if {mobcap} is false:
 					set {mobcap} to true
 					send "{@admin} &7Mobcap set to true"
+				else:
+					set {mobcap} to true
+					send "{@admin} &7Mobcap set to true"
 
 
 

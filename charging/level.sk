@@ -73,24 +73,24 @@ function expItem(p: player, n: integer):
 	set line 5 of {_p}'s tool's lore to "   &8(&f%{_percentFormat}%%%&8)"
 	set line 6 of {_p}'s tool's lore to "%{_bar}%"
 
-on break:
-	if xp of player is less than 996:
-		add 1 to xp of player
+# on break:
+# 	if xp of player is less than 996:
+# 		add 1 to xp of player
 
-every 5 ticks:
-	loop all players:
-		if xp of loop-player is greater than 910:
-			remove 1 from xp of loop-player
+# every 5 ticks:
+# 	loop all players:
+# 		if xp of loop-player is greater than 910:
+# 			remove 1 from xp of loop-player
 
 on break: 
 	cancel drops
 
-command /levelup [<integer>]:
+command /levelup [<text>] [<integer>]:
 	trigger:
-		discordLevel(player, arg-1)
+		discordLevel(player, arg-2)
 
 function discordLevel(p: player, l: integer):
-	send "```Level: %name of {_p}%, %{_l}%```" to channel with id "886738161491914772" with "Charging"
+	send "```Level: %name of {_p}%, %{_l}%```" to channel with id "900147959168118825"
 
 function expBlock(p: player, n: integer, b: block):
 	set {_total} to 0.1 * {_n}
