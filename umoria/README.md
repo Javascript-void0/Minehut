@@ -1,4 +1,4 @@
-# ⚡ Charging
+# Umoria
 
 Umoria is a work in progress RPG. That's all I got 🤷‍♂️. 
 
