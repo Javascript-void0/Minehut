@@ -1,0 +1,181 @@
+options:
+	color: <##B4C788>
+	color2: <##f7ffc5>
+	prefix: &8[<##B4C788>&lUMORIA&8]&f
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&r
+	world: world
+
+on load:
+	set {weatheredsilver} to iron nugget named "&f&lSILVER &7&lCOIN" with lore " &8┃ &7Redeem {@color2}@Spawn" and " &8╹ {@color2}Condition: &7Weathered" with all flags hidden
+	set {tarnishedsilver} to iron nugget named "&f&lSILVER &7&lCOIN" with lore " &8┃ &7Redeem {@color2}@Spawn" and " &8╹ {@color2}Condition: &7Tarnished" with all flags hidden
+	set {polishedsilver} to iron nugget named "&f&lSILVER &7&lCOIN" with lore " &8┃ &7Redeem {@color2}@Spawn" and " &8╹ {@color2}Condition: &7Polished" with all flags hidden
+
+command /silver:
+	trigger:
+		if player is op:
+			give player {weatheredsilver}
+			give player {polishedsilver}
+			give player {tarnishedsilver}
+		else:
+			send "{@admin} {@permission}"
+
+every second:
+	show 50 flying glyph at {well}
+
+npc left click:
+	if citizen is 8:
+		silverReward(player)
+
+npc right click:
+	if citizen is 8:
+		if line 2 of lore of player's tool contains "Weathered":
+			show large explosion at {well}
+			remove 1 of tool from tool
+			weatheredReward(player)
+		else if line 2 of lore of player's tool contains "Tarnished":
+			show large explosion at {well}
+			remove 1 of tool from tool
+			tarnishedReward(player)
+		else if line 2 of lore of player's tool contains "Polished":
+			show large explosion at {well}
+			remove 1 of tool from tool
+			polishedReward(player)
+
+on right click:
+	if player is sneaking:
+		player's tool is {weatheredsilver} or {tarnishedsilver} or {polishedsilver}
+		player is op
+		set {well} to event-block
+		send "{@admin} &7Well set to {@color}%location of {well}%"
+	else:
+		event-block is {well}
+		if player's tool is {weatheredsilver}:
+			show large explosion at {well}
+			remove 1 of tool from tool
+			weatheredReward(player)
+		if player's tool is {tarnishedsilver}:
+			show large explosion at {well}
+			remove 1 of tool from tool
+			tarnishedReward(player)
+		if player's tool is {polishedsilver}:
+			show large explosion at {well}
+			remove 1 of tool from tool
+			polishedReward(player)
+
+function silverReward(p: player):
+	set metadata tag "SilverReward" of {_p} to chest inventory with 3 rows named "Silver Crate Rewards"
+	set slot 10 of metadata tag "SilverReward" of {_p} to {tarnishedsilver}
+	set slot 1 and 19 of metadata tag "SilverReward" of {_p} to brown stained glass pane named "&6&lTARNISHED"
+	set slot 13 of metadata tag "SilverReward" of {_p} to {weatheredsilver}
+	set slot 4 and 22 of metadata tag "SilverReward" of {_p} to green stained glass pane named "&a&lWEATHERED"
+	set slot 16 of metadata tag "SilverReward" of {_p} to {polishedsilver}
+	set slot 7 and 25 of metadata tag "SilverReward" of {_p} to light blue stained glass pane named "&3&lPOLISHED"
+	set slot 0, 2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, and 26 of metadata tag "SilverReward" of {_p} to gray stained glass pane named " "
+	open (metadata tag "SilverReward" of {_p}) to {_p}
+
+on inventory click:
+	if name of player's inventory is "Silver Crate Rewards":
+		cancel event
+		if name of clicked item contains "tarnished":
+			tarnishedList(player)
+		else if clicked item is {tarnishedsilver}:
+			tarnishedList(player)
+		else if name of clicked item contains "weathered":
+			weatheredList(player)
+		else if clicked item is {weatheredsilver}:
+			weatheredList(player)
+		else if name of clicked item contains "polished":
+			polishedList(player)
+		else if clicked item is {polishedsilver}:
+			polishedList(player)
+	else if name of player's inventory contains "Coin Rewards":
+		cancel event
+		silverReward(player)
+
+on left click:
+	event-block is {well}
+	cancel event
+	silverReward(player)
+
+function tarnishedList(p: player):
+	set metadata tag "TarnishedList" of {_p} to dropper inventory named "Tarnished Coin Rewards"
+	set slot 0 of metadata tag "TarnishedList" of {_p} to paper named "{@color}10a &7coins" with lore "&7Chance: 35%%"
+	set slot 1 of metadata tag "TarnishedList" of {_p} to paper named "{@color}20a &7coins" with lore "&7Chance: 15%%"
+	set slot 2 of metadata tag "TarnishedList" of {_p} to paper named "{@color}30a &7coins" with lore "&7Chance: 8%%"
+	set slot 3 of metadata tag "TarnishedList" of {_p} to paper named "{@color}40a &7coins" with lore "&7Chance: 5%%"
+	set slot 4 of metadata tag "TarnishedList" of {_p} to book named "{@color}100 &7wrath" with lore "&7Chance: 10%%"
+	set slot 5 of metadata tag "TarnishedList" of {_p} to book named "{@color}300 &7wrath" with lore "&7Chance: 5%%"
+	set slot 6 of metadata tag "TarnishedList" of {_p} to book named "{@color}500 &7wrath" with lore "&7Chance: 2%%"
+	set slot 7 of metadata tag "TarnishedList" of {_p} to iron nugget named "&f&lSILVER &7&lCOIN" with lore "{@color}Condition: &7Weathered" and "&7Chance: 10%%" with all flags hidden
+	set slot 8 of metadata tag "TarnishedList" of {_p} to iron nugget named "&f&lSILVER &7&lCOIN" with lore "{@color}Condition: &7Polished" and "&7Chance: 3%%" with all flags hidden
+	open (metadata tag "TarnishedList" of {_p}) to {_p}
+
+function weatheredList(p: player):
+	set metadata tag "WeatheredList" of {_p} to dropper inventory named "Weathered Coin Rewards"
+	set slot 0 of metadata tag "WeatheredList" of {_p} to paper named "{@color}10a &7coins" with lore "&7Chance: 35%%"
+	set slot 1 of metadata tag "WeatheredList" of {_p} to paper named "{@color}20a &7coins" with lore "&7Chance: 15%%"
+	set slot 2 of metadata tag "WeatheredList" of {_p} to paper named "{@color}30a &7coins" with lore "&7Chance: 8%%"
+	set slot 3 of metadata tag "WeatheredList" of {_p} to paper named "{@color}40a &7coins" with lore "&7Chance: 5%%"
+	set slot 4 of metadata tag "WeatheredList" of {_p} to book named "{@color}100 &7wrath" with lore "&7Chance: 10%%"
+	set slot 5 of metadata tag "WeatheredList" of {_p} to book named "{@color}300 &7wrath" with lore "&7Chance: 5%%"
+	set slot 6 of metadata tag "WeatheredList" of {_p} to book named "{@color}500 &7wrath" with lore "&7Chance: 2%%"
+	set slot 7 of metadata tag "WeatheredList" of {_p} to iron nugget named "&f&lSILVER &7&lCOIN" with lore "{@color}Condition: &7Weathered" and "&7Chance: 10%%" with all flags hidden
+	set slot 8 of metadata tag "WeatheredList" of {_p} to iron nugget named "&f&lSILVER &7&lCOIN" with lore "{@color}Condition: &7Polished" and "&7Chance: 3%%" with all flags hidden
+	open (metadata tag "WeatheredList" of {_p}) to {_p}
+
+function polishedList(p: player):
+	set metadata tag "PolishedList" of {_p} to dropper inventory named "Polished Coin Rewards"
+	set slot 0 of metadata tag "PolishedList" of {_p} to paper named "{@color}10a &7coins" with lore "&7Chance: 35%%"
+	set slot 1 of metadata tag "PolishedList" of {_p} to paper named "{@color}20a &7coins" with lore "&7Chance: 15%%"
+	set slot 2 of metadata tag "PolishedList" of {_p} to paper named "{@color}30a &7coins" with lore "&7Chance: 8%%"
+	set slot 3 of metadata tag "PolishedList" of {_p} to paper named "{@color}40a &7coins" with lore "&7Chance: 5%%"
+	set slot 4 of metadata tag "PolishedList" of {_p} to book named "{@color}100 &7wrath" with lore "&7Chance: 10%%"
+	set slot 5 of metadata tag "PolishedList" of {_p} to book named "{@color}300 &7wrath" with lore "&7Chance: 5%%"
+	set slot 6 of metadata tag "PolishedList" of {_p} to book named "{@color}500 &7wrath" with lore "&7Chance: 2%%"
+	set slot 7 of metadata tag "PolishedList" of {_p} to iron nugget named "&f&lSILVER &7&lCOIN" with lore "{@color}Condition: &7Weathered" and "&7Chance: 10%%" with all flags hidden
+	set slot 8 of metadata tag "PolishedList" of {_p} to iron nugget named "&f&lSILVER &7&lCOIN" with lore "{@color}Condition: &7Polished" and "&7Chance: 3%%" with all flags hidden
+	open (metadata tag "PolishedList" of {_p}) to {_p}
+
+function weatheredReward(p: player):
+	set {_n} to random integer between 1 and 100
+	send "%{_n}%" to {_p}
+	if {_n} is between 1 and 20:
+		send "&c%{_n}%" to {_p}
+
+function polishedReward(p: player):
+	set {_n} to random integer between 1 and 100
+	if {_n} is between 1 and 20:
+		send "%{_n}%" to {_p}
+
+function tarnishedReward(p: player):
+	set {_n} to random integer between 1 and 100
+	if {_n} is between 1 and 35:
+		add 10000 to {p_coins::%{_p}%}
+		send title "&c" with subtitle "Recieved {@color}10a coins &7(35%%)" to {_p} for 2 seconds
+	else if {_n} is between 35 and 50:
+		add 20000 to {p_coins::%{_p}%}
+		send title "&c" with subtitle "&7Recieved {@color}20a coins &7(15%%)" to {_p} for 2 seconds
+	else if {_n} is between 50 and 58:
+		add 30000 to {p_coins::%{_p}%}
+		send title "&c" with subtitle "&7Recieved {@color}30a coins &7(8%%)" to {_p} for 2 seconds
+	else if {_n} is between 58 and 63:
+		add 40000 to {p_coins::%{_p}%}
+		send title "&c" with subtitle "&7Recieved {@color}40a coins &7(5%%)" to {_p} for 2 seconds
+	else if {_n} is between 63 and 73:
+		add 100 to {p_wrath::%{_p}%}
+		send title "&c" with subtitle "&7Recieved {@color}100 wrath &7(10%%)" to {_p} for 2 seconds
+	else if {_n} is between 73 and 78:
+		add 300 to {p_wrath::%{_p}%}
+		send title "&c" with subtitle "&7Recieved {@color}300 wrath &7(5%%)" to {_p} for 2 seconds
+	else if {_n} is between 78 and 80:
+		add 500 to {p_wrath::%{_p}%}
+		send title "&c" with subtitle "&7Recieved {@color}500 wrath &7(2%%)" to {_p} for 2 seconds
+	else if {_n} is between 80 and 90:
+		give {_p} 1 of {weatheredsilver}
+		send title "&c" with subtitle "&7Recieved {@color}1 weathered coin &7(10%%)" to {_p for 2 seconds}
+	else if {_n} is between 90 and 100:
+		give {_p} 1 of {polishedsilver}
+		send title "&c" with subtitle "&7Recieved {@color}1 polished coin &7(3%%)" to {_p for 2 seconds}
+	else:
+		send "{@admin} &cError: %{_n}%" to {_p}

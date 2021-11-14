@@ -1,7 +1,8 @@
 options:
-	prefix: &8[<##BBEFE0>&lCHARGING&8]&r
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&r
 	permission: &7Insufficient Permissions
-	admin: &8[<##BBEFE0>&lADMIN&8]&r
+	admin: &8[<##B4C788>&lADMIN&8]&r
 	world: world
 
 
@@ -94,20 +95,20 @@ command /commands [<text>] [<text>]:
 			else if arg-1 is "jumplock":
 				if {launchpad} is false:
 					set {launchpad} to true
-					send "{@admin} &7Turned Launch Pad <##BBEFE0>&lUNLOCKED"
+					send "{@admin} &7Turned Launch Pad {@color}&lUNLOCKED"
 				else if {launchpad} is true:
 					set {launchpad} to false
-					send "{@admin} &7Turned Launch Pad <##BBEFE0>&lLOCKED"
+					send "{@admin} &7Turned Launch Pad {@color}&lLOCKED"
 
 
 
 			else if arg-1 is "invlock":
 				if {unlock.%player%} is set:
 					delete {unlock.%player%}
-					send "{@admin} &7Inventory <##8fb6ab>&lLOCKED"
+					send "{@admin} &7Inventory {@color}&lLOCKED"
 				else:
 					set {unlock.%player%} to true
-					send "{@admin} &7Inventory <##8fb6ab>&lUNLOCKED"
+					send "{@admin} &7Inventory {@color}&lUNLOCKED"
 
 
 
@@ -115,7 +116,7 @@ command /commands [<text>] [<text>]:
 				if arg-2 is set:
 					set {_player} to arg-2 parsed as player
 					clear {daily.%{_player}%.lastused}
-					send "{@admin} &7Reset daily reward of <##BBEFE0>%{_player}%"
+					send "{@admin} &7Reset daily reward of {@color}%{_player}%"
 					send "{@prefix} &7Your daily reward has neen reset" to {_player}
 
 
@@ -151,7 +152,7 @@ function new(p: player):
 	set slot 0 of {_p} to {1_sword}
 	set slot 1 of {_p} to {1_bow}
 	set slot 40 of {_p} to {1_shield}
-	set slot 8 of {_p} to compass named "<##BBEFE0>&lMENU" with lore " &8╹ &7Click to Open"
+	set slot 8 of {_p} to compass named "{@color}&lMENU" with lore " &8╹ &7Click to Open"
 
 function newcenter(p: player):
 	set slot 12 of {_p} to {pegasuslock}

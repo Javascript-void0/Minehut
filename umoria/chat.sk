@@ -1,3 +1,7 @@
+options:
+	color: <##f7ffc5>
+	color2: <##B4C788>
+
 function chatRound(n: number, to: number) :: number:
    return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
 
@@ -13,21 +17,21 @@ function chatFormat(n: number) :: text:
 on chat:
 	set {_player} to a new text component of display name of player
 	if group of player is "admin":
-		set {_prefix} to "<##BBEFE0>&lADMIN&8]&r &8[<##8fb6ab>:L"
+		set {_prefix} to "{@color}&lADMIN&8]&r &8[{@color2}:L"
 	else if group of player is "mod":
-		set {_prefix} to "<##BBEFE0>&lMOD&8]&r &8[<##8fb6ab>:L"
+		set {_prefix} to "{@color}&lMOD&8]&r &8[{@color2}:L"
 	else if group of player is "tier3":
-		set {_prefix} to "<##8fb6ab>&lTIER<##617C74>&l&n3&8]&r &8[<##8fb6ab>:L"
+		set {_prefix} to "{@color2}&lTIER{@color}&l&n3&8]&r &8[{@color2}:L"
 	else if group of player is "tier2":
-		set {_prefix} to "<##8fb6ab>&lTIER<##617C74>&l&n2&8]&r &8[<##8fb6ab>:L"
+		set {_prefix} to "{@color2}&lTIER{@color}&l&n2&8]&r &8[{@color2}:L"
 	else if group of player is "tier1":
-		set {_prefix} to "<##8fb6ab>&lTIER<##617C74>&l&n1&8]&r &8[<##8fb6ab>:L"
+		set {_prefix} to "{@color2}&lTIER{@color}&l&n1&8]&r &8[{@color2}:L"
 	else:
-		set {_prefix} to "<##8fb6ab>:L"
+		set {_prefix} to "{@color2}:L"
 
 	# if group of player is "admin" or "mod":
 	set {_levelFormat} to chatFormat({p_level::%player%})
-	set {_level} to a new text component of "<##8fb6ab>%{_levelFormat}%"
+	set {_level} to a new text component of "{@color2}%{_levelFormat}%"
 	# else:
 	# 	set {_levelFormat} to chatFormat({p_level::%player%})
 	# 	set {_level} to a new text component of "&7%{_levelFormat}%"
@@ -37,47 +41,47 @@ on chat:
 	set {_percent} to {p_exp::%player%} / {p_nextexp::%player%}
 	set {_percentFormat} to chatRound({_percent} * 100, 1)
 	if {_percent} is between 0 and 0.05:
-		set {_bar} to " &8[<##BBEFE0>&7::::::::::::::::::::&8]"
+		set {_bar} to " &8[{@color}&7::::::::::::::::::::&8]"
 	else if {_percent} is between 0.05 and 0.1:
-		set {_bar} to " &8[<##BBEFE0>:&7:::::::::::::::::::&8]"
+		set {_bar} to " &8[{@color}:&7:::::::::::::::::::&8]"
 	else if {_percent} is between 0.1 and 0.15:
-		set {_bar} to " &8[<##BBEFE0>::&7::::::::::::::::::&8]"
+		set {_bar} to " &8[{@color}::&7::::::::::::::::::&8]"
 	else if {_percent} is between 0.15 and 0.2:
-		set {_bar} to " &8[<##BBEFE0>:::&7:::::::::::::::::&8]"
+		set {_bar} to " &8[{@color}:::&7:::::::::::::::::&8]"
 	else if {_percent} is between 0.2 and 0.25:
-		set {_bar} to " &8[<##BBEFE0>::::&7::::::::::::::::&8]"
+		set {_bar} to " &8[{@color}::::&7::::::::::::::::&8]"
 	else if {_percent} is between 0.25 and 0.3:
-		set {_bar} to " &8[<##BBEFE0>:::::&7:::::::::::::::&8]"
+		set {_bar} to " &8[{@color}:::::&7:::::::::::::::&8]"
 	else if {_percent} is between 0.3 and 0.35:
-		set {_bar} to " &8[<##BBEFE0>::::::&7::::::::::::::&8]"
+		set {_bar} to " &8[{@color}::::::&7::::::::::::::&8]"
 	else if {_percent} is between 0.35 and 0.4:
-		set {_bar} to " &8[<##BBEFE0>:::::::&7:::::::::::::&8]"
+		set {_bar} to " &8[{@color}:::::::&7:::::::::::::&8]"
 	else if {_percent} is between 0.4 and 0.45:
-		set {_bar} to " &8[<##BBEFE0>::::::::&7::::::::::::&8]"
+		set {_bar} to " &8[{@color}::::::::&7::::::::::::&8]"
 	else if {_percent} is between 0.45 and 0.5:
-		set {_bar} to " &8[<##BBEFE0>:::::::::&7:::::::::::&8]"
+		set {_bar} to " &8[{@color}:::::::::&7:::::::::::&8]"
 	else if {_percent} is between 0.5 and 0.55:
-		set {_bar} to " &8[<##BBEFE0>::::::::::&7::::::::::&8]"
+		set {_bar} to " &8[{@color}::::::::::&7::::::::::&8]"
 	else if {_percent} is between 0.55 and 0.6:
-		set {_bar} to " &8[<##BBEFE0>:::::::::::&7:::::::::&8]"
+		set {_bar} to " &8[{@color}:::::::::::&7:::::::::&8]"
 	else if {_percent} is between 0.6 and 0.65:
-		set {_bar} to " &8[<##BBEFE0>::::::::::::&7::::::::&8]"
+		set {_bar} to " &8[{@color}::::::::::::&7::::::::&8]"
 	else if {_percent} is between 0.65 and 0.7:
-		set {_bar} to " &8[<##BBEFE0>:::::::::::::&7:::::::&8]"
+		set {_bar} to " &8[{@color}:::::::::::::&7:::::::&8]"
 	else if {_percent} is between 0.7 and 0.75:
-		set {_bar} to " &8[<##BBEFE0>::::::::::::::&7::::::&8]"
+		set {_bar} to " &8[{@color}::::::::::::::&7::::::&8]"
 	else if {_percent} is between 0.75 and 0.8:
-		set {_bar} to " &8[<##BBEFE0>:::::::::::::::&7:::::&8]"
+		set {_bar} to " &8[{@color}:::::::::::::::&7:::::&8]"
 	else if {_percent} is between 0.8 and 0.85:
-		set {_bar} to " &8[<##BBEFE0>::::::::::::::::&7::::&8]"
+		set {_bar} to " &8[{@color}::::::::::::::::&7::::&8]"
 	else if {_percent} is between 0.85 and 0.9:
-		set {_bar} to " &8[<##BBEFE0>:::::::::::::::::&7:::&8]"
+		set {_bar} to " &8[{@color}:::::::::::::::::&7:::&8]"
 	else if {_percent} is between 0.9 and 0.95:
-		set {_bar} to " &8[<##BBEFE0>::::::::::::::::::&7::&8]"
+		set {_bar} to " &8[{@color}::::::::::::::::::&7::&8]"
 	else if {_percent} is between 0.95 and 1:
-		set {_bar} to " &8[<##BBEFE0>:::::::::::::::::::&7:&8]"
+		set {_bar} to " &8[{@color}:::::::::::::::::::&7:&8]"
 	else:
-		set {_bar} to " &8[<##BBEFE0>::::::::::::::::::::&7&8]"
+		set {_bar} to " &8[{@color}::::::::::::::::::::&7&8]"
 
 	set {_uncolorlevel} to "%{p_level::%player%}%"
 	set {_coins} to chatFormat({p_coins::%player%})
@@ -88,7 +92,7 @@ on chat:
 	set {_defense} to {p_defense::%player%}
 	set {_maxdefense} to {p_maxdefense::%player%}
 	set {_damage} to chatFormat({p_damage::%player%})
-	set {_stats} to bedrock named "&8[<##8fb6ab>:L%{_levelFormat}%&8] &f%{_player}%" with lore " <##8fb6ab>&lPLAYER" and "  &8┃ &7Level: &f%{_uncolorlevel}%" and "  &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" and " " and "    &8(&f%{_percentFormat}%%%&8)" and "%{_bar}%" and " " and " <##8fb6ab>&lBALANCE" and "  &8┃ &7Coins: &f%{_coins}%" and "  &8┃ &7Wrath: &f%{_wrath}%" and "  &8╹ &7Virtue: &f%{_virtue}%" and " " and " <##8fb6ab>&lSTATS" and "  &8┃ &7Health: &f%{_health}%&7/&f%{_maxhealth}%" and "  &8┃ &7Defense: &f%{_defense}%&7/&f%{_maxdefense}%" and "  &8╹ &7Damage: &f%{_damage}%" and " "
+	set {_stats} to bedrock named "&8[{@color2}:L%{_levelFormat}%&8] &f%{_player}%" with lore " {@color2}&lPLAYER" and "  &8┃ &7Level: &f%{_uncolorlevel}%" and "  &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" and " " and "    &8(&f%{_percentFormat}%%%&8)" and "%{_bar}%" and " " and " {@color2}&lBALANCE" and "  &8┃ &7Coins: &f%{_coins}%" and "  &8┃ &7Wrath: &f%{_wrath}%" and "  &8╹ &7Virtue: &f%{_virtue}%" and " " and " {@color2}&lSTATS" and "  &8┃ &7Health: &f%{_health}%&7/&f%{_maxhealth}%" and "  &8┃ &7Defense: &f%{_defense}%&7/&f%{_maxdefense}%" and "  &8╹ &7Damage: &f%{_damage}%" and " "
 	set hover event of {_player} to a new hover event showing {_stats}
 
 	set {_slotList::hand} to index of player's hotbar slot
@@ -144,7 +148,7 @@ on chat:
 				set {_name} to name of {_item}
 				if {_name} is not set:
 					set {_name} to a new translate component from {_item}
-				set {_itemName} to a new text component of "&8[<##BBEFE0>%{_name}%&8]&r"
+				set {_itemName} to a new text component of "&8[{@color}%{_name}%&8]&r"
 				set hover event of {_itemName} to a new hover event showing {_item}
 				set {_messages::%{_itemIndexes::%loop-index%}%} to {_itemName}
 			else:

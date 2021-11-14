@@ -1,8 +1,10 @@
 options:
-	charging: &8[<##BBEFE0>&lCHARGING&8]&7
-	discord: &8[<##BBEFE0>&lDISCORD&8]&7
+	color: <##B4C788>
+	color2: <##f7ffc5>
+	prefix: &8[<##B4C788>&lUMORIA&8]&r
+	discord: &8[<##f7ffc5>&lDISCORD&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[<##BBEFE0>&lADMIN&8]&7
+	admin: &8[<##B4C788>&lADMIN&8]&7
 	world: world
 
 on load:
@@ -121,7 +123,7 @@ command /discord:
 		send " "
 		send "  {@discord}"
 		send " "
-		send "  <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&7Click Here to Join!<reset>"
+		send "  <tooltip:{@color}Click to join!><link:https://discord.gg/y333BGhxFP>&7Click Here to Join!<reset>"
 		send " "
 
 every 10 minutes:
@@ -129,8 +131,8 @@ every 10 minutes:
 		send " " to loop-player
 		send "  {@discord}" to loop-player
 		send " " to loop-player
-		send "  &7Join our <##BBEFE0>Discord &7for events, updates, and extra features" to loop-player
-		send "  &7Link your account &7(<tooltip:<##BBEFE0>Click to link!><command:/link><##BBEFE0>/link<reset>&7) to recieve perks! <tooltip:<##BBEFE0>Click to join!><link:https://discord.gg/y333BGhxFP>&7(<##BBEFE0>/discord&7)<reset>" to loop-player
+		send "  &7Join our {@color}Discord &7for events, updates, and extra features" to loop-player
+		send "  &7Link your account &7(<tooltip:{@color}Click to link!><command:/link>{@color}/link<reset>&7) to recieve perks! <tooltip:{@color}Click to join!><link:https://discord.gg/y333BGhxFP>&7({@color}/discord&7)<reset>" to loop-player
 		send " " to loop-player
 
 command /link:
@@ -140,14 +142,14 @@ command /link:
 			stop
 		set {_code} to a random integer between 11111 and 99999
 		set {code::%{_code}%} to name of player
-		set {_copy} to new text component of "  <##BBEFE0>Click here &7to copy command to clipboard. "
+		set {_copy} to new text component of "  {@color2}Click here &7to copy command to clipboard. "
 		set click event of {_copy} to a new click event to copy ".link %{_code}%" to clipboard
 		set hover event of {_copy} to a new hover event showing "Copy to Clipboard"
 		send " "
 		send "  {@discord}"
 		send " "
-		send "  &7Run the command <##BBEFE0>.link %{_code}% &7in <##BBEFE0>##link &7to link your account"
-		send "  <##BBEFE0>Rewards: &710b coins and 10a wrath  &8|  &7Valid for <##BBEFE0>1 &7minute"
+		send "  &7Run the command {@color2}.link %{_code}% &7in {@color2}##link &7to link your account"
+		send "  {@color2}Rewards: &710b coins and 10a wrath  &8|  &7Valid for {@color}1 &7minute"
 		send components {_copy} to player
 		send " " 
 		wait 1 minute
@@ -165,7 +167,7 @@ command /unlink [<player>]:
 						delete {discord_player::%loop-index%}
 						send "{@admin} &7Unlinked &7%arg-1%"
 						stop
-				send "{@admin} <##BBEFE0>%arg-1% &7is not linked"
+				send "{@admin} {@color}%arg-1% &7is not linked"
 			else:
 				loop {discord_player::*}:
 					if {discord_player::%loop-index%} is name of player:

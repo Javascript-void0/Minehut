@@ -1,7 +1,8 @@
 options:
-	prefix: &8[<##BBEFE0>&lCHARGING&8]&r
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&f
 	permission: &7Insufficient Permissions
-	staff: &8[<##BBEFE0>&lSTAFF&8]&r
+	staff: &8[<##B4C788>&lSTAFF&8]&r
 	world: world
 
 command /staffchat [<text>]:
@@ -12,10 +13,10 @@ command /staffchat [<text>]:
 		if arg-1 is not set:
 			if {staffchat::%player%} is not set:
 				set {staffchat::%player%} to true
-				send "{@staff} &7Toggle <##BBEFE0>&lENABLED"
+				send "{@staff} &7Toggle {@color}&lENABLED"
 			else:
 				delete {staffchat::%player%}
-				send "{@staff} &7Toggle <##BBEFE0>&lDISABLED"
+				send "{@staff} &7Toggle {@color}&lDISABLED"
 		else:
 			loop all players:
 				if loop-player has permission "sc.staffchat":
@@ -29,7 +30,7 @@ on chat:
 every 1 second:
 	loop all players:
 		if {staffchat::%loop-player%} is true:
-			send action bar "{@staff} <##BBEFE0>Enabled" to loop-player
+			send action bar "{@staff} {@color}Enabled" to loop-player
 on chat:
 	if player is op:
 		stop
@@ -56,18 +57,18 @@ command /mutechat:
 	trigger:
 		if {Globalchat} is not set:
 			set {Globalchat} to true
-			broadcast "{@prefix} &7Chat <##BBEFE0>&lMUTED &7by %player%"
+			broadcast "{@prefix} &7Chat {@color}&lMUTED &7by %player%"
 			stop trigger
 		if {Globalchat} is set:
 			clear {Globalchat}
-			broadcast "{@prefix} &7Chat <##BBEFE0>&lUNMUTED &7by %player%"
+			broadcast "{@prefix} &7Chat {@color}&lUNMUTED &7by %player%"
 on chat:
 	if {Globalchat} is true:
 		if player has permission "chat.mute.bypass":
 			stop trigger
 		else:
 			cancel event
-			send "{@prefix} &7Chat is currently <##BBEFE0>muted."
+			send "{@prefix} &7Chat is currently {@color}muted."
 command /clearchat:
 	permission: staff
 	permission message: {@staff} {@permission}
@@ -75,7 +76,7 @@ command /clearchat:
 	trigger:
 		loop 100 times:
 			broadcast ""
-		send "{@prefix} &7You have <##BBEFE0>cleared &7the chat"
+		send "{@prefix} &7You have {@color}cleared &7the chat"
 command /clearlag:
 	permission: staff
 	permission message: {@staff} {@permission}
@@ -89,4 +90,4 @@ command /clearlag:
 			delete {m_health::%loop-entity%}
 			delete {m_damage::%loop-entity%}
 			add 1 to {_n}
-		broadcast "{@prefix} &7Cleared <##BBEFE0>%{_n}% &7entities"
+		broadcast "{@prefix} &7Cleared {@color}%{_n}% &7entities"

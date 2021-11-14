@@ -1,0 +1,41 @@
+options:
+	color: <##f7ffc5>
+	color2: <##B4C788>
+	color3: <##768153>
+	title: &x&d&9&e&3&c&3&lU&x&f&f&f&f&f&f&lM&x&f&f&f&f&f&f&lO&x&f&f&f&f&f&f&lR&x&e&6&e&c&d&7&lI&x&c&d&d&9&a&f&lA
+	ip: &x&c&1&d&0&9&du&x&c&e&d&a&b&2m&x&d&b&e&4&c&7o&x&e&8&e&e&d&br&x&f&6&f&8&f&1i&x&f&f&f&f&f&fa&x&f&f&f&f&f&f.&x&f&f&f&f&f&fm&x&f&f&f&f&f&fi&x&f&f&f&f&f&fn&x&f&f&f&f&f&fe&x&f&f&f&f&f&fh&x&f&6&f&8&f&1u&x&e&d&f&1&e&3t&x&e&4&e&b&d&5.&x&d&b&e&4&c&7g&x&d&2&d&e&b&9g
+
+every 4 ticks:
+	loop all players:
+		tab(loop-player)
+
+function tabFormat(n: number) :: text:
+	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
+	loop split {_data} at "|":
+		set {_s::*} to split loop-value at ","
+		{_n} >= 10 ^ {_s::2} parsed as number
+		set {_nn} to chatRound({_n} / 10 ^ {_s::2} parsed as number, 1)
+		return "%{_nn}%%{_s::1}%"
+	return "%{_n}%"
+
+function tabRound(n: number, to: number) :: number:
+	return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
+
+function tab(p: player):
+	set {_tps} to tabRound(tps from the last minute, 2)
+	if group of {_p} is "admin":
+		set {_rank} to "&8[{@color}&lADMIN&8]&f "
+	else if group of {_p} is "mod":
+		set {_rank} to "&8[{@color}<&lMOD&8]&f "
+	else if group of {_p} is "tier3":
+		set {_rank} to "&8[{@color2}&lTIER{@color}&l&n3&8]&f "
+	else if group of {_p} is "tier2":
+		set {_rank} to "&8[{@color2}&lTIER{@color}&l&n2&8]&f "
+	else if group of {_p} is "tier1":
+		set {_rank} to "&8[{@color2}&lTIER{@color}&l&n1&8]&f "
+	else:
+		set {_rank} to ""
+	set {_level} to chatFormat({p_level::%{_p}%})
+	set tablist name of {_p} to "%{_rank}%&8[{@color2}:L%{_level}%&8] &7%display name of {_p}%"
+	set tablist header of {_p} to "                                               %nl%{@title}%nl%%nl%{@color3}Online: &7%number of all players% &8| {@color3}TPS: &7%{_tps}% &8| {@color3}Ping: &7%ping of {_p}%%nl%"
+	set tablist footer of {_p} to "%nl%{@ip}%nl%"

@@ -1,7 +1,8 @@
 options:
-	prefix: &8[<##BBEFE0>&lCHARGING&8]&r
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&f
 	permission: &7Insufficient Permissions
-	admin: &8[<##BBEFE0>&lADMIN&8]&r
+	admin: &8[<##B4C788>&lADMIN&8]&r
 	world: world
 
 function boneWarrior(loc: location) :: entity:
@@ -10,7 +11,7 @@ function boneWarrior(loc: location) :: entity:
 	set {m_maxhealth::%{_e}%} to 50
 	set {m_damage::%{_e}%} to 1
 	set {m_health::%{_e}%} to 50
-	set name of {_e} to "&8[<##BBEFE0>:L100&8] &fBone:Warrior &7(<##8fb6ab>%{m_health::%{_e}%}%<##8fb6ab>/%{m_maxhealth::%{_e}%}% ❤&7)"
+	set name of {_e} to "&8[{@color}:L100&8] &fBone:Warrior &7({@color}%{m_health::%{_e}%}%{@color}/%{m_maxhealth::%{_e}%}% ❤&7)"
 	set helmet of {_e} to bone
 	set chestplate of {_e} to iron chestplate
 	set leggings of {_e} to leather leggings
@@ -29,7 +30,7 @@ function boneArcher(loc: location) :: entity:
 	set {m_maxhealth::%{_e}%} to 20
 	set {m_damage::%{_e}%} to 2
 	set {m_health::%{_e}%} to 20
-	set name of {_e} to "&8[<##BBEFE0>:L100&8] &fBone:Archer &7(<##8fb6ab>%{m_health::%{_e}%}%<##8fb6ab>/%{m_maxhealth::%{_e}%}% ❤&7)"
+	set name of {_e} to "&8[{@color}:L100&8] &fBone:Archer &7({@color}%{m_health::%{_e}%}%{@color}/%{m_maxhealth::%{_e}%}% ❤&7)"
 	set helmet of {_e} to feather
 	set chestplate of {_e} to iron chestplate
 	set leggings of {_e} to leather leggings
@@ -49,7 +50,7 @@ function orcCaptain(loc: location) :: entity:
 	set {m_maxhealth::%{_e}%} to 50
 	set {m_damage::%{_e}%} to 1
 	set {m_health::%{_e}%} to 50
-	set name of {_e} to "&8[<##BBEFE0>:L100&8] &fOrc:Captain &7(<##8fb6ab>%{m_health::%{_e}%}%<##8fb6ab>/%{m_maxhealth::%{_e}%}% ❤&7)"
+	set name of {_e} to "&8[{@color}:L100&8] &fOrc:Captain &7({@color}%{m_health::%{_e}%}%{@color}/%{m_maxhealth::%{_e}%}% ❤&7)"
 	set helmet of {_e} to fern
 	set chestplate of {_e} to leather chestplate
 	dye chestplate of {_e} green
@@ -70,7 +71,7 @@ function orcWarrior(loc: location) :: entity:
 	set {m_maxhealth::%{_e}%} to 50
 	set {m_damage::%{_e}%} to 1
 	set {m_health::%{_e}%} to 50
-	set name of {_e} to "&8[<##BBEFE0>:L100&8] &fOrc:Warrior &7(<##8fb6ab>%{m_health::%{_e}%}%<##8fb6ab>/%{m_maxhealth::%{_e}%}% ❤&7)"
+	set name of {_e} to "&8[{@color}:L100&8] &fOrc:Warrior &7({@color}%{m_health::%{_e}%}%{@color}/%{m_maxhealth::%{_e}%}% ❤&7)"
 	set helmet of {_e} to dark prismarine slab
 	set chestplate of {_e} to leather chestplate
 	dye chestplate of {_e} green

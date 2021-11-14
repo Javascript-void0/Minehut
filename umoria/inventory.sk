@@ -1,9 +1,10 @@
-options: # NEED TO CHANGE FROM TUSKE TO VANILLA GUI
-	prefix: &8[<##BBEFE0>&lCHARGING&8]&7
+options:
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[<##BBEFE0>&lADMIN&8]&7
-	coins: &7Insufficient <##BBEFE0>Coins
-	wrath: &7Insufficient <##BBEFE0>Wrath
+	admin: &8[<##B4C788>&lADMIN&8]&7
+	coins: &7Insufficient <##B4C788>Coins
+	wrath: &7Insufficient <##B4C788>Wrath
 	world: world
 
 function inventoryRound(n: number, to: number) :: number:
@@ -20,15 +21,15 @@ function inventoryFormat(n: number) :: text:
 
 function stats(p: player):
 	set metadata tag "Stats" of {_p} to chest inventory with 3 rows named "&8Statistics: %{_p}%"
-	set slot 10 of metadata tag "Stats" of {_p} to head of {_p} named "&8[<##BBEFE0>:L%{p_level::%{_p}%}%&8] <##BBEFE0>%display name of {_p}%" with lore "<##BBEFE0>Playtime: &7%time played of {_p}%"
+	set slot 10 of metadata tag "Stats" of {_p} to head of {_p} named "&8[{@color}:L%{p_level::%{_p}%}%&8] {@color}%display name of {_p}%" with lore "{@color}Playtime: &7%time played of {_p}%"
 	set {_coins} to inventoryFormat({p_coins::%{_p}%})
 	set {_totalcoins} to inventoryFormat({p_totalcoins::%{_p}%})
-	set slot 12 of metadata tag "Stats" of {_p} to gold block named "<##BBEFE0>&lCOINS" with lore "&7Current: <##BBEFE0>%{_coins}% &7coins" and "&7Total: <##BBEFE0>%{_totalcoins}% &7coins"
+	set slot 12 of metadata tag "Stats" of {_p} to gold block named "{@color}&lCOINS" with lore "&7Current: {@color}%{_coins}% &7coins" and "&7Total: {@color}%{_totalcoins}% &7coins"
 	set {_wrath} to inventoryFormat({p_wrath::%{_p}%})
 	set {_totalwrath} to inventoryFormat({p_totalwrath::%{_p}%})
-	set slot 13 of metadata tag "Stats" of {_p} to bell named "<##BBEFE0>&lWRATH" with lore "&7Current: <##BBEFE0>%{_wrath}% &7wrath" and "&7Total: <##BBEFE0>%{_totalwrath}% &7wrath"
-	set slot 14 of metadata tag "Stats" of {_p} to nether star named "<##BBEFE0>&lVIRTUE" with lore "&7Current: <##BBEFE0>%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
-	set slot 15 of metadata tag "Stats" of {_p} to netherite sword named "<##BBEFE0>&lCOMBAT" with lore "&7Kills: <##BBEFE0>%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: <##BBEFE0>%{p_death::%{_p}%}% &7deaths" with all flags hidden
+	set slot 13 of metadata tag "Stats" of {_p} to bell named "{@color}&lWRATH" with lore "&7Current: {@color}%{_wrath}% &7wrath" and "&7Total: {@color}%{_totalwrath}% &7wrath"
+	set slot 14 of metadata tag "Stats" of {_p} to nether star named "{@color}&lVIRTUE" with lore "&7Current: {@color}%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
+	set slot 15 of metadata tag "Stats" of {_p} to netherite sword named "{@color}&lCOMBAT" with lore "&7Kills: {@color}%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: {@color}%{p_death::%{_p}%}% &7deaths" with all flags hidden
 	open (metadata tag "Stats" of {_p}) to {_p}
 
 command /stats [<offline player>]:
@@ -42,7 +43,7 @@ on right click:
 	if player's tool is pickaxe or axe or shovel:
 		if player's tool is wooden axe:
 			stop
-	else if name of player's tool is "<##BBEFE0>&lMENU":
+	else if name of player's tool is "{@color}&lMENU":
 		menu(player)
 
 command /menu:
@@ -63,11 +64,11 @@ on inventory click:
 		cancel event
 		set {_waited} to difference between {daily.%player%.lastused} and now
 		if {_waited} is less than 24 hours:
-			send "{@prefix} &7Your daily reward was already claimed at <##BBEFE0>%{daily.%player%.lastused}%"
+			send "{@prefix} &7Your daily reward was already claimed at {@color}%{daily.%player%.lastused}%"
 			menu(player)
 		else:
 			set {daily.%player%.lastused} to now
-			send "{@prefix} &7You claimed your daily reward at <##BBEFE0>%now%"
+			send "{@prefix} &7You claimed your daily reward at {@color}%now%"
 			add 100 to {p_wrath::%player%}
 			menu(player)
 	else if clicked slot is 2:
@@ -77,26 +78,26 @@ on inventory click:
 function menu(p: player):
 	set metadata tag "Menu" of {_p} to chest inventory with 3 rows named "&8Menu"
 	if {pvp::%{_p}%} is false:
-		set slot 0 of metadata tag "Menu" of {_p} to red dye named "<##BBEFE0>&lPVP &7Disabled" with lore " &8╹ &7Click to Enable (/pvp)"
+		set slot 0 of metadata tag "Menu" of {_p} to red dye named "{@color}&lPVP &7Disabled" with lore " &8╹ &7Click to Enable (/pvp)"
 	else:
-		set slot 0 of metadata tag "Menu" of {_p} to lime dye named "<##BBEFE0>&lPVP &7Enabled" with lore " &8╹ &7Click to Disable (/pvp)"
+		set slot 0 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lPVP &7Enabled" with lore " &8╹ &7Click to Disable (/pvp)"
 	if {wait.%{_p}%} is false:
-		set slot 1 of metadata tag "Menu" of {_p} to red dye named "<##BBEFE0>&lWAIT &7Disabled" with lore " &8╹ &7Click to Enable (/wait)"
+		set slot 1 of metadata tag "Menu" of {_p} to red dye named "{@color}&lWAIT &7Disabled" with lore " &8╹ &7Click to Enable (/wait)"
 	else:
-		set slot 1 of metadata tag "Menu" of {_p} to lime dye named "<##BBEFE0>&lWAIT &7Enabled" with lore " &8╹ &7Click to Disable (/wait)"
+		set slot 1 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lWAIT &7Enabled" with lore " &8╹ &7Click to Disable (/wait)"
 	set {_waited} to difference between {daily.%{_p}%.lastused} and now
 	set {_next} to 1 day after {daily.%{_p}%.lastused}
 	if {_waited} is less than 24 hours:
-		set slot 8 of metadata tag "Menu" of {_p} to red stained glass named "<##BBEFE0>&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&8┃ &7Already <##BBEFE0>Claimed " and "&8╹ <##BBEFE0>+100 &7Wrath"
+		set slot 8 of metadata tag "Menu" of {_p} to red stained glass named "{@color}&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&8┃ &7Already {@color}Claimed " and "&8╹ {@color}+100 &7Wrath"
 	else:
 		if {_waited} is not set:
 			set {_m} to "Never Used"
 		else:
 			set {_m} to "%{daily.%{_p}%.lastused}%"
-		set slot 8 of metadata tag "Menu" of {_p} to lime stained glass named "<##BBEFE0>&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to <##BBEFE0>Claim" and " &8╹ <##BBEFE0>+100 &7Wrath"
+		set slot 8 of metadata tag "Menu" of {_p} to lime stained glass named "{@color}&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to {@color}Claim" and " &8╹ {@color}+100 &7Wrath"
 
 	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
-	set slot 2 of metadata tag "Menu" of {_p} to book named "<##BBEFE0>&lSTATS" with lore " &8╹ &7Click to view"
+	set slot 2 of metadata tag "Menu" of {_p} to book named "{@color}&lSTATS" with lore " &8╹ &7Click to view"
 		# stats(player)
 	open (metadata tag "Menu" of {_p}) to {_p}
 

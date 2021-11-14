@@ -1,12 +1,12 @@
 # ⚡ Charging
 
-Charging is a work in progress RPG. That's all I got 🤷‍♂️. 
+Umoria is a work in progress RPG. That's all I got 🤷‍♂️. 
 
-#### IP: charging.minehut.gg
+#### IP: umoria.minehut.gg
 
 #### Discord: [Invite](https://discord.gg/B3DwtthCb3)
 
-#### Notes: [List](https://lucent.slite.com/api/s/note/9RfJdhkKhgfeG7SZ1Rh9nP/Charging-Ideas)
+#### Notes: [List](https://lucent.slite.com/api/s/note/9RfJdhkKhgfeG7SZ1Rh9nP/Umoria-Ideas)
 
 ---
 

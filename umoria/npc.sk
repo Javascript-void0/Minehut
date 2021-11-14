@@ -1,7 +1,8 @@
 options:
-	charging: &8[<##BBEFE0>&lCHARGING&8]&7
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&f
 	permission: &7Insufficient Permissions
-	admin: &8[<##BBEFE0>&lADMIN&8]&7
+	admin: &8[<##B4C788>&lADMIN&8]&7
 	world: world
 
 on inventory click:
@@ -150,13 +151,13 @@ command /wait:
 function waitToggle(p: player):
 	if {wait.%{_p}%} is not set:
 		set {wait.%{_p}%} to false
-		send "{@charging} NPC chat delay turned off" to {_p}
+		send "{@prefix} NPC chat delay turned off" to {_p}
 	else if {wait.%{_p}%} is false:
 		set {wait.%{_p}%} to true
-		send "{@charging} NPC chat delay turned on" to {_p}
+		send "{@prefix} NPC chat delay turned on" to {_p}
 	else if {wait.%{_p}%} is true:
 		set {wait.%{_p}%} to false
-		send "{@charging} NPC chat delay turned off" to {_p}
+		send "{@prefix} NPC chat delay turned off" to {_p}
 
 npc left click:
 	if citizen is 0:

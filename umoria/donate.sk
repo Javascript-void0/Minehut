@@ -1,0 +1,14 @@
+options:
+	color: <##B4C788>
+	color2: <##f7ffc5>
+	prefix: &8[<##B4C788>&lUMORIA&8]&r
+	permission: &7Insufficient Permissions
+	store: &8[<##B4C788>&lSTORE&8]&7
+	world: world
+
+command /buy:
+	aliases: /donate, /store
+	trigger:
+		send " "
+		send "  {@store} <tooltip:{@color}&lCLICK HERE!><link:https://charging.tebex.io/>&7Support us {@color2}@{@color} https://charging.tebex.io!"
+		send " "

@@ -1,7 +1,8 @@
 options:
-	charging: &8[<##BBEFE0>&lCHARGING&8]&7
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[<##BBEFE0>&lADMIN&8]&7
+	admin: &8[<##B4C788>&lADMIN&8]&7
 	world: world
 
 function adminFormat(n: number) :: text:
@@ -42,7 +43,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 			if arg-3 is "add":
 				add arg-4 to {p_%arg-2%::%arg-1%}
 				set {_nn} to adminFormat(arg-4)
-				send "{@admin} &7Added <##BBEFE0>%{_nn}% &7to %arg-1% &7%arg-2%"
+				send "{@admin} &7Added {@color}%{_nn}% &7to %arg-1% &7%arg-2%"
 			else if arg-3 is "remove":
 				if arg-2 is "level":
 					if arg-4 is greater than {p_level::%arg-1%} - 1:
@@ -70,7 +71,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to arg-4
 				remove {_n} from {p_%arg-2%::%arg-1%}
 				set {_nn} to adminFormat({_n})
-				send "{@admin} &7Removed <##BBEFE0>%{_nn}% &7from %arg-1% &7%arg-2%"
+				send "{@admin} &7Removed {@color}%{_nn}% &7from %arg-1% &7%arg-2%"
 			else if arg-3 is "set":
 				if arg-2 is "level":
 					if arg-4 is less than 1:
@@ -98,7 +99,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to arg-4
 				set {p_%arg-2%::%arg-1%} to {_n}
 				set {_nn} to adminFormat({_n})
-				send "{@admin} &7Set %arg-1% &7%arg-2% &7to <##BBEFE0>%{_nn}%"
+				send "{@admin} &7Set %arg-1% &7%arg-2% &7to {@color}%{_nn}%"
 			else if arg-3 is "reset":
 				if arg-2 is "level" or "damage":
 					set {_n} to 1
@@ -117,7 +118,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {p_health::%arg-1%} to 20
 					set {p_damage::%arg-1%} to 1
 					set {p_bank::%arg-1%} to 0
-					send "{@admin} &7Reset all for <##BBEFE0>%arg-1%"
+					send "{@admin} &7Reset all for {@color}%arg-1%"
 					stop
 				else:
 					set {_n} to 0
@@ -157,15 +158,15 @@ command /enchant [<text>] [<integer>]:
 			if arg-2 is not set:
 				stop
 			if arg-1 is "mending":
-				set line 11 of player's tool's lore to " &8┃ &7Mending: <##BBEFE0>%arg-2%"					
+				set line 11 of player's tool's lore to " &8┃ &7Mending: {@color}%arg-2%"					
 				removeEnch(player's tool, mending)
 				enchant player's tool with "mending %arg-2%" parsed as enchantment type
-				send "{@admin} Enchanted with <##BBEFE0>Mending %arg-2%"
+				send "{@admin} Enchanted with {@color}Mending %arg-2%"
 			else if arg-1 is "binding":
-				set line 12 of player's tool's lore to " &8╹ &7Binding: <##BBEFE0>%arg-2%"					
+				set line 12 of player's tool's lore to " &8╹ &7Binding: {@color}%arg-2%"					
 				removeEnch(player's tool, curse of binding)
 				enchant player's tool with "curse of binding %arg-2%" parsed as enchantment type
-				send "{@admin} Enchanted with <##BBEFE0>Binding %arg-2%"
+				send "{@admin} Enchanted with {@color}Binding %arg-2%"
 
 			# SWORD
 			# SWORD
@@ -175,15 +176,15 @@ command /enchant [<text>] [<integer>]:
 				if arg-1 is "sharpness":
 					# set {_split::*} to uncoloured line 2 of player's tool's lore parsed as " ┃ Sharpness: %number%"
 					# send "%{_split::1}%" to the player
-					set line 9 of player's tool's lore to " &8┃ &7Sharpness: <##BBEFE0>%arg-2%"					
+					set line 9 of player's tool's lore to " &8┃ &7Sharpness: {@color}%arg-2%"					
 					removeEnch(player's tool, sharpness)
 					enchant player's tool with "sharpness %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with <##BBEFE0>Sharpness %arg-2%"
+					send "{@admin} Enchanted with {@color}Sharpness %arg-2%"
 				else if arg-1 is "looting":
-					set line 10 of player's tool's lore to " &8┃ &7Looting: <##BBEFE0>%arg-2%"					
+					set line 10 of player's tool's lore to " &8┃ &7Looting: {@color}%arg-2%"					
 					removeEnch(player's tool, looting)
 					enchant player's tool with "looting %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with <##BBEFE0>Looting %arg-2%"
+					send "{@admin} Enchanted with {@color}Looting %arg-2%"
 			
 			# PICKAXE / SCYTHE
 			# PICKAXE / SCYTHE
@@ -191,15 +192,15 @@ command /enchant [<text>] [<integer>]:
 			
 			else if player's held item is pickaxe or hoe:
 				if arg-1 is "efficiency":
-					set line 9 of player's tool's lore to " &8┃ &7Efficiency: <##BBEFE0>%arg-2%"					
+					set line 9 of player's tool's lore to " &8┃ &7Efficiency: {@color}%arg-2%"					
 					removeEnch(player's tool, efficiency)
 					enchant player's tool with "efficiency %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with <##BBEFE0>Efficiency %arg-2%"
+					send "{@admin} Enchanted with {@color}Efficiency %arg-2%"
 				else if arg-1 is "fortune":
-					set line 10 of player's tool's lore to " &8┃ &7Fortune: <##BBEFE0>%arg-2%"					
+					set line 10 of player's tool's lore to " &8┃ &7Fortune: {@color}%arg-2%"					
 					removeEnch(player's tool, fortune)
 					enchant player's tool with "fortune %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with <##BBEFE0>Fortune %arg-2%"
+					send "{@admin} Enchanted with {@color}Fortune %arg-2%"
 			
 			# BOW
 			# BOW
@@ -207,15 +208,15 @@ command /enchant [<text>] [<integer>]:
 			
 			else if player's held item is bow:
 				if arg-1 is "power":
-					set line 9 of player's tool's lore to " &8┃ &7Power: <##BBEFE0>%arg-2%"					
+					set line 9 of player's tool's lore to " &8┃ &7Power: {@color}%arg-2%"					
 					removeEnch(player's tool, power)
 					enchant player's tool with "power %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with <##BBEFE0>Power %arg-2%"
+					send "{@admin} Enchanted with {@color}Power %arg-2%"
 				else if arg-1 is "infinity":
-					set line 10 of player's tool's lore to " &8┃ &7Infinity: <##BBEFE0>%arg-2%"					
+					set line 10 of player's tool's lore to " &8┃ &7Infinity: {@color}%arg-2%"					
 					removeEnch(player's tool, infinity)
 					enchant player's tool with "infinity %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with <##BBEFE0>Infinity %arg-2%"
+					send "{@admin} Enchanted with {@color}Infinity %arg-2%"
 					
 			# SHIELD
 			# SHIELD
@@ -223,15 +224,15 @@ command /enchant [<text>] [<integer>]:
 			
 			else if player's held item is shield:
 				if arg-1 is "unbreaking":
-					set line 9 of player's tool's lore to " &8┃ &7Unbreaking: <##BBEFE0>%arg-2%"					
+					set line 9 of player's tool's lore to " &8┃ &7Unbreaking: {@color}%arg-2%"					
 					removeEnch(player's tool, unbreaking)
 					enchant player's tool with "unbreaking %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with <##BBEFE0>Unbreaking %arg-2%"
+					send "{@admin} Enchanted with {@color}Unbreaking %arg-2%"
 				else if arg-1 is "thorns":
-					set line 10 of player's tool's lore to " &8┃ &7Thorns: <##BBEFE0>%arg-2%"					
+					set line 10 of player's tool's lore to " &8┃ &7Thorns: {@color}%arg-2%"					
 					removeEnch(player's tool, thorns)
 					enchant player's tool with "thorns %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with <##BBEFE0>Thorns %arg-2%"
+					send "{@admin} Enchanted with {@color}Thorns %arg-2%"
 			
 			# ARMOR
 			# ARMOR
@@ -239,15 +240,15 @@ command /enchant [<text>] [<integer>]:
 			
 			else if player's held item is helmet or chestplate or leggings or boots:
 				if arg-1 is "protection":
-					set line 9 of player's tool's lore to " &8┃ &7Protection: <##BBEFE0>%arg-2%"					
+					set line 9 of player's tool's lore to " &8┃ &7Protection: {@color}%arg-2%"					
 					removeEnch(player's tool, protection)
 					enchant player's tool with "protection %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with <##BBEFE0>Protection %arg-2%"
+					send "{@admin} Enchanted with {@color}Protection %arg-2%"
 				else if arg-1 is "thorns":
-					set line 10 of player's tool's lore to " &8┃ &7Thorns: <##BBEFE0>%arg-2%"					
+					set line 10 of player's tool's lore to " &8┃ &7Thorns: {@color}%arg-2%"					
 					removeEnch(player's tool, thorns)
 					enchant player's tool with "thorns %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with <##BBEFE0>Thorns %arg-2%"
+					send "{@admin} Enchanted with {@color}Thorns %arg-2%"
 		
 		else:
 			send "{@admin} {permission}"

@@ -1,13 +1,14 @@
 options:
-	prefix: &8[<##BBEFE0>&lCHARGING&8]&f
-	discord: &8[<##BBEFE0>&lDISCORD&8]&7
-	broadcast: &8[<##BBEFE0>&lBROADCAST&8]&f
-	rule: &8[<##BBEFE0>&lRULE&8]&f
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&f
+	discord: &8[<##B4C788>&lDISCORD&8]&7
+	broadcast: &8[<##B4C788>&lBROADCAST&8]&f
+	rule: &8[<##B4C788>&lRULE&8]&f
 	permission: &7Insufficient Permissions
-	coins: &7Insufficient <##BBEFE0>Coins
+	coins: &7Insufficie<##B4C788>>Coins
 	wrath: &7Insufficient &bWrath
-	staff: &8[<##BBEFE0>&lSTAFF&8]&f
-	admin: &8[<##BBEFE0>&lADMIN&8]&f
+	staff: &8[<##B4C788>&lSTAFF&8]&f
+	admin: &8[<##B4C788>&lADMIN&8]&f
 	world: world
 
 function roundto(n: number, to: number) :: number:
@@ -52,18 +53,39 @@ on item damage:
 on shoot:
 	set {_p} to held item of shooter
 	if projectile is set:
-		set slot 16 of shooter to 64 of arrow named "<##BBEFE0>&lQUIVER" with lore " &8╹ &7Click to Open"
+		set slot 16 of shooter to 64 of arrow named "{@color}&lQUIVER" with lore " &8╹ &7Click to Open"
 on mine:
 	player's world = "dungeon"
 	if group of player is not "admin":
 		cancel event
-
+		
+on join:
+	send " "
+	send " "
+	send " "
+	send "                              &7Robert A. Koeneke's classic roguelike"
+	send " "
+	send " "
+	send "&l     &r<##b4c788>███ &l &r<##b4c788>██ ██  &l &r &l  &r<##b4c788>██ <##8a8969>███████ &l &r<##62554c>███████  &l &r<##463c3c>███ <##312629>████████"
+	send "&l     &r<##b4c788>███ &l &r<##b4c788>██ ███ &l &r<##b4c788>███  &l &r &l &r &l &r &l &r &l &r &l &r<##8a8969>██ &l &r &l &r &l &r &l &r &l &r &l &r<##62554c>██ <##463c3c>███  &l &r &l &r &l &r &l &r &l &r &l &r<##312629>██"
+	send "&l     &r<##b4c788>███ &l &r<##b4c788>██ ███████  &l &r<##8a8969>██  &l   &r <##8a8969>██ &l &r<##62554c>██████  &l &r<##463c3c>███  &l &r<##312629>███████"
+	send "&l     &r<##b4c788>███ &l &r<##b4c788>██ ██ &l &r<##b4c788>█ &l &r<##b4c788>██  &l &r<##8a8969>██  &l  &r &l &r<##8a8969>██ &l &r<##62554c>██ &l &r &l &r<##62554c>██  &l &r<##463c3c>███  &l &r<##312629>███ &l &r &l &r<##312629>██"
+	send "&l     &r &l &r<##b4c788>█████ ██  &l &r &l  &r<##b4c788>██  &l &r &l &r<##8a8969>█████ &l &r &l &r<##62554c>██ &l &r &l &r &l &r<##62554c>██ <##463c3c>███  &l &r<##312629>███ &l &r &l &r<##312629>██"
+	send "&l     &r &l &r &l &r &l &r &l &r &l &r &l &r <##b4c788>██"
+	send " "
+	send " "
+	send "                                 &7Umoria 5.7.15 Java Edition (32bit)"
+	send " "
+	send "                                   &7[ press any key to continue ]"
+	send " "
+	send " "
+	send " "
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
 on disconnect:
 	broadcast "&8[<##8fb6ab>-&8] &7%player%"
 on first join:
-	broadcast "&8[&a+&8] <##BBEFE0>%player% &8[&f##%size of all offline players%&8]"
+	broadcast "&8[&a+&8] {@color}%player% &8[&f##%size of all offline players%&8]"
 
 command /spawn:
 	trigger:
@@ -84,7 +106,7 @@ command /tps:
 		if {_t} >= 19:
 			send "{@prefix} &a%{_t}% &7TPS"
 		else if {_t} >= 16:
-			send "{@prefix} <##BBEFE0>%{_t}% &7TPS"
+			send "{@prefix} {@color}%{_t}% &7TPS"
 		else:
 			send "{@prefix} <##8fb6ab>%{_t}% &7TPS"
 
@@ -93,7 +115,7 @@ command /bc [<text>]:
 	trigger:
 		if player is op:
 			if arg-1 is set:
-				broadcast colored "{@broadcast} <##8fb6ab>%arg-1%"
+				broadcast colored "{@broadcast} {@color}%arg-1%"
 			else:
 				send "{@admin} /bc <msg>"
 		else:
@@ -101,14 +123,14 @@ command /bc [<text>]:
 
 command /rules: 
 	trigger:
-		send "{@rule} <##BBEFE0>1. &fNo NSFW. Limit swearing."
-		send "{@rule} <##BBEFE0>2. &fEnglish only"
-		send "{@rule} <##BBEFE0>3. &fDon't spam/flood. Limit caps. "
-		send "{@rule} <##BBEFE0>4. &fRespect everyone"
-		send "{@rule} <##BBEFE0>5. &fNo advertising"
-		send "{@rule} <##BBEFE0>6. &fDon't start drama"
-		send "{@rule} <##BBEFE0>7. &fNo bugs, exploits, hacks, macros, or any unfair advantages"
-		send "{@rule} <##BBEFE0>8. &fDon't be rude, racist, or bully others"
+		send "{@rule} {@color}1. &fNo NSFW. Limit swearing."
+		send "{@rule} {@color}2. &fEnglish only"
+		send "{@rule} {@color}3. &fDon't spam/flood. Limit caps. "
+		send "{@rule} {@color}4. &fRespect everyone"
+		send "{@rule} {@color}5. &fNo advertising"
+		send "{@rule} {@color}6. &fDon't start drama"
+		send "{@rule} {@color}7. &fNo bugs, exploits, hacks, macros, or any unfair advantages"
+		send "{@rule} {@color}8. &fDon't be rude, racist, or bully others"
 
 command /pl:
 	aliases: /plugins
@@ -180,29 +202,29 @@ command /top [<text>]:
 			set {_n} to {_n}-1
 		wait 1 tick
 		set {_i} to 0
-		send "&7&m-----------&r &8[ <##BBEFE0>&lTOP &8] &7&m-------------"
+		send "&7&m-----------&r &8[ {@color}&lTOP &8] &7&m-------------"
 		loop {_high.to.low.list::*}:
 			if arg-1 is "level":
-				set {_label} to "&3:L%{p_%arg-1%::%loop-value%}%"
+				set {_label} to "{@color}:L%{p_%arg-1%::%loop-value%}%"
 			else if arg-1 is "coins" or "totalcoins":
 				set {_coins} to format({p_%arg-1%::%loop-value%})
-				set {_label} to "&3%{_coins}% &7coins"
+				set {_label} to "{@color}%{_coins}% &7coins"
 			else if arg-1 is "wrath" or "totalwrath":
 				set {_wrath} to format({p_%arg-1%::%loop-value%})
-				set {_label} to "&3%{_wrath}% &7wrath"
+				set {_label} to "{@color}%{_wrath}% &7wrath"
 			else if arg-1 is "totalstigma":
 				set {_stigma} to format({p_%arg-1%::%loop-value%})
-				set {_label} to "&3%{_stigma}% &7stigma"
+				set {_label} to "{@color}%{_stigma}% &7stigma"
 			else if arg-1 is "death":
-				set {_label} to "&3%{p_%arg-1%::%loop-value%}% &7deaths"
+				set {_label} to "{@color}%{p_%arg-1%::%loop-value%}% &7deaths"
 			else if arg-1 is "kill":
-				set {_label} to "&3%{p_%arg-1%::%loop-value%}% &7kills"
+				set {_label} to "{@color}%{p_%arg-1%::%loop-value%}% &7kills"
 			else if arg-1 is "rebirth":
-				set {_label} to "&3%{p_%arg-1%::%loop-value%}% &7times"
+				set {_label} to "{@color}%{p_%arg-1%::%loop-value%}% &7times"
 			else if arg-1 is "maxhealth":
-				set {_label} to "&3%{%arg-1%::%loop-value%}% <##8fb6ab>❤"
+				set {_label} to "{@color}%{p_%arg-1%::%loop-value%}% {@color}❤"
 			else if arg-1 is "damage":
-				set {_label} to "&3%{%arg-1%::%loop-value%}% <##8fb6ab>dmg"
+				set {_label} to "{@color}%{p_%arg-1%::%loop-value%}% {@color}dmg"
 			add 1 to {_topnumber}
 			set {_player} to "%loop-value%" parsed as offline player
 			send "&7%{_topnumber}%&7. %{_player}%: %{_label}%"
@@ -224,8 +246,8 @@ on tab complete of "/skript" and "/sk":
 # 			if arg-2 is not set:
 # 				send "{@admin} &7/sk reload %enabled scripts%"
 # 				stop
-# 			send "{@admin} &7Reloading <##BBEFE0>%arg-2%<##BBEFE0>"
+# 			send "{@admin} &7Reloading {@color}%arg-2%{@color}"
 # 			reload skript arg-2
-# 			send "{@admin} &7Reloaded <##BBEFE0>%arg-2%<##BBEFE0>"
+# 			send "{@admin} &7Reloaded {@color}%arg-2%{@color}"
 # 		else:
 # 			send "{@admin} {@permission}"

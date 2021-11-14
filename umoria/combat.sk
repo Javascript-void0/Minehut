@@ -1,7 +1,8 @@
 options:
-	prefix: &8[<##BBEFE0>&lCHARGING&8]&r
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&r
 	permission: &7Insufficient Permissions
-	admin: &8[<##BBEFE0>&lADMIN&8]&r
+	admin: &8[<##B4C788>&lADMIN&8]&r
 	world: world
 
 command /pvp:
@@ -37,7 +38,7 @@ every 5 tick:
 			set {_health} to combatFormat({p_health::%loop-player%})
 			set {_maxhealth} to combatFormat({p_maxhealth::%loop-player%})
 			set {_damage} to combatFormat({p_damage::%loop-player%})
-			send action bar "<##8fb6ab>%{_health}%/%{_maxhealth}% ❤ &8| <##8fb6ab>%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| <##8fb6ab>%{_damage}% dmg" to loop-player
+			send action bar "{@color}%{_health}%/%{_maxhealth}% ❤ &8| {@color}%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| {@color}%{_damage}% dmg" to loop-player
 
 function death(p: player):
 	set {dead.%{_p}%} to true
@@ -46,14 +47,14 @@ function death(p: player):
 	# apply slowness of tier 255 to {_p} for 3 seconds
 	# set {_p}'s flight mode to true
 	# apply wither of tier 255 to {_p} for 3 seconds
-	send title "<##617C74>&lYOU DIED" with subtitle "&7<##BBEFE0>-50%% &7coins &8| <##BBEFE0>Incincible &7for 10s" to {_p} for 2 seconds
+	send title "{@color}&lYOU DIED" with subtitle "&7{@color}-50%% &7coins &8| {@color}Incincible &7for 10s" to {_p} for 2 seconds
 	set {_half} to floor({p_coins::%{_p}%} / 2)
 	remove {_half} from {p_coins::%{_p}%}
 	set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
 	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
 	wait 10 second
 	delete {dead.%{_p}%}
-	send title "<##617C74>" with subtitle "&7You are no longer incincible" to {_p} for 2 seconds
+	send title "{@color}" with subtitle "&7You are no longer incincible" to {_p} for 2 seconds
 	# set {_p}'s flight mode to false
 
 function deathEffect(e: entity):
@@ -73,14 +74,14 @@ on damage:
 		victim is a player
 		{pvp::%victim%} is set
 		cancel event
-		send action bar "{@prefix} &7PvP is <##BBEFE0>&lDISABLED &7 for %victim%" to attacker
+		send action bar "{@prefix} &7PvP is {@color}&lDISABLED &7 for %victim%" to attacker
 		stop
 	if attacker is set:
 		attacker is a player
 		victim is a player
 		{pvp::%attacker%} is set
 		cancel event
-		send action bar "{@prefix} &7Your PvP is <##BBEFE0>&lDISABLED" to attacker
+		send action bar "{@prefix} &7Your PvP is {@color}&lDISABLED" to attacker
 		stop
 	if victim is not a player:
 		if attacker is not a player:
@@ -106,7 +107,7 @@ on damage:
 				add 1 to {p_level::%attacker%}
 				set {p_nextexp::%attacker%} to {p_level::%attacker%} * 2
 				set {action::%attacker%} to "Level Up!"
-				send title "&3" with subtitle "&8[<##8fb6ab>:L%{_before}%&8] &7> &8[<##8fb6ab>:L%{p_level::%attacker%}%&8]" to attacker for 3 seconds
+				send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%attacker%}%&8]" to attacker for 3 seconds
 				discordLevel(attacker, {p_level::%attacker%})
 				wait 2 seconds
 				delete {action::%attacker%}
@@ -117,11 +118,11 @@ on damage:
 			add 1 to {p_coins::%attacker%}
 		else:
 			set {_name::*} to name of victim split at " "
-			set name of victim to "%{_name::1}% %{_name::2}% &7(<##8fb6ab>%{m_health::%victim%}%<##8fb6ab>/%{m_maxhealth::%victim%}% ❤&7)"
+			set name of victim to "%{_name::1}% %{_name::2}% &7({@color}%{m_health::%victim%}%{@color}/%{m_maxhealth::%victim%}% ❤&7)"
 		# damage counter
 		set {_location} to random element out of blocks in radius 1 of victim
 		add 3 to {_location}'s y-coordinate
-		create holo object "<##8fb6ab>-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
+		create holo object "{@color}-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
 		wait 1 second
 		delete holo object "damage.%{_location}%"
 	if victim is a player:

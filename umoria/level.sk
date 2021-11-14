@@ -1,7 +1,8 @@
 options:
-	charging: &8[<##BBEFE0>&lCHARGING&8]&7
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[<##BBEFE0>&lADMIN&8]&7
+	admin: &8[<##B4C788>&lADMIN&8]&7
 	world: world
 
 function levelRound(n: number, to: number) :: number:
@@ -28,47 +29,47 @@ function expItem(p: player, n: integer):
 	set {_percentFormat} to levelRound({_percent} * 100, 1)
 	
 	if {_percent} is between 0 and 0.05:
-		set {_bar} to " &8[<##BBEFE0>&7::::::::::::::::::::&8]"
+		set {_bar} to " &8[{@color}&7::::::::::::::::::::&8]"
 	else if {_percent} is between 0.05 and 0.1:
-		set {_bar} to " &8[<##BBEFE0>:&7:::::::::::::::::::&8]"
+		set {_bar} to " &8[{@color}:&7:::::::::::::::::::&8]"
 	else if {_percent} is between 0.1 and 0.15:
-		set {_bar} to " &8[<##BBEFE0>::&7::::::::::::::::::&8]"
+		set {_bar} to " &8[{@color}::&7::::::::::::::::::&8]"
 	else if {_percent} is between 0.15 and 0.2:
-		set {_bar} to " &8[<##BBEFE0>:::&7:::::::::::::::::&8]"
+		set {_bar} to " &8[{@color}:::&7:::::::::::::::::&8]"
 	else if {_percent} is between 0.2 and 0.25:
-		set {_bar} to " &8[<##BBEFE0>::::&7::::::::::::::::&8]"
+		set {_bar} to " &8[{@color}::::&7::::::::::::::::&8]"
 	else if {_percent} is between 0.25 and 0.3:
-		set {_bar} to " &8[<##BBEFE0>:::::&7:::::::::::::::&8]"
+		set {_bar} to " &8[{@color}:::::&7:::::::::::::::&8]"
 	else if {_percent} is between 0.3 and 0.35:
-		set {_bar} to " &8[<##BBEFE0>::::::&7::::::::::::::&8]"
+		set {_bar} to " &8[{@color}::::::&7::::::::::::::&8]"
 	else if {_percent} is between 0.35 and 0.4:
-		set {_bar} to " &8[<##BBEFE0>:::::::&7:::::::::::::&8]"
+		set {_bar} to " &8[{@color}:::::::&7:::::::::::::&8]"
 	else if {_percent} is between 0.4 and 0.45:
-		set {_bar} to " &8[<##BBEFE0>::::::::&7::::::::::::&8]"
+		set {_bar} to " &8[{@color}::::::::&7::::::::::::&8]"
 	else if {_percent} is between 0.45 and 0.5:
-		set {_bar} to " &8[<##BBEFE0>:::::::::&7:::::::::::&8]"
+		set {_bar} to " &8[{@color}:::::::::&7:::::::::::&8]"
 	else if {_percent} is between 0.5 and 0.55:
-		set {_bar} to " &8[<##BBEFE0>::::::::::&7::::::::::&8]"
+		set {_bar} to " &8[{@color}::::::::::&7::::::::::&8]"
 	else if {_percent} is between 0.55 and 0.6:
-		set {_bar} to " &8[<##BBEFE0>:::::::::::&7:::::::::&8]"
+		set {_bar} to " &8[{@color}:::::::::::&7:::::::::&8]"
 	else if {_percent} is between 0.6 and 0.65:
-		set {_bar} to " &8[<##BBEFE0>::::::::::::&7::::::::&8]"
+		set {_bar} to " &8[{@color}::::::::::::&7::::::::&8]"
 	else if {_percent} is between 0.65 and 0.7:
-		set {_bar} to " &8[<##BBEFE0>:::::::::::::&7:::::::&8]"
+		set {_bar} to " &8[{@color}:::::::::::::&7:::::::&8]"
 	else if {_percent} is between 0.7 and 0.75:
-		set {_bar} to " &8[<##BBEFE0>::::::::::::::&7::::::&8]"
+		set {_bar} to " &8[{@color}::::::::::::::&7::::::&8]"
 	else if {_percent} is between 0.75 and 0.8:
-		set {_bar} to " &8[<##BBEFE0>:::::::::::::::&7:::::&8]"
+		set {_bar} to " &8[{@color}:::::::::::::::&7:::::&8]"
 	else if {_percent} is between 0.8 and 0.85:
-		set {_bar} to " &8[<##BBEFE0>::::::::::::::::&7::::&8]"
+		set {_bar} to " &8[{@color}::::::::::::::::&7::::&8]"
 	else if {_percent} is between 0.85 and 0.9:
-		set {_bar} to " &8[<##BBEFE0>:::::::::::::::::&7:::&8]"
+		set {_bar} to " &8[{@color}:::::::::::::::::&7:::&8]"
 	else if {_percent} is between 0.9 and 0.95:
-		set {_bar} to " &8[<##BBEFE0>::::::::::::::::::&7::&8]"
+		set {_bar} to " &8[{@color}::::::::::::::::::&7::&8]"
 	else if {_percent} is between 0.95 and 1:
-		set {_bar} to " &8[<##BBEFE0>:::::::::::::::::::&7:&8]"
+		set {_bar} to " &8[{@color}:::::::::::::::::::&7:&8]"
 	else:
-		set {_bar} to " &8[<##BBEFE0>::::::::::::::::::::&7&8]"
+		set {_bar} to " &8[{@color}::::::::::::::::::::&7&8]"
 
 	set line 5 of {_p}'s tool's lore to "   &8(&f%{_percentFormat}%%%&8)"
 	set line 6 of {_p}'s tool's lore to "%{_bar}%"
@@ -101,7 +102,7 @@ function expBlock(p: player, n: integer, b: block):
 		add 1 to {p_level::%{_p}%}
 		set {p_nextexp::%{_p}%} to ({p_level::%{_p}%} * 2) + 10
 		set {action::%{_p}%} to "Level Up!"
-		send title "&3" with subtitle "&8[<##8fb6ab>:L%{_before}%&8] &7> &8[<##8fb6ab>:L%{p_level::%{_p}%}%&8]" to {_p} for 3 seconds
+		send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%{_p}%}%&8]" to {_p} for 3 seconds
 		# discordLevel({_p}, {p_level::%{_p}%})
 		set {actionBlock::%{_p}%} to {_b}
 		wait 2 seconds
