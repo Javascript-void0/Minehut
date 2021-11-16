@@ -10,5 +10,5 @@ command /buy:
 	aliases: /donate, /store
 	trigger:
 		send " "
-		send "  {@store} <tooltip:{@color}&lCLICK HERE!><link:https://charging.tebex.io/>&7Support us {@color2}@{@color} https://charging.tebex.io!"
+		send "  {@store} <tooltip:{@color}&lCLICK HERE!><link:https://umoria.tebex.io/>&7Support us {@color2}@{@color} https://umoria.tebex.io!"
 		send " "

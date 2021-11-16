@@ -1,0 +1,54 @@
+options:
+	color: <##B4C788>
+	color2: <##f7ffc5>
+	prefix: &8[<##B4C788>&lUMORIA&8]&r
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&r
+	world: world
+
+function generateStatScroll() :: item: 
+	set {_chance} to random integer between 1 and 500
+	if {_chance} is less than 475:
+		set {_level} to 1
+	else if {_chance} is less than 490:
+		set {_level} to 2
+	else if {_chance} is less than 498:
+		set {_level} to 3
+	else:
+		set {_level} to 4
+
+	set {_n} to random integer between 1 and 100
+	if {_n} is less than 48:
+		set {_stat} to "HEALTH"
+	else if {_n} is less than 96:
+		set {_stat} to "DAMAGE"
+	else:
+		set {_stat} to "DEFENSE"
+		set {_level} to 1
+	
+	set {_item} to book named "{@color}&l%{_stat}% {@color2}Scroll" with lore " &8┃ &7+%{_level}% {@color2}%{_stat}%" and " &8╹ &7Right-click to use" with all flags hidden
+	return {_item}
+
+command /scroll [<integer>]:
+	trigger:
+		if arg-1 is set:
+			set {_n} to arg-1
+		else:
+			set {_n} to 1
+		loop {_n} times:
+			set {_item} to generateStatScroll()
+			give player {_item}
+
+on right click with book:
+	name of player's tool contains "Scroll"
+	set {_lore::*} to uncolored lore of player's tool
+	set {_split::*} to {_lore::1} parsed as " ┃ +%num% %text%"
+	if {_split::2} is "DEFENSE":
+		set {p_maxdefense::%player%} to {p_maxdefense::%player%} + {_split::1}
+		set {p_defense::%player%} to {p_defense::%player%} + {_split::1}
+	else if {_split::2} is "DAMAGE":
+		set {p_damage::%player%} to {p_damage::%player%} + {_split::1}
+	else if {_split::2} is "HEALTH":
+		set {p_maxhealth::%player%} to {p_maxhealth::%player%} + {_split::1}
+		set {p_health::%player%} to {p_health::%player%} + {_split::1}
+	remove 1 of player's tool from player's tool
