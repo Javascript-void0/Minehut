@@ -90,7 +90,17 @@ on combust:
 	if event-entity is zombie or skeleton:
 		cancel event
 
-on spawn:
+on spawn of zombie:
+	if {mobcap} is false:
+		if block at event-location is netherite block:
+			set block at event-location to air
+			stop
+		else:
+			cancel event
+	else:
+		cancel event
+
+on spawn of skeleton:
 	if {mobcap} is false:
 		if block at event-location is netherite block:
 			set block at event-location to air
