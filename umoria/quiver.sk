@@ -1,0 +1,149 @@
+options:
+	color: <##B4C788>
+
+on shoot:
+	if {quiver.%shooter%.current} is not "none":
+		remove 1 from {quiver.%shooter%::%{quiver.%shooter%.current}%}
+	if {quiver.%shooter%::%{quiver.%shooter%.current}%} is 0:
+		loop {quiver.%shooter%::*}:
+			loop-value is not 0
+			set {_n} to loop-value
+			if loop-index is "arrow":
+				set {_item} to {_n} of arrow named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%shooter%.current} to loop-index
+				exit loop
+			else if loop-index is "solar":
+				set {_item} to {_n} of tipped arrow of fire resistance named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%shooter%.current} to loop-index
+				exit loop
+			else if loop-index is "lunar":
+				set {_item} to {_n} of tipped arrow of swiftness named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%shooter%.current} to loop-index
+				exit loop
+			else if loop-index is "terrestrial":
+				set {_item} to {_n} of tipped arrow of poison named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%shooter%.current} to loop-index
+				exit loop
+			else if loop-index is "midnight":
+				set {_item} to {_n} of tipped arrow of weakness named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%shooter%.current} to loop-index
+				exit loop
+			else if loop-index is "thunder":
+				set {_item} to {_n} of spectral arrow named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%shooter%.current} to loop-index
+				exit loop
+		if {_item} is not set:
+			set {_item} to chest named "{@color}Quiver" with lore " &8╹ &7Click to Open"
+			set {quiver.%shooter%.current} to "none"
+		set slot 17 of shooter to {_item}
+
+on inventory click:
+	if event-inventory = (metadata tag "quiver" of player):
+		cancel event
+		if clicked slot is 0:
+			{quiver.%player%::arrow} is not 0
+			set {quiver.%player%.current} to "arrow"
+			set slot 17 of player to {quiver.%player%::arrow} of arrow named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+		else if clicked slot is 1:
+			{quiver.%player%::solar} is not 0
+			set {quiver.%player%.current} to "solar"
+			set slot 17 of player to {quiver.%player%::solar} of tipped arrow of fire resistance named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+		else if clicked slot is 2:
+			{quiver.%player%::lunar} is not 0
+			set {quiver.%player%.current} to "lunar"
+			set slot 17 of player to {quiver.%player%::lunar} of tipped arrow of swiftness named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+		else if clicked slot is 3:
+			{quiver.%player%::terrestrial} is not 0
+			set {quiver.%player%.current} to "terrestrial"
+			set slot 17 of player to {quiver.%player%::terrestrial} of tipped arrow of poison named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+		else if clicked slot is 4:
+			{quiver.%player%::midnight} is not 0
+			set {quiver.%player%.current} to "midnight"
+			set slot 17 of player to {quiver.%player%::midnight} of tipped arrow of weakness named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+		else if clicked slot is 5:
+			{quiver.%player%::thunder} is not 0
+			set {quiver.%player%.current} to "thunder"
+			set slot 17 of player to {quiver.%player%::thunder} of spectral arrow named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+		quiver(player)
+		stop
+
+	{unlock.%player%} is not set
+	clicked slot is 17
+	name of player's inventory is "Crafting"
+	quiver(player)
+
+function quiver(p: player):
+	set metadata tag "quiver" of {_p} to dropper inventory named "Quiver"
+	if {quiver.%{_p}%.current} is not "arrow":
+		set slot 0 of metadata tag "quiver" of {_p} to arrow named "{@color}Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::arrow}%" with all flags hidden
+	else:
+		set slot 0 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::arrow}%" with all flags hidden
+	if {quiver.%{_p}%.curent} is not "solar":
+		set slot 1 of metadata tag "quiver" of {_p} to tipped arrow of fire resistance named "{@color}Solar Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::solar}%" with all flags hidden
+	else:
+		set slot 1 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Solar Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::solar}%" with all flags hidden
+	if {quiver.%{_p}%.current} is not "lunar":
+		set slot 2 of metadata tag "quiver" of {_p} to tipped arrow of swiftness named "{@color}Lunar Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::lunar}%" with all flags hidden
+	else:
+		set slot 2 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Lunar Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::lunar}%" with all flags hidden
+	if {quiver.%{_p}%} is not "terretrial":
+		set slot 3 of metadata tag "quiver" of {_p} to tipped arrow of poison named "{@color}Terrestrial Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" with all flags hidden
+	else:
+		set slot 3 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Terrestrial Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" with all flags hidden
+	if {quiver.%{_p}%} is not "midnight":
+		set slot 4 of metadata tag "quiver" of {_p} to tipped arrow of weakness named "{@color}Midnight Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::midnight}%" with all flags hidden
+	else:
+		set slot 4 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Midnight Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::midnight}%" with all flags hidden
+	if {quiver.%{_p}%.current} is not "thunder":
+		set slot 5 of metadata tag "quiver" of {_p} to spectral arrow named "{@color}Thunder Bolt" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::thunder}%" with all flags hidden
+	else:
+		set slot 5 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Thunder Bolt" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::thunder}%" with all flags hidden
+	open (metadata tag "quiver" of {_p}) to {_p}
+
+#on join:
+command /f:
+	trigger:
+		if {quiver.%player%::arrow} is not set:
+			set {quiver.%player%::arrow} to 0
+		if {quiver.%player%::solar} is not set:
+			set {quiver.%player%::solar} to 0
+		if {quiver.%player%::luanr} is not set:
+			set {quiver.%player%::luanr} to 0
+		if {quiver.%player%::terrestrial} is not set:
+			set {quiver.%player%::terrestrial} to 0
+		if {quiver.%player%::midnight} is not set:
+			set {quiver.%player%::midnight} to 0
+		if {quiver.%player%::thunder} is not set:
+			set {quiver.%player%::thunder} to 0
+		loop {quiver.%player%::*}:
+			loop-value is not 0
+			set {_n} to loop-value
+			if loop-index is "arrow":
+				set {_item} to {_n} of arrow named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%player%.current} to loop-index
+				exit loop
+			else if loop-index is "solar":
+				set {_item} to {_n} of tipped arrow of fire resistance named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%player%.current} to loop-index
+				exit loop
+			else if loop-index is "lunar":
+				set {_item} to {_n} of tipped arrow of swiftness named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%player%.current} to loop-index
+				exit loop
+			else if loop-index is "terrestrial":
+				set {_item} to {_n} of tipped arrow of poison named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%player%.current} to loop-index
+				exit loop
+			else if loop-index is "midnight":
+				set {_item} to {_n} of tipped arrow of weakness named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%player%.current} to loop-index
+				exit loop
+			else if loop-index is "thunder":
+				set {_item} to {_n} of spectral arrow named "{@color}Quiver" with lore " &8╹ &7Click to Open" with all flags hidden
+				set {quiver.%player%.current} to loop-index
+				exit loop
+		if {_item} is not set:
+			set {_item} to chest named "{@color}Quiver" with lore " &8╹ &7Click to Open"
+			set {quiver.%player%.current} to "none"
+		set slot 17 of player to {_item}
+		

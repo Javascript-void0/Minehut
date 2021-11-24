@@ -50,10 +50,10 @@ on pickup:
 	cancel event
 on item damage: 
 	cancel event
-on shoot:
-	set {_p} to held item of shooter
-	if projectile is set:
-		set slot 16 of shooter to 64 of arrow named "{@color}&lQUIVER" with lore " &8╹ &7Click to Open"
+# on shoot:
+# 	set {_p} to held item of shooter
+# 	if projectile is set:
+# 		set slot 16 of shooter to 64 of arrow named "{@color}&lQUIVER" with lore " &8╹ &7Click to Open"
 on mine:
 	player's world = "dungeon"
 	if group of player is not "admin":
