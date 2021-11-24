@@ -46,8 +46,8 @@ on drop:
 on place:
 	if group of player is not "admin":
 		cancel event
-on pickup:
-	cancel event
+# on pickup:
+# 	cancel event
 on item damage: 
 	cancel event
 # on shoot:

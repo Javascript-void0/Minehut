@@ -165,7 +165,7 @@ function new(p: player):
 	set slot 0 of {_p} to {1_sword}
 	set slot 1 of {_p} to {1_bow} 
 	set slot 40 of {_p} to {1_shield}
-	set slot 17 of {_p} to chest named "{@color}Quiver" with lore " &8╹ &7Click to Open"
+	set slot 17 of {_p} to brown candle named "{@color}Quiver" with lore " &8┃ &7Quantity: x0" and " &8╹ &7Click to Open"
 	set {quiver.%{_p}%.current} to "none"
 	set slot 8 of {_p} to compass named "{@color}&lMENU" with lore " &8╹ &7Click to Open"
 
