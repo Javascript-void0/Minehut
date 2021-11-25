@@ -40,131 +40,49 @@ every 5 tick:
 			set {_damage} to combatFormat({p_damage::%loop-player%})
 			send action bar "{@color}%{_health}%/%{_maxhealth}% ❤ &8| {@color}%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| {@color}%{_damage}% dmg" to loop-player
 
-function death(p: player):
-	set {dead.%{_p}%} to true
-	# apply blindness of tier 255 to {_p} for 3 seconds
-	# apply weakness of tier 255 to {_p} for 3 seconds
-	# apply slowness of tier 255 to {_p} for 3 seconds
-	# set {_p}'s flight mode to true
-	# apply wither of tier 255 to {_p} for 3 seconds
-	send title "{@color}&lYOU DIED" with subtitle "&7{@color}-50%% &7coins &8| {@color}Incincible &7for 10s" to {_p} for 2 seconds
-	set {_half} to floor({p_coins::%{_p}%} / 2)
-	remove {_half} from {p_coins::%{_p}%}
-	set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
-	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
-	wait 10 second
-	delete {dead.%{_p}%}
-	send title "{@color}" with subtitle "&7You are no longer incincible" to {_p} for 2 seconds
-	# set {_p}'s flight mode to false
-
-function deathEffect(e: entity):
-	show 30 critical hit at location of {_e}
-
 on damage:
+    attacker is player
+    victim is player
+    cancel event
 
-	if attacker is player:
-		victim is player
-		cancel event
+			# else if attacker is a player:
+			# 	victim is player
+			# 	add 1 to {p_kill::%attacker%}
+			# 	add 1 to {p_death::%victim%}
+			# 	if projectile is set:
+			# 		set {_msg} to new text component of "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name% using "
+			# 	else:
+			# 		set {_msg} to new text component of "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name% using "
+			# 	set {_weapon} to new text component of "&8[&f%name of tool of attacker%&8]"
+			# 	set {_info} to tool of attacker
+			# 	set hover event of {_weapon} to a new hover event showing {_info}
+			# 	loop all players:
+			# 		send components {_msg} and {_weapon} to loop-player
 
-	set damage to 0
-	if {dead.%victim%} is set:
-		cancel event
-		stop
-	if attacker is a player:
-		victim is a player
-		{pvp::%victim%} is set
-		cancel event
-		send action bar "{@prefix} &7PvP is {@color}&lDISABLED &7 for %victim%" to attacker
-		stop
-	if attacker is set:
-		attacker is a player
-		victim is a player
-		{pvp::%attacker%} is set
-		cancel event
-		send action bar "{@prefix} &7Your PvP is {@color}&lDISABLED" to attacker
-		stop
-	if victim is not a player:
-		if attacker is not a player:
-			cancel event
-			stop
-		remove {p_damage::%attacker%} from {m_health::%victim%}
-		if {m_health::%victim%} is less than 1:
-			# player kill mob
-			attacker is a player
-			deathEffect(victim)
-			delete victim
-			add 1 to {p_kill::%attacker%}
-			delete {m_maxhealth::%victim%}
-			delete {m_health::%victim%}
-			delete {m_damage::%victim%}
-			add 3 to {p_exp::%attacker%}
-			if {p_mobRemain::%attacker%} is greater than 0:
-				remove 1 from {p_mobRemain::%attacker%}
-				set {mobcapnum} to {mobcapnum} - 1
-			if {p_exp::%attacker%} is greater or equal to {p_nextexp::%attacker%}:
-				set {_before} to {p_level::%attacker%}
-				set {p_exp::%attacker%} to 0
-				add 1 to {p_level::%attacker%}
-				set {p_nextexp::%attacker%} to {p_level::%attacker%} * 2
-				set {action::%attacker%} to "Level Up!"
-				send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%attacker%}%&8]" to attacker for 3 seconds
-				discordLevel(attacker, {p_level::%attacker%})
-				wait 2 seconds
-				delete {action::%attacker%}
-			else:
-				set {action::%attacker%} to "+3 exp"
-				wait 2 seconds
-				delete {action::%attacker%}
-			add 1 to {p_coins::%attacker%}
-		else:
-			set {_name::*} to name of victim split at " "
-			set name of victim to "%{_name::1}% %{_name::2}% &7({@color}%{m_health::%victim%}%{@color}/%{m_maxhealth::%victim%}% ❤&7)"
-		# damage counter
-		set {_location} to random element out of blocks in radius 1 of victim
-		add 3 to {_location}'s y-coordinate
-		create holo object "{@color}-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
-		wait 1 second
-		delete holo object "damage.%{_location}%"
-	if victim is a player:
-		if victim is blocking with a shield:
-			cancel event
-			set {_shield} to slot 40 of victim
-			set slot 40 of victim to air
-			wait 0.7 second
-			set slot 40 of victim to {_shield}
-		else if damage was caused by thorns:
-			cancel event
-			stop
-		else if {p_defense::%victim%} is greater than 0:
-			remove {m_damage::%attacker%} from {p_defense::%victim%}
-			stop
-		if attacker is player:
-			remove {p_damage::%attacker%} from {p_health::%victim%}
-		if attacker is not a player:
-			remove {m_damage::%attacker%} from {p_health::%victim%}
-		if {p_health::%victim%} is less than 1:
-			death(victim)
-			cancel event
-			if attacker is not a player:
-				victim is player
-				if projectile is set:
-					broadcast "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name%"
-				else:
-					broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
-				add 1 to {p_death::%victim%}
-			else if attacker is a player:
-				victim is player
-				add 1 to {p_kill::%attacker%}
-				add 1 to {p_death::%victim%}
-				if projectile is set:
-					set {_msg} to new text component of "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name% using "
-				else:
-					set {_msg} to new text component of "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name% using "
-				set {_weapon} to new text component of "&8[&f%name of tool of attacker%&8]"
-				set {_info} to tool of attacker
-				set hover event of {_weapon} to a new hover event showing {_info}
-				loop all players:
-					send components {_msg} and {_weapon} to loop-player
+
+# on damage:
+
+# 	if attacker is player:
+# 		victim is player
+# 		cancel event
+
+# 	set damage to 0
+# 	if {dead.%victim%} is set:
+# 		cancel event
+# 		stop
+# 	if attacker is a player:
+# 		victim is a player
+# 		{pvp::%victim%} is set
+# 		cancel event
+# 		send action bar "{@prefix} &7PvP is {@color}&lDISABLED &7 for %victim%" to attacker
+# 		stop
+# 	if attacker is set:
+# 		attacker is a player
+# 		victim is a player
+# 		{pvp::%attacker%} is set
+# 		cancel event
+# 		send action bar "{@prefix} &7Your PvP is {@color}&lDISABLED" to attacker
+# 		stop
 
 on join:
 	if {dead.%player%} is set:

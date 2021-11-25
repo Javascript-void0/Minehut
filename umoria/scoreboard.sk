@@ -77,7 +77,8 @@ every 2 ticks:
 		set line 6 of loop-player's scoreboard to "&d"
 		if loop-player is in world "dungeon":
 			set line 5 of loop-player's scoreboard to " {@color}&lDUNGEON"
-			set line 4 of loop-player's scoreboard to " &8┃ &7Remaining: &f%{p_mobRemain::%loop-player%}%"
+			set {_coin} to scoreboardFormat({p_coins::%loop-player%})
+			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%{_coin}%"
 			set line 3 of loop-player's scoreboard to " &8┃ &7Floor: &f%{p_floor::%loop-player%}%"
 			set line 2 of loop-player's scoreboard to " &8╹ &7Room: &f%{p_room::%loop-player%}%&7/&f%{p_roomnum::%loop-player%}%"
 			set line 1 of loop-player's scoreboard to "&c"

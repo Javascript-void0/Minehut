@@ -128,8 +128,6 @@ on shoot:
 # 	remove 1 of event-item from player's inventory
 
 on pickup:
-	if event-item is arrow or tipped arrow of fire resistance or tipped arrow of swiftness or tipped arrow of poison or tipped arrow of weakness or spectral arrow:
-		cancel event
 	if 1 of event-item is arrow or tipped arrow of fire resistance or tipped arrow of swiftness or tipped arrow of poison or tipped arrow of weakness or spectral arrow:
 		cancel event
 		set {_n} to item amount of event-item

@@ -8,8 +8,8 @@ options:
 
 
 on tab complete of "/commands" and "/cmd" and "/command" and "/c":
-	set tab completions for position 1 to "3x3", "new", "statcheck", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", and "tools"
-	if tab complete arg-1 is "statcheck", or "dailyreset":
+	set tab completions for position 1 to "3x3", "new", "statcheck", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "clearMob", and "tools"
+	if tab complete arg-1 is "statcheck" or "dailyreset" or "clearMob":
 		set tab completions for position 2 to all players
 	else if tab complete arg-1 is "quiver":
 		set tab completions for position 2 to all players
@@ -151,6 +151,12 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				set {_n} to arg-4 parsed as number
 				set {quiver.%arg-2%::%arg-3%} to {_n}
 				send "{@admin} &7Set %arg-3% arrows of %arg-2% to %{_n}%"
+
+
+
+			else if arg-1 is "clearMob":
+				arg-2 is set
+				clearMob(arg-2 parsed as player)
 
 
 

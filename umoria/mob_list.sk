@@ -1,0 +1,218 @@
+options:
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&f
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&r
+	world: world
+
+function boneWarrior(loc: location, p: player) :: entity:
+	spawn skeleton at {_loc}
+	set {_e} to last spawned mob
+	
+	set {_level} to {p_level::%{_p}%}
+	set {%{_e}%::maxhealth} to {_level} * 30
+	set {%{_e}%::health} to {_level} * 30
+	set {%{_e}%::damage} to {_level} * 2
+	set {%{_e}%::player} to {_p}
+
+	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fBone:Warrior &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
+	
+	set helmet of {_e} to bone
+	
+	set chestplate of {_e} to iron chestplate
+	
+	set {_leggings} to leather leggings
+	dye {_leggings} white
+	set leggings of {_e} to {_leggings}
+	
+	set boots of {_e} to iron boots
+	
+	set held item of {_e} to bone
+	return {_e}
+
+function boneArcher(loc: location, p: player) :: entity:
+	spawn skeleton at {_loc}
+	set {_e} to last spawned mob
+	
+	set {_level} to {p_level::%{_p}%}
+	set {%{_e}%::maxhealth} to {_level} * 20
+	set {%{_e}%::health} to {_level} * 20
+	set {%{_e}%::damage} to {_level} * 3
+	set {%{_e}%::player} to {_p}
+
+	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fBone:Archer &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
+	
+	set helmet of {_e} to feather
+	
+	set chestplate of {_e} to iron chestplate
+	
+	set {_leggings} to leather leggings
+	dye {_leggings} white
+	set leggings of {_e} to {_leggings}
+	
+	set boots of {_e} to iron boots
+	
+	set held item of {_e} to bow
+	return {_e}
+
+function orcCaptain(loc: location, p: player) :: entity:
+	spawn zombie at {_loc}
+	set {_e} to last spawned mob
+
+	set {_level} to {p_level::%{_p}%}
+	set {%{_e}%::maxhealth} to {_level} * 30
+	set {%{_e}%::health} to {_level} * 30
+	set {%{_e}%::damage} to {_level} * 3
+	set {%{_e}%::player} to {_p}
+
+	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fOrc:Captain &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
+	
+	set helmet of {_e} to fern
+	
+	set {_chestplate} to leather chestplate
+	dye {_chestplate} green
+	set chestplate of {_e} to {_chestplate}
+	
+	set leggings of {_e} to netherite leggings
+	
+	set {_boots} to leather boots
+	dye {_boots} lime
+	set boots of {_e} to {_boots}
+	
+	set held item of {_e} to iron sword
+	return {_e}
+
+function orcWarrior(loc: location, p: player) :: entity:
+	spawn zombie at {_loc}
+	set {_e} to last spawned mob
+	
+	set {_level} to {p_level::%{_p}%}
+	set {%{_e}%::maxhealth} to {_level} * 20
+	set {%{_e}%::health} to {_level} * 20
+	set {%{_e}%::damage} to {_level} * 3
+	set {%{_e}%::player} to {_p}
+
+	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fOrc:Warrior &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
+	
+	set helmet of {_e} to dark prismarine slab
+	
+	set {_chestplate} to leather chestplate
+	dye {_chestplate} green
+	set chestplate of {_e} to {_chestplate}
+	
+	set leggings of {_e} to netherite leggings
+	
+	set {_boots} to leather boots
+	dye {_boots} lime
+	set boots of {_e} to {_boots}
+	
+	set held item of {_e} to stone sword
+	return {_e}
+
+function elfWarrior(loc: location, p: player) :: entity:
+	spawn husk at {_loc}
+	set {_e} to last spawned mob
+	
+	set {_level} to {p_level::%{_p}%}
+	set {%{_e}%::maxhealth} to {_level} * 30
+	set {%{_e}%::health} to {_level} * 30
+	set {%{_e}%::damage} to {_level} * 3
+	set {%{_e}%::player} to {_p}
+
+	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fElf:Warrior &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
+	
+	set helmet of {_e} to mossy cobblestone slab
+	
+	set {_chestplate} to leather chestplate
+	dye {_chestplate} lime
+	set chestplate of {_e} to {_chestplate}
+	
+	set leggings of {_e} to chainmail leggings
+	
+	set {_boots} to leather boots
+	dye {_boots} of {_e} light gray
+	set boots of {_e} to {_boots}
+
+	set held item of {_e} to stone sword
+	return {_e}
+
+function elfCaptain(loc: location, p: player) :: entity:
+	spawn husk at {_loc}
+	set {_e} to last spawned mob
+
+	set {_level} to {p_level::%{_p}%}
+	set {%{_e}%::maxhealth} to {_level} * 30
+	set {%{_e}%::health} to {_level} * 30
+	set {%{_e}%::damage} to {_level} * 4
+	set {%{_e}%::player} to {_p}
+
+	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fElf:Captain &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
+	
+	set helmet of {_e} to azalea
+	
+	set {_chestplate} to leather chestplate
+	dye {_chestplate} lime
+	set chestplate of {_e} to {_chestplate}
+	
+	set leggings of {_e} to chainmail leggings
+	
+	set {_boots} to leather boots
+	dye boots of {_e} light gray
+	set boots of {_e} to {_boots}
+
+	set held item of {_e} to iron sword
+	return {_e}
+
+function spiritArcher(loc: location, p: player) :: entity:
+	spawn stray at {_loc}
+	set {_e} to last spawned mob
+
+	set {_level} to {p_level::%{_p}%}
+	set {%{_e}%::maxhealth} to {_level} * 20
+	set {%{_e}%::health} to {_level} * 20
+	set {%{_e}%::damage} to {_level} * 3
+	set {%{_e}%::player} to {_p}
+
+	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fSpirit:Archer &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
+	
+	set helmet of {_e} to feather
+	
+	set chestplate of {_e} to iron chestplate
+	
+	set leggings of {_e} to {_leggings}
+	set {_leggings} to leather leggings
+	dye {_leggings} light blue
+	
+	set {_boots} to leather boots
+	dye {_boots} cyan
+	set boots of {_e} to {_boots}
+
+	set held item of {_e} to bow
+	return {_e}
+
+function spiritWarrior(loc: location, p: player) :: entity:
+	spawn stray at {_loc}
+	set {_e} to last spawned mob
+
+	set {_level} to {p_level::%{_p}%}
+	set {%{_e}%::maxhealth} to {_level} * 30
+	set {%{_e}%::health} to {_level} * 30
+	set {%{_e}%::damage} to {_level} * 2
+	set {%{_e}%::player} to {_p}
+
+	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fSpirit:Warrior &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
+	
+	set helmet of {_e} to soul lantern
+	
+	set chestplate of {_e} to iron chestplate
+	
+	set {_leggings} to leather leggings
+	dye {_leggings} light blue
+	set leggings of {_e} to {_leggings}
+	
+	set {_boots} to leather boots
+	dye {_boots} cyan
+	set boots of {_e} to {_boots}
+
+	set held item of {_e} to bone
+	return {_e}

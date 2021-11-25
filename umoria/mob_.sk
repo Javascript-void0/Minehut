@@ -1,0 +1,109 @@
+options:
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&f
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&r
+	world: world
+
+on combust:
+	if event-entity is zombie or skeleton or husk or stray:
+		cancel event
+
+on spawn of zombie:
+	if {mobcap} is false:
+		if block at event-location is netherite block:
+			set block at event-location to air
+			stop
+		else:
+			cancel event
+	else:
+		cancel event
+
+on spawn of skeleton:
+	if {mobcap} is false:
+		if block at event-location is netherite block:
+			set block at event-location to air
+			stop
+		else:
+			cancel event
+	else:
+		cancel event
+
+on spawn of husk:
+	if {mobcap} is false:
+		if block at event-location is netherite block:
+			set block at event-location to air
+			stop
+		else:
+			cancel event
+	else:
+		cancel event
+
+on spawn of stray:
+	if {mobcap} is false:
+		if block at event-location is netherite block:
+			set block at event-location to air
+			stop
+		else:
+			cancel event
+	else:
+		cancel event
+
+on spawn of pillager:
+	cancel event
+on spawn of creeper:
+	cancel event
+on spawn of enderman:
+	cancel event
+on spawn of witch:
+	cancel event
+on spawn of spider:
+	cancel event
+on spawn of slime:
+	cancel event
+on spawn of horse:
+	cancel event
+on spawn of sheep:
+	cancel event
+on spawn of pig:
+	cancel event
+on spawn of chicken:
+	cancel event
+on spawn of cow:
+	cancel event
+on spawn of donkey:
+	cancel event
+on spawn of bat:
+	cancel event
+
+# every 10 seconds:
+# 	loop all entities:
+# 		loop-entity is not a player
+# 		if "%region at loop-entity%" contains "spawn":
+# 			delete loop-entity
+# 			delete {m_maxhealth::%loop-entity%}
+# 			delete {m_health::%loop-entity%}
+# 			delete {m_damage::%loop-entity%}
+# 	set {_p} to number of players
+# 	set {_d} to number of entities - {_p}
+# 	if {_d} is greater than 200:
+# 		set {mobcap} to true
+# 	else:
+# 		set {mobcap} to false
+
+on load:
+	loop all entities:
+		loop-entity is not a player
+		if {%loop-entity%::maxhealth} is not set:
+			delete loop-entity
+		else if {%loop-entity%::health} is not set:
+			delete loop-entity
+		else if {%loop-entity%::damage} is not set:
+			delete loop-entity
+
+function clearMob(p: player):
+	loop all entities:
+		loop-entity is not a player
+		if {%loop-entity%::player} is {_p}:
+			delete {%loop-entity%::*}
+			delete loop-entity

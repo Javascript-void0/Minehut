@@ -86,8 +86,6 @@ command /clearlag:
 			loop-entity is not a player
 			loop-entity is not a horse
 			delete loop-entity
-			delete {m_maxhealth::%loop-entity%}
-			delete {m_health::%loop-entity%}
-			delete {m_damage::%loop-entity%}
+			delete {%loop-entity%::*}
 			add 1 to {_n}
 		broadcast "{@prefix} &7Cleared {@color}%{_n}% &7entities"

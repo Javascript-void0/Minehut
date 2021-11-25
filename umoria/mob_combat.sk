@@ -1,0 +1,146 @@
+options:
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&r
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&r
+	world: world
+
+function mobCombatFormat(n: number) :: text:
+	set {_data} to "f,18:e,15:d,12:3,9:b,6:a,3"
+	loop split {_data} at ":":
+		set {_s::*} to split loop-value at ","
+		{_n} >= 10 ^ {_s::2} parsed as number
+		set {_nn} to combatRound({_n} / 10 ^ {_s::2} parsed as number, 1)
+		return "%{_nn}%%{_s::1}%"
+	return "%{_n}%"
+
+function death(p: player):
+	set {dead.%{_p}%} to true
+	# apply blindness of tier 255 to {_p} for 3 seconds
+	# apply weakness of tier 255 to {_p} for 3 seconds
+	# apply slowness of tier 255 to {_p} for 3 seconds
+	# set {_p}'s flight mode to true
+	# apply wither of tier 255 to {_p} for 3 seconds
+	send title "{@color}&lYOU DIED" with subtitle "&7{@color}-50%% &7coins &8| {@color}Invincible &7for 10s" to {_p} for 2 seconds
+	set {_half} to floor({p_coins::%{_p}%} / 2)
+	remove {_half} from {p_coins::%{_p}%}
+	set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
+	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
+	wait 10 second
+	delete {dead.%{_p}%}
+	send title "{@color}" with subtitle "&7You are no longer invincible" to {_p} for 2 seconds
+	# set {_p}'s flight mode to false
+
+function deathEffect(e: entity):
+	show 30 critical hit at location of {_e}
+
+on damage:
+
+	if attacker is not a player:
+		victim is not a player
+		cancel event
+		stop
+
+# =================================== PLAYER HIT MOB ==================================
+
+	if attacker is player:
+		victim is not a player
+		set damage to 0
+		remove {p_damage::%attacker%} from {%victim%::health}
+
+		# ========= MOB KILL ==========
+
+		if {%victim%::health} is less than 1:
+			attacker is a player
+			deathEffect(victim)
+			delete victim
+			add 1 to {p_kill::%attacker%}
+			delete {%victim%::*}
+			add 3 to {p_exp::%attacker%}
+
+			# ======== MOB DROPS =======
+
+			if victim is zombie:
+				orcDrop(location of victim)
+			else if victim is a skeleton:
+				boneDrop(location of victim)
+			else if victim is husk:
+				elfDrop(location of victim)
+			else if victim is stray:
+				spiritDrop(location of victim)
+
+			# ========== DUNGEON MOB COUNT ==============
+
+			if {p_mobRemain::%attacker%} is greater than 0:
+				remove 1 from {p_mobRemain::%attacker%}
+				set {mobcapnum} to {mobcapnum} - 1
+
+			# =========== PLAYER LEVEL UP =======
+
+			if {p_exp::%attacker%} is greater or equal to {p_nextexp::%attacker%}:
+				set {_before} to {p_level::%attacker%}
+				set {p_exp::%attacker%} to 0
+				add 1 to {p_level::%attacker%}
+				set {p_nextexp::%attacker%} to {p_level::%attacker%} * 2
+				set {action::%attacker%} to "Level Up!"
+				send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%attacker%}%&8]" to attacker for 3 seconds
+				discordLevel(attacker, {p_level::%attacker%})
+				wait 2 seconds
+				delete {action::%attacker%}
+
+			# ============= ELSE EXP =============
+
+			else:
+				set {action::%attacker%} to "+3 exp"
+				wait 2 seconds
+				delete {action::%attacker%}
+			add 1 to {p_coins::%attacker%}
+
+		# ======= NO KILL, JUST DAMAGE ==============
+
+		else:
+			set {_name::*} to name of victim split at " "
+			set name of victim to "%{_name::1}% %{_name::2}% &7({@color}%{%victim%::health}%{@color}/%{%victim%::maxhealth}% ❤&7)"
+		set {_location} to random element out of blocks in radius 1 of victim
+		add 3 to {_location}'s y-coordinate
+		create holo object "{@color}-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
+		wait 1 second
+		delete holo object "damage.%{_location}%"
+
+# =================================== MOB ATTACK PLAYER ==========================
+
+	else if attacker is not a player:
+		victim is a player
+
+		if victim is blocking with a shield:
+			cancel event
+			set {_shield} to slot 40 of victim
+			set slot 40 of victim to air
+			wait 0.7 second
+			set slot 40 of victim to {_shield}
+		else if damage was caused by thorns:
+			cancel event
+			stop
+
+		else if {p_defense::%victim%} is greater than 0:
+			remove 1 from {p_defense::%victim%}
+			stop
+		remove {%attacker%::damage} from {p_health::%victim%}
+
+		# ========= PLAYER DEATH =============
+
+		if {p_health::%victim%} is less than 1:
+			death(victim)
+			cancel event
+			if attacker is not a player:
+				victim is player
+				if projectile is set:
+					broadcast "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name%"
+				else:
+					broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
+				add 1 to {p_death::%victim%}
+
+on damage:
+	attacker is not a player
+	victim is a player
+	set damage to 0
