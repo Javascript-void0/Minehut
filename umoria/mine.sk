@@ -19,6 +19,7 @@ on break:
 	cancel event
 
 on mine:
+	player's tool is pickaxe
 	player is op
 	set {_1} to location of event-block
 	set {_2} to location of event-block

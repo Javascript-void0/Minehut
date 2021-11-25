@@ -6,10 +6,130 @@ on shoot:
 		remove 1 from {quiver.%shooter%::%{quiver.%shooter%.current}%}
 		set line 1 of lore of slot 17 of shooter to " &8┃ &7Quantity: x%{quiver.%shooter%::%{quiver.%shooter%.current}%}%"
 		remove 1 of slot 17 of shooter from inventory of shooter
+	else:
+		set line 1 of lore of slot 17 of shooter to " &8┃ &7Quantity: x0"
 	if {quiver.%shooter%::%{quiver.%shooter%.current}%} is 0:
 		nextQuiver(shooter)
 
+# function giveQuiverBundle() :: item:
+# 	set {_line} to 5
+# 	set {_r} to random integer between 1 and 100
+# 	if {_r} is less than 79:
+# 		set {_rarity} to "Common"
+# 		set {_chance} to 10
+# 		set {_high} to 5
+# 		set {_low} to 1
+# 	else if {_r} is less than 94:
+# 		set {_rarity} to "Uncommon"
+# 		set {_chance} to 50
+# 		set {_high} to 8
+# 		set {_low} to 2
+# 	else if {_r} is less than 99:
+# 		set {_rarity} to "Rare"
+# 		set {_chance} to 80
+# 		set {_high} to 11
+# 		set {_low} to 4
+# 	else:
+# 		set {_rarity} to "Epic"
+# 		set {_chance} to 100
+# 		set {_high} to 15
+# 		set {_low} to 7
+# 	set {_item} to brown candle named "{@color}Quiver Bundle" with lore "{@color}&l RARITY" and " &8╹ &7%{_rarity}%" and " " and "{@color}&l CONTAINS" 
+# 	set {_n} to random integer between {_low} and {_high} 
+# 	set line {_line} of lore of {_item} to " &8┃ &7Arrow: x%{_n}%"
+# 	add 1 to {_line}
+# 	chance of {_chance}%:
+# 		set {_n} to random integer between 1 and 5
+# 		if {_n} is 1:
+# 			set {_arrow} to "Solar Arrow"
+# 		else if {_n} is 2:
+# 			set {_arrow} to "Lunar Arrow"
+# 		else if {_n} is 3:
+# 			set {_arrow} to "Terrestrial Arrow"
+# 		else if {_n} is 4:
+# 			set {_arrow} to "Midnight Arrow"
+# 		else if {_n} is 5:
+# 			set {_arrow} to "Thunder Bolt"
+# 		set {_n} to random integer between {_low} and {_high}
+# 		set line {_line} of lore of {_item} to " &8┃ &7%{_arrow}%: x%{_n}%"
+# 		add 1 to {_line}
+# 	set line {_line} of lore of {_item} to " &8╹ &7Click to open"
+# 	return {_item}
+
+# command /quiverbundle:
+# 	trigger:
+# 		player is op
+# 		loop 100 times:
+# 			give player 1 of giveQuiverBundle()
+
+# function openQuiverBundle(p: player, i: item):
+# 	set {_l::*} to lore of {_i}
+# 	loop {_l::*}:
+# 		loop-value does not contain "RARITY"
+# 		loop-value does not contain "CONTAINS"
+# 		loop-value does not contain "╹"
+# 		add uncolored loop-value to {_lore::*}
+# 	loop {_lore::*}:
+# 		set {_split::*} to loop-value parsed as " ┃ %text%: x%number%"
+# 		if {_split::1} is "Arrow":
+# 			set {quiver.%{_p}%::arrow} to {quiver.%{_p}%::arrow} + {_split::2}
+# 			if {quiver.%{_p}%::arrow} is greater than {quiversize.%{_p}%}:
+# 				set {_extra::arrow} to {quiver.%{_p}%::arrow} - {quiversize.%{_p}%}
+# 				set {quiver.%{_p}%::arrow} to {quiversize.%{_p}%}
+# 		else if {_split::1} is "Solar Arrow":
+# 			set {quiver.%{_p}%::solar} to {quiver.%{_p}%::solar} + {_split::2}
+# 			if {quiver.%{_p}%::solar} is greater than {quiversize.%{_p}%}:
+# 				set {_extra::solar} to {quiver.%{_p}%::solar} - {quiversize.%{_p}%}
+# 				set {quiver.%{_p}%::solar} to {quiversize.%{_p}%}
+# 		else if {_split::1} is "Lunar Arrow":
+# 			set {quiver.%{_p}%::lunar} to {quiver.%{_p}%::lunar} + {_split::2}
+# 			if {quiver.%{_p}%::lunar} is greater than {quiversize.%{_p}%}:
+# 				set {_extra::lunar} to {quiver.%{_p}%::lunar} - {quiversize.%{_p}%}
+# 				set {quiver.%{_p}%::lunar} to {quiversize.%{_p}%}
+# 		else if {_split::1} is "Terrestrial Arrow":
+# 			set {quiver.%{_p}%::terrestrial} to {quiver.%{_p}%::terrestrial} + {_split::2}
+# 			if {quiver.%{_p}%::terrestrial} is greater than {quiversize.%{_p}%}:
+# 				set {_extra::terrestrial} to {quiver.%{_p}%::terrestrial} - {quiversize.%{_p}%}
+# 				set {quiver.%{_p}%::terrestrial} to {quiversize.%{_p}%}
+# 		else if {_split::1} is "Midnight Arrow":
+# 			set {quiver.%{_p}%::midnight} to {quiver.%{_p}%::midnight} + {_split::2}
+# 			if {quiver.%{_p}%::midnight} is greater than {quiversize.%{_p}%}:
+# 				set {_extra::midnight} to {quiver.%{_p}%::midnight} - {quiversize.%{_p}%}
+# 				set {quiver.%{_p}%::midnight} to {quiversize.%{_p}%}
+# 		else if {_split::1} is "Thunder Bolt":
+# 			set {quiver.%{_p}%::thunder} to {quiver.%{_p}%::thunder} + {_split::2}
+# 			if {quiver.%{_p}%::thunder} is greater than {quiversize.%{_p}%}:
+# 				set {_extra::thunder} to {quiver.%{_p}%::thunder} - {quiversize.%{_p}%}
+# 				set {quiver.%{_p}%::thunder} to {quiversize.%{_p}%}
+# 	set {_item} to brown candle named "{@color}Quiver Bundle" with lore {_l::1}
+# 	set {_line} to 5
+# 	loop {_extra::*}:
+# 		if loop-index is "arrow":
+# 			set {_arrow} to "Arrow"
+# 		else if loop-index is "solar":
+# 			set {_arrow} to "Solar Arrow"
+# 		else if loop-index is "lunar":
+# 			set {_arrow} to "Lunar Arrow"
+# 		else if loop-index is "terrestrial":
+# 			set {_arrow} to "Terrerstrial Arrow"
+# 		else if loop-index is "midnight":
+# 			set {_arrow} to "Midnight Arrow"
+# 		else if loop-index is "thunder":
+# 			set {_arrow} to "Thunder Bolt"
+# 		set line {_line} of lore of {_item} to " &8┃ &7%{_arrow}%: x%loop-value%"
+# 		add 1 to {_line}
+# 	set line {_line} of lore of {_item} to " &8╹ &7Click to open"
+# 	give {_p} 1 of {_item}
+# 	nextQuiver({_p})
+
+# on right click:
+# 	set {_item} to player's held item
+# 	openQuiverBundle(player, {_item})
+# 	remove 1 of event-item from player's inventory
+
 on pickup:
+	if event-item is arrow or tipped arrow of fire resistance or tipped arrow of swiftness or tipped arrow of poison or tipped arrow of weakness or spectral arrow:
+		cancel event
 	if 1 of event-item is arrow or tipped arrow of fire resistance or tipped arrow of swiftness or tipped arrow of poison or tipped arrow of weakness or spectral arrow:
 		cancel event
 		set {_n} to item amount of event-item
@@ -157,21 +277,21 @@ function quiver(p: player):
 	else:
 		set slot 0 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::arrow}%" with all flags hidden
 	if {quiver.%{_p}%.current} is not "solar":
-		set slot 1 of metadata tag "quiver" of {_p} to tipped arrow of fire resistance named "{@color}Solar Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::solar}%" with all flags hidden
+		set slot 1 of metadata tag "quiver" of {_p} to tipped arrow of fire resistance named "{@color}Solar Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::solar}%" with all flags hidden
 	else:
-		set slot 1 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Solar Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::solar}%" with all flags hidden
+		set slot 1 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Solar Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::solar}%" with all flags hidden
 	if {quiver.%{_p}%.current} is not "lunar":
-		set slot 2 of metadata tag "quiver" of {_p} to tipped arrow of swiftness named "{@color}Lunar Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::lunar}%" with all flags hidden
+		set slot 2 of metadata tag "quiver" of {_p} to tipped arrow of swiftness named "{@color}Lunar Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::lunar}%" with all flags hidden
 	else:
-		set slot 2 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Lunar Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::lunar}%" with all flags hidden
+		set slot 2 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Lunar Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::lunar}%" with all flags hidden
 	if {quiver.%{_p}%} is not "terretrial":
-		set slot 3 of metadata tag "quiver" of {_p} to tipped arrow of poison named "{@color}Terrestrial Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" with all flags hidden
+		set slot 3 of metadata tag "quiver" of {_p} to tipped arrow of poison named "{@color}Terrestrial Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" with all flags hidden
 	else:
-		set slot 3 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Terrestrial Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" with all flags hidden
+		set slot 3 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Terrestrial Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" with all flags hidden
 	if {quiver.%{_p}%} is not "midnight":
-		set slot 4 of metadata tag "quiver" of {_p} to tipped arrow of weakness named "{@color}Midnight Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::midnight}%" with all flags hidden
+		set slot 4 of metadata tag "quiver" of {_p} to tipped arrow of weakness named "{@color}Midnight Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::midnight}%" with all flags hidden
 	else:
-		set slot 4 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Midnight Arrows" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::midnight}%" with all flags hidden
+		set slot 4 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Midnight Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::midnight}%" with all flags hidden
 	if {quiver.%{_p}%.current} is not "thunder":
 		set slot 5 of metadata tag "quiver" of {_p} to spectral arrow named "{@color}Thunder Bolt" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::thunder}%" with all flags hidden
 	else:
