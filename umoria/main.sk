@@ -234,7 +234,7 @@ command /top [<text>]:
 		send "&7&m--------------------------------"
 
 on tab complete of "/skript" and "/sk":
-	set tab completions for position 1 to "reload"
+	set tab completions for position 1 to "reload" and "enable" and "disable"
 	set tab completions for position 2 to enabled scripts
 
 # command /sk [<text>] [<text>]:

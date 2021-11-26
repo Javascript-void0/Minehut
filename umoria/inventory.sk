@@ -107,9 +107,9 @@ on inventory click:
 	if clicked slot is 8:
 		cancel event
 		menu(player)
-	if name of event-inventory is not "Crafting":
-		cancel event
-		stop
+	# if name of event-inventory is not "Crafting":
+	# 	cancel event
+	# 	stop
 	gamemode of player is survival
 	if clicked slot is 36 or 37 or 38 or 39:
 		if clicked type is right mouse button:

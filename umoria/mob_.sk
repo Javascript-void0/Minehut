@@ -75,6 +75,12 @@ on spawn of donkey:
 	cancel event
 on spawn of bat:
 	cancel event
+on spawn of wandering trader:
+	cancel event
+on spawn of trader llama:
+	cancel event
+on spawn of llama:
+	cancel event
 
 # every 10 seconds:
 # 	loop all entities:

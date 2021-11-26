@@ -1,45 +1,45 @@
 function orcDrop(l: location):
     chance of 90%:
-        drop (random integer between 1 and 5) of bone at {_l}
+        drop (random integer between 1 and 5) of {mobloot::bone} at {_l}
     chance of 20%:
-        drop (random integer between 1 and 3) of brown mushroom at {_l}
+        drop (random integer between 1 and 3) of {mobloot::br_mush} at {_l}
     chance of 30%:
-        drop (random integer between 2 and 6) of rotten flesh at {_l}
+        drop (random integer between 2 and 6) of {mobloot::flesh} at {_l}
     chance of 5%:
-        drop (random integer between 1 and 3) of red mushroom at {_l}
+        drop (random integer between 1 and 3) of {mobloot::red_mush} at {_l}
 
 function boneDrop(l: location):
     chance of 90%:
-        drop (random integer between 3 and 6) of bone at {_l}
+        drop (random integer between 3 and 6) of {mobloot::bone} at {_l}
     chance of 5%:
-        drop 1 skeleton skull at {_l} 
+        drop 1 of {mobloot::skel_skull} at {_l} 
     chance of 20%:
-        drop (random integer between 2 and 4) of dead bush at {_l}
+        drop (random integer between 2 and 4) of {mobloot::bush} at {_l}
 
 function elfDrop(l: location):
     chance of 90%:
-        drop (random integer between 2 and 4) of glass bottle at {_l}
+        drop (random integer between 2 and 4) of {mobloot::bottle} at {_l}
     chance of 5%:
-        drop (random integer between 1 and 3) of fermented spider eye at {_l}
+        drop (random integer between 1 and 3) of {mobloot::pancreas} at {_l}
     chance of 5%:
-        drop (random integer between 1 and 3) of rabbit's foot at {_l}
+        drop (random integer between 1 and 3) of {mobloot::foot} at {_l}
     chance of 5%:
-        drop (random integer between 1 and 3) of phantom membrane at {_l}
-    chance of 5%:
-        drop (random integer between 1 and 3) of magma cream at {_l}
-    chance of 5%:
-        drop (random integer between 1 and 3) of dark oak sapling at {_l}
-    chance of 5%:
-        drop (random integer between 1 and 3) of dead bush at {_l}
-    chance of 5%:
-        drop (random integer between 1 and 3) of cobweb at {_l}
+        drop (random integer between 1 and 3) of {mobloot::qu_eggs} at {_l}
+    chance of 3%:
+        drop 1 of {mobloot::mag_orb} at {_l}
+    chance of 20%:
+        drop (random integer between 1 and 3) of {mobloot::dark_sapling} at {_l}
+    chance of 20%:
+        drop (random integer between 1 and 3) of {mobloot::bush} at {_l}
+    chance of 20%:
+        drop (random integer between 1 and 3) of {mobloot::cobweb} at {_l}
 
 function spiritDrop(l: location):
     chance of 90%:
-        drop (random integer between 2 and 5) of glow ink sacs at {_l}
+        drop (random integer between 2 and 5) of {mobloot::gel} at {_l}
     chance of 40%:
-        drop (random integer between 1 and 3) of warped fungus at {_l}
+        drop (random integer between 1 and 3) of {mobloot::warp_mush} at {_l}
     chance of 10%:
-        drop (random integer between 2 and 4) of prismarine crystals at {_l}
+        drop (random integer between 2 and 4) of {mobloot::crystal} at {_l}
     chance of 3%:
-        drop 1 of heart of the sea at {_l}
+        drop 1 of {mobloot::tide_orb} at {_l}

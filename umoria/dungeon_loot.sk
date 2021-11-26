@@ -1,0 +1,18 @@
+on right click:
+	world of player is "dungeon"
+	if event-block is chest:
+		chest(event-block)
+	else if event-block is trapped chest:
+		tchest(event-block)
+
+on inventory click:
+	name of event-inventory is "Chest"
+	stop
+
+function chest(b: block):
+	loop all items in inventory of {_b}:
+		set loop-item to grass block
+
+function tchest(b: block):
+	loop all items in inventory of {_b}:
+		set loop-item to dirt
