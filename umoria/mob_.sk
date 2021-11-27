@@ -21,7 +21,7 @@ on spawn of zombie:
 
 on spawn of skeleton:
 	if {mobcap} is false:
-		if block at event-location is netherite block:
+		if block at event-location is netherite block or bone block:
 			set block at event-location to air
 			stop
 		else:

@@ -41,7 +41,10 @@ function pasteDungeon(loc: location, name: text, p: player) :: number:
 				set block at {_loc} to {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%}
 				if {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} is netherite block:
 					add 1 to {_n}
-					spawnMob({_loc}, {_p})
+					spawnMob({_loc}, {_p}, 0)
+				else if {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} is bone block:
+					add 1 to {_n}
+					spawnMob({_loc}, {_p}, 2)
 				add 1 to x-coordinate of {_loc}
 			set x-coordinate of {_loc} to {_x}
 			add 1 to z-coordinate of {_loc}
@@ -50,8 +53,11 @@ function pasteDungeon(loc: location, name: text, p: player) :: number:
 	set y-coordinate of {_loc} to {_y}
 	return {_n}
 
-function spawnMob(loc: location, p: player):
-	set {_n} to random integer between 1 and 8
+function spawnMob(loc: location, p: player, nn: number):
+	if {_nn} is 0:
+		set {_n} to random integer between 1 and 8
+	else:
+		set {_n} to {_nn}
 	if {_n} is 1:
 		boneWarrior({_loc}, {_p})
 	else if {_n} is 2:
