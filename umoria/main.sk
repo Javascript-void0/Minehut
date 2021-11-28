@@ -89,7 +89,10 @@ on first join:
 
 command /spawn:
 	trigger:
-		teleport player to {spawn}
+		if {dungeonActive::%player%} is set:
+			send "{@prefix} &7You can't leave the dungeon before ending it. "
+		else:
+			teleport player to {spawn}
 
 command /setspawn:
 	trigger:
