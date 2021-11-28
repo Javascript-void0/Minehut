@@ -1,18 +1,21 @@
 on right click:
 	world of player is "dungeon"
-	if event-block is chest:
-		chest(event-block)
-	else if event-block is trapped chest:
-		tchest(event-block)
+	event-block is trapped chest
+	generateChest(event-block, player)
 
-on inventory click:
-	name of event-inventory is "Chest"
-	stop
-
-function chest(b: block):
-	loop all items in inventory of {_b}:
-		set loop-item to grass block
-
-function tchest(b: block):
-	loop all items in inventory of {_b}:
-		set loop-item to dirt
+function generateChest(b: block, p: player):
+	set {_dir} to facing of {_b}
+	if {_dir} is north:
+		set block at location of {_b} to north facing chest
+	else if {_dir} is west:
+		set block at location of {_b} to west facing chest
+	else if {_dir} is east:
+		set block at location of {_b} to east facing chest
+	else if {_dir} is south:
+		set block at location of {_b} to south facing chest
+	open inventory of {_b} to {_p}
+	set {_n} to random integer between 3 and 15
+	loop {_n} times:
+		set {_slot} to random integer between 0 and 29
+		set slot {_slot} of inventory of {_b} to dirt
+		wait 1 tick
