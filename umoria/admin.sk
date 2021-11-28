@@ -144,7 +144,7 @@ on tab complete of "/enchant":
 		set tab completions for position 1 to "power", "infinity", "mending", and "binding"
 	else if player's held item is shield:
 		set tab completions for position 1 to "unbreaking", "thorns", "mending", and "binding"
-	else if player's held item is helmet or chestplate or leggings or boots:
+	else if player's held item is helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
 		set tab completions for position 1 to "protection", "thorns", "mending", and "binding"
 
 command /enchant [<text>] [<integer>]:
@@ -152,18 +152,17 @@ command /enchant [<text>] [<integer>]:
 		if player is op:
 			if player's held item is not set:
 				send "{@admin} &7You must be holding a tool"
-			else if player's held item is not pickaxe or sword or bow or hoe or shield or helmet or chestplate or leggings or boots:
+			else if player's held item is not pickaxe or sword or bow or hoe or shield or helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
 				send "{@admin} &7You can not enchant that"
-
 			if arg-2 is not set:
 				stop
 			if arg-1 is "mending":
-				set line 11 of player's tool's lore to " &8┃ &7Mending: {@color}%arg-2%"					
+				set line 11 of player's tool's lore to " &8┃ &7Mending: &f%arg-2%"					
 				removeEnch(player's tool, mending)
 				enchant player's tool with "mending %arg-2%" parsed as enchantment type
 				send "{@admin} Enchanted with {@color}Mending %arg-2%"
 			else if arg-1 is "binding":
-				set line 12 of player's tool's lore to " &8╹ &7Binding: {@color}%arg-2%"					
+				set line 12 of player's tool's lore to " &8╹ &7Binding: &f%arg-2%"					
 				removeEnch(player's tool, curse of binding)
 				enchant player's tool with "curse of binding %arg-2%" parsed as enchantment type
 				send "{@admin} Enchanted with {@color}Binding %arg-2%"
@@ -176,12 +175,12 @@ command /enchant [<text>] [<integer>]:
 				if arg-1 is "sharpness":
 					# set {_split::*} to uncoloured line 2 of player's tool's lore parsed as " ┃ Sharpness: %number%"
 					# send "%{_split::1}%" to the player
-					set line 9 of player's tool's lore to " &8┃ &7Sharpness: {@color}%arg-2%"					
+					set line 10 of player's tool's lore to " &8┃ &7Sharpness: &f%arg-2%"					
 					removeEnch(player's tool, sharpness)
 					enchant player's tool with "sharpness %arg-2%" parsed as enchantment type
 					send "{@admin} Enchanted with {@color}Sharpness %arg-2%"
 				else if arg-1 is "looting":
-					set line 10 of player's tool's lore to " &8┃ &7Looting: {@color}%arg-2%"					
+					set line 11 of player's tool's lore to " &8┃ &7Looting: &f%arg-2%"					
 					removeEnch(player's tool, looting)
 					enchant player's tool with "looting %arg-2%" parsed as enchantment type
 					send "{@admin} Enchanted with {@color}Looting %arg-2%"
@@ -192,12 +191,12 @@ command /enchant [<text>] [<integer>]:
 			
 			else if player's held item is pickaxe or hoe:
 				if arg-1 is "efficiency":
-					set line 9 of player's tool's lore to " &8┃ &7Efficiency: {@color}%arg-2%"					
+					set line 10 of player's tool's lore to " &8┃ &7Efficiency: &f%arg-2%"					
 					removeEnch(player's tool, efficiency)
 					enchant player's tool with "efficiency %arg-2%" parsed as enchantment type
 					send "{@admin} Enchanted with {@color}Efficiency %arg-2%"
 				else if arg-1 is "fortune":
-					set line 10 of player's tool's lore to " &8┃ &7Fortune: {@color}%arg-2%"					
+					set line 11 of player's tool's lore to " &8┃ &7Fortune: &f%arg-2%"					
 					removeEnch(player's tool, fortune)
 					enchant player's tool with "fortune %arg-2%" parsed as enchantment type
 					send "{@admin} Enchanted with {@color}Fortune %arg-2%"
@@ -208,12 +207,12 @@ command /enchant [<text>] [<integer>]:
 			
 			else if player's held item is bow:
 				if arg-1 is "power":
-					set line 9 of player's tool's lore to " &8┃ &7Power: {@color}%arg-2%"					
+					set line 10 of player's tool's lore to " &8┃ &7Power: &f%arg-2%"					
 					removeEnch(player's tool, power)
 					enchant player's tool with "power %arg-2%" parsed as enchantment type
 					send "{@admin} Enchanted with {@color}Power %arg-2%"
 				else if arg-1 is "infinity":
-					set line 10 of player's tool's lore to " &8┃ &7Infinity: {@color}%arg-2%"					
+					set line 11 of player's tool's lore to " &8┃ &7Infinity: &f%arg-2%"					
 					removeEnch(player's tool, infinity)
 					enchant player's tool with "infinity %arg-2%" parsed as enchantment type
 					send "{@admin} Enchanted with {@color}Infinity %arg-2%"
@@ -224,12 +223,12 @@ command /enchant [<text>] [<integer>]:
 			
 			else if player's held item is shield:
 				if arg-1 is "unbreaking":
-					set line 9 of player's tool's lore to " &8┃ &7Unbreaking: {@color}%arg-2%"					
+					set line 10 of player's tool's lore to " &8┃ &7Unbreaking: &f%arg-2%"					
 					removeEnch(player's tool, unbreaking)
 					enchant player's tool with "unbreaking %arg-2%" parsed as enchantment type
 					send "{@admin} Enchanted with {@color}Unbreaking %arg-2%"
 				else if arg-1 is "thorns":
-					set line 10 of player's tool's lore to " &8┃ &7Thorns: {@color}%arg-2%"					
+					set line 11 of player's tool's lore to " &8┃ &7Thorns: &f%arg-2%"					
 					removeEnch(player's tool, thorns)
 					enchant player's tool with "thorns %arg-2%" parsed as enchantment type
 					send "{@admin} Enchanted with {@color}Thorns %arg-2%"
@@ -238,16 +237,16 @@ command /enchant [<text>] [<integer>]:
 			# ARMOR
 			# ARMOR
 			
-			else if player's held item is helmet or chestplate or leggings or boots:
+			else if player's held item is light gray stained glass or lime stained glass or light blue stained glass or black stained glass or chestplate or leggings or boots:
 				if arg-1 is "protection":
-					set line 9 of player's tool's lore to " &8┃ &7Protection: {@color}%arg-2%"					
+					set line 10 of player's tool's lore to " &8┃ &7Protection: &f%arg-2%"					
 					removeEnch(player's tool, protection)
-					enchant player's tool with "protection %arg-2%" parsed as enchantment type
+					# enchant player's tool with "protection %arg-2%" parsed as enchantment type
 					send "{@admin} Enchanted with {@color}Protection %arg-2%"
 				else if arg-1 is "thorns":
-					set line 10 of player's tool's lore to " &8┃ &7Thorns: {@color}%arg-2%"					
+					set line 11 of player's tool's lore to " &8┃ &7Thorns: &f%arg-2%"					
 					removeEnch(player's tool, thorns)
-					enchant player's tool with "thorns %arg-2%" parsed as enchantment type
+					# enchant player's tool with "thorns %arg-2%" parsed as enchantment type
 					send "{@admin} Enchanted with {@color}Thorns %arg-2%"
 		
 		else:

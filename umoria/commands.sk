@@ -8,7 +8,7 @@ options:
 
 
 on tab complete of "/commands" and "/cmd" and "/command" and "/c":
-	set tab completions for position 1 to "3x3", "new", "statcheck", "items_mob", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "clearMob", and "tools"
+	set tab completions for position 1 to "3x3", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "clearMob", and "tools"
 	if tab complete arg-1 is "statcheck" or "dailyreset" or "clearMob":
 		set tab completions for position 2 to all players
 	else if tab complete arg-1 is "quiver":
@@ -30,7 +30,12 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				newcenter(player)
 			else if arg-1 is "tools":
 				give player {1_pickaxe}, {1_axe}, {1_shovel}, and {1_hoe}
-
+			else if arg-1 is "armor":
+				give player {1_helmet}, {1_chestplate}, {1_leggings}, and {1_boots}
+				give player {2_helmet}, {2_chestplate}, {2_leggings}, and {2_boots}
+				give player {3_helmet}, {3_chestplate}, {3_leggings}, and {3_boots}
+				give player {4_helmet}, {4_chestplate}, {4_leggings}, and {4_boots}
+				give player {5_helmet}, {5_chestplate}, {5_leggings}, and {5_boots}
 
 
 			else if arg-1 is "backpack" or "bp":
@@ -191,3 +196,5 @@ function newcenter(p: player):
 	set slot 30 of {_p} to {talarialock}
 	set slot 31 of {_p} to {zeuslock}
 	set slot 32 of {_p} to {hermeslock}
+
+function newArmor(p: player):

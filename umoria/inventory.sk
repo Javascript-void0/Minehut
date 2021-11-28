@@ -46,6 +46,13 @@ on right click:
 	else if name of player's tool is "{@color}&lMENU":
 		menu(player)
 
+on right click with light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
+	cancel event
+	helmet of player is air
+	set {_hel} to player's held item
+	remove 1 of player's tool from player's inventory
+	set player's helmet to {_hel}
+
 command /menu:
 	trigger:
 		menu(player)
@@ -78,13 +85,13 @@ on inventory click:
 function menu(p: player):
 	set metadata tag "Menu" of {_p} to chest inventory with 3 rows named "&8Menu"
 	if {pvp::%{_p}%} is false:
-		set slot 0 of metadata tag "Menu" of {_p} to red dye named "{@color}&lPVP &7Disabled" with lore " &8╹ &7Click to Enable (/pvp)"
+		set slot 0 of metadata tag "Menu" of {_p} to red dye named "{@color}&lPVP &7Disabled" with lore " &8╹ &7Enable (/pvp)"
 	else:
-		set slot 0 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lPVP &7Enabled" with lore " &8╹ &7Click to Disable (/pvp)"
+		set slot 0 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lPVP &7Enabled" with lore " &8╹ &7Disable (/pvp)"
 	if {wait.%{_p}%} is false:
-		set slot 1 of metadata tag "Menu" of {_p} to red dye named "{@color}&lWAIT &7Disabled" with lore " &8╹ &7Click to Enable (/wait)"
+		set slot 1 of metadata tag "Menu" of {_p} to red dye named "{@color}&lWAIT &7Disabled" with lore " &8╹ &7Enable (/wait)"
 	else:
-		set slot 1 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lWAIT &7Enabled" with lore " &8╹ &7Click to Disable (/wait)"
+		set slot 1 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lWAIT &7Enabled" with lore " &8╹ &7Disable (/wait)"
 	set {_waited} to difference between {daily.%{_p}%.lastused} and now
 	set {_next} to 1 day after {daily.%{_p}%.lastused}
 	if {_waited} is less than 24 hours:
@@ -97,7 +104,7 @@ function menu(p: player):
 		set slot 8 of metadata tag "Menu" of {_p} to lime stained glass named "{@color}&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to {@color}Claim" and " &8╹ {@color}+100 &7Wrath"
 
 	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
-	set slot 2 of metadata tag "Menu" of {_p} to book named "{@color}&lSTATS" with lore " &8╹ &7Click to view"
+	set slot 2 of metadata tag "Menu" of {_p} to book named "{@color}&lSTATS" with lore " &8╹ &7view"
 		# stats(player)
 	open (metadata tag "Menu" of {_p}) to {_p}
 
@@ -112,14 +119,31 @@ on inventory click:
 	# 	stop
 	gamemode of player is survival
 	if clicked slot is 36 or 37 or 38 or 39:
-		if clicked type is right mouse button:
-			armorUpgrade(player)
-		else if clicked type is left mouse button:
-			if clicked item is black stained glass:
-				send "{@prefix} Can't promote any farther!"
-			else:
-				set {_s} to index of event-slot
-				armorPromote(player, clicked item, {_s})
+		clicked type is middle mouse button
+		armorMenu(player)
+	else:
+		cancel event
+		# if clicked type is right mouse button:
+		# 	armorUpgrade(player)
+		# else if clicked type is left mouse button:
+		# 	if clicked item is black stained glass:
+		# 		send "{@prefix} Can't promote any farther!"
+		# 	else:
+		# 		set {_s} to index of event-slot
+		# 		armorPromote(player, clicked item, {_s})
+
+function armorMenu(p: player):
+	set metadata tag "armorMenu" of {_p} to hopper inventory named "&8Armor"
+	set slot 1 of metadata tag "armorMenu" of {_p} to smithing table named "{@color}&lUPGRADE" with lore " &8┃ &7Upgrade your armor to ..." and " &8╹ &7"
+	set slot 3 of metadata tag "armorMenu" of {_p} to anvil named "{@color}&lPROMOTE" with lore " &8┃ &7Promote your armor for ..." and " &8╹ &7"
+	open (metadata tag "armorMenu" of {_p}) to {_p}
+
+on inventory click:
+	event-inventory = (metadata tag "armorMenu" of player)
+	if clicked slot is 1:
+		armorUpgrade(player)
+	else if clicked slot is 3:
+		armorPromote(player)
 
 function armorUpgrade(p: player):
 	set metadata tag "armorUpgrade" of {_p} to chest inventory with 4 rows named "&8Upgrades"
@@ -129,35 +153,55 @@ function armorUpgrade(p: player):
 	set slot 27 of metadata tag "armorUpgrade" of {_p} to boots of {_p}
 	open (metadata tag "armorUpgrade" of {_p}) to {_p}
 
-function armorPromote(p: player, i: item, s: integer):
-	broadcast "test"
-	set metadata tag "armorPromote" of {_p} to chest inventory with 4 rows named "&8Promote"
-	broadcast "test"
-	broadcast "test %{_i}%"
-	set {_name} to name of {_n}
-	broadcast "%{_name}%"
-	if {_name} contains "&8[&c::&7::::::::&8]":
-		broadcast "test"
-		if {_i} is light gray stained glass:
-			set slot 4 of metadata tag "armorPromote" of {_p} to {2_helmet}
-				# set player's helmet to {2_helmet}
-				# close player's inventory
-		else if {_i} is chestplate:
-			set slot 4 of metadata tag "armorPromote" of {_p} to {2_chestplate}
-				# set player's helmet to {2_chestplate}
-				# close player's inventory
-		else if {_i} is leggings:
-			set slot 4 of metadata tag "armorPromote" of {_p} to {2_leggings}
-				# set player's leggings to {2_leggings}
-				# close player's inventory
-		else if {_i} is boots:
-			set slot 4 of metadata tag "armorPromote" of {_p} to {2_boots}
-				# set player's boots to {2_boots}
-				# close player's inventory
-	else if name of {_i} contains "&7::::::":
-		set slot 4 of metadata tag "armorPromote" of {_p} to {3_helmet}
-	else if name of {_i} contains "&7::::":
-		set slot 4 of metadata tag "armorPromote" of {_p} to {4_helmet}
-	else if name of {_i} contains "&7::":
-		set slot 4 of metadata tag "armorPromote" of {_p} to {5_helmet}
+command /promote:
+	trigger:
+		armorPromote(player)
+
+function armorPromote(p: player):
+	set metadata tag "armorPromote" of {_p} to hopper inventory named "&8Promote"
+	set slot 0 of metadata tag "armorPromote" of {_p} to helmet of {_p}
+	set slot 1 of metadata tag "armorPromote" of {_p} to chestplate of {_p}
+	if helmet of {_p} is light gray stained glass:
+		set slot 2 of metadata tag "armorPromote" of {_p} to iron ingot named "{@color}&lPROMOTE" with lore " &8┃ &7Next: " and " " and " {@color}REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
+	if helmet of {_p} is lime stained glass:
+		set slot 2 of metadata tag "armorPromote" of {_p} to emerald named "{@color}&lPROMOTE" with lore " &8┃ &7Next: " and " " and " {@color}REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
+	if helmet of {_p} is light blue stained glass:
+		set slot 2 of metadata tag "armorPromote" of {_p} to diamond named "{@color}&lPROMOTE" with lore " &8┃ &7Next: " and " " and " {@color}REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
+	if helmet of {_p} is orange stained glass:
+		set slot 2 of metadata tag "armorPromote" of {_p} to copper ingot named "{@color}&lPROMOTE" with lore " &8┃ &7Next: " and " " and " {@color}REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
+	if helmet of {_p} is black stained glass:
+		set slot 2 of metadata tag "armorPromote" of {_p} to netherite ingot named "{@color}&lPROMOTE" with lore " &8┃ &7Next: " and " " and " {@color}REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
+	set slot 3 of metadata tag "armorPromote" of {_p} to leggings of {_p}
+	set slot 4 of metadata tag "armorPromote" of {_p} to boots of {_p}
 	open (metadata tag "armorPromote" of {_p}) to {_p}
+	# broadcast "test"
+	# set metadata tag "armorPromote" of {_p} to chest inventory with 4 rows named "&8Promote"
+	# broadcast "test"
+	# broadcast "test %{_i}%"
+	# set {_name} to name of {_n}
+	# broadcast "%{_name}%"
+	# if {_name} contains "&8[&c::&7::::::::&8]":
+	# 	broadcast "test"
+	# 	if {_i} is light gray stained glass:
+	# 		set slot 4 of metadata tag "armorPromote" of {_p} to {2_helmet}
+	# 			# set player's helmet to {2_helmet}
+	# 			# close player's inventory
+	# 	else if {_i} is chestplate:
+	# 		set slot 4 of metadata tag "armorPromote" of {_p} to {2_chestplate}
+	# 			# set player's helmet to {2_chestplate}
+	# 			# close player's inventory
+	# 	else if {_i} is leggings:
+	# 		set slot 4 of metadata tag "armorPromote" of {_p} to {2_leggings}
+	# 			# set player's leggings to {2_leggings}
+	# 			# close player's inventory
+	# 	else if {_i} is boots:
+	# 		set slot 4 of metadata tag "armorPromote" of {_p} to {2_boots}
+	# 			# set player's boots to {2_boots}
+	# 			# close player's inventory
+	# else if name of {_i} contains "&7::::::":
+	# 	set slot 4 of metadata tag "armorPromote" of {_p} to {3_helmet}
+	# else if name of {_i} contains "&7::::":
+	# 	set slot 4 of metadata tag "armorPromote" of {_p} to {4_helmet}
+	# else if name of {_i} contains "&7::":
+	# 	set slot 4 of metadata tag "armorPromote" of {_p} to {5_helmet}
+	# open (metadata tag "armorPromote" of {_p}) to {_p}
