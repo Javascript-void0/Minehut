@@ -7,26 +7,14 @@ options:
 	wrath: &7Insufficient <##B4C788>Wrath
 	world: world
 
-function inventoryRound(n: number, to: number) :: number:
-	return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
-
-function inventoryFormat(n: number) :: text:
-	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
-	loop split {_data} at "|":
-		set {_s::*} to split loop-value at ","
-		{_n} >= 10 ^ {_s::2} parsed as number
-		set {_nn} to inventoryRound({_n} / 10 ^ {_s::2} parsed as number, 1)
-		return "%{_nn}%%{_s::1}%"
-	return "%{_n}%" 
-
 function stats(p: player):
 	set metadata tag "Stats" of {_p} to chest inventory with 3 rows named "&8Statistics: %{_p}%"
 	set slot 10 of metadata tag "Stats" of {_p} to head of {_p} named "&8[{@color}:L%{p_level::%{_p}%}%&8] {@color}%display name of {_p}%" with lore "{@color}Playtime: &7%time played of {_p}%"
-	set {_coins} to inventoryFormat({p_coins::%{_p}%})
-	set {_totalcoins} to inventoryFormat({p_totalcoins::%{_p}%})
+	set {_coins} to format({p_coins::%{_p}%})
+	set {_totalcoins} to format({p_totalcoins::%{_p}%})
 	set slot 12 of metadata tag "Stats" of {_p} to gold block named "{@color}&lCOINS" with lore "&7Current: {@color}%{_coins}% &7coins" and "&7Total: {@color}%{_totalcoins}% &7coins"
-	set {_wrath} to inventoryFormat({p_wrath::%{_p}%})
-	set {_totalwrath} to inventoryFormat({p_totalwrath::%{_p}%})
+	set {_wrath} to format({p_wrath::%{_p}%})
+	set {_totalwrath} to format({p_totalwrath::%{_p}%})
 	set slot 13 of metadata tag "Stats" of {_p} to bell named "{@color}&lWRATH" with lore "&7Current: {@color}%{_wrath}% &7wrath" and "&7Total: {@color}%{_totalwrath}% &7wrath"
 	set slot 14 of metadata tag "Stats" of {_p} to nether star named "{@color}&lVIRTUE" with lore "&7Current: {@color}%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
 	set slot 15 of metadata tag "Stats" of {_p} to netherite sword named "{@color}&lCOMBAT" with lore "&7Kills: {@color}%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: {@color}%{p_death::%{_p}%}% &7deaths" with all flags hidden

@@ -5,18 +5,6 @@ options:
 	admin: &8[<##B4C788>&lADMIN&8]&7
 	world: world
 
-function adminFormat(n: number) :: text:
-	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
-	loop split {_data} at "|":
-		set {_s::*} to split loop-value at ","
-		{_n} >= 10 ^ {_s::2} parsed as number
-		set {_nn} to adminRound({_n} / 10 ^ {_s::2} parsed as number, 1)
-		return "%{_nn}%%{_s::1}%"
-	return "%{_n}%"
-
-function adminRound(n: number, to: number) :: number:
-   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
-
 on tab complete of "/modify":
 	set tab completions for position 2 to "level", "coins", "totalcoins", "wrath", "totalwrath", "exp", "nextexp", "totalexp", "kill", "death", "rebirth", "all", "maxhealth", "health", "damage", "defense", "bank", and "maxdefense"
 	set tab completions for position 3 to "add", "remove", "set", and "reset"
@@ -42,7 +30,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					stop
 			if arg-3 is "add":
 				add arg-4 to {p_%arg-2%::%arg-1%}
-				set {_nn} to adminFormat(arg-4)
+				set {_nn} to format(arg-4)
 				send "{@admin} &7Added {@color}%{_nn}% &7to %arg-1% &7%arg-2%"
 			else if arg-3 is "remove":
 				if arg-2 is "level":
@@ -70,7 +58,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 				else:
 					set {_n} to arg-4
 				remove {_n} from {p_%arg-2%::%arg-1%}
-				set {_nn} to adminFormat({_n})
+				set {_nn} to format({_n})
 				send "{@admin} &7Removed {@color}%{_nn}% &7from %arg-1% &7%arg-2%"
 			else if arg-3 is "set":
 				if arg-2 is "level":
@@ -98,7 +86,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 				else:
 					set {_n} to arg-4
 				set {p_%arg-2%::%arg-1%} to {_n}
-				set {_nn} to adminFormat({_n})
+				set {_nn} to format({_n})
 				send "{@admin} &7Set %arg-1% &7%arg-2% &7to {@color}%{_nn}%"
 			else if arg-3 is "reset":
 				if arg-2 is "level" or "damage":
@@ -127,149 +115,5 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to 0
 				set {p_%arg-2%::%arg-1%} to {_n}
 				send "{@admin} &7Reset %arg-1% &7%arg-2%"
-		else:
-			send "{@admin} {@permission}"
-			
-function removeEnch(i: item, e: enchantment):
-	loop enchantments of {_i}:
-		add "%loop-value%" parsed as an enchantment type to {_e::*}
-	disenchant {_i}
-	loop {_e::*}:
-		if "%loop-value%" does not contain "%{_e}%":
-			enchant {_i} with loop-value
-
-on tab complete of "/enchant":
-	if player's held item is sword:
-		set tab completions for position 1 to "sharpness", "looting", "mending", and "binding"
-	else if player's held item is pickaxe or hoe:
-		set tab completions for position 1 to "efficiency", "fortune", "mending", and "binding"
-	else if player's held item is bow:
-		set tab completions for position 1 to "power", "infinity", "mending", and "binding"
-	else if player's held item is shield:
-		set tab completions for position 1 to "unbreaking", "thorns", "mending", and "binding"
-	else if player's held item is helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
-		set tab completions for position 1 to "protection", "thorns", "mending", and "binding"
-
-command /enchant [<text>] [<integer>]:
-	trigger:
-		if player is op:
-			if player's held item is not set:
-				send "{@admin} &7You must be holding a tool"
-			else if player's held item is not pickaxe or sword or bow or hoe or shield or helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
-				send "{@admin} &7You can not enchant that"
-			if arg-2 is not set:
-				stop
-			if arg-1 is "mending":
-				set line 16 of player's tool's lore to " &8┃ &7Mending: &f%arg-2%"					
-				removeEnch(player's tool, mending)
-				enchant player's tool with "mending %arg-2%" parsed as enchantment type
-				send "{@admin} Enchanted with {@color}Mending %arg-2%"
-			else if arg-1 is "binding":
-				set line 17 of player's tool's lore to " &8╹ &7Binding: &f%arg-2%"					
-				removeEnch(player's tool, curse of binding)
-				enchant player's tool with "curse of binding %arg-2%" parsed as enchantment type
-				send "{@admin} Enchanted with {@color}Binding %arg-2%"
-
-			# SWORD
-			# SWORD
-			# SWORD
-
-			else if player's held item is sword:
-				if arg-1 is "sharpness":
-					# set {_split::*} to uncoloured line 2 of player's tool's lore parsed as " ┃ Sharpness: %number%"
-					# send "%{_split::1}%" to the player
-					set line 14 of player's tool's lore to " &8┃ &7Sharpness: &f%arg-2%"					
-					removeEnch(player's tool, sharpness)
-					enchant player's tool with "sharpness %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with {@color}Sharpness %arg-2%"
-				else if arg-1 is "looting":
-					set line 15 of player's tool's lore to " &8┃ &7Looting: &f%arg-2%"					
-					removeEnch(player's tool, looting)
-					enchant player's tool with "looting %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with {@color}Looting %arg-2%"
-			
-			# PICKAXE / SCYTHE
-			# PICKAXE / SCYTHE
-			# PICKAXE / SCYTHE
-			
-			else if player's held item is pickaxe or hoe:
-				if arg-1 is "efficiency":
-					set line 14 of player's tool's lore to " &8┃ &7Efficiency: &f%arg-2%"					
-					removeEnch(player's tool, efficiency)
-					enchant player's tool with "efficiency %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with {@color}Efficiency %arg-2%"
-				else if arg-1 is "fortune":
-					set line 15 of player's tool's lore to " &8┃ &7Fortune: &f%arg-2%"					
-					removeEnch(player's tool, fortune)
-					enchant player's tool with "fortune %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with {@color}Fortune %arg-2%"
-			
-			# BOW
-			# BOW
-			# BOW
-			
-			else if player's held item is bow:
-				if arg-1 is "power":
-					set line 14 of player's tool's lore to " &8┃ &7Power: &f%arg-2%"					
-					removeEnch(player's tool, power)
-					enchant player's tool with "power %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with {@color}Power %arg-2%"
-				else if arg-1 is "infinity":
-					set line 15 of player's tool's lore to " &8┃ &7Infinity: &f%arg-2%"					
-					removeEnch(player's tool, infinity)
-					enchant player's tool with "infinity %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with {@color}Infinity %arg-2%"
-					
-			# SHIELD
-			# SHIELD
-			# SHIELD
-			
-			else if player's held item is shield:
-				if arg-1 is "unbreaking":
-					set line 14 of player's tool's lore to " &8┃ &7Unbreaking: &f%arg-2%"					
-					removeEnch(player's tool, unbreaking)
-					enchant player's tool with "unbreaking %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with {@color}Unbreaking %arg-2%"
-				else if arg-1 is "thorns":
-					set line 15 of player's tool's lore to " &8┃ &7Thorns: &f%arg-2%"					
-					removeEnch(player's tool, thorns)
-					enchant player's tool with "thorns %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with {@color}Thorns %arg-2%"
-			
-			# ARMOR
-			# ARMOR
-			# ARMOR
-			
-			else if player's held item is light gray stained glass or lime stained glass or light blue stained glass or black stained glass or chestplate or leggings or boots:
-				if arg-1 is "protection":
-					set line 14 of player's tool's lore to " &8┃ &7Protection: &f%arg-2%"					
-					removeEnch(player's tool, protection)
-					# enchant player's tool with "protection %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with {@color}Protection %arg-2%"
-				else if arg-1 is "thorns":
-					set line 15 of player's tool's lore to " &8┃ &7Thorns: &f%arg-2%"					
-					removeEnch(player's tool, thorns)
-					# enchant player's tool with "thorns %arg-2%" parsed as enchantment type
-					send "{@admin} Enchanted with {@color}Thorns %arg-2%"
-		
-		else:
-			send "{@admin} {permission}"
-
-command /listenchants:
-	trigger:
-		if player is op:
-			loop enchantments of player's held item:
-				send "%loop-value%"
-		else:
-			send "{@admin} {@permission}"
-
-command /itemlevel [<number>]:
-	trigger:
-		if player is op:
-			if arg-1 is not set:
-				send "{@admin} &7/itemlevel <int>"
-				stop
-			set {_level::*} to uncolored line 2 of lore of player's held item parsed as " ┃ Level: %number%"
-			set line 2 of lore of player's held item to " &8┃ &7Level: &f%arg-1%"
 		else:
 			send "{@admin} {@permission}"

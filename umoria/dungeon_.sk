@@ -183,13 +183,6 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 		else if arg-1 is "wand":
 			give player blaze rod
 
-function largest(l: objects) :: number:
-	set {_largest} to {_l::1}
-	loop {_l::*}:
-		loop-value is greater than {_largest}
-		set {_largest} to loop-value
-	return {_largest}
-
 function dungeonStart(p: player, l: location):
 	pasteDungeon({_l}, "start", {_p})
 	set {dungeonStart::%{_l}%} to {_l}

@@ -1,0 +1,65 @@
+on script load:
+	set {_letters} to "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz"
+	set {_letter-pairs::*} to {_letters} split at " "
+	loop {_letter-pairs::*}:
+		set {_pair::*} to loop-value split at ""
+		set {_uppercase} to {_pair::1}
+		set {_lowercase} to {_pair::2}
+		set {letters::uppercase::%{_lowercase}%} to {_uppercase}
+		set {letters::lowercase::%{_uppercase}%} to {_lowercase}
+
+function capitalize(text: text) :: text:
+	set {_char} to the first character of {_text}
+	set {_char} to {letters::uppercase::%{_char}%}
+	set {_remaining} to ""
+	set {_remaining} to the last (length of {_text} - 1) characters of {_text}
+	return "%{_char}%%{_remaining}%"
+
+function removeEnch(i: item, e: enchantment):
+	loop enchantments of {_i}:
+		add "%loop-value%" parsed as an enchantment type to {_e::*}
+	disenchant {_i}
+	loop {_e::*}:
+		if "%loop-value%" does not contain "%{_e}%":
+			enchant {_i} with loop-value
+
+function enchant(p: player, e: text, lvl: number, ln: number):
+	set {_capital} to capitalize({_e}) 
+	set line {_ln} of {_p}'s held item's lore to " &8┃ &7%{_capital}%: &f%{_lvl}%"					
+	removeEnch({_p}'s held item, {_e})
+	enchant {_p}'s held item with "%{_e}% %{_lvl}%" parsed as enchantment type
+
+# TEXT FORMATTING
+
+function format(n: number) :: text:
+	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
+	loop split {_data} at "|":
+		set {_s::*} to split loop-value at ","
+		{_n} >= 10 ^ {_s::2} parsed as number
+		set {_nn} to roundto({_n} / 10 ^ {_s::2} parsed as number, 1)
+		return "%{_nn}%%{_s::1}%"
+	return "%{_n}%"
+
+function roundto(n: number, to: number) :: number:
+   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
+
+function spaced(n: text) :: text:
+	set {_s::*} to split {_n} at "."
+	if {_s::2} is not set:
+		return a({_n})
+	else:
+		return "%a({_s::1})%.%{_s::2}%"
+ 
+function a(b: text) :: text:
+	if length of {_b} > 3:
+		return "%a(first length of {_b} - 3 characters of {_b})%,%last 3 characters of {_b}%"
+	return {_b}
+
+# (list largest)
+
+function largest(l: objects) :: number:
+	set {_largest} to {_l::1}
+	loop {_l::*}:
+		loop-value is greater than {_largest}
+		set {_largest} to loop-value
+	return {_largest}

@@ -5,25 +5,52 @@ options:
 	admin: &8[<##B4C788>&lADMIN&8]&r
 	world: world
 
+function new(p: player):
+	set helmet of {_p} to {1_helmet}
+	set chestplate of {_p} to {1_chestplate}
+	set leggings of {_p} to {1_leggings}
+	set boots of {_p} to {1_boots}
+	set slot 0 of {_p} to {1_sword}
+	set slot 1 of {_p} to {1_bow} 
+	set slot 40 of {_p} to {1_shield}
+	set slot 17 of {_p} to brown candle named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x0" and " &8╹ &7Click to Open"
+	set {quiver.%{_p}%.current} to "none"
+	set slot 8 of {_p} to compass named "{@color}&lMENU" with lore " &8╹ &7Click to Open"
 
+function newcenter(p: player):
+	set slot 12 of {_p} to {pegasuslock}
+	set slot 13 of {_p} to {athenalock}
+	set slot 14 of {_p} to {poseidonlock}
+	set slot 21 of {_p} to {apollolock}
+	set slot 22 of {_p} to {hadeslock}
+	set slot 23 of {_p} to {kronoslock}
+	set slot 30 of {_p} to {talarialock}
+	set slot 31 of {_p} to {zeuslock}
+	set slot 32 of {_p} to {hermeslock}
 
 on tab complete of "/commands" and "/cmd" and "/command" and "/c":
-	set tab completions for position 1 to "3x3", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
+	set tab completions for position 1 to "listenchant", "itemlevel", "enchant", "3x3", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
 	if tab complete arg-1 is "statcheck" or "dailyreset" or "clearMob":
 		set tab completions for position 2 to all players
 	else if tab complete arg-1 is "quiver" or "quiversize":
 		set tab completions for position 2 to all players
 		set tab completions for position 3 to "arrow", "lunar", "solar", "terretrial", "midnight", and "thunder"
-
-
+	else if tab complete arg-1 is "enchant":
+		if player's held item is sword:
+			set tab completions for position 2 to "sharpness", "looting", "mending", and "binding"
+		else if player's held item is pickaxe or hoe:
+			set tab completions for position 2 to "efficiency", "fortune", "mending", and "binding"
+		else if player's held item is bow:
+			set tab completions for position 2 to "power", "infinity", "mending", and "binding"
+		else if player's held item is shield:
+			set tab completions for position 2 to "unbreaking", "thorns", "mending", and "binding"
+		else if player's held item is helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
+			set tab completions for position 2 to "protection", "thorns", "mending", and "binding"
 
 command /commands [<text>] [<text>] [<text>] [<text>]:
 	aliases: /command, /cmd, /c
 	trigger:
 		if player is op:
-
-
-
 			if arg-1 is "new":
 				new(player)
 			else if arg-1 is "3x3":
@@ -37,7 +64,6 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				give player {4_helmet}, {4_chestplate}, {4_leggings}, and {4_boots}
 				give player {5_helmet}, {5_chestplate}, {5_leggings}, and {5_boots}
 
-
 			else if arg-1 is "backpack" or "bp":
 				set slot 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, and 35 of player to gray stained glass pane named " "
 				if arg-2 is "3":
@@ -48,8 +74,6 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 					set slot 10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, and 34 of player to air
 				else if arg-2 is "9":
 					set slot 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, and 35 of player to air
-
-
 
 			else if arg-1 is "statcheck":
 				if {p_level::%arg-2%} is not set:
@@ -90,15 +114,11 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 					set {p_bank::%arg-2%} to 0
 				send "{@admin} &7Done Checking"
 
-
-
 			else if arg-1 is "blessing":
 				if arg-2 is set:
 					set {blessing} to arg-2 parsed as integer
 					send "{@admin} &7Set Global Blessing to %arg-2%%%"
 					# send "```Blessing: %arg-2%%%```" to channel with id "886738161491914772" with "Charging"
-		
-
 
 			else if arg-1 is "jumplock":
 				if {launchpad} is false:
@@ -108,8 +128,6 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 					set {launchpad} to false
 					send "{@admin} &7Turned Launch Pad {@color}&lLOCKED"
 
-
-
 			else if arg-1 is "invlock":
 				if {unlock.%player%} is set:
 					delete {unlock.%player%}
@@ -118,16 +136,12 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 					set {unlock.%player%} to true
 					send "{@admin} &7Inventory {@color}&lUNLOCKED"
 
-
-
 			else if arg-1 is "dailyreset":
 				if arg-2 is set:
 					set {_player} to arg-2 parsed as player
 					clear {daily.%{_player}%.lastused}
 					send "{@admin} &7Reset daily reward of {@color}%{_player}%"
 					send "{@prefix} &7Your daily reward has neen reset" to {_player}
-
-
 
 			else if arg-1 is "mobcap":
 				if {mobcap} is true:
@@ -140,14 +154,10 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 					set {mobcap} to true
 					send "{@admin} &7Mobcap set to true"
 
-
-
 			else if arg-1 is "serverWorth":
 				if arg-2 is set:
 					set {server_worth} to arg-2 parsed as integer
 					send "{@admin} &7Set Server Worth to %arg-2%"
-
-
 
 			else if arg-1 is "quiver":
 				arg-2 is set
@@ -163,44 +173,39 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				set {p_quiversize::%arg-2%} to arg-3
 				send "{@admin} &7Set quiversize of %arg-2% to %arg-3%"
 
-
-
 			else if arg-1 is "clearMob":
 				arg-2 is set
 				clearMob(arg-2 parsed as player)
-
-
 
 			else if arg-1 is "items_mob":
 				loop {mobloot::*}:
 					give player loop-value
 
+			else if arg-1 is "itemlevel":
+				arg-2 is set
+				set {_level::*} to uncolored line 2 of lore of player's held item parsed as " ┃ Level: %number%"
+				set line 2 of lore of player's held item to " &8┃ &7Level: &f%arg-1%"
 
+			else if arg-1 is "listenchant":
+				loop enchantments of player's held item:
+					send "%loop-value%"
+			
+			else if arg-1 is "enchant":
+				if player's held item is not pickaxe or sword or bow or hoe or shield or helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
+					send "{@admin} &7You can not enchant that"
+				arg-2 is set
+				arg-3 is set
+				set {_lvl} to arg-3 parsed as number
+				if arg-2 is "sharpness" or "efficiency" or "power" or "unbreaking" or "protection":
+					set {_line} to 14
+				else if arg-2 is "looting" or "fortune" or "infinity" or "thorns":
+					set {_line} to 15
+				else if arg-2 is "mending":
+					set {_line} to 16
+				else if arg-2 is "binding":
+					set {_line} to 17
+				enchant(player, arg-2, {_lvl}, {_line})
+				send "{@admin} Enchanted with {@color}%arg-2% %{_lvl}%"
 
 		else:
 			send "{@admin} {@permission}"
-
-function new(p: player):
-	set helmet of {_p} to {1_helmet}
-	set chestplate of {_p} to {1_chestplate}
-	set leggings of {_p} to {1_leggings}
-	set boots of {_p} to {1_boots}
-	set slot 0 of {_p} to {1_sword}
-	set slot 1 of {_p} to {1_bow} 
-	set slot 40 of {_p} to {1_shield}
-	set slot 17 of {_p} to brown candle named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x0" and " &8╹ &7Click to Open"
-	set {quiver.%{_p}%.current} to "none"
-	set slot 8 of {_p} to compass named "{@color}&lMENU" with lore " &8╹ &7Click to Open"
-
-function newcenter(p: player):
-	set slot 12 of {_p} to {pegasuslock}
-	set slot 13 of {_p} to {athenalock}
-	set slot 14 of {_p} to {poseidonlock}
-	set slot 21 of {_p} to {apollolock}
-	set slot 22 of {_p} to {hadeslock}
-	set slot 23 of {_p} to {kronoslock}
-	set slot 30 of {_p} to {talarialock}
-	set slot 31 of {_p} to {zeuslock}
-	set slot 32 of {_p} to {hermeslock}
-
-function newArmor(p: player):

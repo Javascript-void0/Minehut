@@ -5,15 +5,6 @@ options:
 	admin: &8[<##B4C788>&lADMIN&8]&r
 	world: world
 
-function mobCombatFormat(n: number) :: text:
-	set {_data} to "f,18:e,15:d,12:3,9:b,6:a,3"
-	loop split {_data} at ":":
-		set {_s::*} to split loop-value at ","
-		{_n} >= 10 ^ {_s::2} parsed as number
-		set {_nn} to combatRound({_n} / 10 ^ {_s::2} parsed as number, 1)
-		return "%{_nn}%%{_s::1}%"
-	return "%{_n}%"
-
 function death(p: player):
 	set {dead.%{_p}%} to true
 	# apply blindness of tier 255 to {_p} for 3 seconds

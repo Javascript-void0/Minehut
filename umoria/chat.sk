@@ -2,18 +2,6 @@ options:
 	color: <##f7ffc5>
 	color2: <##B4C788>
 
-function chatRound(n: number, to: number) :: number:
-   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
-
-function chatFormat(n: number) :: text:
-	set {_data} to "f,18|e,15|d,12|c,9|b,6|a,3"
-	loop split {_data} at "|":
-		set {_s::*} to split loop-value at ","
-		{_n} >= 10 ^ {_s::2} parsed as number
-		set {_nn} to chatRound({_n} / 10 ^ {_s::2} parsed as number, 1)
-		return "%{_nn}%%{_s::1}%"
-	return "%{_n}%"
-
 on chat:
 	set {_player} to a new text component of display name of player
 	if group of player is "admin":
@@ -30,16 +18,16 @@ on chat:
 		set {_prefix} to "{@color2}:L"
 
 	# if group of player is "admin" or "mod":
-	set {_levelFormat} to chatFormat({p_level::%player%})
+	set {_levelFormat} to format({p_level::%player%})
 	set {_level} to a new text component of "{@color2}%{_levelFormat}%"
 	# else:
-	# 	set {_levelFormat} to chatFormat({p_level::%player%})
+	# 	set {_levelFormat} to format({p_level::%player%})
 	# 	set {_level} to a new text component of "&7%{_levelFormat}%"
 	
-	set {_exp} to chatFormat({p_exp::%player%})
-	set {_nextexp} to chatFormat({p_nextexp::%player%})
+	set {_exp} to format({p_exp::%player%})
+	set {_nextexp} to format({p_nextexp::%player%})
 	set {_percent} to {p_exp::%player%} / {p_nextexp::%player%}
-	set {_percentFormat} to chatRound({_percent} * 100, 1)
+	set {_percentFormat} to roundto({_percent} * 100, 1)
 	if {_percent} is between 0 and 0.05:
 		set {_bar} to " &8[{@color}&7::::::::::::::::::::&8]"
 	else if {_percent} is between 0.05 and 0.1:
@@ -84,14 +72,14 @@ on chat:
 		set {_bar} to " &8[{@color}::::::::::::::::::::&7&8]"
 
 	set {_uncolorlevel} to "%{p_level::%player%}%"
-	set {_coins} to chatFormat({p_coins::%player%})
-	set {_wrath} to chatFormat({p_wrath::%player%})
+	set {_coins} to format({p_coins::%player%})
+	set {_wrath} to format({p_wrath::%player%})
 	set {_virtue} to " "
-	set {_health} to chatFormat({p_health::%player%})
-	set {_maxhealth} to chatFormat({p_maxhealth::%player%})
+	set {_health} to format({p_health::%player%})
+	set {_maxhealth} to format({p_maxhealth::%player%})
 	set {_defense} to {p_defense::%player%}
 	set {_maxdefense} to {p_maxdefense::%player%}
-	set {_damage} to chatFormat({p_damage::%player%})
+	set {_damage} to format({p_damage::%player%})
 	set {_stats} to bedrock named "&8[{@color2}:L%{_levelFormat}%&8] &f%{_player}%" with lore " {@color2}&lPLAYER" and "  &8┃ &7Level: &f%{_uncolorlevel}%" and "  &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" and " " and "    &8(&f%{_percentFormat}%%%&8)" and "%{_bar}%" and " " and " {@color2}&lBALANCE" and "  &8┃ &7Coins: &f%{_coins}%" and "  &8┃ &7Wrath: &f%{_wrath}%" and "  &8╹ &7Virtue: &f%{_virtue}%" and " " and " {@color2}&lSTATS" and "  &8┃ &7Health: &f%{_health}%&7/&f%{_maxhealth}%" and "  &8┃ &7Defense: &f%{_defense}%&7/&f%{_maxdefense}%" and "  &8╹ &7Damage: &f%{_damage}%" and " "
 	set hover event of {_player} to a new hover event showing {_stats}
 

@@ -3,30 +3,18 @@ options:
 	prefix: &8[<##B4C788>&lUMORIA&8]&f
 	world: world
 
-function scoreboardFormat(n: number) :: text:
-	set {_data} to "f,18:e,15:d,12:c,9:b,6:a,3"
-	loop split {_data} at ":":
-		set {_s::*} to split loop-value at ","
-		{_n} >= 10 ^ {_s::2} parsed as number
-		set {_nn} to scoreboardRound({_n} / 10 ^ {_s::2} parsed as number, 1)
-		return "%{_nn}%%{_s::1}%"
-	return "%{_n}%"
-
-function scoreboardRound(n: number, to: number) :: number:
-   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
-
 every 2 ticks:
 	loop all players:
 		set title of loop-player's scoreboard to "{@color}&lUMORIA"
 		set line 14 of loop-player's scoreboard to "&7"
 		set line 13 of loop-player's scoreboard to " {@color}&lPLAYER"
 		set line 12 of loop-player's scoreboard to " &8┃ &7Level: &f%{p_level::%loop-player%}%"
-		set {_expFormat} to scoreboardFormat({p_exp::%loop-player%})
-		set {_nextexpFormat} to scoreboardFormat({p_nextexp::%loop-player%})
+		set {_expFormat} to format({p_exp::%loop-player%})
+		set {_nextexpFormat} to format({p_nextexp::%loop-player%})
 		set line 11 of loop-player's scoreboard to " &8╹ &7Exp: &f%{_expFormat}%&7/&f%{_nextexpFormat}%"
 		set line 10 of loop-player's scoreboard to "&8"
 		set {_percent} to {p_exp::%loop-player%} / {p_nextexp::%loop-player%}
-		set {_percentFormat} to scoreboardRound({_percent} * 100, 1)
+		set {_percentFormat} to roundto({_percent} * 100, 1)
 		set line 9 of loop-player's scoreboard to "   &8(&f%{_percentFormat}%%%&8)"
 		if {_percent} is between 0 and 0.05:
 			set line 8 of loop-player's scoreboard to " &8[{@color}&7::::::::::::::::::::&8]"
@@ -77,7 +65,7 @@ every 2 ticks:
 		set line 6 of loop-player's scoreboard to "&d"
 		if loop-player is in world "dungeon":
 			set line 5 of loop-player's scoreboard to " {@color}&lDUNGEON"
-			set {_coin} to scoreboardFormat({p_coins::%loop-player%})
+			set {_coin} to format({p_coins::%loop-player%})
 			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%{_coin}%"
 			if {dungeonActive::%loop-player%} is not set:
 				set line 3 of loop-player's scoreboard to " &8┃ &7Floor: "
@@ -89,9 +77,9 @@ every 2 ticks:
 				set line 1 of loop-player's scoreboard to "&c"
 		else:
 			set line 5 of loop-player's scoreboard to " {@color}&lBALANCE"
-			set {_coin} to scoreboardFormat({p_coins::%loop-player%})
+			set {_coin} to format({p_coins::%loop-player%})
 			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%{_coin}%"
-			set {_wrath} to scoreboardFormat({p_wrath::%loop-player%})
+			set {_wrath} to format({p_wrath::%loop-player%})
 			set line 3 of loop-player's scoreboard to " &8┃ &7Wrath: &f%{_wrath}%"
 			set line 2 of loop-player's scoreboard to " &8╹ &7Virtue: "
 			set line 1 of loop-player's scoreboard to "&c"
