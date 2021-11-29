@@ -1,0 +1,42 @@
+options:
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&7
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&7
+	coins: &7Insufficient <##B4C788>Coins
+	wrath: &7Insufficient <##B4C788>Wrath
+	world: world
+
+on right click:
+	player's held item is netherite sword
+	cancel event
+	swordMenu(player, held item of player)
+	
+function swordMenu(p: player, i: item):
+	set metadata tag "swordMenu" of {_p} to chest inventory with 3 rows named "&8Sword Menu"
+	set slot 10 of metadata tag "swordMenu" of {_p} to {_i}
+	set {_ench1::*} to uncolored line 14 of lore of {_i} parsed as " ┃ Sharpness: %number%"
+	set {_ench2::*} to uncolored line 15 of lore of {_i} parsed as " ┃ Looting: %number%"
+	set {_ench3::*} to uncolored line 16 of lore of {_i} parsed as " ┃ Mending: %number%"
+	set {_ench4::*} to uncolored line 17 of lore of {_i} parsed as " ╹ Binding: %number%"
+	set {_totalAvailable::*} to uncolored line 2 of lore of {_i} parsed as " ┃ Level: %number%"
+	set {_totalAvailable} to {_totalAvailable::1} - 1
+	set {_used} to ({_ench1::1} + {_ench2::1} + {_ench3::1} + {_ench4::1}) - 4
+	broadcast "used: %{_used}%"
+	broadcast "total: %{_totalAvailable}%"
+	set {_available} to {_totalAvailable} - {_used}
+	broadcast "available: %{_available}%"
+	open (metadata tag "swordMenu" of {_p}) to {_p}
+	set slot 11 of metadata tag "swordMenu" of {_p} to nether star named "{@color}&lSKILL POINTS" with lore "{@"
+
+on inventory click:
+	event-inventory = (metadata tag "swordMenu" of player)
+	cancel event
+	if clicked slot is 13:
+		stop
+	else if clicked slot is 14:
+		stop
+	else if clicked slot is 15:
+		stop
+	else if clicked slot is 16:
+		stop

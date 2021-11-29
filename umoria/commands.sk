@@ -8,10 +8,10 @@ options:
 
 
 on tab complete of "/commands" and "/cmd" and "/command" and "/c":
-	set tab completions for position 1 to "3x3", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "clearMob", and "tools"
+	set tab completions for position 1 to "3x3", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
 	if tab complete arg-1 is "statcheck" or "dailyreset" or "clearMob":
 		set tab completions for position 2 to all players
-	else if tab complete arg-1 is "quiver":
+	else if tab complete arg-1 is "quiver" or "quiversize":
 		set tab completions for position 2 to all players
 		set tab completions for position 3 to "arrow", "lunar", "solar", "terretrial", "midnight", and "thunder"
 
@@ -157,6 +157,12 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				set {quiver.%arg-2%::%arg-3%} to {_n}
 				send "{@admin} &7Set %arg-3% arrows of %arg-2% to %{_n}%"
 
+			else if arg-1 is "quiversize":
+				arg-2 is set
+				arg-3 is set
+				set {p_quiversize::%arg-2%} to arg-3
+				send "{@admin} &7Set quiversize of %arg-2% to %arg-3%"
+
 
 
 			else if arg-1 is "clearMob":
@@ -182,7 +188,7 @@ function new(p: player):
 	set slot 0 of {_p} to {1_sword}
 	set slot 1 of {_p} to {1_bow} 
 	set slot 40 of {_p} to {1_shield}
-	set slot 17 of {_p} to brown candle named "{@color}Quiver" with lore " &8┃ &7Quantity: x0" and " &8╹ &7Click to Open"
+	set slot 17 of {_p} to brown candle named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x0" and " &8╹ &7Click to Open"
 	set {quiver.%{_p}%.current} to "none"
 	set slot 8 of {_p} to compass named "{@color}&lMENU" with lore " &8╹ &7Click to Open"
 
