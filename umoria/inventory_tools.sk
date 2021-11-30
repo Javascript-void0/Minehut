@@ -7,36 +7,109 @@ options:
 	wrath: &7Insufficient <##B4C788>Wrath
 	world: world
 
+function toolCompatible(i: item, e: text) :: boolean:
+	if {_e} is "mending" or "binding":
+		return true
+	else if {_i} is sword:
+		{_e} is "sharpness" or "looting"
+		return true
+	else if {_i} is bow:
+		{_e} is "power" or "infinity"
+		return true
+	else if {_i} is pickaxe or hoe:
+		{_e} is "efficiency" or "fortune"
+		return true
+	else if {_i} is shield:
+		{_e} is "unbreaking" or "thorns"
+		return true
+	else if {_i} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass or helmet or chestplate or leggings or boots:
+		return true
+	return false
+
 on right click:
 	player's held item is netherite sword
 	cancel event
-	swordMenu(player, held item of player)
-	
-function swordMenu(p: player, i: item):
-	set metadata tag "swordMenu" of {_p} to chest inventory with 3 rows named "&8Sword Menu"
-	set slot 10 of metadata tag "swordMenu" of {_p} to {_i}
-	set {_ench1::*} to uncolored line 14 of lore of {_i} parsed as " ┃ Sharpness: %number%"
-	set {_ench2::*} to uncolored line 15 of lore of {_i} parsed as " ┃ Looting: %number%"
-	set {_ench3::*} to uncolored line 16 of lore of {_i} parsed as " ┃ Mending: %number%"
-	set {_ench4::*} to uncolored line 17 of lore of {_i} parsed as " ╹ Binding: %number%"
-	set {_totalAvailable::*} to uncolored line 2 of lore of {_i} parsed as " ┃ Level: %number%"
-	set {_totalAvailable} to {_totalAvailable::1} - 1
-	set {_used} to ({_ench1::1} + {_ench2::1} + {_ench3::1} + {_ench4::1}) - 4
-	broadcast "used: %{_used}%"
-	broadcast "total: %{_totalAvailable}%"
-	set {_available} to {_totalAvailable} - {_used}
-	broadcast "available: %{_available}%"
-	open (metadata tag "swordMenu" of {_p}) to {_p}
-	set slot 11 of metadata tag "swordMenu" of {_p} to nether star named "{@color}&lSKILL POINTS" with lore "{@"
+	make player execute "/enchant"
 
-on inventory click:
-	event-inventory = (metadata tag "swordMenu" of player)
-	cancel event
-	if clicked slot is 13:
-		stop
-	else if clicked slot is 14:
-		stop
-	else if clicked slot is 15:
-		stop
-	else if clicked slot is 16:
-		stop
+on tab complete of "/enchant":
+	if player's held item is sword:
+		set tab completions for position 1 to "sharpness", "looting", "mending", and "binding"
+	else if player's held item is pickaxe or hoe:
+		set tab completions for position 1 to "efficiency", "fortune", "mending", and "binding"
+	else if player's held item is bow:
+		set tab completions for position 1 to "power", "infinity", "mending", and "binding"
+	else if player's held item is shield:
+		set tab completions for position 1 to "unbreaking", "thorns", "mending", and "binding"
+	else if player's held item is helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
+		set tab completions for position 1 to "protection", "thorns", "mending", and "binding"
+
+command /enchant [<text>]:
+	trigger:
+		if player's held item is not pickaxe or sword or bow or hoe or shield or helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
+			stop
+
+		set {_ench1::*} to uncolored line 14 of lore of held item of player parsed as " ┃ %text%: %number%"
+		set {_ench2::*} to uncolored line 15 of lore of held item of player parsed as " ┃ %text%: %number%"
+		set {_ench3::*} to uncolored line 16 of lore of held item of player parsed as " ┃ %text%: %number%"
+		set {_ench4::*} to uncolored line 17 of lore of held item of player parsed as " ╹ %text%: %number%"
+		set {_totalAvailable::*} to uncolored line 2 of lore of held item of player parsed as " ┃ Level: %number%"
+		set {_totalAvailable} to {_totalAvailable::1} - 1
+		set {_used} to ({_ench1::2} + {_ench2::2} + {_ench3::2} + {_ench4::2}) - 4
+		# broadcast "used: %{_used}%"
+		# broadcast "total: %{_totalAvailable}%"
+		set {_available} to {_totalAvailable} - {_used}
+		# broadcast "available: %{_available}%"
+		
+		if {_available} is less than 1:
+			arg-1 is set
+			set {_message} to "   &7Insufficient points"
+		else if arg-1 is "line1" or "sharpness" or "efficiency" or "power" or "unbreaking" or "protection":
+			toolCompatible(player's held item, {_ench1::1}) is true
+			set {_line} to 14
+			enchant(player, {_ench1::1}, {_ench1::2} + 1, {_line})
+			set {_message} to "   &7Enchanted with {@color}%{_ench1::1}% %{_ench1::2} + 1%"
+			add 1 to {_ench1::2}
+		else if arg-1 is "line2" or "looting" or "fortune" or "infinity" or "thorns":
+			toolCompatible(player's held item, {_ench2::1}) is true
+			set {_line} to 15
+			enchant(player, {_ench2::1}, {_ench2::2} + 1, {_line})
+			set {_message} to "   &7Enchanted with {@color}%{_ench2::1}% %{_ench2::2} + 1%"
+			add 1 to {_ench2::2}
+		else if arg-1 is "line3" or "mending":
+			toolCompatible(player's held item, {_ench3::1}) is true
+			set {_line} to 16
+			enchant(player, {_ench3::1}, {_ench3::2} + 1, {_line})
+			set {_message} to "   &7Enchanted with {@color}%{_ench3::1}% %{_ench3::2} + 1%"
+			add 1 to {_ench3::2}
+		else if arg-1 is "line4" or "binding":
+			toolCompatible(player's held item, {_ench4::1}) is true
+			set {_line} to 17
+			enchant(player, {_ench4::1}, {_ench4::2} + 1, {_line})
+			set {_message} to "   &7Enchanted with {@color}%{_ench4::1}% %{_ench4::2} + 1%"
+			add 1 to {_ench4::2}
+		else if arg-1 is not set:
+			set {_message} to " "
+		else:
+			set {_message} to "   &7Incompatible Enchant"
+
+		send " "
+		send " &7&l------- {@color}&lENCHANTING &7&l-------"
+		send " "
+		send "   &8[{@color}Item&8]"
+		send "   &7Available: &f%{_available}%"
+		send " "
+		send " &8<tooltip:{@color}Click to enchant><command:/enchant line1>[&a+&8]<reset> &8┃ &7%{_ench1::1}%: &f%{_ench1::2}%"
+		send " &8<tooltip:{@color}Click to enchant><command:/enchant line2>[&a+&8]<reset> &8┃ &7%{_ench2::1}%: &f%{_ench2::2}%"
+		send " &8<tooltip:{@color}Click to enchant><command:/enchant line3>[&a+&8]<reset> &8┃ &7%{_ench3::1}%: &f%{_ench3::2}%"
+		send " &8<tooltip:{@color}Click to enchant><command:/enchant line4>[&a+&8]<reset> &8╹ &7%{_ench4::1}%: &f%{_ench4::2}%"
+		send " "
+		send " &8┃ &7Sharpness: &fMore damage when using item"
+		send " &8┃ &7Looting: &fBonus mob drops"
+		send " &8┃ &7Mending: &fItem experience bonus"
+		send " &8╹ &7Binding: &fKeep"
+		send " "
+		send {_message}
+		send " "
+		send " &7&l------------------------- "
+		send " "
+		

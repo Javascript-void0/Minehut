@@ -44,7 +44,7 @@ on tab complete of "/commands" and "/cmd" and "/command" and "/c":
 			set tab completions for position 2 to "power", "infinity", "mending", and "binding"
 		else if player's held item is shield:
 			set tab completions for position 2 to "unbreaking", "thorns", "mending", and "binding"
-		else if player's held item is helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
+		else if player's held item is helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
 			set tab completions for position 2 to "protection", "thorns", "mending", and "binding"
 
 command /commands [<text>] [<text>] [<text>] [<text>]:
@@ -184,7 +184,7 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 			else if arg-1 is "itemlevel":
 				arg-2 is set
 				set {_level::*} to uncolored line 2 of lore of player's held item parsed as " ┃ Level: %number%"
-				set line 2 of lore of player's held item to " &8┃ &7Level: &f%arg-1%"
+				set line 2 of lore of player's held item to " &8┃ &7Level: &f%arg-2%"
 
 			else if arg-1 is "listenchant":
 				loop enchantments of player's held item:
@@ -204,6 +204,9 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 					set {_line} to 16
 				else if arg-2 is "binding":
 					set {_line} to 17
+					enchant(player, "curse of binding", {_lvl}, {_line})
+					send "{@admin} Enchanted with {@color}%arg-2% %{_lvl}%"
+					stop
 				enchant(player, arg-2, {_lvl}, {_line})
 				send "{@admin} Enchanted with {@color}%arg-2% %{_lvl}%"
 

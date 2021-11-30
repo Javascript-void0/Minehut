@@ -24,10 +24,15 @@ function removeEnch(i: item, e: enchantment):
 			enchant {_i} with loop-value
 
 function enchant(p: player, e: text, lvl: number, ln: number):
-	set {_capital} to capitalize({_e}) 
-	set line {_ln} of {_p}'s held item's lore to " &8┃ &7%{_capital}%: &f%{_lvl}%"					
+	set {_capital} to capitalize({_e})
+	if {_e} is "binding":
+		set line {_ln} of {_p}'s held item's lore to " &8╹ &7%{_capital}%: &f%{_lvl}%"					
+		set {_enchant} to "curse of binding"
+	else:
+		set line {_ln} of {_p}'s held item's lore to " &8┃ &7%{_capital}%: &f%{_lvl}%"					
+		set {_enchant} to {_e}
 	removeEnch({_p}'s held item, {_e})
-	enchant {_p}'s held item with "%{_e}% %{_lvl}%" parsed as enchantment type
+	enchant {_p}'s held item with "%{_enchant}% %{_lvl}%" parsed as enchantment type
 
 # TEXT FORMATTING
 
