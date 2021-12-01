@@ -12,11 +12,11 @@ on walking on bedrock:
 		push player upwards
 		wait 1 tick
 
-on break:
-	player is not op
-	event-block is polished blackstone pressure plate or gray carpet
-	"%region at event-block%" contains "mine"
-	cancel event
+# on break:
+# 	player is not op
+# 	event-block is polished blackstone pressure plate or gray carpet
+# 	"%region at event-block%" contains "mine"
+# 	cancel event
 
 on mine:
 	player's tool is pickaxe
@@ -30,7 +30,7 @@ on mine:
 			add 2 to z-coord of {_1}
 			subtract 2 from z-coord of {_2}
 			loop blocks within {_1} to {_2}:
-				loop-block is gray concrete or cyan terracotta
+				# loop-block is gray concrete or cyan terracotta
 				add 1 to {_n}
 				set loop-block to air
 				show 3 small smoke at location of loop-block
@@ -38,7 +38,7 @@ on mine:
 			add 2 to x-coord of {_1}
 			subtract 2 from x-coord of {_2}
 			loop blocks within {_1} to {_2}:
-				loop-block is gray concrete or cyan terracotta
+				# loop-block is gray concrete or cyan terracotta
 				add 1 to {_n}
 				set loop-block to air
 				show 3 small smoke at location of loop-block
@@ -48,56 +48,56 @@ on mine:
 		subtract 2 from x-coord of {_2}
 		subtract 2 from z-coord of {_2}
 		loop blocks within {_1} to {_2}:
-			loop-block is gray concrete or cyan terracotta
+			# loop-block is gray concrete or cyan terracotta
 			add 1 to {_n}
 			set loop-block to air
 			show 3 small smoke at location of loop-block
 	expBlock(player, {_n}, event-block)
 	expItem(player, {_n})
 		
-on tab complete of "/mine":
-	set tab completions for position 1 to "reset", "set", and "color"
-	if tab complete arg-1 is "color":
-		set tab completions for position 2 to "gray" and "cyan"
+# on tab complete of "/mine":
+# 	set tab completions for position 1 to "reset", "set", and "color"
+# 	if tab complete arg-1 is "color":
+# 		set tab completions for position 2 to "gray" and "cyan"
 
-command /mine [<text>] [<text>]:
-	trigger:
-		if arg-1 is "reset":
-			fillCube({minestart})
-			send "{@admin} &7Reset Mine"
-		else if arg-1 is "set":
-			set {minestart} to location of player
-			send "{@admin} &7Set start of mine to %{minestart}%"
-		else if arg-1 is "color":
-			if arg-2 is "gray" or "cyan":
-				set {minecolor} to arg-1
-				send "{@admin} &7Set mine color to %arg-1%"
-		else:
-			send "{@admin} {@permission}"
+# command /mine [<text>] [<text>]:
+# 	trigger:
+# 		if arg-1 is "reset":
+# 			fillCube({minestart})
+# 			send "{@admin} &7Reset Mine"
+# 		else if arg-1 is "set":
+# 			set {minestart} to location of player
+# 			send "{@admin} &7Set start of mine to %{minestart}%"
+# 		else if arg-1 is "color":
+# 			if arg-2 is "gray" or "cyan":
+# 				set {minecolor} to arg-1
+# 				send "{@admin} &7Set mine color to %arg-1%"
+# 		else:
+# 			send "{@admin} {@permission}"
 
-function fillCube(loc: location):
-	if {minecolor} is "gray":
-		set {minecolor} to "cyan"
-	else if {minecolor} is "cyan":
-		set {minecolor} to "gray"
-	set {_x} to x-location of {_loc}
-	set {_y} to y-location of {_loc}
-	set {_z} to z-location of {_loc}
-	loop 50 times:
-		if {_wait} is true:
-			set {_wait} to false
-			wait 4 ticks
-		else:
-			set {_wait} to true
-		loop 77 times:
-			loop 50 times:
-				if {minecolor} is "gray":
-					set block at {_loc} to cyan terracotta
-				else if {minecolor} is "cyan":
-					set block at {_loc} to gray concrete
-				add 1 to x-coordinate of {_loc}
-			add 1 to y-coordinate of {_loc}
-			set x-coordinate of {_loc} to {_x}
-		add 1 to z-coordinate of {_loc}
-		set x-coordinate of {_loc} to {_x}
-		set y-coordinate of {_loc} to {_y}
+# function fillCube(loc: location):
+# 	if {minecolor} is "gray":
+# 		set {minecolor} to "cyan"
+# 	else if {minecolor} is "cyan":
+# 		set {minecolor} to "gray"
+# 	set {_x} to x-location of {_loc}
+# 	set {_y} to y-location of {_loc}
+# 	set {_z} to z-location of {_loc}
+# 	loop 50 times:
+# 		if {_wait} is true:
+# 			set {_wait} to false
+# 			wait 4 ticks
+# 		else:
+# 			set {_wait} to true
+# 		loop 77 times:
+# 			loop 50 times:
+# 				if {minecolor} is "gray":
+# 					set block at {_loc} to cyan terracotta
+# 				else if {minecolor} is "cyan":
+# 					set block at {_loc} to gray concrete
+# 				add 1 to x-coordinate of {_loc}
+# 			add 1 to y-coordinate of {_loc}
+# 			set x-coordinate of {_loc} to {_x}
+# 		add 1 to z-coordinate of {_loc}
+# 		set x-coordinate of {_loc} to {_x}
+# 		set y-coordinate of {_loc} to {_y}

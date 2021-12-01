@@ -7,101 +7,199 @@ options:
 	wrath: &7Insufficient <##B4C788>Wrath
 	world: world
 
-function stats(p: player):
-	set metadata tag "Stats" of {_p} to chest inventory with 3 rows named "&8Statistics: %{_p}%"
-	set slot 10 of metadata tag "Stats" of {_p} to head of {_p} named "&8[{@color}:L%{p_level::%{_p}%}%&8] {@color}%display name of {_p}%" with lore "{@color}Playtime: &7%time played of {_p}%"
-	set {_coins} to format({p_coins::%{_p}%})
-	set {_totalcoins} to format({p_totalcoins::%{_p}%})
-	set slot 12 of metadata tag "Stats" of {_p} to gold block named "{@color}&lCOINS" with lore "&7Current: {@color}%{_coins}% &7coins" and "&7Total: {@color}%{_totalcoins}% &7coins"
-	set {_wrath} to format({p_wrath::%{_p}%})
-	set {_totalwrath} to format({p_totalwrath::%{_p}%})
-	set slot 13 of metadata tag "Stats" of {_p} to bell named "{@color}&lWRATH" with lore "&7Current: {@color}%{_wrath}% &7wrath" and "&7Total: {@color}%{_totalwrath}% &7wrath"
-	set slot 14 of metadata tag "Stats" of {_p} to nether star named "{@color}&lVIRTUE" with lore "&7Current: {@color}%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
-	set slot 15 of metadata tag "Stats" of {_p} to netherite sword named "{@color}&lCOMBAT" with lore "&7Kills: {@color}%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: {@color}%{p_death::%{_p}%}% &7deaths" with all flags hidden
-	open (metadata tag "Stats" of {_p}) to {_p}
+# function stats(p: player):
+# 	set metadata tag "Stats" of {_p} to chest inventory with 3 rows named "&8Statistics: %{_p}%"
+# 	set slot 10 of metadata tag "Stats" of {_p} to head of {_p} named "&8[{@color}:L%{p_level::%{_p}%}%&8] {@color}%display name of {_p}%" with lore "{@color}Playtime: &7%time played of {_p}%"
+# 	set {_coins} to format({p_coins::%{_p}%})
+# 	set {_totalcoins} to format({p_totalcoins::%{_p}%})
+# 	set slot 12 of metadata tag "Stats" of {_p} to gold block named "{@color}&lCOINS" with lore "&7Current: {@color}%{_coins}% &7coins" and "&7Total: {@color}%{_totalcoins}% &7coins"
+# 	set {_wrath} to format({p_wrath::%{_p}%})
+# 	set {_totalwrath} to format({p_totalwrath::%{_p}%})
+# 	set slot 13 of metadata tag "Stats" of {_p} to bell named "{@color}&lWRATH" with lore "&7Current: {@color}%{_wrath}% &7wrath" and "&7Total: {@color}%{_totalwrath}% &7wrath"
+# 	set slot 14 of metadata tag "Stats" of {_p} to nether star named "{@color}&lVIRTUE" with lore "&7Current: {@color}%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
+# 	set slot 15 of metadata tag "Stats" of {_p} to netherite sword named "{@color}&lCOMBAT" with lore "&7Kills: {@color}%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: {@color}%{p_death::%{_p}%}% &7deaths" with all flags hidden
+# 	open (metadata tag "Stats" of {_p}) to {_p}
 
 command /stats [<offline player>]:
 	trigger:
 		if arg-1 is not set:
-			stats(player)
-		else:
-			stats(arg-1)
+			set {_player} to player
+		send " "
+		send " &7&l------- {@color}&lSTATISTICS &7&l-------"
+		send " "
+		send "   &7Player: {@color}%{_player}%"
+		set {_level} to a("%{p_level::%{_player}%}%")
+		send formatted "<tooltip:{@color}%{_level}%>   &7Level: &8[&f:L%format({p_level::%{_player}%})%&8]"
+		set {_exp} to a("%{p_exp::%{_player}%}%")
+		set {_nextexp} to a("%{p_nextexp::%{_player}%}%")
+		send formatted "<tooltip:{@color}%{_exp}%&7/{@color}%{_nextexp}%>   &7Exp: &f%{p_exp::%{_player}%}%&7/&f%{p_nextexp::%{_player}%}% &8(&7%{p_totalexp::%{_player}%}%&8)"
+		set {_coins} to a("%{p_coins::%{_player}%}%")
+		set {_totalcoins} to a("%{p_totalcoins::%{_player}%}%")
+		send formatted "<tooltip:&7Current: {@color}%{_coins}%%nl%&7Lifetime: {@color}%{_totalcoins}%>   &7Coins: &f%format({p_coins::%{_player}%})% &8(&7%format({p_totalcoins::%{_player}%})%&8)"
+		set {_wrath} to a("%{p_wrath::%{_player}%}%")
+		set {_totalwrath} to a("%{p_totalwrath::%{_player}%}%")
+		send formatted "<tooltip:&7Current: {@color}%{_wrath}%%nl%&7Lifetime: {@color}%{_totalwrath}%>   &7Wrath: &f%format({p_wrath::%{_player}%})% &8(&7%format({p_totalwrath::%{_player}%})%&8)"
+		send "   &7Kills: &f%{p_kill::%{_player}%}%"
+		send "   &7Deaths: &f%{p_death::%{_player}%}%"
+		send "   &7Rebirth: &f%{p_rebirth::%{_player}%}%"
+		send " "
+		set {_health} to a("%{p_health::%{_player}%}%")
+		set {_maxhealth} to a("%{p_maxhealth::%{_player}%}%")
+		send formatted "<tooltip:{@color}%{_health}%&7/{@color}%{_maxhealth}%>   &7Health: &f%{p_health::%{_player}%}%&7/&f%{p_maxhealth::%{_player}%}%"
+		send "   &7Defense: &f%{p_defense::%{_player}%}%&7/&f%{p_defense::%{_player}%}%"
+		set {_damage} to a("%{p_damage::%{_player}%}%")
+		send formatted "<tooltip:{@color}%{_damage}%>   &7Damage: &f%{p_damage::%{_player}%}%"
+		send " "
+		send " "
+		send " "
+		send " &7&l------------------------- "
+		send " "
 
 on right click:
 	if player's tool is pickaxe or axe or shovel:
 		if player's tool is wooden axe:
 			stop
 	else if name of player's tool is "{@color}&lMENU":
-		menu(player)
+		make player execute "/menu"
+		# menu(player)
 
-on right click with light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
+# on right click with light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
+# 	cancel event
+# 	helmet of player is air
+# 	set {_hel} to player's held item
+# 	remove 1 of player's tool from player's inventory
+# 	set player's helmet to {_hel}
+
+on right click with light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
 	cancel event
+
+on inventory click:
+	name of player's inventory is "Crafting"
+	clicked type is left mouse button with shift
+	event-item is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass
 	helmet of player is air
-	set {_hel} to player's held item
-	remove 1 of player's tool from player's inventory
+	set {_hel} to event-item
+	remove 1 of event-item from player's inventory
 	set player's helmet to {_hel}
 
-command /menu:
+command /menu [<text>]:
+	aliases: settings
 	trigger:
-		menu(player)
 
-on inventory click: 
-	event-inventory = (metadata tag "Menu" of player)
-	if clicked slot is 0:
-		cancel event
-		pvpToggle(player)
-		menu(player)
-	else if clicked slot is 1:
-		cancel event
-		waitToggle(player)
-		menu(player)
-	else if clicked slot is 8:
-		cancel event
+		if arg-1 is "pvp":
+			pvpToggle(player)
+			if {pvp::%player%} is false:
+				set {_message} to "   &7PvP has been turn off"
+			else:
+				set {_message} to "   &7PvP has been turn on"
+
+		else if arg-1 is "daily":
+			set {_waited} to difference between {daily.%player%.lastused} and now
+			if {_waited} is less than 24 hours:
+				set {_message} to "   &7Your daily reward was already claimed at {@color}%{daily.%player%.lastused}%"
+			else:
+				set {daily.%player%.lastused} to now
+				set {_message} to "   &7You claimed your daily reward at {@color}%now%"
+				add 100 to {p_wrath::%player%}
+		
+		else if arg-1 is not set:
+			set {_message} to " "
+
+
+		send " "
+		send " &7&l-------- {@color}&lSETTINGS &7&l--------"
+		send " "
+
+		if {pvp::%player%} is false:
+			send "   &8<tooltip:{@color}Click to enable><command:/menu pvp>&7PvP: &cDisabled<reset>"
+		else:
+			send "   &8<tooltip:{@color}Click to disable><command:/menu pvp>&7PvP: &aEnabled<reset>"
+		
 		set {_waited} to difference between {daily.%player%.lastused} and now
+		set {_next} to 1 day after {daily.%player%.lastused}
 		if {_waited} is less than 24 hours:
-			send "{@prefix} &7Your daily reward was already claimed at {@color}%{daily.%player%.lastused}%"
-			menu(player)
+			send formatted "   <tooltip:{@color}&lDAILY REWARD%nl% &8┃ &7+100 wrath>&7Daily: &fNext Available: {@color}%{_next}%<reset>"
 		else:
-			set {daily.%player%.lastused} to now
-			send "{@prefix} &7You claimed your daily reward at {@color}%now%"
-			add 100 to {p_wrath::%player%}
-			menu(player)
-	else if clicked slot is 2:
-		cancel event
-		stats(player)
+			if {_waited} is not set:
+				send formatted "   <tooltip:{@color}&lDAILY REWARD%nl% &8┃ &7+100 wrath><command:/menu daily>&7Daily: &fClick to claim!<reset>"
+			else:
+				send formatted "   <tooltip:{@color}&lDAILY REWARD%nl% &8┃ &7+100 wrath><command:/menu daily>&7Daily: &fReady to claim!<reset>"
+		set {daily.%player%.lastused} to 1 day before {daily.%player%.lastused}
+		
+		send "   <tooltip:{@color}Click to view your stats><command:/stats>&7Statistics: &fView<reset>"
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send {_message}
+		send " "
+		send " &7&l------------------------- "
+		send " "
 
-function menu(p: player):
-	set metadata tag "Menu" of {_p} to chest inventory with 3 rows named "&8Menu"
-	if {pvp::%{_p}%} is false:
-		set slot 0 of metadata tag "Menu" of {_p} to red dye named "{@color}&lPVP &7Disabled" with lore " &8╹ &7Enable (/pvp)"
-	else:
-		set slot 0 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lPVP &7Enabled" with lore " &8╹ &7Disable (/pvp)"
-	if {wait.%{_p}%} is false:
-		set slot 1 of metadata tag "Menu" of {_p} to red dye named "{@color}&lWAIT &7Disabled" with lore " &8╹ &7Enable (/wait)"
-	else:
-		set slot 1 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lWAIT &7Enabled" with lore " &8╹ &7Disable (/wait)"
-	set {_waited} to difference between {daily.%{_p}%.lastused} and now
-	set {_next} to 1 day after {daily.%{_p}%.lastused}
-	if {_waited} is less than 24 hours:
-		set slot 8 of metadata tag "Menu" of {_p} to red stained glass named "{@color}&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&8┃ &7Already {@color}Claimed " and "&8╹ {@color}+100 &7Wrath"
-	else:
-		if {_waited} is not set:
-			set {_m} to "Never Used"
-		else:
-			set {_m} to "%{daily.%{_p}%.lastused}%"
-		set slot 8 of metadata tag "Menu" of {_p} to lime stained glass named "{@color}&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to {@color}Claim" and " &8╹ {@color}+100 &7Wrath"
+# on inventory click: 
+# 	event-inventory = (metadata tag "Menu" of player)
+# 	if clicked slot is 0:
+# 		cancel event
+# 		pvpToggle(player)
+# 		menu(player)
+# 	else if clicked slot is 1:
+# 		cancel event
+# 		waitToggle(player)
+# 		menu(player)
+# 	else if clicked slot is 8:
+# 		cancel event
+# 		set {_waited} to difference between {daily.%player%.lastused} and now
+# 		if {_waited} is less than 24 hours:
+# 			send "{@prefix} &7Your daily reward was already claimed at {@color}%{daily.%player%.lastused}%"
+# 			menu(player)
+# 		else:
+# 			set {daily.%player%.lastused} to now
+# 			send "{@prefix} &7You claimed your daily reward at {@color}%now%"
+# 			add 100 to {p_wrath::%player%}
+# 			menu(player)
+# 	else if clicked slot is 2:
+# 		cancel event
+# 		stats(player)
 
-	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
-	set slot 2 of metadata tag "Menu" of {_p} to book named "{@color}&lSTATS" with lore " &8╹ &7view"
-		# stats(player)
-	open (metadata tag "Menu" of {_p}) to {_p}
+# function menu(p: player):
+# 	set metadata tag "Menu" of {_p} to chest inventory with 3 rows named "&8Menu"
+# 	if {pvp::%{_p}%} is false:
+# 		set slot 0 of metadata tag "Menu" of {_p} to red dye named "{@color}&lPVP &7Disabled" with lore " &8╹ &7Enable (/pvp)"
+# 	else:
+# 		set slot 0 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lPVP &7Enabled" with lore " &8╹ &7Disable (/pvp)"
+# 	if {wait.%{_p}%} is false:
+# 		set slot 1 of metadata tag "Menu" of {_p} to red dye named "{@color}&lWAIT &7Disabled" with lore " &8╹ &7Enable (/wait)"
+# 	else:
+# 		set slot 1 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lWAIT &7Enabled" with lore " &8╹ &7Disable (/wait)"
+# 	set {_waited} to difference between {daily.%{_p}%.lastused} and now
+# 	set {_next} to 1 day after {daily.%{_p}%.lastused}
+# 	if {_waited} is less than 24 hours:
+# 		set slot 8 of metadata tag "Menu" of {_p} to red stained glass named "{@color}&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&8┃ &7Already {@color}Claimed " and "&8╹ {@color}+100 &7Wrath"
+# 	else:
+# 		if {_waited} is not set:
+# 			set {_m} to "Never Used"
+# 		else:
+# 			set {_m} to "%{daily.%{_p}%.lastused}%"
+# 		set slot 8 of metadata tag "Menu" of {_p} to lime stained glass named "{@color}&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to {@color}Claim" and " &8╹ {@color}+100 &7Wrath"
+
+# 	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
+# 	set slot 2 of metadata tag "Menu" of {_p} to book named "{@color}&lSTATS" with lore " &8╹ &7view"
+# 		# stats(player)
+# 	open (metadata tag "Menu" of {_p}) to {_p}
 
 on inventory click:	
 	if {unlock.%player%} is set:
 		stop
 	if clicked slot is 8:
+		name of event-inventory is "Crafting"
 		cancel event
-		menu(player)
+	# 	menu(player)
 	# if name of event-inventory is not "Crafting":
 	# 	cancel event
 	# 	stop

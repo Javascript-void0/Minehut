@@ -22,14 +22,18 @@ function toolCompatible(i: item, e: text) :: boolean:
 	else if {_i} is shield:
 		{_e} is "unbreaking" or "thorns"
 		return true
-	else if {_i} is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass or helmet or chestplate or leggings or boots:
+	else if itemCheck({_i}) is true:
 		return true
 	return false
 
 on right click:
-	player's held item is netherite sword
-	cancel event
-	make player execute "/enchant"
+	if player's held item is bow:
+		player is sneaking
+		cancel event
+		make player execute "/enchant"
+	else if itemCheck(player's held item) is true:
+		cancel event
+		make player execute "/enchant"
 
 on tab complete of "/enchant":
 	if player's held item is sword:
@@ -61,27 +65,29 @@ command /enchant [<text>]:
 		# broadcast "available: %{_available}%"
 		
 		if {_available} is less than 1:
-			arg-1 is set
-			set {_message} to "   &7Insufficient points"
-		else if arg-1 is "line1" or "sharpness" or "efficiency" or "power" or "unbreaking" or "protection":
+			if arg-1 is set:
+				set {_message} to "   &7Insufficient points"
+			else:
+				set {_message} to " "
+		else if arg-1 is "sharpness" or "efficiency" or "power" or "unbreaking" or "protection":
 			toolCompatible(player's held item, {_ench1::1}) is true
 			set {_line} to 14
 			enchant(player, {_ench1::1}, {_ench1::2} + 1, {_line})
 			set {_message} to "   &7Enchanted with {@color}%{_ench1::1}% %{_ench1::2} + 1%"
 			add 1 to {_ench1::2}
-		else if arg-1 is "line2" or "looting" or "fortune" or "infinity" or "thorns":
+		else if arg-1 is "looting" or "fortune" or "infinity" or "thorns":
 			toolCompatible(player's held item, {_ench2::1}) is true
 			set {_line} to 15
 			enchant(player, {_ench2::1}, {_ench2::2} + 1, {_line})
 			set {_message} to "   &7Enchanted with {@color}%{_ench2::1}% %{_ench2::2} + 1%"
 			add 1 to {_ench2::2}
-		else if arg-1 is "line3" or "mending":
+		else if arg-1 is "mending":
 			toolCompatible(player's held item, {_ench3::1}) is true
 			set {_line} to 16
 			enchant(player, {_ench3::1}, {_ench3::2} + 1, {_line})
 			set {_message} to "   &7Enchanted with {@color}%{_ench3::1}% %{_ench3::2} + 1%"
 			add 1 to {_ench3::2}
-		else if arg-1 is "line4" or "binding":
+		else if arg-1 is "binding":
 			toolCompatible(player's held item, {_ench4::1}) is true
 			set {_line} to 17
 			enchant(player, {_ench4::1}, {_ench4::2} + 1, {_line})
@@ -98,10 +104,10 @@ command /enchant [<text>]:
 		send "   &8[{@color}Item&8]"
 		send "   &7Available: &f%{_available}%"
 		send " "
-		send " &8<tooltip:{@color}Click to enchant><command:/enchant line1>[&a+&8]<reset> &8┃ &7%{_ench1::1}%: &f%{_ench1::2}%"
-		send " &8<tooltip:{@color}Click to enchant><command:/enchant line2>[&a+&8]<reset> &8┃ &7%{_ench2::1}%: &f%{_ench2::2}%"
-		send " &8<tooltip:{@color}Click to enchant><command:/enchant line3>[&a+&8]<reset> &8┃ &7%{_ench3::1}%: &f%{_ench3::2}%"
-		send " &8<tooltip:{@color}Click to enchant><command:/enchant line4>[&a+&8]<reset> &8╹ &7%{_ench4::1}%: &f%{_ench4::2}%"
+		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench1::1}%>[&a+&8]<reset> &8┃ &7%{_ench1::1}%: &f%{_ench1::2}%"
+		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench2::1}%>[&a+&8]<reset> &8┃ &7%{_ench2::1}%: &f%{_ench2::2}%"
+		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench3::1}%>[&a+&8]<reset> &8┃ &7%{_ench3::1}%: &f%{_ench3::2}%"
+		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench4::1}%>[&a+&8]<reset> &8╹ &7%{_ench4::1}%: &f%{_ench4::2}%"
 		send " "
 		send " &8┃ &7Sharpness: &fMore damage when using item"
 		send " &8┃ &7Looting: &fBonus mob drops"

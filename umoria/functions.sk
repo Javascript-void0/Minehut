@@ -34,6 +34,11 @@ function enchant(p: player, e: text, lvl: number, ln: number):
 	removeEnch({_p}'s held item, {_e})
 	enchant {_p}'s held item with "%{_enchant}% %{_lvl}%" parsed as enchantment type
 
+function itemCheck(i: item) :: boolean: 
+	if {_i} is sword or bow or pickaxe or hoe or shield or boots or leggings or chestplate or light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
+		return true
+	return false
+
 # TEXT FORMATTING
 
 function format(n: number) :: text:
