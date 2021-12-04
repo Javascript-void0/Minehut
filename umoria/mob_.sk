@@ -49,6 +49,16 @@ on spawn of stray:
 	else:
 		cancel event
 
+on spawn of goat:
+	if {mobcap} is false:
+		if block at event-location is diorite:
+			set block at event-location to air
+			stop
+		else:
+			cancel event
+	else:
+		cancel event
+
 on spawn of pillager:
 	cancel event
 on spawn of creeper:

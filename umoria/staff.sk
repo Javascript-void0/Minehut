@@ -82,7 +82,8 @@ command /clearlag:
 	permission message: {@staff} {@permission}
 	trigger:
 		set {_n} to 0
-		loop all entities in "dungeon":
+		loop all entities:
+			world of entity is "dungeon"
 			loop-entity is not a player
 			loop-entity is not a horse
 			delete loop-entity

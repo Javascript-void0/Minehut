@@ -45,6 +45,9 @@ function pasteDungeon(loc: location, name: text, p: player) :: number:
 				else if {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} is bone block:
 					add 1 to {_n}
 					spawnMob({_loc}, {_p}, 2)
+				else if {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%} is diorite:
+					add 1 to {_n}
+					spawnMob({_loc}, {_p}, 9)
 				add 1 to x-coordinate of {_loc}
 			set x-coordinate of {_loc} to {_x}
 			add 1 to z-coordinate of {_loc}
@@ -74,6 +77,8 @@ function spawnMob(loc: location, p: player, nn: number):
 		spiritArcher({_loc}, {_p})
 	else if {_n} is 8:
 		spiritWarrior({_loc}, {_p})
+	else if {_n} is 9:
+		dungeonShop({_loc}, {_p})
 
 on tab complete of "/dungeon":
 	set tab completions for position 1 to "wand", "clearStart", "listStart", "listRoom", "copyRoom", "deleteRoom", "saveRoom", "loadRoom", "removeRoom", "start", "end", "openAll", "deleteStart", and "pasteRoom"

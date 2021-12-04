@@ -1,0 +1,95 @@
+options:
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&f
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&r
+	world: world
+
+function dungeonShop(loc: location, p: player) :: entity:
+	spawn goat at {_loc}
+	set {_e} to last spawned mob
+	set {_level} to {p_level::%{_p}%}
+	set {%{_e}%::maxhealth} to 999999
+	set {%{_e}%::health} to 999999
+	set {%{_e}%::damage} to 0
+	set {%{_e}%::player} to {_p}
+	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fShop:Goat &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
+	apply slowness 100 without particles to {_e} for 9999 days
+	return {_e}
+
+function isShop(id: text) :: boolean: 
+	loop all entities:
+		world of loop-entity is "dungeon"
+		loop-entity is goat
+		uuid of loop-entity is {_id}
+		return true
+	return false
+
+function shopSell() :: text: 
+	set {_total} to random integer between 1 and 100
+	loop 9 times:
+		set {_n} to random integer between 1 and 100
+		set {_total} to "%{_total}%|%{_n}%"
+	return {_total}
+
+command /shop [<text>] [<text>] [<text>]:
+	trigger:
+		isShop(arg-1) is true
+		if arg-2 is "purchase":
+			set {_colorPurchase} to "{@color}"
+			set {_colorSell} to "&7"
+		else if arg-2 is "sell":
+			set {_colorSell} to "{@color}"
+			set {_colorPurchase} to "&7"
+		else:
+			set {_colorSell} to "&7"
+			set {_colorPurchase} to "&7"
+		set {_loot::*} to arg-3 split at "|"
+		loop 10 times:
+			{_loot::loop-index} is not set
+			set {_loot::loop-index} to " "
+		send " " to player
+		send " &7&l---------- {@color}&lSHOP &7&l----------" to player
+		send " " to player
+		send formatted "   {@color}&lMODE{@color}:   <tooltip:{@color}Click to change><command:/shop %arg-1% purchase %arg-3%>%{_colorPurchase}%&l[ PURCHASE ]<reset>   <tooltip:{@color}Click to change><command:/shop %arg-1% sell %arg-3%>%{_colorSell}%&l[ SELL ]<reset>" to player
+		send " " to player
+		if arg-2 is "purchase":
+			send "     %{_loot::1}%" to player
+			send "     %{_loot::2}%" to player
+			send "     %{_loot::3}%" to player
+			send "     %{_loot::4}%" to player
+			send "     %{_loot::5}%" to player
+			send "     %{_loot::6}%" to player
+			send "     %{_loot::7}%" to player
+			send "     %{_loot::8}%" to player
+			send "     %{_loot::9}%" to player
+			send "     %{_loot::10}%" to player
+		else if arg-2 is "sell":
+			send "     1. " to player
+			send "     2. " to player
+			send "     3. " to player
+			send "     4. " to player
+			send "     5. " to player
+			send "     6. " to player
+			send "     7. " to player
+			send "     8. " to player
+			send "     9. " to player
+			send "    10. " to player
+		send " " to player
+		send " " to player
+		send " " to player
+		send " &7&l------------------------- " to player
+		send " " to player
+		
+		set {shop.%arg-1%} to {_loot::1}
+		delete {_loot::1}
+		loop {_loot::*}:
+			set {shop.%arg-1%} to "%{shop.%arg-1%}%|%loop-value%"
+
+on right click on goat:
+	world of player is "dungeon"
+	if {shop.%uuid of event-entity%} is not set:
+		set {_sell} to shopSell()
+		make player execute "/shop %uuid of event-entity% purchase %{_sell}%"
+	else:
+		make player execute "/shop %uuid of event-entity% purchase %{shop.%uuid of event-entity%}%"
