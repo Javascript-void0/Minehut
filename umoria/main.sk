@@ -73,7 +73,7 @@ command /spawn:
 command /setspawn:
 	trigger:
 		if player is op:
-			set {spawn} to player's position
+			set {k_spawn} to player's position
 			send "{@admin} Spawn Set to %player's position%"
 		else:
 			send "{@admin} {@permission}"

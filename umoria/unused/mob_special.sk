@@ -26,10 +26,12 @@ function isShop(id: text) :: boolean:
 	return false
 
 function shopSell() :: text: 
-	set {_total} to random integer between 1 and 100
-	loop 9 times:
-		set {_n} to random integer between 1 and 100
-		set {_total} to "%{_total}%|%{_n}%"
+	set {_first} to random element of {mobloot::common::list::*}
+	set {_total} to "%{mobloot::%{_first}%.name}%: %{mobloot::%{_first}%.purchase}%"
+	loop 10 times:
+		set {_n} to random element of {mobloot::common::list::*}
+		broadcast {_n}
+		set {_total} to "%{_total}%|%{mobloot::%{_n}%.name}%: %{mobloot::%{_n}%.purchase}%"
 	return {_total}
 
 command /shop [<text>] [<text>] [<text>]:
@@ -51,7 +53,7 @@ command /shop [<text>] [<text>] [<text>]:
 		send " " to player
 		send " &7&l---------- {@color}&lSHOP &7&l----------" to player
 		send " " to player
-		send formatted "   {@color}&lMODE{@color}:   <tooltip:{@color}Click to change><command:/shop %arg-1% purchase %arg-3%>%{_colorPurchase}%&l[ PURCHASE ]<reset>   <tooltip:{@color}Click to change><command:/shop %arg-1% sell %arg-3%>%{_colorSell}%&l[ SELL ]<reset>" to player
+		send formatted "   {@color}&lMODE{@color}:   <tooltip:{@color}Click to change><command:shop %arg-1% purchase %arg-3%>PURCHASE<reset><tooltip:{@color}Click to change><command:/shop %arg-1% sell %arg-3%>SELL<reset>"
 		send " " to player
 		if arg-2 is "purchase":
 			send "     %{_loot::1}%" to player
@@ -81,15 +83,20 @@ command /shop [<text>] [<text>] [<text>]:
 		send " &7&l------------------------- " to player
 		send " " to player
 		
-		set {shop.%arg-1%} to {_loot::1}
+		set {shop::%arg-1%} to {_loot::1}
 		delete {_loot::1}
 		loop {_loot::*}:
-			set {shop.%arg-1%} to "%{shop.%arg-1%}%|%loop-value%"
+			set {shop::%arg-1%} to "%{shop::%arg-1%}%|%loop-value%"
+
+on skript stop:
+	delete {shop::*}
 
 on right click on goat:
 	world of player is "dungeon"
-	if {shop.%uuid of event-entity%} is not set:
+	if {shop::uuid of event-entity} is not set:
 		set {_sell} to shopSell()
 		make player execute "/shop %uuid of event-entity% purchase %{_sell}%"
 	else:
-		make player execute "/shop %uuid of event-entity% purchase %{shop.%uuid of event-entity%}%"
+		broadcast {shop::uuid of event-entity}
+		stop
+		# make player execute "/shop %uuid of event-entity% purchase %{shop::uuid of event-entity}%"

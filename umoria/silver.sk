@@ -46,7 +46,7 @@ on right click:
 	if player is sneaking:
 		player's tool is {weatheredsilver} or {tarnishedsilver} or {polishedsilver}
 		player is op
-		set {well} to event-block
+		set {k_well} to event-block
 		send "{@admin} &7Well set to {@color}%location of {well}%"
 	else:
 		event-block is {well}
@@ -151,25 +151,25 @@ function polishedReward(p: player):
 function tarnishedReward(p: player):
 	set {_n} to random integer between 1 and 100
 	if {_n} is between 1 and 35:
-		add 10000 to {p_coins::%{_p}%}
+		coins("add", {_p}, 10000)
 		send title "&c" with subtitle "Recieved {@color}10a coins &7(35%%)" to {_p} for 2 seconds
 	else if {_n} is between 35 and 50:
-		add 20000 to {p_coins::%{_p}%}
+		coins("add", {_p}, 20000)
 		send title "&c" with subtitle "&7Recieved {@color}20a coins &7(15%%)" to {_p} for 2 seconds
 	else if {_n} is between 50 and 58:
-		add 30000 to {p_coins::%{_p}%}
+		coins("add", {_p}, 30000)
 		send title "&c" with subtitle "&7Recieved {@color}30a coins &7(8%%)" to {_p} for 2 seconds
 	else if {_n} is between 58 and 63:
-		add 40000 to {p_coins::%{_p}%}
+		coins("add", {_p}, 40000)
 		send title "&c" with subtitle "&7Recieved {@color}40a coins &7(5%%)" to {_p} for 2 seconds
 	else if {_n} is between 63 and 73:
-		add 100 to {p_wrath::%{_p}%}
+		wrath("add", {_p}, 100)
 		send title "&c" with subtitle "&7Recieved {@color}100 wrath &7(10%%)" to {_p} for 2 seconds
 	else if {_n} is between 73 and 78:
-		add 300 to {p_wrath::%{_p}%}
+		wrath("add", {_p}, 300)
 		send title "&c" with subtitle "&7Recieved {@color}300 wrath &7(5%%)" to {_p} for 2 seconds
 	else if {_n} is between 78 and 80:
-		add 500 to {p_wrath::%{_p}%}
+		wrath("add", {_p}, 500)
 		send title "&c" with subtitle "&7Recieved {@color}500 wrath &7(2%%)" to {_p} for 2 seconds
 	else if {_n} is between 80 and 90:
 		give {_p} 1 of {weatheredsilver}

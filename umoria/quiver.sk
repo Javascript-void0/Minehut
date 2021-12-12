@@ -301,8 +301,8 @@ on join:
 		set {quiver.%player%::arrow} to 0
 	if {quiver.%player%::solar} is not set:
 		set {quiver.%player%::solar} to 0
-	if {quiver.%player%::luanr} is not set:
-		set {quiver.%player%::luanr} to 0
+	if {quiver.%player%::lunar} is not set:
+		set {quiver.%player%::lunar} to 0
 	if {quiver.%player%::terrestrial} is not set:
 		set {quiver.%player%::terrestrial} to 0
 	if {quiver.%player%::midnight} is not set:

@@ -63,6 +63,10 @@ on right click:
 		make player execute "/menu"
 		# menu(player)
 
+on offhand move:
+	cancel event
+	make player execute "/menu"
+
 # on right click with light gray stained glass or lime stained glass or light blue stained glass or black stained glass:
 # 	cancel event
 # 	helmet of player is air
@@ -100,7 +104,7 @@ command /menu [<text>]:
 			else:
 				set {daily.%player%.lastused} to now
 				set {_message} to "   &7You claimed your daily reward at {@color}%now%"
-				add 100 to {p_wrath::%player%}
+				wrath("add", player, 100)
 		
 		else if arg-1 is not set:
 			set {_message} to " "

@@ -1,3 +1,11 @@
+options:
+	color: <##f7ffc5>
+	color2: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&7
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&r
+	world: world
+
 on right click:
 	world of player is "dungeon"
 	event-block is trapped chest
@@ -14,8 +22,31 @@ function generateChest(b: block, p: player):
 	else if {_dir} is south:
 		set block at location of {_b} to south facing chest
 	open inventory of {_b} to {_p}
-	set {_n} to random integer between 3 and 15
-	loop {_n} times:
-		set {_slot} to random integer between 0 and 29
-		set slot {_slot} of inventory of {_b} to dirt
-		wait 1 tick
+	loop 29 times:
+		set {_n} to random integer between 1 and 10000
+		if {_n} is less than 2500:
+			if {_n} is less than 5000:
+				set {_item} to random element out of {mobloot::common::*}
+				set {_qty} to random integer between 1 and 4
+			else if {_n} is less than 5750:
+				set {_item} to random element out of {moblootUn::uncommon::*}
+				set {_qty} to 1
+			else:
+				set {_item} to random element out of {moblootRr::rare::*}
+				set {_qty} to 1
+			set slot loop-number of inventory of {_b} to {_qty} of {_item}
+		else if {_n} is less than 4000:
+			set {_value} to random integer between 2 and 15
+			set {_id} to random integer between 1000 and 9999
+			set slot loop-number of inventory of {_b} to gold nugget named "{@color}&lCOINS" with lore " &8┃ &7Quantity: {@color}%{_value}%" and " &8╹ &7##%{_id}%" 
+
+on inventory click:
+	name of event-inventory is "Chest"
+	world of player is "dungeon"
+	event-item is gold nugget named "{@color}&lCOINS"
+	cancel event
+	set {_lore::*} to uncolored lore of event-item 
+	set {_value::*} to {_lore::1} parsed as " ┃ Quantity: %number%"
+	remove event-item from event-inventory
+	coins("add", player, {_value::1})
+	send "{@prefix} &7Recieved %{_value::1}% coins from the chest. "

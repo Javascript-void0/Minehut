@@ -178,7 +178,11 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				clearMob(arg-2 parsed as player)
 
 			else if arg-1 is "items_mob":
-				loop {mobloot::*}:
+				loop {mobloot::common::*}:
+					give player loop-value
+				loop {mobloot::uncommon::*}:
+					give player loop-value
+				loop {mobloot::rare::*}:
 					give player loop-value
 
 			else if arg-1 is "itemlevel":

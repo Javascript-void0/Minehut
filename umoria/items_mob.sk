@@ -7,20 +7,150 @@ options:
 	world: world
 
 on load:
-	set {moblootCm::bone} to bone named "&8[{@color}::&7::::&8] {@color2}Bone" with lore " &8┃ &7Rarity: {@color}Common" and " &8╹ &7Sell: {@color}1 coin" and " " and "&7Cleaned off with something's fangs. " with all flags hidden
-	set {moblootUn::br_mush} to brown mushroom named "&8[{@color}::::&7::&8] {@color2}Brown Mushroom" with lore " &8┃ &7Rarity: {@color}Uncommon" and " &8╹ &7Sell: {@color}2 coins" and " " and "&7Looks ready to be cooked into a stew. " with all flags hidden
-	set {moblootUn::red_mush} to red mushroom named "&8[{@color}::::&7::&8] {@color2}Red Mushroom" with lore " &8┃ &7Rarity: {@color}Uncommon" and " &8╹ &7Sell: {@color}2 coins" and " " and "&7Looks ready to be cooked into a stew. " with all flags hidden
-	set {moblootCm::flesh} to rotten flesh named "&8[{@color}::&7::::&8] {@color2}Flesh" with lore " &8┃ &7Rarity: {@color}Common" and " &8┃ &7Sell: {@color}1 coin" and " &8╹ &7Consume: {@color}+2 hp &8| {@color2}-1 dmg" and " " and "&7The rotten flesh stinks of burnt fish. " with all flags hidden
-	set {moblootRr::skel_skull} to skeleton skull named "&8[{@color}::::::&8] {@color2}Skull" with lore " &8┃ &7Rarity: {@color}Rare" and " &8╹ &7Sell: {@color}10 coins" and " " and "&7The poor guy's face..." with all flags hidden
-	set {moblootUn::bush} to dead bush named "&8[{@color}::::&7::&8] {@color2}Dead Bush" with lore " &8┃ &7Rarity: {@color}Uncommon" and " &8╹ &7Sell: {@color}3 coins" and " " and "&7Small bundle of weeds. " with all flags hidden
-	set {moblootCm::bottle} to glass bottle named "&8[{@color}::&7::::&8] {@color2}Bottle" with lore " &8┃ &7Rarity: {@color}Common" and " &8╹ &7Sell: {@color}2 coin" and " " and "&7Caked in dried mud and dirt. " with all flags hidden
-	set {moblootRr::pancreas} to fermented spider eye named "&8[{@color}::::::&8] {@color2}Pancreas" with lore " &8┃ &7Rarity: {@color}Rare" and " &8┃ &7Sell: {@color}7 coin" and " &8╹ &7Consume: {@color}+1 hp &8| {@color2}-5 dmg" and " " and "&7Looks... tasty. " with all flags hidden
-	set {moblootRr::foot} to rabbit's foot named "&8[{@color}::::::&8] {@color2}Foot" with lore " &8┃ &7Rarity: {@color}Rare" and " &8╹ &7Sell: {@color}5 coin" and " " and "&7One way to disable someone. " with all flags hidden
-	set {moblootRr::qu_eggs} to phantom membrane named "&8[{@color}::::::&8] {@color2}Quail Eggs" with lore " &8┃ &7Rarity: {@color}Rare" and " &8┃ &7Sell: {@color}8 coin" and " &8╹ &7Consume: {@color}+2 dmg" and " " and "&7Only &oslightly &7better than chicken eggs. " with all flags hidden
-	set {moblootRr::mag_orb} to magma cream named "&8[{@color}::::::&8] {@color2}Glowing Orb" with lore " &8┃ &7Rarity: {@color}Rare" and " &8╹ &7Sell: {@color}7 coin" and " " and "&7Warm to the touch. " with all flags hidden
-	set {moblootUn::dark_sapling} to dark oak sapling named "&8[{@color}::::&7::&8] {@color2}Sapling" with lore " &8┃ &7Rarity: {@color}Uncommon" and " &8╹ &7Sell: {@color}3 coin" and " " and "&7Plant a tree. " with all flags hidden
-	set {moblootUn::cobweb} to cobweb named "&8[{@color}::::&7::&8] {@color2}Cobweb" with lore " &8┃ &7Rarity: {@color}Uncommon" and " &8╹ &7Sell: {@color}4 coin" and " " and "&7Wispy and delicate. " with all flags hidden
-	set {moblootCm::gel} to "glow ink sac" parsed as item named "&8[{@color}::&7::::&8] {@color2}Gel" with lore " &8┃ &7Rarity: {@color}Common" and " &8╹ &7Sell: {@color}2 coin" and " " and "&7Radiating with bubbly energy. " with all flags hidden
-	set {moblootUn::warp_mush} to warped fungus named "&8[{@color}::::&7::&8] {@color2}Glowing Mushroom" with lore " &8┃ &7Rarity: {@color}Uncommon" and " &8╹ &7Sell: {@color}4 coin" and " " and "&7Radiating with bubbly energy. " with all flags hidden
-	set {moblootRr::crystal} to prismarine crystals named "&8[{@color}::::::&8] {@color2}Crystals" with lore " &8┃ &7Rarity: {@color}Rare" and " &8╹ &7Sell: {@color}6 coin" and " " and "&7Dull and translucent textured surface. " with all flags hidden
-	set {moblootRr::tide_orb} to heart of the sea named "&8[{@color}::::::&8] {@color2}Tide Orb" with lore " &8┃ &7Rarity: {@color}Rare" and " &8╹ &7Sell: {@color}8 coin" and " " and "&7Still wet. " with all flags hidden
+
+	delete {mobloot::*}
+
+	set {mobloot::bone.item} to bone
+	set {mobloot::bone.buy} to 30
+	set {mobloot::bone.sell} to 1
+	set {mobloot::bone.name} to "&8[{@color}::&7::::&8] {@color2}Bone"
+	set {mobloot::bone.rarity} to "Common"
+	set {mobloot::bone.lore} to "&7Cleaned off with something's fangs. "
+	add "bone" to {mobloot::list::*}
+	
+	set {mobloot::br_mush.item} to brown mushroom
+	set {mobloot::br_mush.buy} to 25
+	set {mobloot::br_mush.sell} to 2
+	set {mobloot::br_mush.name} to "&8[{@color}::::&7::&8] {@color2}Brown Mushroom"
+	set {mobloot::br_mush.rarity} to "Uncommon"
+	set {mobloot::br_mush.lore} to "&7Looks ready to be cooked into a stew. "
+	add "br_mush" to {mobloot::list::*}
+	
+	set {mobloot::red_mush.item} to red mushroom
+	set {mobloot::red_mush.buy} to 25
+	set {mobloot::red_mush.sell} to 2
+	set {mobloot::red_mush.name} to "&8[{@color}::::&7::&8] {@color2}Red Mushroom"
+	set {mobloot::red_mush.rarity} to "Uncommon"
+	set {mobloot::red_mush.lore} to "&7Looks ready to be cooked into a stew. "
+	add "red_mush" to {mobloot::list::*}
+	
+	set {mobloot::flesh.item} to rotten flesh
+	set {mobloot::flesh.buy} to 10
+	set {mobloot::flesh.sell} to 1
+	set {mobloot::flesh.name} to "&8[{@color}::&7::::&8] {@color2}Flesh"
+	set {mobloot::flesh.rarity} to "Common"
+	set {mobloot::flesh.consume} to "{@color}+2 hp &8| {@color2}-1 dmg"
+	set {mobloot::flesh.lore} to "&7The rotten flesh stinks of burnt fish. "
+	add "flesh" to {mobloot::list::*}
+	
+	set {mobloot::skel_skull.item} to skeleton skull
+	set {mobloot::skel_skull.buy} to 140
+	set {mobloot::skel_skull.sell} to 10
+	set {mobloot::skel_skull.name} to "&8[{@color}::::::&8] {@color2}Skull"
+	set {mobloot::skel_skull.rarity} to "Rare"
+	set {mobloot::skel_skull.lore} to "&7The poor guy's face..."
+	add "skel_skull" to {mobloot::list::*}
+	
+	set {mobloot::bush.item} to dead bush
+	set {mobloot::bush.buy} to 9
+	set {mobloot::bush.sell} to 3
+	set {mobloot::bush.name} to "&8[{@color}::::&7::&8] {@color2}Dead Bush"
+	set {mobloot::bush.rarity} to "Uncommon"
+	set {mobloot::bush.lore} to "&7Small bundle of weeds. "
+	add "bush" to {mobloot::list::*}
+	
+	set {mobloot::bottle.item} to glass bottle
+	set {mobloot::bottle.buy} to 45
+	set {mobloot::bottle.sell} to 2
+	set {mobloot::bottle.name} to "&8[{@color}::&7::::&8] {@color2}Bottle"
+	set {mobloot::bottle.rarity} to "Common"
+	set {mobloot::bottle.lore} to "&7Caked in dried mud and dirt. "
+	add "bottle" to {mobloot::list::*}
+	
+	set {mobloot::pancreas.item} to fermented spider eye
+	set {mobloot::pancreas.buy} to 180
+	set {mobloot::pancreas.sell} to 7
+	set {mobloot::pancreas.name} to "&8[{@color}::::::&8] {@color2}Pancreas"
+	set {mobloot::pancreas.rarity} to "Rare"
+	set {mobloot::pancreas.consume} to "{@color}+1 hp &8| {@color2}-5 dmg"
+	set {mobloot::pancreas.lore} to "&7Looks... tasty. "
+	add "pancreas" to {mobloot::list::*}
+	
+	set {mobloot::foot.item} to rabbit's foot
+	set {mobloot::foot.buy} to 200
+	set {mobloot::foot.sell} to 5
+	set {mobloot::foot.name} to "&8[{@color}::::::&8] {@color2}Foot"
+	set {mobloot::foot.rarity} to "Rare"
+	set {mobloot::foot.lore} to "&7One way to disable someone. "
+	add "foot" to {mobloot::list::*}
+	
+	set {mobloot::qu_eggs.buy} to 80
+	set {mobloot::qu_eggs.item} to phantom membrane
+	set {mobloot::qu_eggs.sell} to 8
+	set {mobloot::qu_eggs.name} to "&8[{@color}::::::&8] {@color2}Quail Eggs"
+	set {mobloot::qu_eggs.rarity} to "Rare"
+	set {mobloot::qu_eggs.consume} to "{@color}+2 dmg"
+	set {mobloot::qu_eggs.lore} to "&7Only &oslightly &7better than chicken eggs. "
+	add "qu_eggs" to {mobloot::list::*}
+	
+	set {mobloot::mag_orb.item} to magma cream
+	set {mobloot::mag_orb.buy} to 240
+	set {mobloot::mag_orb.sell} to 7
+	set {mobloot::mag_orb.name} to "&8[{@color}::::::&8] {@color2}Glowing Orb"
+	set {mobloot::mag_orb.rarity} to "Rare"
+	set {mobloot::mag_orb.lore} to "&7Warm to the touch. "
+	add "mag_orb" to {mobloot::list::*}
+	
+	set {mobloot::dark_sapling.item} to dark oak sapling
+	set {mobloot::dark_sapling.buy} to 25
+	set {mobloot::dark_sapling.sell} to 3
+	set {mobloot::dark_sapling.name} to "&8[{@color}::::&7::&8] {@color2}Sapling"
+	set {mobloot::dark_sapling.rarity} to "Uncommon"
+	set {mobloot::dark_sapling.lore} to "&7Plant a tree. "
+	add "dark_sapling" to {mobloot::list::*}
+	
+	set {mobloot::cobweb.item} to cobweb
+	set {mobloot::cobweb.buy} to 25
+	set {mobloot::cobweb.sell} to 4
+	set {mobloot::cobweb.name} to "&8[{@color}::::&7::&8] {@color2}Cobweb"
+	set {mobloot::cobweb.rarity} to "Uncommon"
+	set {mobloot::cobweb.lore} to "&7Wispy and delicate. "
+	add "cobweb" to {mobloot::list::*}
+	
+	set {mobloot::gel.item} to "glow ink sac" parsed as item
+	set {mobloot::gel.buy} to 15
+	set {mobloot::gel.sell} to 2
+	set {mobloot::gel.name} to "&8[{@color}::&7::::&8] {@color2}Gel"
+	set {mobloot::gel.rarity} to "Common"
+	set {mobloot::gel.lore} to "&7Radiating with bubbly energy. "
+	add "gel" to {mobloot::list::*}
+	
+	set {mobloot::warp_mush.item} to warped fungus
+	set {mobloot::warp_mush.buy} to 20
+	set {mobloot::warp_mush.sell} to 4
+	set {mobloot::warp_mush.name} to "&8[{@color}::::&7::&8] {@color2}Glowing Mushroom"
+	set {mobloot::warp_mush.rarity} to "Uncommon"
+	set {mobloot::warp_mush.lore} to "&7Radiating with bubbly energy. "
+	add "warp_mush" to {mobloot::list::*}
+	
+	set {mobloot::crystal.item} to prismarine crystals
+	set {mobloot::crystal.buy} to 30
+	set {mobloot::crystal.sell} to 6
+	set {mobloot::crystal.name} to "&8[{@color}::::::&8] {@color2}Crystals"
+	set {mobloot::crystal.rarity} to "Rare"
+	set {mobloot::crystal.lore} to "&7Dull and translucent textured surface. "
+	add "crystal" to {mobloot::list::*}
+
+	set {mobloot::tide_orb.item} to heart of the sea
+	set {mobloot::tide_orb.buy} to 350
+	set {mobloot::tide_orb.sell} to 8
+	set {mobloot::tide_orb.name} to "&8[{@color}::::::&8] {@color2}Tide Orb"
+	set {mobloot::tide_orb.rarity} to "Rare"
+	set {mobloot::tide_orb.lore} to "&7Still wet. "
+	add "tide_orb" to {mobloot::list::*}
+
+	loop {mobloot::list::*}:
+		if {mobloot::%loop-value%.consume} is set:
+			set {mobloot::%{mobloot::%loop-value%.rarity}%::%loop-value%} to {mobloot::%loop-value%.item} named {mobloot::%loop-value%.name} with lore " &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%" and " &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins" and " &8┃ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins" and " &8╹ &7Consume: %{mobloot::%loop-value%.consume}%" and " " and "&7%{mobloot::%loop-value%.lore}%" with all flags hidden
+		else:
+			set {mobloot::%{mobloot::%loop-value%.rarity}%::%loop-value%} to {mobloot::%loop-value%.item} named {mobloot::%loop-value%.name} with lore " &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%" and " &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins" and " &8╹ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins" and " " and "&7%{mobloot::%loop-value%.lore}%" with all flags hidden

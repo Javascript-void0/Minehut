@@ -8,6 +8,46 @@ on script load:
 		set {letters::uppercase::%{_lowercase}%} to {_uppercase}
 		set {letters::lowercase::%{_uppercase}%} to {_lowercase}
 
+# DATA MANAGEMENT
+
+function coins(o: text, p: player, n: number):
+	if {_o} is "add":
+		set {p_coins::%{_p}%} to {p_coins::%{_p}%} + {_n}
+		set {p_totalcoins::%{_p}%} to {p_totalcoins::%{_p}%} + {_n}
+	else if {_o} is "remove" or "subtract":
+		set {p_coins::%{_p}%} to {p_coins::%{_p}%} - {_n}
+		set {p_totalcoins::%{_p}%} to {p_totalcoins::%{_p}%} - {_n}
+		if {p_coins::%{_p}%} is less than 0:
+			set {p_coins::%{_p}%} to 0
+		else if {p_totalcoins::%{_p}%} is less than 0:
+			set {p_totalcoins::%{_p}%} to 0
+
+function wrath(o: text, p: player, n: number):
+	if {_o} is "add":
+		set {p_wrath::%{_p}%} to {p_wrath::%{_p}%} + {_n}
+		set {p_totalwrath::%{_p}%} to {p_totalwrath::%{_p}%} + {_n}
+	else if {_o} is "remove" or "subtract":
+		set {p_wrath::%{_p}%} to {p_wrath::%{_p}%} - {_n}
+		set {p_totalwrath::%{_p}%} to {p_totalwrath::%{_p}%} - {_n}
+		if {p_wrath::%{_p}%} is less than 0:
+			set {p_wrath::%{_p}%} to 0
+		else if {p_totalwrath::%{_p}%} is less than 0:
+			set {p_totalwrath::%{_p}%} to 0
+
+function xp(o: text, p: player, n: number):
+	if {_o} is "add":
+		set {p_exp::%{_p}%} to {p_exp::%{_p}%} + {_n}
+		set {p_totalexp::%{_p}%} to {p_totalexp::%{_p}%} + {_n}
+	else if {_o} is "remove" or "subtract":
+		set {p_exp::%{_p}%} to {p_exp::%{_p}%} - {_n}
+		set {p_totalexp::%{_p}%} to {p_totalexp::%{_p}%} - {_n}
+		if {p_exp::%{_p}%} is less than 0:
+			set {p_exp::%{_p}%} to 0
+		else if {p_totalexp::%{_p}%} is less than 0:
+			set {p_totalexp::%{_p}%} to 0
+
+# ENCHANTING
+
 function capitalize(text: text) :: text:
 	set {_char} to the first character of {_text}
 	set {_char} to {letters::uppercase::%{_char}%}
