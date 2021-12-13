@@ -8,7 +8,7 @@ from mcstatus import MinecraftServer
 intents = discord.Intents.default()
 intents.guilds = True
 intents.members = True
-client = commands.Bot(command_prefix='.', intents=intents)
+client = commands.Bot(command_prefix='...', intents=intents)
 TOKEN = os.getenv("TOKEN")
 guild = None
 online = False

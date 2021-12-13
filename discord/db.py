@@ -109,6 +109,17 @@ async def databaseclear(ctx):
     await db.purge(limit=None)
     await ctx.send('```DATABASE: Cleared all files in #db```')
 
+@client.command(help='Changes database with attached file')
+@commands.has_permissions(administrator=True)
+async def changefile(ctx):
+    try:
+        attachment = ctx.message.attachments[0]
+        await attachment.save('./discord/data.txt')
+        await log_update()
+        await ctx.send('```DATABASE: File updated```')
+    except IndexError:
+        await ctx.send('```DATABASE: No Attachment```')
+
 @client.command(help='Change your Discord nick (must be linked)')
 async def nick(ctx, *, nick=None):
     if await registered(ctx.author.id):
