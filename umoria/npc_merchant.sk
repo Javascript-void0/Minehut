@@ -7,47 +7,133 @@ options:
 	wrath: &7Insufficient <##B4C788>Wrath
 	world: world
 
+function reloadGlobalShop():
+	delete {globalShop::*}
+	add "e" to {_sections::*}
+	add "c" to {_sections::*}
+	add "m" to {_sections::*}
+	add "l" to {_sections::*}
+	loop {_sections::*}:
+		if loop-value is "m":
+			set {_n} to random integer between 30 and 100
+		else:
+			set {_n} to 20
+		loop {_n} times:
+			set {_id} to random integer between 1000 and 9999
+			set {_item} to random element of {mobloot::list::*}
+			set {globalShop::%loop-value-1%::%{_id}%} to {_item}
+			if {mobloot::%{_item}%.rarity} is not "rare":
+				set {globalShop::%loop-value-1%::%{_id}%::count} to random integer between 1 and 10
+			else:
+				set {globalShop::%loop-value-1%::%{_id}%::count} to 1
+
 command /merchant [<number>] [<text>] [<text>] [<text>]:
 	trigger:
 		arg-1 is {sessionid::%player%}
 		set {sessionid::%player%} to random integer between 1000 and 9999
-		if arg-2 is "buy":
-			set {_buy} to "{@color}"
-			set {_sell} to "&7"
-		else if arg-2 contains "sell":
-			set {_buy} to "&7"
-			set {_sell} to "{@color}"
-		if arg-3 is "1":
-			set {_1} to "{@color}"
-			set {_5} to "&7"
-			set {_32} to "&7"
-			set {_all} to "&7"
-		else if arg-3 is "5":
-			set {_1} to "&7"
-			set {_5} to "{@color}"
-			set {_32} to "&7"
-			set {_all} to "&7"
-		else if arg-3 is "32": 
-			set {_1} to "&7"
-			set {_5} to "&7"
-			set {_32} to "{@color}"
-			set {_all} to "&7"
-		else if arg-3 is "all":
-			set {_1} to "&7"
-			set {_5} to "&7"
-			set {_32} to "&7"
-			set {_all} to "{@color}"
 		send " "
 		send " &7&l------- {@color}&lMERCHANT &7&l--------"
 		send " "
-		send formatted "  &8[<tooltip:{@color}Change mode to buy><command:/merchant %{sessionid::%player%}% buy %arg-3%>%{_buy}%&lBUY<reset>&8/<tooltip:{@color}Change mode to sell><command:/merchant %{sessionid::%player%}% sell1 %arg-3%>%{_sell}%&lSELL<reset>&8] &8[<tooltip:{@color}x1><command:/merchant %{sessionid::%player%}% %arg-2% 1>%{_1}%x1<reset> &8| <tooltip:{@color}x5><command:/merchant %{sessionid::%player%}% %arg-2% 5>%{_5}%x5<reset> &8| <tooltip:{@color}x32><command:/merchant %{sessionid::%player%}% %arg-2% 32>%{_32}%x32<reset> &8| <tooltip:{@color}ALL><command:/merchant %{sessionid::%player%}% %arg-2% all>%{_all}%ALL<reset>&8]"
-		send " "
-		
-		set {_page::*} to arg-2 parsed as "sell%number%"
+		if arg-2 contains "buy":
+			if arg-3 is "e":
+				set {_e} to "{@color}"
+				set {_c} to "&7"
+				set {_m} to "&7"
+				set {_l} to "&7"
+			else if arg-3 is "c":
+				set {_e} to "&7"
+				set {_c} to "{@color}"
+				set {_m} to "&7"
+				set {_l} to "&7"
+			else if arg-3 is "m":
+				set {_e} to "&7"
+				set {_c} to "&7"
+				set {_m} to "{@color}"
+				set {_l} to "&7"
+			else if arg-3 is "l":
+				set {_e} to "&7"
+				set {_c} to "&7"
+				set {_m} to "&7"
+				set {_l} to "{@color}"
+			send formatted "  &8[<tooltip:{@color}Change mode to buy><command:/merchant %{sessionid::%player%}% buy1 e>{@color}&lBUY<reset>&8/<tooltip:{@color}Change mode to sell><command:/merchant %{sessionid::%player%}% sell1 1>&7&lSELL<reset>&8] &8[<tooltip:{@color}Equipment Section><command:/merchant %{sessionid::%player%}% buy1 e>%{_e}%&lE<reset> &8| <tooltip:{@color}Consumable Section><command:/merchant %{sessionid::%player%}% buy1 c>%{_c}%&lC<reset> &8| <tooltip:{@color}Mob Section><command:/merchant %{sessionid::%player%}% buy1 m>%{_m}%&lM<reset> &8| <tooltip:{@color}Loot Section><command:/merchant %{sessionid::%player%}% buy1 l>%{_l}%&lL<reset>&8]"
+			send " "
+			set {_page::*} to arg-2 parsed as "buy%number%"
+			if arg-4 is set:
+				set {_message} to arg-4
+			else:
+				set {_message} to " "
 
-		if arg-2 is "buy":
-			stop
+			if size of {globalShop::%arg-3%::*} is greater than 7:
+				set {_indexStart} to ({_page::1} * 8) - 7
+				set {_current} to 1
+				set {_lastPage} to mod(size of {globalShop::%arg-3%::*}, 8)
+				if {_lastPage} is 8:
+					set {_lastPage} to 0
+				set {_blank} to 8 - {_lastPage}
+
+				loop {globalShop::%arg-3%::*}:
+					add 1 to {_current}
+					{_current} is greater than {_indexStart}
+					{_current} is less than or equal to {_indexStart} + 8
+					if {mobloot::%loop-value%.consume} is set:
+						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8┃ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% &8╹ &7Consume: %{mobloot::%loop-value%.consume}%%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-value%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}%<reset>"
+					else:
+						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8╹ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-value%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}%<reset>"
+				{_page::1} is (size of {globalShop::%arg-3%::*} + {_blank}) / 8
+				loop {_blank} times:
+					send " "
+			else:
+				set {_blank} to 8 - size of {globalShop::%arg-3%::*}
+				loop {globalShop::%arg-3%::*}:
+					if {mobloot::%loop-value%.consume} is set:
+						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8┃ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% &8╹ &7Consume: %{mobloot::%loop-value%.consume}%%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-value%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}%<reset>"
+					else:
+						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8╹ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-value%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}%<reset>"
+				loop {_blank} times:
+					send " "
+
+			set {_prevpage} to {_page::1} - 1
+			set {_back} to "{@color}"
+			if {_prevpage} is less than 1:
+				set {_back} to "&8"
+				set {_prevpage} to "buy1"
+			else:
+				set {_prevpage} to "buy%{_prevpage}%"
+			set {_nextpage} to {_page::1} + 1
+			set {_forw} to "{@color}"
+			if {_nextpage} is greater than or equal to ceil(size of {globalShop::%arg-3%::*} / 8) + 1:
+				set {_forw} to "&8"
+				if {globalShop::%arg-3%::*} is set:
+					set {_nextpage} to "buy%ceil(size of {globalShop::%arg-3%::*} / 8)%"
+				else:
+					set {_nextpage} to "buy1"
+			else:
+				set {_nextpage} to "buy%{_nextpage}%"
+
 		else if arg-2 contains "sell":
+			if arg-3 is "1":
+				set {_1} to "{@color}"
+				set {_5} to "&7"
+				set {_32} to "&7"
+				set {_all} to "&7"
+			else if arg-3 is "5":
+				set {_1} to "&7"
+				set {_5} to "{@color}"
+				set {_32} to "&7"
+				set {_all} to "&7"
+			else if arg-3 is "32": 
+				set {_1} to "&7"
+				set {_5} to "&7"
+				set {_32} to "{@color}"
+				set {_all} to "&7"
+			else if arg-3 is "all":
+				set {_1} to "&7"
+				set {_5} to "&7"
+				set {_32} to "&7"
+				set {_all} to "{@color}"
+			send formatted "  &8[<tooltip:{@color}Change mode to buy><command:/merchant %{sessionid::%player%}% buy1 e>&7&lBUY<reset>&8/<tooltip:{@color}Change mode to sell><command:/merchant %{sessionid::%player%}% sell1 1>{@color}&lSELL<reset>&8] &8[<tooltip:{@color}x1><command:/merchant %{sessionid::%player%}% %arg-2% 1>%{_1}%x1<reset> &8| <tooltip:{@color}x5><command:/merchant %{sessionid::%player%}% %arg-2% 5>%{_5}%x5<reset> &8| <tooltip:{@color}x32><command:/merchant %{sessionid::%player%}% %arg-2% 32>%{_32}%x32<reset> &8| <tooltip:{@color}ALL><command:/merchant %{sessionid::%player%}% %arg-2% all>%{_all}%ALL<reset>&8]"
+			send " "
+			set {_page::*} to arg-2 parsed as "sell%number%"
 			if arg-4 is set:
 				loop all items in inventory of player:
 					set {_moreword} to arg-4
@@ -80,21 +166,21 @@ command /merchant [<number>] [<text>] [<text>] [<text>]:
 				set {_indexStart} to ({_page::1} * 8) - 7
 				set {_current} to 1
 				set {_lastPage} to mod(size of {_sellable::*}, 8)
+				if {_lastPage} is 8:
+					set {_lastPage} to 0
 				set {_blank} to 8 - {_lastPage}
+
 				loop {_sellable::*}:
 					add 1 to {_current}
 					{_current} is greater than {_indexStart}
 					{_current} is less than or equal to {_indexStart} + 8
-					
 					set {_oneword} to "%type of loop-value%"
 					replace all " " with "_" in {_oneword}
-					
 					set {_worth::*} to uncolored line 3 of lore of loop-value parsed as "%text% %number% %text%"
 					send formatted "       <tooltip: {@color}&lWORTH &7%{_worth::2}% coins each%nl% &8┃ {@color}%{_worth::2} * 1% &7coins @ x1%nl% &8┃ {@color}%{_worth::2} * 5% &7coins @ x5%nl% &8┃ {@color}%{_worth::2} * 32% &7coins @ x32%nl% &8╹ {@color}%{_worth::2} * amount of loop-value in inventory of player% &7coins @ MAX &8(&7x%amount of loop-value in inventory of player%&8)><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %{_oneword}%>%name of loop-value% &8| &7&ox%amount of loop-value in inventory of player%<reset>"
-					if (size of {_sellable::*} - {_lastPage}) / 8 is less than ({_current} - 1) / 8:	
-						loop {_blank} times:
-							send " "
-						exit loop
+				{_page::1} is (size of {_sellable::*} + {_blank}) / 8
+				loop {_blank} times:
+					send " "
 			else:
 				set {_blank} to 8 - size of {_sellable::*}
 				replace all " " with "_" in {_oneword}
@@ -104,23 +190,26 @@ command /merchant [<number>] [<text>] [<text>] [<text>]:
 					send formatted "       <tooltip: {@color}&lWORTH &7%{_worth::2}% coins each%nl% &8┃ {@color}%{_worth::2} * 1% &7coins @ x1%nl% &8┃ {@color}%{_worth::2} * 5% &7coins @ x5%nl% &8┃ {@color}%{_worth::2} * 32% &7coins @ x32%nl% &8╹ {@color}%{_worth::2} * amount of loop-value in inventory of player% &7coins @ MAX &8(&7x%amount of loop-value in inventory of player%&8)><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %{_oneword}%>%name of loop-value% &8| &7&ox%amount of loop-value in inventory of player%<reset>"
 				loop {_blank} times:
 					send " "
-
-		set {_prevpage} to {_page::1} - 1
-		set {_back} to "{@color}"
-		if {_prevpage} is less than 1:
-			set {_back} to "&8"
-			set {_prevpage} to 1
-		set {_nextpage} to {_page::1} + 1
-		set {_forw} to "{@color}"
-		if {_nextpage} is greater than or equal to ceil(size of {_sellable::*} / 8) + 1:
-			set {_forw} to "&8"
-			if {_sellable::*} is set:
-				set {_nextpage} to ceil(size of {_sellable::*} / 8)
+			set {_prevpage} to {_page::1} - 1
+			set {_back} to "{@color}"
+			if {_prevpage} is less than 1:
+				set {_back} to "&8"
+				set {_prevpage} to "sell1"
 			else:
-				set {_nextpage} to 1
+				set {_prevpage} to "sell%{_prevpage}%"
+			set {_nextpage} to {_page::1} + 1
+			set {_forw} to "{@color}"
+			if {_nextpage} is greater than or equal to ceil(size of {_sellable::*} / 8) + 1:
+				set {_forw} to "&8"
+				if {_sellable::*} is set:
+					set {_nextpage} to "sell%ceil(size of {_sellable::*} / 8)%"
+				else:
+					set {_nextpage} to "sell1"
+			else:
+				set {_nextpage} to "sell%{_nextpage}%"
 
 		send " "
-		send formatted "            <tooltip:{@color}Previous Page><command:/merchant %{sessionid::%player%}% sell%{_prevpage}% %arg-3%>%{_back}%<<<<reset>  &7Page: &f%{_page::1}%  <tooltip:{@color}Next Page><command:/merchant %{sessionid::%player%}% sell%{_nextpage}% %arg-3%>%{_forw}%>>>"
+		send formatted "            <tooltip:{@color}Previous Page><command:/merchant %{sessionid::%player%}% %{_prevpage}% %arg-3%>%{_back}%<<<<reset>  &7Page: &f%{_page::1}%  <tooltip:{@color}Next Page><command:/merchant %{sessionid::%player%}% %{_nextpage}% %arg-3%>%{_forw}%>>>"
 		send " "
 		send {_message}
 		send " "
