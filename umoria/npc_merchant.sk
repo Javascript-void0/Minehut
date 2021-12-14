@@ -58,8 +58,23 @@ command /merchant [<number>] [<text>] [<text>] [<text>]:
 			send formatted "  &8[<tooltip:{@color}Change mode to buy><command:/merchant %{sessionid::%player%}% buy1 e>{@color}&lBUY<reset>&8/<tooltip:{@color}Change mode to sell><command:/merchant %{sessionid::%player%}% sell1 1>&7&lSELL<reset>&8] &8[<tooltip:{@color}Equipment Section><command:/merchant %{sessionid::%player%}% buy1 e>%{_e}%&lE<reset> &8| <tooltip:{@color}Consumable Section><command:/merchant %{sessionid::%player%}% buy1 c>%{_c}%&lC<reset> &8| <tooltip:{@color}Mob Section><command:/merchant %{sessionid::%player%}% buy1 m>%{_m}%&lM<reset> &8| <tooltip:{@color}Loot Section><command:/merchant %{sessionid::%player%}% buy1 l>%{_l}%&lL<reset>&8]"
 			send " "
 			set {_page::*} to arg-2 parsed as "buy%number%"
+
 			if arg-4 is set:
-				set {_message} to arg-4
+				loop {globalShop::%arg-3%::*}:
+					arg-4 is loop-index
+					set {_itemName} to {globalShop::%arg-3%::%loop-index%}
+					set {_rarity} to {mobloot::%{_itemName}%.rarity}
+					set {_item} to {mobloot::%{_rarity}%::%{_itemName}%}
+					set {_num} to {globalShop::%arg-3%::%loop-index%::count}
+					set {_cost} to {_num} * {mobloot::%{_itemName}%.buy}
+					if {p_coins::%player%} is greater than {_cost}:	
+						coins("remove", player, {_cost})
+						delete {globalShop::%arg-3%::%arg-4%}
+						give player {_num} of {_item}
+						set {_message} to "   &7Bought {@color}%{mobloot::%{_itemName}%.name}% &7for {@color}%{_cost}% &7coins"
+					else:
+						set {_message} to "   &7You don't have enough coins! You need {@color}%{_cost} - {p_coins::%player%}% &7more. "
+					exit loop
 			else:
 				set {_message} to " "
 
@@ -76,9 +91,9 @@ command /merchant [<number>] [<text>] [<text>] [<text>]:
 					{_current} is greater than {_indexStart}
 					{_current} is less than or equal to {_indexStart} + 8
 					if {mobloot::%loop-value%.consume} is set:
-						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8┃ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% &8╹ &7Consume: %{mobloot::%loop-value%.consume}%%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-value%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}%<reset>"
+						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8┃ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% &8╹ &7Consume: %{mobloot::%loop-value%.consume}%%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-index%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}% &7&ofor &f&o%{globalShop::%arg-3%::%loop-index%::count} * {mobloot::%loop-value%.buy}%&r &7&ocoins<reset>"
 					else:
-						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8╹ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-value%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}%<reset>"
+						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8╹ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-index%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}% &7&ofor &f&o%{globalShop::%arg-3%::%loop-index%::count} * {mobloot::%loop-value%.buy}%&r &7&ocoins<reset>"
 				{_page::1} is (size of {globalShop::%arg-3%::*} + {_blank}) / 8
 				loop {_blank} times:
 					send " "
@@ -86,9 +101,9 @@ command /merchant [<number>] [<text>] [<text>] [<text>]:
 				set {_blank} to 8 - size of {globalShop::%arg-3%::*}
 				loop {globalShop::%arg-3%::*}:
 					if {mobloot::%loop-value%.consume} is set:
-						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8┃ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% &8╹ &7Consume: %{mobloot::%loop-value%.consume}%%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-value%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}%<reset>"
+						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8┃ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% &8╹ &7Consume: %{mobloot::%loop-value%.consume}%%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-index%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}% &7&ofor &f&o%{globalShop::%arg-3%::%loop-index%::count} * {mobloot::%loop-value%.buy}%&r &7&ocoins<reset>"
 					else:
-						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8╹ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-value%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}%<reset>"
+						send formatted "       <tooltip:%{mobloot::%loop-value%.name}%%nl% &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%%nl% &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins%nl% &8╹ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins%nl% %nl%&7%{mobloot::%loop-value%.lore}%><command:/merchant %{sessionid::%player%}% %arg-2% %arg-3% %loop-index%>%{mobloot::%loop-value%.name}% &8| &7&ox%{globalShop::%arg-3%::%loop-index%::count}% &7&ofor &f&o%{globalShop::%arg-3%::%loop-index%::count} * {mobloot::%loop-value%.buy}%&r &7&ocoins<reset>"
 				loop {_blank} times:
 					send " "
 
@@ -159,8 +174,15 @@ command /merchant [<number>] [<text>] [<text>] [<text>]:
 				set {_lore::*} to lore of loop-item
 				loop {_lore::*}:
 					loop-value-2 contains "Sell"
-					add loop-item to {_sellable::*}
-					exit loop
+					if {_sellable::*} is set:
+						loop {_sellable::*}:
+							name of loop-value-3 is not name of loop-item # remove duplicate items / more than a stack
+							add loop-item to {_sellable::*}
+							exit loop
+						exit loop
+					else:
+						add loop-item to {_sellable::*}
+						exit loop
 
 			if size of {_sellable::*} is greater than 7:
 				set {_indexStart} to ({_page::1} * 8) - 7
