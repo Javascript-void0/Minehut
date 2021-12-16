@@ -8,11 +8,15 @@ options:
 function boneWarrior(loc: location, p: player) :: entity:
 	spawn skeleton at {_loc}
 	set {_e} to last spawned mob
-	
-	set {_level} to {p_level::%{_p}%}
-	set {%{_e}%::maxhealth} to {_level} * 30
-	set {%{_e}%::health} to {_level} * 30
-	set {%{_e}%::damage} to {_level} * 2
+	if {p_floor::%{_p}%} is set:
+		set {_floor} to {p_floor::%{_p}%}
+	else:
+		set {_floor} to 0
+
+	set {_level} to {p_level::%{_p}%} + {_floor}
+	set {%{_e}%::maxhealth} to {_level} * 30 + ({_floor} * 10)
+	set {%{_e}%::health} to {%{_e}%::maxhealth}
+	set {%{_e}%::damage} to {_level} * 2 + {_floor}
 	set {%{_e}%::player} to {_p}
 
 	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fBone:Warrior &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
@@ -33,11 +37,15 @@ function boneWarrior(loc: location, p: player) :: entity:
 function boneArcher(loc: location, p: player) :: entity:
 	spawn skeleton at {_loc}
 	set {_e} to last spawned mob
+	if {p_floor::%{_p}%} is set:
+		set {_floor} to {p_floor::%{_p}%}
+	else:
+		set {_floor} to 0
 	
-	set {_level} to {p_level::%{_p}%}
-	set {%{_e}%::maxhealth} to {_level} * 20
-	set {%{_e}%::health} to {_level} * 20
-	set {%{_e}%::damage} to {_level} * 3
+	set {_level} to {p_level::%{_p}%} + {_floor}
+	set {%{_e}%::maxhealth} to {_level} * 20 + ({_floor} * 10)
+	set {%{_e}%::health} to {%{_e}%::maxhealth}
+	set {%{_e}%::damage} to {_level} * 3 + {_floor}
 	set {%{_e}%::player} to {_p}
 
 	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fBone:Archer &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
@@ -58,11 +66,15 @@ function boneArcher(loc: location, p: player) :: entity:
 function orcCaptain(loc: location, p: player) :: entity:
 	spawn zombie at {_loc}
 	set {_e} to last spawned mob
+	if {p_floor::%{_p}%} is set:
+		set {_floor} to {p_floor::%{_p}%}
+	else:
+		set {_floor} to 0
 
-	set {_level} to {p_level::%{_p}%}
-	set {%{_e}%::maxhealth} to {_level} * 30
-	set {%{_e}%::health} to {_level} * 30
-	set {%{_e}%::damage} to {_level} * 3
+	set {_level} to {p_level::%{_p}%} + {_floor}
+	set {%{_e}%::maxhealth} to {_level} * 30 + ({_floor} * 10)
+	set {%{_e}%::health} to {%{_e}%::maxhealth}
+	set {%{_e}%::damage} to {_level} * 3 + {_floor}
 	set {%{_e}%::player} to {_p}
 
 	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fOrc:Captain &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
@@ -85,11 +97,15 @@ function orcCaptain(loc: location, p: player) :: entity:
 function orcWarrior(loc: location, p: player) :: entity:
 	spawn zombie at {_loc}
 	set {_e} to last spawned mob
+	if {p_floor::%{_p}%} is set:
+		set {_floor} to {p_floor::%{_p}%}
+	else:
+		set {_floor} to 0
 	
-	set {_level} to {p_level::%{_p}%}
-	set {%{_e}%::maxhealth} to {_level} * 20
-	set {%{_e}%::health} to {_level} * 20
-	set {%{_e}%::damage} to {_level} * 3
+	set {_level} to {p_level::%{_p}%} + {_floor}
+	set {%{_e}%::maxhealth} to {_level} * 20 + ({_floor} * 10)
+	set {%{_e}%::health} to {%{_e}%::maxhealth}
+	set {%{_e}%::damage} to {_level} * 3 + {_floor}
 	set {%{_e}%::player} to {_p}
 
 	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fOrc:Warrior &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
@@ -112,11 +128,15 @@ function orcWarrior(loc: location, p: player) :: entity:
 function elfWarrior(loc: location, p: player) :: entity:
 	spawn husk at {_loc}
 	set {_e} to last spawned mob
+	if {p_floor::%{_p}%} is set:
+		set {_floor} to {p_floor::%{_p}%}
+	else:
+		set {_floor} to 0
 	
-	set {_level} to {p_level::%{_p}%}
-	set {%{_e}%::maxhealth} to {_level} * 30
-	set {%{_e}%::health} to {_level} * 30
-	set {%{_e}%::damage} to {_level} * 3
+	set {_level} to {p_level::%{_p}%} + {_floor}
+	set {%{_e}%::maxhealth} to {_level} * 30 + ({_floor} * 10)
+	set {%{_e}%::health} to {%{_e}%::maxhealth}
+	set {%{_e}%::damage} to {_level} * 3 + {_floor}
 	set {%{_e}%::player} to {_p}
 
 	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fElf:Warrior &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
@@ -139,11 +159,15 @@ function elfWarrior(loc: location, p: player) :: entity:
 function elfCaptain(loc: location, p: player) :: entity:
 	spawn husk at {_loc}
 	set {_e} to last spawned mob
+	if {p_floor::%{_p}%} is set:
+		set {_floor} to {p_floor::%{_p}%}
+	else:
+		set {_floor} to 0
 
-	set {_level} to {p_level::%{_p}%}
-	set {%{_e}%::maxhealth} to {_level} * 30
-	set {%{_e}%::health} to {_level} * 30
-	set {%{_e}%::damage} to {_level} * 4
+	set {_level} to {p_level::%{_p}%} + {_floor}
+	set {%{_e}%::maxhealth} to {_level} * 30 + ({_floor} * 10)
+	set {%{_e}%::health} to {%{_e}%::maxhealth}
+	set {%{_e}%::damage} to {_level} * 4 + {_floor}
 	set {%{_e}%::player} to {_p}
 
 	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fElf:Captain &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
@@ -166,11 +190,15 @@ function elfCaptain(loc: location, p: player) :: entity:
 function spiritArcher(loc: location, p: player) :: entity:
 	spawn stray at {_loc}
 	set {_e} to last spawned mob
+	if {p_floor::%{_p}%} is set:
+		set {_floor} to {p_floor::%{_p}%}
+	else:
+		set {_floor} to 0
 
-	set {_level} to {p_level::%{_p}%}
-	set {%{_e}%::maxhealth} to {_level} * 20
-	set {%{_e}%::health} to {_level} * 20
-	set {%{_e}%::damage} to {_level} * 3
+	set {_level} to {p_level::%{_p}%} + {_floor}
+	set {%{_e}%::maxhealth} to {_level} * 20 + ({_floor} * 10)
+	set {%{_e}%::health} to {%{_e}%::maxhealth}
+	set {%{_e}%::damage} to {_level} * 3 + {_floor}
 	set {%{_e}%::player} to {_p}
 
 	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fSpirit:Archer &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"
@@ -193,11 +221,15 @@ function spiritArcher(loc: location, p: player) :: entity:
 function spiritWarrior(loc: location, p: player) :: entity:
 	spawn stray at {_loc}
 	set {_e} to last spawned mob
+	if {p_floor::%{_p}%} is set:
+		set {_floor} to {p_floor::%{_p}%}
+	else:
+		set {_floor} to 0
 
-	set {_level} to {p_level::%{_p}%}
-	set {%{_e}%::maxhealth} to {_level} * 30
-	set {%{_e}%::health} to {_level} * 30
-	set {%{_e}%::damage} to {_level} * 2
+	set {_level} to {p_level::%{_p}%} + {_floor}
+	set {%{_e}%::maxhealth} to {_level} * 30 + ({_floor} * 10)
+	set {%{_e}%::health} to {%{_e}%::maxhealth}
+	set {%{_e}%::damage} to {_level} * 2 + {_floor}
 	set {%{_e}%::player} to {_p}
 
 	set name of {_e} to "&8[{@color}:L%{_level}%&8] &fSpirit:Warrior &7({@color}%{%{_e}%::health}%{@color}/%{%{_e}%::maxhealth}% ❤&7)"

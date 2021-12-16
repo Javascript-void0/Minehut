@@ -25,20 +25,32 @@ function generateChest(b: block, p: player):
 	loop 29 times:
 		set {_n} to random integer between 1 and 10000
 		if {_n} is less than 2500:
-			if {_n} is less than 5000:
-				set {_item} to random element out of {mobloot::common::*}
-				set {_qty} to random integer between 1 and 4
-			else if {_n} is less than 5750:
-				set {_item} to random element out of {moblootUn::uncommon::*}
+			if {_n} is less than 50:
+				set {_item} to random element out of {mobloot::rare::*}
+				set {_qty} to 1
+			else if {_n} is less than 400:
+				set {_item} to random element out of {mobloot::uncommon::*}
 				set {_qty} to 1
 			else:
-				set {_item} to random element out of {moblootRr::rare::*}
-				set {_qty} to 1
+				set {_item} to random element out of {mobloot::common::*}
+				set {_qty} to random integer between 1 and 4
 			set slot loop-number of inventory of {_b} to {_qty} of {_item}
 		else if {_n} is less than 4000:
 			set {_value} to random integer between 2 and 15
 			set {_id} to random integer between 1000 and 9999
 			set slot loop-number of inventory of {_b} to gold nugget named "{@color}&lCOINS" with lore " &8┃ &7Quantity: {@color}%{_value}%" and " &8╹ &7##%{_id}%" 
+		else if {_n} is less than 4500:
+			set {_silver} to random integer between 1 and 100
+			if {_silver} is less than 10:
+				set {_silver} to {polishedsilver}
+				set {_count} to 1
+			else if {_silver} is less than 40:
+				set {_silver} to {weatheredsilver}
+				set {_count} to random integer between 1 and 2
+			else:
+				set {_silver} to {tarnishedsilver}
+				set {_count} to random integer between 1 and 3
+			set slot loop-number of inventory of {_b} to {_count} of {_silver}
 
 on inventory click:
 	name of event-inventory is "Chest"
@@ -49,4 +61,9 @@ on inventory click:
 	set {_value::*} to {_lore::1} parsed as " ┃ Quantity: %number%"
 	remove event-item from event-inventory
 	coins("add", player, {_value::1})
-	send "{@prefix} &7Recieved %{_value::1}% coins from the chest. "
+	# send "{@prefix} &7Recieved %{_value::1}% coins from the chest. "
+	set {action::%player%} to "+%{_value::1}% coins"
+	set {actionCoins::%player%} to {_value::1}
+	wait 2 seconds
+	{actionCoins::%player%} is {_value::1}
+	delete {action::%player%}

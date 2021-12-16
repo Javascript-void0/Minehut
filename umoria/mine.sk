@@ -5,18 +5,23 @@ options:
 	admin: &8[<##B4C788>&lADMIN&8]&7
 	world: world
 
-on walking on bedrock:
-	{launchpad} is true
-	block above event-block is polished blackstone pressure plate
-	loop 10 times:
-		push player upwards
-		wait 1 tick
+# on walking on bedrock:
+# 	{launchpad} is true
+# 	block above event-block is polished blackstone pressure plate
+# 	loop 10 times:
+# 		push player upwards
+# 		wait 1 tick
 
-# on break:
-# 	player is not op
-# 	event-block is polished blackstone pressure plate or gray carpet
-# 	"%region at event-block%" contains "mine"
-# 	cancel event
+on break:
+	player is not op
+	if event-block is cracked stone bricks:
+		if player's tool is pickaxe:
+			stop
+		else:
+			cancel event
+	else:
+		cancel event
+	cancel event
 
 on mine:
 	player's tool is pickaxe
