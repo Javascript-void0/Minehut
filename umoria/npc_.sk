@@ -28,111 +28,6 @@ function Dungeon(p: player):
 	set slot 4 of metadata tag "Dungeon" of {_p} to emerald named "&cStart"
 	open (metadata tag "Dungeon" of {_p}) to {_p}
 
-function bankCapacity(p: player) :: number: 
-	set {_cap} to {p_level::%{_p}%} * 10000
-	return {_cap}
-
-function bankSelection(p: player, n: integer):
-	if {_n} is 8:
-		set slot 8 of metadata tag "Banker" of {_p} to green stained glass pane named "10%%"
-		set slot 17 of metadata tag "Banker" of {_p} to red stained glass pane named "50%%"
-		set slot 26 of metadata tag "Banker" of {_p} to red stained glass pane named "max"
-	else if {_n} is 17:
-		set slot 8 of metadata tag "Banker" of {_p} to red stained glass pane named "10%%"
-		set slot 17 of metadata tag "Banker" of {_p} to green stained glass pane named "50%%"
-		set slot 26 of metadata tag "Banker" of {_p} to red stained glass pane named "max"
-	else if {_n} is 26:
-		set slot 8 of metadata tag "Banker" of {_p} to red stained glass pane named "10%%"
-		set slot 17 of metadata tag "Banker" of {_p} to red stained glass pane named "50%%"
-		set slot 26 of metadata tag "Banker" of {_p} to green stained glass pane named "max"
-	open (metadata tag "Banker" of {_p}) to {_p}
-
-function getBankSelection(p: player) :: number:
-	if slot 8 of metadata tag "Banker" of {_p} is green stained glass pane:
-		return 10
-	else if slot 17 of metadata tag "Banker" of {_p} is green stained glass pane:
-		return 50
-	else if slot 26 of metadata tag "Banker" of {_p} is green stained glass pane:
-		return 100
-
-function heist(p: player):
-	send "wip" to {_p}
-
-on inventory click:
-	event-inventory = (metadata tag "Banker" of player)
-	if clicked slot is 19: # deposit
-		cancel event
-		set {_amount} to getBankSelection(player)
-		set {_cap} to bankCapacity(player)
-		if {_amount} is 100:
-			set {_open} to {_cap} - {p_bank::%player%}
-			if {p_coins::%player%} - {_open} is less than 0:
-				set {_remove} to {p_coins::%player%}
-			else if {p_coins::%player%} - {_open} is greater than or equal to 0:
-				set {_remove} to {_open}
-		else:
-			set {_remove} to floor(({_amount} / 100) * {p_coins::%player%})
-		remove {_remove} from {p_coins::%player%}
-		add {_remove} to {p_bank::%player%}
-		add {_remove} to {server_worth}
-		Banker(player, {_amount})
-	else if clicked slot is 23: # withdraw
-		cancel event
-		set {_amount} to getBankSelection(player)
-		if {_amount} is 100:
-			set {_add} to {p_bank::%player%}
-		else:
-			set {_add} to floor(({_amount} / 100) * {p_bank::%player%})
-		remove {_add} from {server_worth}
-		remove {_add} from {p_bank::%player%}
-		add {_add} to {p_coins::%player%}
-		Banker(player, {_amount})
-	else if clicked slot is 44: # heist
-		heist(player)
-	else if clicked slot is 8:
-		bankSelection(player, index of event-slot)
-	else if clicked slot is 17:
-		bankSelection(player, index of event-slot)
-	else if clicked slot is 26:
-		bankSelection(player, index of event-slot)
-	else:
-		cancel event
-
-function Banker(p: player, n: integer):
-	set metadata tag "Banker" of {_p} to chest inventory with 5 rows named "Banker"
-	set slot 3 of metadata tag "Banker" of {_p} to emerald block named "&aServer Worth: $%{server_worth}%"
-	set {_c} to bankCapacity({_p})
-	set slot 9, 11, 13, 15, 18, 20, 22, 24, 27, 29, 31, and 33 of metadata tag "Banker" of {_p} to gray stained glass pane named " "
-	set slot 10 and 28 of metadata tag "Banker" of {_p} to green stained glass pane named "deposit"
-	set slot 19 of metadata tag "Banker" of {_p} to chest named "Deposit" with lore "%{p_bank::%{_p}%}% / %{_c}%"
-	set slot 12 and 30 of metadata tag "Banker" of {_p} to black stained glass pane named "ammount"
-	set slot 21 of metadata tag "Banker" of {_p} to emerald named "Your Bank" with lore "%{p_bank::%{_p}%}% / %{_c}%"
-	set slot 14 and 32 of metadata tag "Banker" of {_p} to red stained glass pane named "withdraw"
-	set slot 23 of metadata tag "Banker" of {_p} to chest named "Withdraw" with lore "%{p_bank::%{_p}%}% / %{_c}%"
-
-	set slot 44 of metadata tag "Banker" of {_p} to bell named "Heist"
-	
-	set slot 7, 16, 25, 34, 35, and 43 of metadata tag "Banker" of {_p} to black stained glass pane named ">>> Amount"
-	# set slot 16 of metadata tag "Banker" of {_p} to black stained glass pane named ">>> Amount"
-	# set slot 25 of metadata tag "Banker" of {_p} to black stained glass pane named ">>> Amount"
-	# set slot 34 of metadata tag "Banker" of {_p} to black stained glass pane named ">>> Amount"
-	# set slot 35 of metadata tag "Banker" of {_p} to black stained glass pane named ">>> Amount"
-	# set slot 43 of metadata tag "Banker" of {_p} to black stained glass pane named ">>> Amount"
-	
-	if {_n} is 10:
-		set slot 8 of metadata tag "Banker" of {_p} to green stained glass pane named "10%%"
-		set slot 17 of metadata tag "Banker" of {_p} to red stained glass pane named "50%%"
-		set slot 26 of metadata tag "Banker" of {_p} to red stained glass pane named "max"
-	else if {_n} is 50:
-		set slot 8 of metadata tag "Banker" of {_p} to red stained glass pane named "10%%"
-		set slot 17 of metadata tag "Banker" of {_p} to green stained glass pane named "50%%"
-		set slot 26 of metadata tag "Banker" of {_p} to red stained glass pane named "max"
-	else if {_n} is 100:
-		set slot 8 of metadata tag "Banker" of {_p} to red stained glass pane named "10%%"
-		set slot 17 of metadata tag "Banker" of {_p} to red stained glass pane named "50%%"
-		set slot 26 of metadata tag "Banker" of {_p} to green stained glass pane named "max"
-	open (metadata tag "Banker" of {_p}) to {_p}
-
 function Tutorial(p: player):
 	stop
 
@@ -170,7 +65,8 @@ function npcClick(n: number, p: player):
 	else if {_n} is 5:
 		Map({_p})
 	else if {_n} is 6:
-		Banker({_p}, 100)
+		set {sessionid::%{_p}%} to random integer between 1000 and 9999
+		make {_p} execute "/banker %{sessionid::%{_p}%}% deposit 10"
 
 npc left click:
 	npcClick(event-number, player)

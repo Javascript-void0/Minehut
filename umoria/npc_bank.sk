@@ -1,0 +1,158 @@
+options:
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&7
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&7
+	coins: &7Insufficient <##B4C788>Coins
+	wrath: &7Insufficient <##B4C788>Wrath
+	world: world
+
+function bankCapacity(p: player) :: number: 
+	set {_cap} to {p_level::%{_p}%} * 10000
+	return {_cap}
+
+command /banker [<number>] [<text>] [<text>] [<number>]:
+	trigger:
+		if {p_bank::%player%} is not set:
+			set {p_bank::%player%} to 0
+		arg-1 is {sessionid::%player%}
+		set {sessionid::%player%} to random integer between 1000 and 9999
+		
+		if arg-4 is set:
+			if arg-2 is "deposit":
+				set {p_bank::%player%} to {p_bank::%player%} + arg-4
+				set {p_coins::%player%} to {p_coins::%player%} - arg-4
+				set {server_worth} to {server_worth} + arg-4
+				set {_message} to "   &7Deposited {@color}%format(arg-4)% &7coins"
+			else if arg-2 is "withdraw":
+				set {p_bank::%player%} to {p_bank::%player%} - arg-4
+				set {p_coins::%player%} to {p_coins::%player%} + arg-4
+				set {server_worth} to {server_worth} - arg-4
+				set {_message} to "   &7Withdrew {@color}%format(arg-4)% &7coins"
+		else:
+			set {_message} to " "
+		
+		if arg-2 contains "heist":
+			set {_heistColor} to "&c"
+			set {_skull} to "&c"
+		else:
+			set {_heistColor} to "{@color}"
+			set {_skull} to "&7"
+
+		send " "
+		send formatted " &7&l------- %{_heistColor}%&lBANKER &7&l------- <tooltip:%{_heistColor}%Heist><command:/banker %{sessionid::%player%}% heist %arg-3%>%{_skull}%☠<reset>"
+		send " "
+		set {_serverRound} to format({server_worth})
+		set {_serverAll} to a("%{server_worth}%")
+		send formatted "         &7Server Eco: <tooltip:%{_heistColor}%%{_serverAll}%>%{_heistColor}%$%{_serverRound}%<reset>"
+		send " "
+
+		if arg-2 is "deposit":
+			set {_capacity} to bankCapacity(player)
+			set {_capa} to a("%{_capacity}%")
+			set {_remainCapacity} to {_capacity} - {p_bank::%player%}
+			set {_capformat} to format({_capacity})
+			set {_bank} to {p_bank::%player%}
+			set {_banka} to a("%{p_bank::%player%}%")
+			set {_bankformat} to format({p_bank::%player%})
+			set {_10amount} to floor({p_coins::%player%} / 10)
+			set {_50amount} to floor({p_coins::%player%} / 2)
+			set {_maxamount} to {_remainCapacity}
+			if {_10amount} is greater than {_remainCapacity}:
+				set {_10amount} to {_remainCapacity}
+			if {_50amount} is greater than {_remainCapacity}:
+				set {_50amount} to {_remainCapacity}
+			if {_maxamount} is greater than {p_coins::%player%}:
+				set {_maxamount} to {p_coins::%player%}
+			set {_10a} to a("%{_10amount}%")
+			set {_50a} to a("%{_50amount}%")
+			set {_maxa} to a("%{_maxamount}%")
+			if arg-3 is "10":
+				set {_10} to "{@color}"
+				set {_50} to "&7"
+				set {_max} to "&7"
+				set {_active} to {_10amount}
+			else if arg-3 is "50":
+				set {_10} to "&7"
+				set {_50} to "{@color}"
+				set {_max} to "&7"
+				set {_active} to {_50amount}
+			else if arg-3 is "max":
+				set {_10} to "&7"
+				set {_50} to "&7"
+				set {_max} to "{@color}"
+				set {_active} to {_maxamount}
+			send formatted "  &8[<tooltip:{@color}Change mode to deposit><command:/banker %{sessionid::%player%}% deposit %arg-3%>{@color}&lDEP<reset>&8/<tooltip:{@color}Change mode to withdraw><command:/banker %{sessionid::%player%}% withdraw %arg-3%>&7&lWITH<reset>&8] &8[<tooltip:{@color}Deposit 10%% of coins><command:/banker %{sessionid::%player%}% %arg-2% 10>%{_10}%10%%<reset> &8| <tooltip:{@color}Despoit 50%% of coins><command:/banker %{sessionid::%player%}% %arg-2% 50>%{_50}%50%%<reset> &8| <tooltip:{@color}Deposit maximum coins><command:/banker %{sessionid::%player%}% %arg-2% max>%{_max}%MAX<reset>&8]"
+			send " "
+			send formatted "         &7Bank: <tooltip:{@color}%{_banka}%>{@color}%{_bankformat}%&7/<tooltip:{@color}%{_capa}%>%{_capformat}%"
+			send " "
+			send formatted "       &8[&7-&8] &710%%: <tooltip:{@color}%{_10a}%><command:/banker %{sessionid::%player%}% %arg-2% 10>{@color}%format({_10amount})% &7coins"
+			send formatted "       &8[&7-&8] &750%%: <tooltip:{@color}%{_50a}%><command:/banker %{sessionid::%player%}% %arg-2% 50>{@color}%format({_50amount})% &7coins"
+			send formatted "       &8[&7-&8] &7Max: <tooltip:{@color}%{_maxa}%><command:/banker %{sessionid::%player%}% %arg-2% max>{@color}%format({_maxamount})% &7coins"
+			send " "
+			send formatted "          &8[ <tooltip:{@color}Click to Proceed><command:/banker %{sessionid::%player%}% %arg-2% %arg-3% %{_active}%>{@color}&lDEPOSIT &8]"
+			send " "
+		else if arg-2 is "withdraw":
+			set {_capacity} to bankCapacity(player)
+			set {_capa} to a("%{_capacity}%")
+			set {_capformat} to format({_capacity})
+			set {_bank} to {p_bank::%player%}
+			set {_banka} to a("%{p_bank::%player%}%")
+			set {_bankformat} to format({p_bank::%player%})
+			set {_10amount} to floor({p_bank::%player%} / 10)
+			set {_50amount} to floor({p_bank::%player%} / 2)
+			set {_10a} to a("%{_10amount}%")
+			set {_50a} to a("%{_50amount}%")
+			set {_maxa} to a("%{p_bank::%player%}%")
+			if arg-3 is "10":
+				set {_10} to "{@color}"
+				set {_50} to "&7"
+				set {_max} to "&7"
+				set {_active} to {_10amount}
+			else if arg-3 is "50":
+				set {_10} to "&7"
+				set {_50} to "{@color}"
+				set {_max} to "&7"
+				set {_active} to {_50amount}
+			else if arg-3 is "max":
+				set {_10} to "&7"
+				set {_50} to "&7"
+				set {_max} to "{@color}"
+				set {_active} to {p_bank::%player%}
+			send formatted "  &8[<tooltip:{@color}Change mode to deposit><command:/banker %{sessionid::%player%}% deposit %arg-3%>&7&lDEP<reset>&8/<tooltip:{@color}Change mode to withdraw><command:/banker %{sessionid::%player%}% withdraw %arg-3%>{@color}&lWITH<reset>&8] &8[<tooltip:{@color}Withdraw 10%% of coins><command:/banker %{sessionid::%player%}% %arg-2% 10>%{_10}%10%%<reset> &8| <tooltip:{@color}Withdraw 50%% of coins><command:/banker %{sessionid::%player%}% %arg-2% 50>%{_50}%50%%<reset> &8| <tooltip:{@color}Withdraw maximum coins><command:/banker %{sessionid::%player%}% %arg-2% max>%{_max}%MAX<reset>&8]"
+			send " "
+			send formatted "         &7Bank: <tooltip:{@color}%{_banka}%>{@color}%{_bankformat}%&7/<tooltip:{@color}%{_capa}%>%{_capformat}%"
+			send " "
+			send formatted "       &8[&7+&8] &710%%: <tooltip:{@color}%{_10a}%><command:/banker %{sessionid::%player%}% %arg-2% 10>{@color}%format({_10amount})% &7coins"
+			send formatted "       &8[&7+&8] &750%%: <tooltip:{@color}%{_50a}%><command:/banker %{sessionid::%player%}% %arg-2% 50>{@color}%format({_50amount})% &7coins"
+			send formatted "       &8[&7+&8] &7Max: <tooltip:{@color}%{_maxa}%><command:/banker %{sessionid::%player%}% %arg-2% max>{@color}%format({p_bank::%player%})% &7coins"
+			send " "
+			send formatted "          &8[ <tooltip:{@color}Click to Proceed><command:/banker %{sessionid::%player%}% %arg-2% %arg-3% %{_active}%>{@color}&lWITHDRAW &8]"
+			send " "
+		else if arg-2 is "heist":
+			send formatted "         &8[<tooltip:&cCancel Heist><command:/banker %{sessionid::%player%}% deposit %arg-3%>&7&lCANCEL<reset>&8/<tooltip:&cProceed with heist><command:/banker %{sessionid::%player%}% heistconf %arg-3%>&c&lHEIST<reset>&8]"
+			send " "
+			send " "
+			send " "
+			send " wip"
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+		else if arg-2 is "heistconf":
+			send formatted "         &8[<tooltip:&cCancel Heist><command:/banker %{sessionid::%player%}% deposit %arg-3%>&7&lCANCEL<reset>&8/<tooltip:&cProceed with heist><command:/banker %{sessionid::%player%}% heistconf %arg-3%>&c&lHEIST<reset>&8]"
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " wip"
+			send " "
+			send " "
+		send " "
+		send {_message}
+		send " "
+		send " &7&l----------------------- "
+		send " "
