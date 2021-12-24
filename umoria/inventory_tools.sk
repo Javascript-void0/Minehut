@@ -27,13 +27,10 @@ function toolCompatible(i: item, e: text) :: boolean:
 	return false
 
 on right click:
-	if player's held item is bow:
-		player is sneaking
-		cancel event
-		make player execute "/enchant"
-	else if itemCheck(player's held item) is true:
-		cancel event
-		make player execute "/enchant"
+	itemCheck(player's held item) is true
+	player is sneaking
+	cancel event
+	make player execute "/enchant"
 
 on tab complete of "/enchant":
 	if player's held item is sword:

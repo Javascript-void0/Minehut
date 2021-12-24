@@ -1,0 +1,52 @@
+options:
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&7
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&7
+	coins: &7Insufficient <##B4C788>Coins
+	wrath: &7Insufficient <##B4C788>Wrath
+	world: world
+
+command /start [<text>]:
+	trigger:
+		if arg-1 is not set:
+			send " "
+			send " &7&l------- {@color}&lDUNGEON &7&l-------"
+			send " "
+			if {dungeonActive::%player%} is set:
+				send " "
+				send "   &7Mercenary: Welcome back!"
+				send "   &7Would you like to continue "
+				send "   &7your last dungeon or start"
+				send "   &7a new one? "
+				send " "
+				send " "
+				send "    {@color}☠ &7===== {@color}&lSTATS &7===== {@color}☠"
+				send " "
+				send "                &7Floor: {@color}%{p_floor::%player%}%"
+				send " "
+				send "             &7Room: {@color}%{p_room::%player%}% &7/ %{p_roomnum::%player%}%"
+				send " "
+				send formatted "          &8[<command:/start new><tooltip:{@color}Start a new dungeon>{@color}&lNEW<reset>&8 | <command:/start continue><tooltip:{@color}Continue a dungeon>{@color}&lCONTINUE<reset>&8]"
+			else:
+				send " "
+				send "   &7Mercenary: Welcome! "
+				send "   &7Click &8[&7&lSTART&8] &7below to"
+				send "   &7begin a new journey. "
+				send " "
+				send " "
+				send " "
+				send " "
+				send " "
+				send " "
+				send " "
+				send " "
+				send formatted "               &8[<command:/start new><tooltip:{@color}Start a new dungeon>{@color}&lSTART<reset>&8]"
+			send " "
+			send " &7&l----------------------- "
+			send " "
+		else if arg-1 is "new":
+			clearMob(player)
+			dungeonStart(player, {dungeonActive::%player%})
+		else if arg-1 is "continue":
+			teleport player to {dungeonSpot::%player%}

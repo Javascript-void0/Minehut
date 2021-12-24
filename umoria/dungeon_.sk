@@ -210,11 +210,12 @@ function dungeonSave(p: player):
 		set block at {dungeonActive::%{_p}%} to coal block
 		clearMob({_p})
 		set {lastLogin::%{_p}%} to now
+		set {dungeonSpot::%{_p}%} to location of {_p}
 
 function dungeonEnd(p: player):
 	if {dungeonActive::%{_p}%} is set:
 		set {_} to pasteDungeon({dungeonActive::%{_p}%}, "start", {_p})
-		send "&4Restarted: &c%{dungeonActive::%{_p}%}%" to {_p}
+		# send "&4Restarted: &c%{dungeonActive::%{_p}%}%" to {_p}
 		set block at {dungeonActive::%{_p}%} to emerald block
 		delete {dungeonActive::%{_p}%}
 		delete {p_mobRemain::%{_p}%}

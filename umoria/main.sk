@@ -56,6 +56,8 @@ on join:
 	send " "
 	send " "
 	send " "
+on join:
+	teleport player to {spawn}
 on connect:
 	broadcast "&8[&a+&8] &7%player%"
 on disconnect:
@@ -66,9 +68,10 @@ on first join:
 command /spawn:
 	trigger:
 		if {dungeonActive::%player%} is set:
-			send "{@prefix} &7You can't leave the dungeon before ending it. "
-		else:
-			teleport player to {spawn}
+			set {dungeonSpot::%player%} to player's location
+			# send "{@prefix} &7You can't leave the dungeon before ending it. "
+		# else:
+		teleport player to {spawn}
 
 command /setspawn:
 	trigger:

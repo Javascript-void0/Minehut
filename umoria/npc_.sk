@@ -56,12 +56,12 @@ function npcClick(n: number, p: player):
 	else if {_n} is 1:
 		Library({_p})
 	else if {_n} is 2:
-		Dungeon({_p})
+		make {_p} execute "/start"
 	else if {_n} is 3:
 		Tutorial({_p})
 	else if {_n} is 4:
 		set {sessionid::%{_p}%} to random integer between 1000 and 9999
-		make {_p} execute "/merchant %{sessionid::%{_p}%}% sell0 1"
+		make {_p} execute "/merchant %{sessionid::%{_p}%}% sell1 1"
 	else if {_n} is 5:
 		Map({_p})
 	else if {_n} is 6:
