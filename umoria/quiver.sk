@@ -4,201 +4,182 @@ options:
 on shoot:
 	if {quiver.%shooter%.current} is not "none":
 		remove 1 from {quiver.%shooter%::%{quiver.%shooter%.current}%}
-		set line 1 of lore of slot 17 of shooter to " &8┃ &7Quantity: x%{quiver.%shooter%::%{quiver.%shooter%.current}%}%"
-		remove 1 of slot 17 of shooter from inventory of shooter
+		updateQuiverInventory(shooter)
 	else:
-		set line 1 of lore of slot 17 of shooter to " &8┃ &7Quantity: x0"
+		updateQuiverInventory(shooter)
 	if {quiver.%shooter%::%{quiver.%shooter%.current}%} is 0:
 		nextQuiver(shooter)
 
-# function giveQuiverBundle() :: item:
-# 	set {_line} to 5
-# 	set {_r} to random integer between 1 and 100
-# 	if {_r} is less than 79:
-# 		set {_rarity} to "Common"
-# 		set {_chance} to 10
-# 		set {_high} to 5
-# 		set {_low} to 1
-# 	else if {_r} is less than 94:
-# 		set {_rarity} to "Uncommon"
-# 		set {_chance} to 50
-# 		set {_high} to 8
-# 		set {_low} to 2
-# 	else if {_r} is less than 99:
-# 		set {_rarity} to "Rare"
-# 		set {_chance} to 80
-# 		set {_high} to 11
-# 		set {_low} to 4
-# 	else:
-# 		set {_rarity} to "Epic"
-# 		set {_chance} to 100
-# 		set {_high} to 15
-# 		set {_low} to 7
-# 	set {_item} to brown candle named "{@color}&lQUIVER Bundle" with lore "{@color}&l RARITY" and " &8╹ &7%{_rarity}%" and " " and "{@color}&l CONTAINS" 
-# 	set {_n} to random integer between {_low} and {_high} 
-# 	set line {_line} of lore of {_item} to " &8┃ &7Arrow: x%{_n}%"
-# 	add 1 to {_line}
-# 	chance of {_chance}%:
-# 		set {_n} to random integer between 1 and 5
-# 		if {_n} is 1:
-# 			set {_arrow} to "Solar Arrow"
-# 		else if {_n} is 2:
-# 			set {_arrow} to "Lunar Arrow"
-# 		else if {_n} is 3:
-# 			set {_arrow} to "Terrestrial Arrow"
-# 		else if {_n} is 4:
-# 			set {_arrow} to "Midnight Arrow"
-# 		else if {_n} is 5:
-# 			set {_arrow} to "Thunder Bolt"
-# 		set {_n} to random integer between {_low} and {_high}
-# 		set line {_line} of lore of {_item} to " &8┃ &7%{_arrow}%: x%{_n}%"
-# 		add 1 to {_line}
-# 	set line {_line} of lore of {_item} to " &8╹ &7Click to open"
-# 	return {_item}
+on tab complete of "/quiver":
+	set tab completions for position 1 to "arrow", "solar", "lunar", "terrestrial", "midnight", and "thunder"
 
-# command /quiverbundle:
-# 	trigger:
-# 		player is op
-# 		loop 100 times:
-# 			give player 1 of giveQuiverBundle()
-
-# function openQuiverBundle(p: player, i: item):
-# 	set {_l::*} to lore of {_i}
-# 	loop {_l::*}:
-# 		loop-value does not contain "RARITY"
-# 		loop-value does not contain "CONTAINS"
-# 		loop-value does not contain "╹"
-# 		add uncolored loop-value to {_lore::*}
-# 	loop {_lore::*}:
-# 		set {_split::*} to loop-value parsed as " ┃ %text%: x%number%"
-# 		if {_split::1} is "Arrow":
-# 			set {quiver.%{_p}%::arrow} to {quiver.%{_p}%::arrow} + {_split::2}
-# 			if {quiver.%{_p}%::arrow} is greater than {p_quiversize::%{_p}%}:
-# 				set {_extra::arrow} to {quiver.%{_p}%::arrow} - {p_quiversize::%{_p}%}
-# 				set {quiver.%{_p}%::arrow} to {p_quiversize::%{_p}%}
-# 		else if {_split::1} is "Solar Arrow":
-# 			set {quiver.%{_p}%::solar} to {quiver.%{_p}%::solar} + {_split::2}
-# 			if {quiver.%{_p}%::solar} is greater than {p_quiversize::%{_p}%}:
-# 				set {_extra::solar} to {quiver.%{_p}%::solar} - {p_quiversize::%{_p}%}
-# 				set {quiver.%{_p}%::solar} to {p_quiversize::%{_p}%}
-# 		else if {_split::1} is "Lunar Arrow":
-# 			set {quiver.%{_p}%::lunar} to {quiver.%{_p}%::lunar} + {_split::2}
-# 			if {quiver.%{_p}%::lunar} is greater than {p_quiversize::%{_p}%}:
-# 				set {_extra::lunar} to {quiver.%{_p}%::lunar} - {p_quiversize::%{_p}%}
-# 				set {quiver.%{_p}%::lunar} to {p_quiversize::%{_p}%}
-# 		else if {_split::1} is "Terrestrial Arrow":
-# 			set {quiver.%{_p}%::terrestrial} to {quiver.%{_p}%::terrestrial} + {_split::2}
-# 			if {quiver.%{_p}%::terrestrial} is greater than {p_quiversize::%{_p}%}:
-# 				set {_extra::terrestrial} to {quiver.%{_p}%::terrestrial} - {p_quiversize::%{_p}%}
-# 				set {quiver.%{_p}%::terrestrial} to {p_quiversize::%{_p}%}
-# 		else if {_split::1} is "Midnight Arrow":
-# 			set {quiver.%{_p}%::midnight} to {quiver.%{_p}%::midnight} + {_split::2}
-# 			if {quiver.%{_p}%::midnight} is greater than {p_quiversize::%{_p}%}:
-# 				set {_extra::midnight} to {quiver.%{_p}%::midnight} - {p_quiversize::%{_p}%}
-# 				set {quiver.%{_p}%::midnight} to {p_quiversize::%{_p}%}
-# 		else if {_split::1} is "Thunder Bolt":
-# 			set {quiver.%{_p}%::thunder} to {quiver.%{_p}%::thunder} + {_split::2}
-# 			if {quiver.%{_p}%::thunder} is greater than {p_quiversize::%{_p}%}:
-# 				set {_extra::thunder} to {quiver.%{_p}%::thunder} - {p_quiversize::%{_p}%}
-# 				set {quiver.%{_p}%::thunder} to {p_quiversize::%{_p}%}
-# 	set {_item} to brown candle named "{@color}&lQUIVER Bundle" with lore {_l::1}
-# 	set {_line} to 5
-# 	loop {_extra::*}:
-# 		if loop-index is "arrow":
-# 			set {_arrow} to "Arrow"
-# 		else if loop-index is "solar":
-# 			set {_arrow} to "Solar Arrow"
-# 		else if loop-index is "lunar":
-# 			set {_arrow} to "Lunar Arrow"
-# 		else if loop-index is "terrestrial":
-# 			set {_arrow} to "Terrerstrial Arrow"
-# 		else if loop-index is "midnight":
-# 			set {_arrow} to "Midnight Arrow"
-# 		else if loop-index is "thunder":
-# 			set {_arrow} to "Thunder Bolt"
-# 		set line {_line} of lore of {_item} to " &8┃ &7%{_arrow}%: x%loop-value%"
-# 		add 1 to {_line}
-# 	set line {_line} of lore of {_item} to " &8╹ &7Click to open"
-# 	give {_p} 1 of {_item}
-# 	nextQuiver({_p})
-
-# on right click:
-# 	set {_item} to player's held item
-# 	openQuiverBundle(player, {_item})
-# 	remove 1 of event-item from player's inventory
+command /quiver [<text>]:
+	trigger:
+		if arg-1 is "arrow":
+			if {quiver.%player%::arrow} is greater than 0:
+				set {quiver.%player%.current} to "arrow"
+				set {_message} to "   &7You equipped {@color}Arrow"
+			else:
+				set {_message} to "   &7You need at least x1 to equip"
+		else if arg-1 is "solar":
+			if {quiver.%player%::solar} is greater than 0:
+				set {quiver.%player%.current} to "solar"
+				set {_message} to "   &7You equipped {@color}Solar Arrow"
+			else:
+				set {_message} to "   &7You need at least x1 to equip"
+		else if arg-1 is "lunar":
+			if {quiver.%player%::lunar} is greater than 0:
+				set {quiver.%player%.current} to "lunar"
+				set {_message} to "   &7You equipped {@color}Lunar Arrow"
+			else:
+				set {_message} to "   &7You need at least x1 to equip"
+		else if arg-1 is "terrestrial":
+			if {quiver.%player%::terrestrial} is greater than 0:
+				set {quiver.%player%.current} to "terrestrial"
+				set {_message} to "   &7You equipped {@color}Terrestrial Arrow"
+			else:
+				set {_message} to "   &7You need at least x1 to equip"
+		else if arg-1 is "midnight":
+			if {quiver.%player%::midnight} is greater than 0:
+				set {quiver.%player%.current} to "midnight"
+				set {_message} to "   &7You equipped {@color}Midnight Arrow"
+			else:
+				set {_message} to "   &7You need at least x1 to equip"
+		else if arg-1 is "thunder":
+			if {quiver.%player%::thunder} is greater than 0:
+				set {quiver.%player%.current} to "thunder"
+				set {_message} to "   &7You equipped {@color}Thunder Bolt"
+			else:
+				set {_message} to "   &7You need at least x1 to equip"
+		else if arg-1 is "shortcut":
+			set {_message} to "   &7Quiver Shortcut: {@color}Q &7(Sneak to drop bow)"
+		else:
+			set {_message} to " "
+		set {_selected::*} to "", "", "", "", "", and ""
+		if {quiver.%player%.current} is "arrow":
+			set {_active} to "Arrow"
+			set {_selected::1} to "&8[{@color}&lSELECTED&8] "
+		else if {quiver.%player%.current} is "solar":
+			set {_active} to "Solar Arrow"
+			set {_selected::2} to "&8[{@color}&lSELECTED&8] "
+		else if {quiver.%player%.current} is "lunar":
+			set {_active} to "Lunar Arrow"
+			set {_selected::3} to "&8[{@color}&lSELECTED&8] "
+		else if {quiver.%player%.current} is "terrestrial":
+			set {_active} to "Terrestrial Arrow"
+			set {_selected::4} to "&8[{@color}&lSELECTED&8] "
+		else if {quiver.%player%.current} is "midnight":
+			set {_active} to "Midnight Arrow"
+			set {_selected::5} to "&8[{@color}&lSELECTED&8] "
+		else if {quiver.%player%.current} is "thunder":
+			set {_active} to "Thunder Bolt"
+			set {_selected::6} to "&8[{@color}&lSELECTED&8] "
+		else:
+			set {_active} to "None"
+		send " "
+		send " &7&l------- {@color}&lQUIVER &7&l--------"
+		send " "
+		send "   <command:/quiver arrow><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::1}%&7Arrow &ox%{quiver.%player%::arrow}%"
+		send "   <command:/quiver solar><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::2}%&7Solar Arrow &ox%{quiver.%player%::solar}%"
+		send "   <command:/quiver lunar><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::3}%&7Lunar Arrow &ox%{quiver.%player%::lunar}%"
+		send "   <command:/quiver terrestrial><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::4}%&7Terrestrial Arrow &ox%{quiver.%player%::terrestrial}%"
+		send "   <command:/quiver midnight><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::5}%&7Midnight Arrow &ox%{quiver.%player%::midnight}%"
+		send "   <command:/quiver thunder><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::6}%&7Thunder Bolt &ox%{quiver.%player%::thunder}%"
+		send " "
+		send "   &7Active: {@color}%{_active}%"
+		send " "
+		send "   &7Quiver Size: {@color}%{p_quiversize::%player%}%"
+		send " "
+		send " "
+		send " "
+		send {_message}
+		send " "
+		send " &7&l---------- {@color}x &7------------ "
+		send ""
+		updateQuiverInventory(player)
 
 on pickup:
 	if 1 of event-item is arrow or tipped arrow of fire resistance or tipped arrow of swiftness or tipped arrow of poison or tipped arrow of weakness or spectral arrow:
 		cancel event
-		set {_n} to item amount of event-item
-		set {_curr} to slot 17 of player's inventory
+		if item amount of event-item is not set:
+			set {_n} to 1
+		else:
+			set {_n} to item amount of event-item
 		if 1 of event-item is arrow:
-			set {_test} to {quiver.%player%::arrow}
-			{_test} is not {p_quiversize::%player%}
-			delete event-entity
-			if {quiver.%player%::arrow} + {_n} is greater than {p_quiversize::%player%}:
-				set {_extra} to ({quiver.%player%::arrow} + {_n}) - {p_quiversize::%player%}
-				drop {_extra} of (1 of event-item) at event-location
-				set {_n} to {p_quiversize::%player%} - {quiver.%player%::arrow}
-			set {quiver.%player%::arrow} to {quiver.%player%::arrow} + {_n}
-			if 1 of {_curr} is arrow:
-				add {_n} of {_curr} to player's inventory
-		else if 1 of event-item is tipped arrow of fire resistance:
-			set {_test} to {quiver.%player%::solar} 
-			{_test} is not {p_quiversize::%player%}
-			delete event-entity
-			if {quiver.%player%::solar} + {_n} is greater than {p_quiversize::%player%}:
-				set {_extra} to ({quiver.%player%::solar} + {_n}) - {p_quiversize::%player%}
-				drop {_extra} of (1 of event-item) at event-location
-				set {_n} to {p_quiversize::%player%} - {quiver.%player%::arrow}
-			set {quiver.%player%::solar} to {quiver.%player%::solar} + {_n}
-			if 1 of {_curr} is tipped arrow of fire resistance:
-				add {_n} of {_curr} to player's inventory
-		else if 1 of event-item is tipped arrow of swiftness:
-			set {_test} to {quiver.%player%::lunar} 
-			{_test} is not {p_quiversize::%player%}
-			delete event-entity
-			if {quiver.%player%::lunar} + {_n} is greater than {p_quiversize::%player%}:
-				set {_extra} to ({quiver.%player%::lunar} + {_n}) - {p_quiversize::%player%}
-				drop {_extra} of (1 of event-item) at event-location
-				set {_n} to {p_quiversize::%player%} - {quiver.%player%::arrow}
-			set {quiver.%player%::lunar} to {quiver.%player%::lunar} + {_n}
-			if 1 of {_curr} is tipped arrow of swiftness:
-				add {_n} of {_curr} to player's inventory
-		else if 1 of event-item is tipped arrow of poison:
-			set {_test} to {quiver.%player%::terrestrial} 
-			{_test} is not {p_quiversize::%player%}
-			delete event-entity
-			if {quiver.%player%::terrestrial} + {_n} is greater than {p_quiversize::%player%}:
-				set {_extra} to ({quiver.%player%::terrestrial} + {_n}) - {p_quiversize::%player%}
-				drop {_extra} of (1 of event-item) at event-location
-				set {_n} to {p_quiversize::%player%} - {quiver.%player%::arrow}
-			set {quiver.%player%::terrestrial} to {quiver.%player%::terrestrial} + {_n}
-			if 1 of {_curr} is tipped arrow of poison:
-				add {_n} of {_curr} to player's inventory
-		else if 1 of event-item is tipped arrow of weakness:
-			set {_test} to {quiver.%player%::midnight} 
-			{_test} is not {p_quiversize::%player%}
-			delete event-entity
-			if {quiver.%player%::midnight} + {_n} is greater than {p_quiversize::%player%}:
-				set {_extra} to ({quiver.%player%::midnight} + {_n}) - {p_quiversize::%player%}
-				drop {_extra} of (1 of event-item) at event-location
-				set {_n} to {p_quiversize::%player%} - {quiver.%player%::arrow}
-			set {quiver.%player%::midnight} to {quiver.%player%::midnight} + {_n}
-			if 1 of {_curr} is tipped arrow of weakness:
-				add {_n} of {_curr} to player's inventory
+			if ({quiver.%player%::arrow} + {_n}) is greater than 100:
+				if {quiver.%player%::arrow} is not 100:
+					set {quiver.%player%::arrow} to 100
+					delete event-entity
+					drop ({quiver.%player%::arrow} + {_n}) - 100 of event-item at event-location
+			else:
+				set {quiver.%player%::arrow} to {quiver.%player%::arrow} + {_n}
+				delete event-entity
+		if "%event-item%" contains "fire resistance":
+			if ({quiver.%player%::solar} + {_n}) is greater than 100:
+				if {quiver.%player%::solar} is not 100:
+					set {quiver.%player%::solar} to 100
+					delete event-entity
+					drop ({quiver.%player%::solar} + {_n}) - 100 of event-item at event-location
+			else:
+				set {quiver.%player%::solar} to {quiver.%player%::solar} + {_n}
+				delete event-entity
+		else if "%event-item%" contains "swiftness":
+			if ({quiver.%player%::lunar} + {_n}) is greater than 100:
+				if {quiver.%player%::lunar} is not 100:
+					set {quiver.%player%::lunar} to 100
+					delete event-entity
+					drop ({quiver.%player%::lunar} + {_n}) - 100 of event-item at event-location
+			else:
+				set {quiver.%player%::lunar} to {quiver.%player%::lunar} + {_n}
+				delete event-entity
+		else if "%event-item%" contains "poison":
+			if ({quiver.%player%::terrestrial} + {_n}) is greater than 100:
+				if {quiver.%player%::terrestrial} is not 100:
+					set {quiver.%player%::terrestrial} to 100
+					delete event-entity
+					drop ({quiver.%player%::terrestrial} + {_n}) - 100 of event-item at event-location
+			else:
+				set {quiver.%player%::terrestrial} to {quiver.%player%::terrestrial} + {_n}
+				delete event-entity
+		else if "%event-item%" contains "weakness":
+			if ({quiver.%player%::midnight} + {_n}) is greater than 100:
+				if {quiver.%player%::midnight} is not 100:
+					set {quiver.%player%::midnight} to 100
+					delete event-entity
+					drop ({quiver.%player%::midnight} + {_n}) - 100 of event-item at event-location
+			else:
+				set {quiver.%player%::midnight} to {quiver.%player%::midnight} + {_n}
+				delete event-entity
 		else if 1 of event-item is spectral arrow:
-			set {_test} to {quiver.%player%::thunder} 
-			{_test} is not {p_quiversize::%player%}
-			delete event-entity
-			if {quiver.%player%::thunder} + {_n} is greater than {p_quiversize::%player%}:
-				set {_extra} to ({quiver.%player%::thunder} + {_n}) - {p_quiversize::%player%}
-				drop {_extra} of (1 of event-item) at event-location
-				set {_n} to {p_quiversize::%player%} - {quiver.%player%::arrow}
-			set {quiver.%player%::thunder} to {quiver.%player%::thunder} + {_n}
-			if 1 of {_curr} is spectral arrow:
-				add {_n} of {_curr} to player's inventory
-		set line 1 of lore of slot 17 of player to " &8┃ &7Quantity: x%{quiver.%player%::%{quiver.%player%.current}%}%"
+			if ({quiver.%player%::thunder} + {_n}) is greater than 100:
+				if {quiver.%player%::thunder} is not 100:
+					set {quiver.%player%::thunder} to 100
+					delete event-entity
+					drop ({quiver.%player%::thunder} + {_n}) - 100 of event-item at event-location
+			else:
+				set {quiver.%player%::thunder} to {quiver.%player%::thunder} + {_n}
+				delete event-entity
+		updateQuiverInventory(player)
+
+on drop:
+	event-item is bow
+	if player is not sneaking:
+		cancel event
+		make player execute "/quiver shortcut"
+
+function updateQuiverInventory(p: player):
+	if {quiver.%{_p}%.current} is "arrow":
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::arrow} of arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::arrow}%" and " &8╹ (&7/quiver&8)"
+	else if {quiver.%{_p}%.current} is "solar":
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::solar} of tipped arrow of fire resistance named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::solar}%" and " &8╹ (&7/quiver&8)"
+	else if {quiver.%{_p}%.current} is "lunar":
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::lunar} of tipped arrow of swiftness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::lunar}%" and " &8╹ (&7/quiver&8)"
+	else if {quiver.%{_p}%.current} is "terrestrial":
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::terrestrial} of tipped arrow of poison named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" and " &8╹ (&7/quiver&8)"
+	else if {quiver.%{_p}%.current} is "midnight":
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::midnight} of tipped arrow of weakness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::midnight}%" and " &8╹ (&7/quiver&8)"
+	else if {quiver.%{_p}%.current} is "thunder":
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::thunder} of spectral arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::thunder}%" and " &8╹ (&7/quiver&8)"
 
 function nextQuiver(p: player):
 	loop {quiver.%{_p}%::*}:
@@ -234,67 +215,10 @@ function nextQuiver(p: player):
 	set slot 17 of {_p} to {_item}
 
 on inventory click:
-	if event-inventory = (metadata tag "quiver" of player):
-		cancel event
-		if clicked slot is 0:
-			{quiver.%player%::arrow} is not 0
-			set {quiver.%player%.current} to "arrow"
-			set slot 17 of player to {quiver.%player%::arrow} of arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%player%::arrow}%" and " &8╹ &7Click to Open" with all flags hidden
-		else if clicked slot is 1:
-			{quiver.%player%::solar} is not 0
-			set {quiver.%player%.current} to "solar"
-			set slot 17 of player to {quiver.%player%::solar} of tipped arrow of fire resistance named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%player%::solar}%" and " &8╹ &7Click to Open" with all flags hidden
-		else if clicked slot is 2:
-			{quiver.%player%::lunar} is not 0
-			set {quiver.%player%.current} to "lunar"
-			set slot 17 of player to {quiver.%player%::lunar} of tipped arrow of swiftness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%player%::lunar}%" and " &8╹ &7Click to Open" with all flags hidden
-		else if clicked slot is 3:
-			{quiver.%player%::terrestrial} is not 0
-			set {quiver.%player%.current} to "terrestrial"
-			set slot 17 of player to {quiver.%player%::terrestrial} of tipped arrow of poison named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%player%::terrestrial}%" and " &8╹ &7Click to Open" with all flags hidden
-		else if clicked slot is 4:
-			{quiver.%player%::midnight} is not 0
-			set {quiver.%player%.current} to "midnight"
-			set slot 17 of player to {quiver.%player%::midnight} of tipped arrow of weakness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%player%::midnight}%" and " &8╹ &7Click to Open" with all flags hidden
-		else if clicked slot is 5:
-			{quiver.%player%::thunder} is not 0
-			set {quiver.%player%.current} to "thunder"
-			set slot 17 of player to {quiver.%player%::thunder} of spectral arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%player%::thunder}%" and " &8╹ &7Click to Open" with all flags hidden
-		quiver(player)
-		stop
-
 	{unlock.%player%} is not set
 	clicked slot is 17
 	name of player's inventory is "Crafting"
-	quiver(player)
-
-function quiver(p: player):
-	set metadata tag "quiver" of {_p} to dropper inventory named "Quiver"
-	if {quiver.%{_p}%.current} is not "arrow":
-		set slot 0 of metadata tag "quiver" of {_p} to arrow named "{@color}Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::arrow}%" with all flags hidden
-	else:
-		set slot 0 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::arrow}%" with all flags hidden
-	if {quiver.%{_p}%.current} is not "solar":
-		set slot 1 of metadata tag "quiver" of {_p} to tipped arrow of fire resistance named "{@color}Solar Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::solar}%" with all flags hidden
-	else:
-		set slot 1 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Solar Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::solar}%" with all flags hidden
-	if {quiver.%{_p}%.current} is not "lunar":
-		set slot 2 of metadata tag "quiver" of {_p} to tipped arrow of swiftness named "{@color}Lunar Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::lunar}%" with all flags hidden
-	else:
-		set slot 2 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Lunar Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::lunar}%" with all flags hidden
-	if {quiver.%{_p}%} is not "terretrial":
-		set slot 3 of metadata tag "quiver" of {_p} to tipped arrow of poison named "{@color}Terrestrial Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" with all flags hidden
-	else:
-		set slot 3 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Terrestrial Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" with all flags hidden
-	if {quiver.%{_p}%} is not "midnight":
-		set slot 4 of metadata tag "quiver" of {_p} to tipped arrow of weakness named "{@color}Midnight Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::midnight}%" with all flags hidden
-	else:
-		set slot 4 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Midnight Arrow" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::midnight}%" with all flags hidden
-	if {quiver.%{_p}%.current} is not "thunder":
-		set slot 5 of metadata tag "quiver" of {_p} to spectral arrow named "{@color}Thunder Bolt" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::thunder}%" with all flags hidden
-	else:
-		set slot 5 of metadata tag "quiver" of {_p} to red stained glass pane named "{@color}[{@color}&lSELECTED{@color}] Thunder Bolt" with lore " &8╹ &7Quantity: x%{quiver.%{_p}%::thunder}%" with all flags hidden
-	open (metadata tag "quiver" of {_p}) to {_p}
+	cancel event
 
 on join:
 	if {quiver.%player%::arrow} is not set:

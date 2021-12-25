@@ -210,6 +210,7 @@ function dungeonSave(p: player):
 		set block at {dungeonActive::%{_p}%} to coal block
 		clearMob({_p})
 		set {lastLogin::%{_p}%} to now
+		world of {_p} is "dungeon"
 		set {dungeonSpot::%{_p}%} to location of {_p}
 
 function dungeonEnd(p: player):

@@ -131,7 +131,7 @@ command /menu [<text>]:
 		set {daily.%player%.lastused} to 1 day before {daily.%player%.lastused}
 		
 		send "   <tooltip:{@color}Click to view your stats><command:/stats>&7Statistics: &fView<reset>"
-		send " "
+		send "   <tooltip:{@color}Click to open quiver><command:/quiver>&7Quiver: &fView<reset>"
 		send " "
 		send " "
 		send " "
@@ -145,6 +145,7 @@ command /menu [<text>]:
 		send " "
 		send " &7&l------------------------- "
 		send " "
+		updateQuiverInventory(player)
 
 # on inventory click: 
 # 	event-inventory = (metadata tag "Menu" of player)
