@@ -41,7 +41,7 @@ command /start [<text>]:
 				send " "
 				send " "
 				send " "
-				send formatted "               &8[<command:/start new><tooltip:{@color}Start a new dungeon>{@color}&lSTART<reset>&8]"
+				send formatted "               &8[<command:/start start><tooltip:{@color}Start a new dungeon>{@color}&lSTART<reset>&8]"
 			send " "
 			send " &7&l----------------------- "
 			send " "
@@ -50,3 +50,17 @@ command /start [<text>]:
 			dungeonStart(player, {dungeonActive::%player%})
 		else if arg-1 is "continue":
 			teleport player to {dungeonSpot::%player%}
+		else if arg-1 is "start":
+			loop {dungeonStart::*}:
+				if block at loop-value is emerald block:
+					send "&aOpen: &7%loop-index%, %loop-value%"
+					dungeonStart(player, loop-value)
+					stop
+				else if block at loop-value is redstone block:
+					send "&cActive: &7%loop-index%, %loop-value%"
+					add z-coordinate of loop-value to {_z::*}
+				else if block at loop-value is coal block:
+					send "&7Saved: &7%loop-index%, %loop-value%"
+					add z-coordinate of loop-value to {_z::*}
+			set {_last} to largest({_z::*}) # largest of existing dungeons
+			dungeonStart(player, location(-207.5, 7.5, {_last} + 28, world "dungeon", -90, 0))

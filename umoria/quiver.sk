@@ -88,7 +88,8 @@ command /quiver [<text>]:
 		send " "
 		send "   &7Active: {@color}%{_active}%"
 		send " "
-		send "   &7Quiver Size: {@color}%{p_quiversize::%player%}%"
+		send "   &7Quiver Size: {@color}100"
+		# send "   &7Quiver Size: {@color}%{p_quiversize::%player%}%"
 		send " "
 		send " "
 		send " "
@@ -217,7 +218,8 @@ function nextQuiver(p: player):
 on inventory click:
 	{unlock.%player%} is not set
 	clicked slot is 17
-	name of player's inventory is "Crafting"
+	name of event-item contains "quiver"
+	# name of player's inventory is "Crafting"
 	cancel event
 
 on join:
@@ -233,6 +235,6 @@ on join:
 		set {quiver.%player%::midnight} to 0
 	if {quiver.%player%::thunder} is not set:
 		set {quiver.%player%::thunder} to 0
-	if {p_quiversize::%player%} is not set:
-		set {p_quiversize::%player%} to 32
+	# if {p_quiversize::%player%} is not set:
+	# 	set {p_quiversize::%player%} to 32
 	nextQuiver(player)

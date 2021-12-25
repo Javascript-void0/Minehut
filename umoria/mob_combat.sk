@@ -48,6 +48,7 @@ on damage:
 			add 1 to {p_kill::%attacker%}
 			delete {%victim%::*}
 			add 3 to {p_exp::%attacker%}
+			expItem(attacker, 1)
 
 			# ======== MOB DROPS =======
 

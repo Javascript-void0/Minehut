@@ -7,20 +7,19 @@ options:
 
 function expItem(p: player, n: integer):
 	set {_level::*} to uncoloured line 2 of {_p}'s tool's lore parsed as " ┃ %text%: %number%"
-	set {_exp::*} to uncoloured line 3 of {_p}'s tool's lore parsed as " ┃ %text%: %number%/%number%"
+	set {_exp::*} to uncoloured line 3 of {_p}'s tool's lore parsed as " ╹ %text%: %number%/%number%"
 	
 	set {_level} to {_level::2}
 	set {_exp} to {_exp::2}
 	set {_nextexp} to {_exp::3}
-	set {_total} to 0.1 * {_n}
-	add {_total} to {_exp}
+	set {_exp} to {_exp} + {_n}
 	if {_exp} is greater or equal to {_nextexp}:
 		set {_exp} to 0
 		set {_nextexp} to ({_level} * 2) + 10
 		set {_before} to {_level}
 		add 1 to {_level}
 	set line 2 of {_p}'s tool's lore to " &8┃ &7Level: &f%{_level}%"					
-	set line 3 of {_p}'s tool's lore to " &8┃ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%"					
+	set line 3 of {_p}'s tool's lore to " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%"					
 
 	set {_percent} to {_exp} / {_nextexp}
 	set {_percentFormat} to roundto({_percent} * 100, 1)
@@ -82,10 +81,6 @@ function expItem(p: player, n: integer):
 
 on break: 
 	cancel drops
-
-command /levelup [<text>] [<integer>]:
-	trigger:
-		discordLevel(player, arg-2)
 
 function discordLevel(p: player, l: integer):
 	send "```Level: %name of {_p}%, %{_l}%```" to channel with id "900147959168118825"
