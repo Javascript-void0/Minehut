@@ -5,9 +5,9 @@ options:
 	admin: &8[<##B4C788>&lADMIN&8]&r
 	world: world
 
-command /pvp:
-	trigger:
-		pvpToggle(player)
+# command /pvp:
+# 	trigger:
+# 		pvpToggle(player)
 
 function pvpToggle(p: player):
 	if {pvp::%{_p}%} is not set:

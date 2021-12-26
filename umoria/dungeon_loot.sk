@@ -96,51 +96,33 @@ on inventory click:
 		else:
 			set {_n} to item amount of event-item
 		if 1 of event-item is arrow:
-			if ({quiver.%player%::arrow} + {_n}) is greater than 100:
-				if {quiver.%player%::arrow} is not 100:
-					set {quiver.%player%::arrow} to 100
-					remove ({quiver.%player%::arrow} + {_n}) - 100 of event-item from event-inventory
-			else:
-				set {quiver.%player%::arrow} to {quiver.%player%::arrow} + {_n}
-				remove {_n} of event-item from event-inventory
+			set {_arrow} to "arrow"
 		else if "%event-item%" contains "fire resistance":
-			if ({quiver.%player%::solar} + {_n}) is greater than 100:
-				if {quiver.%player%::solar} is not 100:
-					set {quiver.%player%::solar} to 100
-					remove ({quiver.%player%::arrow} + {_n}) - 100 of event-item from event-inventory
-			else:
-				set {quiver.%player%::solar} to {quiver.%player%::solar} + {_n}
-				remove {_n} of event-item from event-inventory
+			set {_arrow} to "solar"
 		else if "%event-item%" contains "swiftness":
-			if ({quiver.%player%::lunar} + {_n}) is greater than 100:
-				if {quiver.%player%::lunar} is not 100:
-					set {quiver.%player%::lunar} to 100
-					remove ({quiver.%player%::arrow} + {_n}) - 100 of event-item from event-inventory
-			else:
-				set {quiver.%player%::lunar} to {quiver.%player%::lunar} + {_n}
-				remove {_n} of event-item from event-inventory
+			set {_arrow} to "lunar"
 		else if "%event-item%" contains "poison":
-			if ({quiver.%player%::terrestrial} + {_n}) is greater than 100:
-				if {quiver.%player%::terrestrial} is not 100:
-					set {quiver.%player%::terrestrial} to 100
-					remove ({quiver.%player%::arrow} + {_n}) - 100 of event-item from event-inventory
-			else:
-				set {quiver.%player%::terrestrial} to {quiver.%player%::terrestrial} + {_n}
-				remove {_n} of event-item from event-inventory
+			set {_arrow} to "terrestrial"
 		else if "%event-item%" contains "weakness":
-			if ({quiver.%player%::midnight} + {_n}) is greater than 100:
-				if {quiver.%player%::midnight} is not 100:
-					set {quiver.%player%::midnight} to 100
-					remove ({quiver.%player%::arrow} + {_n}) - 100 of event-item from event-inventory
-			else:
-				set {quiver.%player%::midnight} to {quiver.%player%::midnight} + {_n}
-				remove {_n} of event-item from event-inventory
+			set {_arrow} to "midnight"
 		else if 1 of event-item is spectral arrow:
-			if ({quiver.%player%::thunder} + {_n}) is greater than 100:
-				if {quiver.%player%::thunder} is not 100:
-					set {quiver.%player%::thunder} to 100
-					remove ({quiver.%player%::arrow} + {_n}) - 100 of event-item from event-inventory
-			else:
-				set {quiver.%player%::thunder} to {quiver.%player%::thunder} + {_n}
-				remove {_n} of event-item from event-inventory
-		updateQuiverInventory(player)
+			set {_arrow} to "thunder"
+		set {_slot} to index of event-slot
+		if {quiver.%player%::%{_arrow}%} is 100:
+			stop
+		else if ({quiver.%player%::%{_arrow}%} + {_n}) is greater than 100:
+			set {_extra} to ({quiver.%player%::%{_arrow}%} + {_n}) - 100
+			set {quiver.%player%::%{_arrow}%} to 100
+			set {_origItem} to 1 of event-item
+			updateQuiverInventory(player)
+			set slot {_slot} of event-inventory to brown candle named "{@color}&lQUIVER" with lore " &8┃ &7Added to quiver"
+			wait 1 second
+			set slot {_slot} of event-inventory to {_extra} of {_origItem}
+		else:
+			set {quiver.%player%::%{_arrow}%} to {quiver.%player%::%{_arrow}%} + {_n}
+			updateQuiverInventory(player)
+			set slot {_slot} of event-inventory to brown candle named "{@color}&lQuiver" with lore " &8┃ &7Added to quiver"
+			wait 1 second
+			set slot {_slot} of event-inventory to air
+	else if event-item is brown candle:
+		cancel event

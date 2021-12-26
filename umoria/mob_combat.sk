@@ -37,7 +37,18 @@ on damage:
 	if attacker is player:
 		victim is not a player
 		set damage to 0
-		remove {p_damage::%attacker%} from {%victim%::health}
+		if held item of attacker is bow:
+			if projectile does not exist:
+				set {_modifiedDamage} to 1
+			else:
+				set {_modifiedDamage} to {p_damage::%attacker%}
+		else if held item of attacker is pickaxe:
+			set {_modifiedDamage} to floor({p_damage::%attacker%} * 0.1)
+		else if held item of attacker is hoe:
+			set {_modifiedDamage} to floor({p_damage::%attacker%} * 0.05)
+		else:
+			set {_modifiedDamage} to {p_damage::%attacker%}
+		remove {_modifiedDamage} from {%victim%::health}
 
 		# ========= MOB KILL ==========
 
@@ -72,7 +83,8 @@ on damage:
 			if {p_exp::%attacker%} is greater or equal to {p_nextexp::%attacker%}:
 				set {_before} to {p_level::%attacker%}
 				set {p_exp::%attacker%} to 0
-				add 1 to {p_level::%attacker%}
+				set {p_level::%attacker%} to {p_level::%attacker%} + 1
+				set {p_skillpoint::%attacker%} to {p_skillpoint::%attacker%} + 1
 				set {p_nextexp::%attacker%} to {p_level::%attacker%} * 2
 				set {action::%attacker%} to "Level Up!"
 				send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%attacker%}%&8]" to attacker for 3 seconds
@@ -95,7 +107,7 @@ on damage:
 			set name of victim to "%{_name::1}% %{_name::2}% &7({@color}%{%victim%::health}%{@color}/%{%victim%::maxhealth}% ❤&7)"
 		set {_location} to random element out of blocks in radius 1 of victim
 		add 3 to {_location}'s y-coordinate
-		create holo object "{@color}-%{p_damage::%attacker%}%" with id "damage.%{_location}%" at {_location}
+		create holo object "{@color}-%{_modifiedDamage}%" with id "damage.%{_location}%" at {_location}
 		wait 1 second
 		delete holo object "damage.%{_location}%"
 

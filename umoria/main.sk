@@ -125,6 +125,8 @@ command /pl:
 # on join:
 # 	if {p_level::%player%} is not set:
 # 		set {p_level::%player%} to 1
+# 	if {p_skillpoint::%player%} is not set:
+# 		set {p_skillpoint::%player%} to 0
 # 	if {p_exp::%player%} is not set:
 # 		set {p_exp::%player%} to 0
 # 	if {p_nextexp::%player%} is not set:

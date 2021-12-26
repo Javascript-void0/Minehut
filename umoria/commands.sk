@@ -78,6 +78,8 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 			else if arg-1 is "statcheck":
 				if {p_level::%arg-2%} is not set:
 					set {p_level::%arg-2%} to 1
+				if {p_skillpoint::%arg-2%} is not set:
+					set {p_skillpoint::%arg-2%} to 0
 				if {p_exp::%arg-2%} is not set:
 					set {p_exp::%arg-2%} to 0
 				if {p_nextexp::%arg-2%} is not set:

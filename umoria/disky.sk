@@ -10,7 +10,7 @@ options:
 on load:
 	make new discord bot:  
 		enable all default intent  
-		login to {token} with name "Charging"
+		login to {token} with name "Umoria"
 
 discord command list:
 	prefixes: .

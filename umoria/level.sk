@@ -91,7 +91,8 @@ function expBlock(p: player, n: integer, b: block):
 	if {p_exp::%{_p}%} is greater or equal to {p_nextexp::%{_p}%}:
 		set {_before} to {p_level::%{_p}%}
 		set {p_exp::%{_p}%} to 0
-		add 1 to {p_level::%{_p}%}
+		set {p_level::%{_p}%} to {p_level::%{_p}%} + 1
+		set {p_skillpoint::%{_p}%} to {p_skillpoint::%{_p}%} + 1
 		set {p_nextexp::%{_p}%} to ({p_level::%{_p}%} * 2) + 10
 		set {action::%{_p}%} to "Level Up!"
 		send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%{_p}%}%&8]" to {_p} for 3 seconds

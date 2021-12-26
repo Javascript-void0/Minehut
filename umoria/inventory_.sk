@@ -55,6 +55,29 @@ command /stats [<offline player>]:
 		send " &7&l------------------------- "
 		send " "
 
+command /skills:
+	trigger:
+		send " "
+		send " &7&l-------- {@color}&lSKILLS &7&l--------"
+		send " "
+		send "             &7Skill Points: {@color}%{p_skillpoint::%player%}%"
+		send " "
+		send "   &8[&a+&8] ┃ &7Increase {@color}Health +10&7: cost {@color}3 &7skill points"
+		send "   &8[&a+&8] ┃ &7Increase {@color}Defense +1&7: cost {@color}50 &7skill points"
+		send "   &8[&a+&8] ╹ &7Increase {@color}Damage +10&7: cost {@color}1 &7skill points"
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " &7&l------------------------- "
+		send " "
+
 on right click:
 	if player's tool is pickaxe or axe or shovel:
 		if player's tool is wooden axe:
@@ -85,6 +108,14 @@ on inventory click:
 	set {_hel} to event-item
 	remove 1 of event-item from player's inventory
 	set player's helmet to {_hel}
+
+command /daily:
+	trigger:
+		make player execute "/menu daily"
+
+command /pvp:
+	trigger:
+		make player execute "/menu pvp"
 
 command /menu [<text>]:
 	aliases: settings
@@ -132,7 +163,7 @@ command /menu [<text>]:
 		
 		send "   <tooltip:{@color}Click to view your stats><command:/stats>&7Statistics: &fView<reset>"
 		send "   <tooltip:{@color}Click to open quiver><command:/quiver>&7Quiver: &fView<reset>"
-		send " "
+		send "   <tooltip:{@color}Click to open skills><command:/skills>&7Skills: &fView<reset>"
 		send " "
 		send " "
 		send " "
