@@ -6,7 +6,7 @@ options:
 	world: world
 
 on tab complete of "/modify":
-	set tab completions for position 2 to "level", "coins", "totalcoins", "wrath", "totalwrath", "exp", "nextexp", "totalexp", "kill", "death", "rebirth", "all", "maxhealth", "health", "damage", "defense", "bank", and "maxdefense"
+	set tab completions for position 2 to "level", "coins", "totalcoins", "wrath", "totalwrath", "exp", "nextexp", "totalexp", "kill", "death", "rebirth", "all", "maxhealth", "health", "highestfloor", "damage", "defense", "bank", and "maxdefense"
 	set tab completions for position 3 to "add", "remove", "set", and "reset"
 
 command /modify [<offline player>] [<text>] [<text>] [<integer>]:
@@ -15,7 +15,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 			if arg-1 is not set:
 				send "{@admin} &f/modify &f<player>"
 				stop
-			else if arg-2 is not "level" or "coins" or "totalcoins" or "wrath" or  "totalwrath" or "exp" or "nextexp" or "totalexp" or "kill" or "death" or "rebirth" or "all" or "maxhealth" or "bank" or "health" or "damage" or "defense" or "maxdefense":
+			else if arg-2 is not "level" or "coins" or "totalcoins" or "wrath" or  "totalwrath" or "exp" or "nextexp" or "totalexp" or "kill" or "death" or "rebirth" or "all" or "maxhealth" or "highestfloor" or "bank" or "health" or "damage" or "defense" or "maxdefense":
 				send "{@admin} &f/modify <%arg-1%> &f<level exp nextexp totalexp coins totalcoins wrath totalwrath death kill rebirth maxhealth health damage all defense maxdefense>"
 				stop
 			else if arg-3 is not "add" or "remove" or "set" or "reset":
@@ -109,6 +109,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {p_health::%arg-1%} to 20
 					set {p_damage::%arg-1%} to 1
 					set {p_bank::%arg-1%} to 0
+					set {p_highestfloor::%arg-1%} to 0
 					send "{@admin} &7Reset all for {@color}%arg-1%"
 					stop
 				else:

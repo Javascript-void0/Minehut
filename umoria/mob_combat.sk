@@ -164,6 +164,8 @@ on damage:
 					broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
 				add 1 to {p_death::%victim%}
 
+			dungeonEnd(victim)
+
 on damage:
 	attacker is not a player
 	victim is a player

@@ -15,12 +15,12 @@ function tab(p: player):
 		set {_rank} to "&8[{@color}&lADMIN&8]&f "
 	else if group of {_p} is "mod":
 		set {_rank} to "&8[{@color}<&lMOD&8]&f "
-	else if group of {_p} is "tier3":
-		set {_rank} to "&8[{@color2}&lTIER{@color}&l&n3&8]&f "
-	else if group of {_p} is "tier2":
-		set {_rank} to "&8[{@color2}&lTIER{@color}&l&n2&8]&f "
-	else if group of {_p} is "tier1":
-		set {_rank} to "&8[{@color2}&lTIER{@color}&l&n1&8]&f "
+	# else if group of {_p} is "tier3":
+	# 	set {_rank} to "&8[{@color2}&lTIER{@color}&l&n3&8]&f "
+	# else if group of {_p} is "tier2":
+	# 	set {_rank} to "&8[{@color2}&lTIER{@color}&l&n2&8]&f "
+	# else if group of {_p} is "tier1":
+	# 	set {_rank} to "&8[{@color2}&lTIER{@color}&l&n1&8]&f "
 	else:
 		set {_rank} to ""
 	set {_level} to format({p_level::%{_p}%})

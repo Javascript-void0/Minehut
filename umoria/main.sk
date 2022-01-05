@@ -159,6 +159,8 @@ command /pl:
 # 		set {p_defense::%player%} to 5
 # 	if {p_maxdefense::%player%} is not set:
 # 		set {p_maxdefense::%player%} to 5
+# 	if {p_highestfloor::%player%} is not set:
+# 		set {p_highestfloor::%player%} to 5
 
 on tab complete of "/top":
 	set tab completions for position 1 to "level", "coins", "totalcoins", "wrath", "totalwrath", "totalstigma", "kill", "death", "rebirth", "maxhealth", and "damage"

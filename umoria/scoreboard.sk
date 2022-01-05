@@ -1,5 +1,6 @@
 options:
 	color: <##B4C788>
+	color2: <##f7ffc5>
 	prefix: &8[<##B4C788>&lUMORIA&8]&f
 	world: world
 
@@ -7,11 +8,9 @@ every 2 ticks:
 	loop all players:
 		set title of loop-player's scoreboard to "{@color}&lUMORIA"
 		set line 14 of loop-player's scoreboard to "&7"
-		set line 13 of loop-player's scoreboard to " {@color}&lPLAYER"
-		set line 12 of loop-player's scoreboard to " &8┃ &7Level: &f%{p_level::%loop-player%}%"
-		set {_expFormat} to format({p_exp::%loop-player%})
-		set {_nextexpFormat} to format({p_nextexp::%loop-player%})
-		set line 11 of loop-player's scoreboard to " &8╹ &7Exp: &f%{_expFormat}%&7/&f%{_nextexpFormat}%"
+		set line 13 of loop-player's scoreboard to " {@color2}&lPLAYER"
+		set line 12 of loop-player's scoreboard to " &8┃ &7Level: &f%format({p_level::%loop-player%})%"
+		set line 11 of loop-player's scoreboard to " &8╹ &7Exp: &f%format({p_exp::%loop-player%})%&7/&f%format({p_nextexp::%loop-player%})%"
 		set line 10 of loop-player's scoreboard to "&8"
 		set {_percent} to {p_exp::%loop-player%} / {p_nextexp::%loop-player%}
 		set {_percentFormat} to roundto({_percent} * 100, 1)
@@ -65,8 +64,7 @@ every 2 ticks:
 		set line 6 of loop-player's scoreboard to "&d"
 		if loop-player is in world "dungeon":
 			set line 5 of loop-player's scoreboard to " {@color}&lDUNGEON"
-			set {_coin} to format({p_coins::%loop-player%})
-			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%{_coin}%"
+			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%format({p_coins::%loop-player%})%"
 			if {dungeonActive::%loop-player%} is not set:
 				set line 3 of loop-player's scoreboard to " &8┃ &7Floor: "
 				set line 2 of loop-player's scoreboard to " &8╹ &7Room: "
@@ -77,10 +75,8 @@ every 2 ticks:
 				set line 1 of loop-player's scoreboard to "&c"
 		else:
 			set line 5 of loop-player's scoreboard to " {@color}&lBALANCE"
-			set {_coin} to format({p_coins::%loop-player%})
-			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%{_coin}%"
-			set {_wrath} to format({p_wrath::%loop-player%})
-			set line 3 of loop-player's scoreboard to " &8┃ &7Wrath: &f%{_wrath}%"
+			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%format({p_coins::%loop-player%})%"
+			set line 3 of loop-player's scoreboard to " &8┃ &7Wrath: &f%format({p_wrath::%loop-player%})%"
 			set line 2 of loop-player's scoreboard to " &8╹ &7Virtue: "
 			set line 1 of loop-player's scoreboard to "&c"
 		wait 1 second

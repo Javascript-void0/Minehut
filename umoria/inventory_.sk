@@ -43,15 +43,13 @@ command /stats [<offline player>] [<number>]:
 			set {_exp} to a("%{p_exp::%{_player}%}%")
 			set {_nextexp} to a("%{p_nextexp::%{_player}%}%")
 			send formatted "<tooltip:{@color}%{_exp}%&7/{@color}%{_nextexp}%>   &7Exp: &f%{p_exp::%{_player}%}%&7/&f%{p_nextexp::%{_player}%}% &8(&7%{p_totalexp::%{_player}%}%&8)"
+			send " "
 			set {_coins} to a("%{p_coins::%{_player}%}%")
 			set {_totalcoins} to a("%{p_totalcoins::%{_player}%}%")
 			send formatted "<tooltip:&7Current: {@color}%{_coins}%%nl%&7Lifetime: {@color}%{_totalcoins}%>   &7Coins: &f%format({p_coins::%{_player}%})% &8(&7%format({p_totalcoins::%{_player}%})%&8)"
 			set {_wrath} to a("%{p_wrath::%{_player}%}%")
 			set {_totalwrath} to a("%{p_totalwrath::%{_player}%}%")
 			send formatted "<tooltip:&7Current: {@color}%{_wrath}%%nl%&7Lifetime: {@color}%{_totalwrath}%>   &7Wrath: &f%format({p_wrath::%{_player}%})% &8(&7%format({p_totalwrath::%{_player}%})%&8)"
-			send "   &7Kills: &f%{p_kill::%{_player}%}%"
-			send "   &7Deaths: &f%{p_death::%{_player}%}%"
-			send "   &7Rebirth: &f%{p_rebirth::%{_player}%}%"
 			send " "
 			set {_health} to a("%{p_health::%{_player}%}%")
 			set {_maxhealth} to a("%{p_maxhealth::%{_player}%}%")
@@ -59,16 +57,19 @@ command /stats [<offline player>] [<number>]:
 			send "   &7Defense: &f%{p_defense::%{_player}%}%&7/&f%{p_defense::%{_player}%}%"
 			set {_damage} to a("%{p_damage::%{_player}%}%")
 			send formatted "<tooltip:{@color}%{_damage}%>   &7Damage: &f%{p_damage::%{_player}%}%"
+			send " "
+			send " "
 		else if {_page} is 2:
 			send formatted "   &8[<tooltip:{@color}Page 1><command:/stats %{_player}% 1>&7&lPAGE 1<reset> &8| <tooltip:{@color}Page 2><command:/stats %{_player}% 2>{@color}&lPAGE 2<reset>&8] "
 			send " "
+			set {_highest} to a("%{p_highestfloor::%{_player}%}%")
+			send formatted "<tooltip:{@color}%{_highest}%>   &7Highest Floor: &7Floor &f%format({p_highestfloor::%{_player}%})%"
 			send " "
+			send "   &7Kills: &f%{p_kill::%{_player}%}% &7kills"
+			send "   &7Deaths: &f%{p_death::%{_player}%}% &7deaths"
+			send "   &7K/D: &f%({p_kill::%{_player}%} / {p_death::%{_player}%})%"
 			send " "
-			send " "
-			send " "
-			send " "
-			send " "
-			send " "
+			send "   &7Rebirth: N/A times"
 			send " "
 			send " "
 			send " "

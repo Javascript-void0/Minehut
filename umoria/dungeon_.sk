@@ -215,6 +215,10 @@ function dungeonSave(p: player):
 
 function dungeonEnd(p: player):
 	if {dungeonActive::%{_p}%} is set:
+
+		if {p_floor::%{_p}%} is greater than {p_highestfloor::%{_p}%}:
+			set {p_highestfloor::%{_p}%} to {p_floor::%{_p}%}
+
 		set {_} to pasteDungeon({dungeonActive::%{_p}%}, "start", {_p})
 		# send "&4Restarted: &c%{dungeonActive::%{_p}%}%" to {_p}
 		set block at {dungeonActive::%{_p}%} to emerald block

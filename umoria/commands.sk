@@ -116,6 +116,8 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 					set {p_maxdefense::%arg-2%} to 5
 				if {p_bank::%arg-2%} is not set:
 					set {p_bank::%arg-2%} to 0
+				if {p_highestfloor::%arg-2%} is not set:
+					set {p_highestfloor::%arg-2%} to 1
 				send "{@admin} &7Done Checking"
 
 			else if arg-1 is "blessing":

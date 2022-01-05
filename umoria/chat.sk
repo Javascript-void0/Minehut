@@ -72,15 +72,12 @@ on chat:
 		set {_bar} to " &8[{@color}::::::::::::::::::::&7&8]"
 
 	set {_uncolorlevel} to "%{p_level::%player%}%"
-	set {_coins} to format({p_coins::%player%})
-	set {_wrath} to format({p_wrath::%player%})
-	set {_virtue} to " "
 	set {_health} to format({p_health::%player%})
 	set {_maxhealth} to format({p_maxhealth::%player%})
 	set {_defense} to {p_defense::%player%}
 	set {_maxdefense} to {p_maxdefense::%player%}
 	set {_damage} to format({p_damage::%player%})
-	set {_stats} to bedrock named "&8[{@color2}:L%{_levelFormat}%&8] &f%{_player}%" with lore " {@color2}&lPLAYER" and "  &8┃ &7Level: &f%{_uncolorlevel}%" and "  &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" and " " and "    &8(&f%{_percentFormat}%%%&8)" and "%{_bar}%" and " " and " {@color2}&lBALANCE" and "  &8┃ &7Coins: &f%{_coins}%" and "  &8┃ &7Wrath: &f%{_wrath}%" and "  &8╹ &7Virtue: &f%{_virtue}%" and " " and " {@color2}&lSTATS" and "  &8┃ &7Health: &f%{_health}%&7/&f%{_maxhealth}%" and "  &8┃ &7Defense: &f%{_defense}%&7/&f%{_maxdefense}%" and "  &8╹ &7Damage: &f%{_damage}%" and " "
+	set {_stats} to bedrock named "&8[{@color2}:L%{_levelFormat}%&8] &f%{_player}%" with lore " {@color2}&lPLAYER" and "  &8┃ &7Level: &f%{_uncolorlevel}%" and "  &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" and " " and "    &8(&f%{_percentFormat}%%%&8)" and "%{_bar}%" and " " and " {@color2}&lSTATS" and "  &8┃ &7Health: &f%{_health}%&7/&f%{_maxhealth}%" and "  &8┃ &7Defense: &f%{_defense}%&7/&f%{_maxdefense}%" and "  &8╹ &7Damage: &f%{_damage}%" and " "
 	set hover event of {_player} to a new hover event showing {_stats}
 
 	set {_slotList::hand} to index of player's hotbar slot
@@ -162,17 +159,17 @@ on chat:
 			send components {_p}, {_level}, {_s}, {_player}, {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
 		send components {_p}, {_level}, {_s}, {_player}, {_temp}, {_messages::*} and {_messageFormat::*} to console
 		if group of player is "admin":
-			send "[**ADMIN**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+			send "[**ADMIN**] [:**L%{_levelFormat}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
 		else if group of player is "mod":
-			send "[**MOD**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
-		else if group of player is "tier3":
-			send "[**TIER__3__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
-		else if group of player is "tier2":
-			send "[**TIER__2__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
-		else if group of player is "tier1":
-			send "[**TIER__1__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+			send "[**MOD**] [:**L%{_levelFormat}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+		# else if group of player is "tier3":
+		# 	send "[**TIER__3__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+		# else if group of player is "tier2":
+		# 	send "[**TIER__2__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+		# else if group of player is "tier1":
+		# 	send "[**TIER__1__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
 		else:
-			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+			send "[:**L%{_levelFormat}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
 	else:
 		if group of player is "admin" or "mod":
 			set {_cc} to "&f"
@@ -187,14 +184,14 @@ on chat:
 			send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to loop-player
 		send components {_p}, {_level}, {_s}, {_player}, {_}, and {_message} to console
 		if group of player is "admin":
-			send "[**ADMIN**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+			send "[**ADMIN**] [:**L%{_levelFormat}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
 		else if group of player is "mod":
-			send "[**MOD**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
-		else if group of player is "tier3":
-			send "[**TIER__3__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
-		else if group of player is "tier2":
-			send "[**TIER__2__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
-		else if group of player is "tier1":
-			send "[**TIER__1__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+			send "[**MOD**] [:**L%{_levelFormat}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+		# else if group of player is "tier3":
+		# 	send "[**TIER__3__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+		# else if group of player is "tier2":
+		# 	send "[**TIER__2__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+		# else if group of player is "tier1":
+		# 	send "[**TIER__1__**] [:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
 		else:
-			send "[:**L%{p_level::%player%}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
+			send "[:**L%{_levelFormat}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
