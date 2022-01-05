@@ -5,7 +5,7 @@ options:
 	admin: &8[<##B4C788>&lADMIN&8]&7
 	world: world
 
-function expItem(p: player, n: integer):
+function expItem(p: player, n: number):
 	set {_level::*} to uncoloured line 2 of {_p}'s tool's lore parsed as " ┃ %text%: %number%"
 	set {_exp::*} to uncoloured line 3 of {_p}'s tool's lore parsed as " ╹ %text%: %number%/%number%"
 	
@@ -18,6 +18,10 @@ function expItem(p: player, n: integer):
 		set {_nextexp} to ({_level} * 2) + 10
 		set {_before} to {_level}
 		add 1 to {_level}
+		send " " to "%{_p}%" parsed as player
+		send "  &7Item Level Up! &8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{_level}%&8]" to "%{_p}%" parsed as player
+		send "    {@color}+1 &7enchant point" to "%{_p}%" parsed as player
+		send " " to "%{_p}%" parsed as player
 	set line 2 of {_p}'s tool's lore to " &8┃ &7Level: &f%{_level}%"					
 	set line 3 of {_p}'s tool's lore to " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%"					
 

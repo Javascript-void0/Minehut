@@ -1,0 +1,46 @@
+options:
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&7
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&7
+	coins: &7Insufficient <##B4C788>Coins
+	wrath: &7Insufficient <##B4C788>Wrath
+	world: world
+
+command /quest [<number>] [<text>]:
+	trigger:
+		arg-1 is {sessionid::%player%}
+		set {sessionid::%player%} to random integer between 1000 and 9999
+		send " "
+		send " &7&l------- {@color}&lQUESTS &7&l--------"
+		send " "
+		if arg-2 contains "dungeon":
+			set {_dungeon} to "{@color}"
+			set {_mine} to "&7"
+			set {_farm} to "&7"
+		else if arg-2 contains "mine":
+			set {_dungeon} to "&7"
+			set {_mine} to "{@color}"
+			set {_farm} to "&7"
+		else if arg-2 contains "farm":
+			set {_dungeon} to "&7"
+			set {_mine} to "&7"
+			set {_farm} to "{@color}"
+		send formatted "   &8[<tooltip:{@color}Dungeon Quests><command:/quest %{sessionid::%player%}% dungeon1>%{_dungeon}%&lDUNGEON<reset> &8| <tooltip:{@color}Mining Quests><command:/quest %{sessionid::%player%}% mine1>%{_mine}%&lMINE<reset> &8| <tooltip:{@color}Farming Quests><command:/quest %{sessionid::%player%}% farm1>%{_farm}%&lFARM<reset>&8]"
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " wip"
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		set {_message} to " "
+		send {_message}
+		send " "
+		send " &7&l------------------------- "
+		send " "

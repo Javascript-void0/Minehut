@@ -1,45 +1,45 @@
-function orcDrop(l: location):
+function orcDrop(l: location, m: number):
     chance of 90%:
-        drop (random integer between 1 and 5) of {mobloot::common::bone} at {_l}
+        drop random integer between 1 and (5 + {_m}) of {mobloot::common::bone} at {_l}
     chance of 20%:
-        drop (random integer between 1 and 3) of {mobloot::uncommon::br_mush} at {_l}
+        drop random integer between 1 and (3 + {_m}) of {mobloot::uncommon::br_mush} at {_l}
     chance of 30%:
-        drop (random integer between 2 and 6) of {mobloot::common::flesh} at {_l}
+        drop random integer between 2 and (6 + {_m}) of {mobloot::common::flesh} at {_l}
     chance of 5%:
-        drop (random integer between 1 and 3) of {mobloot::uncommon::red_mush} at {_l}
+        drop random integer between 1 and (3 + {_m}) of {mobloot::uncommon::red_mush} at {_l}
 
-function boneDrop(l: location):
+function boneDrop(l: location, m: number):
     chance of 90%:
-        drop (random integer between 3 and 6) of {mobloot::common::bone} at {_l}
+        drop random integer between 3 and (6 + {_m}) of {mobloot::common::bone} at {_l}
     chance of 5%:
         drop 1 of {mobloot::rare::skel_skull} at {_l} 
     chance of 20%:
-        drop (random integer between 2 and 4) of {mobloot::uncommon::bush} at {_l}
+        drop random integer between 2 and (4 + {_m}) of {mobloot::uncommon::bush} at {_l}
 
-function elfDrop(l: location):
+function elfDrop(l: location, m: number):
     chance of 90%:
-        drop (random integer between 2 and 4) of {mobloot::common::bottle} at {_l}
+        drop random integer between 2 and (4 + {_m}) of {mobloot::common::bottle} at {_l}
     chance of 5%:
         drop 1 of {mobloot::rare::pancreas} at {_l}
     chance of 5%:
         drop 1 of {mobloot::rare::foot} at {_l}
     chance of 5%:
-        drop (random integer between 1 and 2) of {mobloot::rare::qu_eggs} at {_l}
+        drop random integer between 1 and (2 + {_m}) of {mobloot::rare::qu_eggs} at {_l}
     chance of 3%:
         drop 1 of {mobloot::rare::mag_orb} at {_l}
     chance of 20%:
-        drop (random integer between 1 and 3) of {mobloot::uncommon::dark_sapling} at {_l}
+        drop random integer between 1 and (3 + {_m}) of {mobloot::uncommon::dark_sapling} at {_l}
     chance of 20%:
-        drop (random integer between 1 and 3) of {mobloot::uncommon::bush} at {_l}
+        drop random integer between 1 and (3 + {_m}) of {mobloot::uncommon::bush} at {_l}
     chance of 20%:
-        drop (random integer between 1 and 3) of {mobloot::uncommon::cobweb} at {_l}
+        drop random integer between 1 and (3 + {_m}) of {mobloot::uncommon::cobweb} at {_l}
 
-function spiritDrop(l: location):
+function spiritDrop(l: location, m: number):
     chance of 90%:
-        drop (random integer between 2 and 5) of {mobloot::common::gel} at {_l}
+        drop random integer between 2 and (5 + {_m}) of {mobloot::common::gel} at {_l}
     chance of 40%:
-        drop (random integer between 1 and 3) of {mobloot::uncommon::warp_mush} at {_l}
+        drop random integer between 1 and (3 + {_m}) of {mobloot::uncommon::warp_mush} at {_l}
     chance of 10%:
-        drop (random integer between 2 and 4) of {mobloot::rare::crystal} at {_l}
+        drop random integer between 2 and (4 + {_m}) of {mobloot::rare::crystal} at {_l}
     chance of 3%:
         drop 1 of {mobloot::rare::tide_orb} at {_l}

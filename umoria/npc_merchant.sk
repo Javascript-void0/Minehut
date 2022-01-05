@@ -167,7 +167,7 @@ command /merchant [<number>] [<text>] [<text>] [<text>]:
 					set {_coins} to {_worth::2} * {_n}
 					coins("add", player, {_coins})
 					set {_message} to "   &7Sold {@color}%{_n}% %{_name}% &7for {@color}%{_coins}% &7coins"
-					
+					exit loop
 			else:
 				set {_message} to " "
 			loop all items in inventory of player:

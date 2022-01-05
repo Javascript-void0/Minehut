@@ -41,7 +41,7 @@ on tab complete of "/commands" and "/cmd" and "/command" and "/c":
 		else if player's held item is pickaxe or hoe:
 			set tab completions for position 2 to "efficiency", "fortune", "mending", and "binding"
 		else if player's held item is bow:
-			set tab completions for position 2 to "power", "infinity", "mending", and "binding"
+			set tab completions for position 2 to "power", "looting", "mending", and "binding"
 		else if player's held item is shield:
 			set tab completions for position 2 to "unbreaking", "thorns", "mending", and "binding"
 		else if player's held item is helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
@@ -78,8 +78,10 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 			else if arg-1 is "statcheck":
 				if {p_level::%arg-2%} is not set:
 					set {p_level::%arg-2%} to 1
-				if {p_skillpoint::%arg-2%} is not set:
-					set {p_skillpoint::%arg-2%} to 0
+				# if {p_skillpoint::%arg-2%} is not set:
+					# set {p_skillpoint::%arg-2%} to 0
+				if {p_upgradepoint::%arg-2%} is not set:
+					set {p_upgradepoint::%arg-2%} to 0
 				if {p_exp::%arg-2%} is not set:
 					set {p_exp::%arg-2%} to 0
 				if {p_nextexp::%arg-2%} is not set:
@@ -204,7 +206,7 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				set {_lvl} to arg-3 parsed as number
 				if arg-2 is "sharpness" or "efficiency" or "power" or "unbreaking" or "protection":
 					set {_line} to 14
-				else if arg-2 is "looting" or "fortune" or "infinity" or "thorns":
+				else if arg-2 is "looting" or "fortune" or "thorns":
 					set {_line} to 15
 				else if arg-2 is "mending":
 					set {_line} to 16

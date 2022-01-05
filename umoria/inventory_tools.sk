@@ -7,6 +7,13 @@ options:
 	wrath: &7Insufficient <##B4C788>Wrath
 	world: world
 
+on load: 
+	set {tooltips::enchantment::sharpness} to "{@color}+5 damage"
+	set {tooltips::enchantment::power} to "{@color}+5 damage"
+	set {tooltips::enchantment::looting} to "{@color}+1 max mob drops"
+	set {tooltips::enchantment::mending} to "{@color}Multiply exp drops"
+	set {tooltips::enchantment::binding} to "{@color}none"
+
 function toolCompatible(i: item, e: text) :: boolean:
 	if {_e} is "mending" or "binding":
 		return true
@@ -14,7 +21,7 @@ function toolCompatible(i: item, e: text) :: boolean:
 		{_e} is "sharpness" or "looting"
 		return true
 	else if {_i} is bow:
-		{_e} is "power" or "infinity"
+		{_e} is "power" or "looting"
 		return true
 	else if {_i} is pickaxe or hoe:
 		{_e} is "efficiency" or "fortune"
@@ -25,6 +32,14 @@ function toolCompatible(i: item, e: text) :: boolean:
 	else if itemCheck({_i}) is true:
 		return true
 	return false
+
+function toolAttributes(p: player, e: text, l: number):
+	if {_e} is "Sharpness" or "Power":
+		set line 9 of lore of held item of {_p} to " &8┃ &7Damage: &f+%{_l} * 5%"
+	else if {_e} is "Looting":
+		set line 10 of lore of held item of {_p} to " &8┃ &7Drop Bonus: &f+%{_l}%"
+	else if {_e} is "Mending":
+		set line 11 of lore of held item of {_p} to " &8╹ &7Exp Bonus: &fx%{_l} + 1%"
 
 on right click:
 	itemCheck(player's held item) is true
@@ -38,7 +53,7 @@ on tab complete of "/enchant":
 	else if player's held item is pickaxe or hoe:
 		set tab completions for position 1 to "efficiency", "fortune", "mending", and "binding"
 	else if player's held item is bow:
-		set tab completions for position 1 to "power", "infinity", "mending", and "binding"
+		set tab completions for position 1 to "power", "looting", "mending", and "binding"
 	else if player's held item is shield:
 		set tab completions for position 1 to "unbreaking", "thorns", "mending", and "binding"
 	else if player's held item is helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
@@ -70,26 +85,33 @@ command /enchant [<text>]:
 			toolCompatible(player's held item, {_ench1::1}) is true
 			set {_line} to 14
 			enchant(player, {_ench1::1}, {_ench1::2} + 1, {_line})
+			toolAttributes(player, {_ench1::1}, {_ench1::2})
 			set {_message} to "   &7Enchanted with {@color}%{_ench1::1}% %{_ench1::2} + 1%"
 			add 1 to {_ench1::2}
-		else if arg-1 is "looting" or "fortune" or "infinity" or "thorns":
+			remove 1 from {_available}
+		else if arg-1 is "looting" or "fortune" or "thorns":
 			toolCompatible(player's held item, {_ench2::1}) is true
 			set {_line} to 15
 			enchant(player, {_ench2::1}, {_ench2::2} + 1, {_line})
+			toolAttributes(player, {_ench2::1}, {_ench2::2})
 			set {_message} to "   &7Enchanted with {@color}%{_ench2::1}% %{_ench2::2} + 1%"
 			add 1 to {_ench2::2}
+			remove 1 from {_available}
 		else if arg-1 is "mending":
 			toolCompatible(player's held item, {_ench3::1}) is true
 			set {_line} to 16
 			enchant(player, {_ench3::1}, {_ench3::2} + 1, {_line})
+			toolAttributes(player, {_ench3::1}, {_ench3::2})
 			set {_message} to "   &7Enchanted with {@color}%{_ench3::1}% %{_ench3::2} + 1%"
 			add 1 to {_ench3::2}
+			remove 1 from {_available}
 		else if arg-1 is "binding":
 			toolCompatible(player's held item, {_ench4::1}) is true
 			set {_line} to 17
 			enchant(player, {_ench4::1}, {_ench4::2} + 1, {_line})
 			set {_message} to "   &7Enchanted with {@color}%{_ench4::1}% %{_ench4::2} + 1%"
 			add 1 to {_ench4::2}
+			remove 1 from {_available}
 		else if arg-1 is not set:
 			set {_message} to " "
 		else:
@@ -98,18 +120,18 @@ command /enchant [<text>]:
 		send " "
 		send " &7&l------- {@color}&lENCHANTING &7&l-------"
 		send " "
-		send "   &8[{@color}Item&8]"
 		send "   &7Available: &f%{_available}%"
 		send " "
-		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench1::1}%>[&a+&8]<reset> &8┃ &7%{_ench1::1}%: &f%{_ench1::2}%"
-		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench2::1}%>[&a+&8]<reset> &8┃ &7%{_ench2::1}%: &f%{_ench2::2}%"
-		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench3::1}%>[&a+&8]<reset> &8┃ &7%{_ench3::1}%: &f%{_ench3::2}%"
-		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench4::1}%>[&a+&8]<reset> &8╹ &7%{_ench4::1}%: &f%{_ench4::2}%"
+		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench1::1}%>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench1::1} in lower case%}%>&7%{_ench1::1}%<reset>: &f%{_ench1::2}%"
+		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench2::1}%>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench2::1} in lower case%}%>&7%{_ench2::1}%<reset>: &f%{_ench2::2}%"
+		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench3::1}%>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench3::1} in lower case%}%>&7%{_ench3::1}%<reset>: &f%{_ench3::2}%"
+		send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench4::1}%>[&a+&8]<reset> &8╹ <tooltip:%{tooltips::enchantment::%{_ench4::1} in lower case%}%>&7%{_ench4::1}%<reset>: &f%{_ench4::2}%"
 		send " "
-		send " &8┃ &7Sharpness: &fMore damage when using item"
-		send " &8┃ &7Looting: &fBonus mob drops"
-		send " &8┃ &7Mending: &fItem experience bonus"
-		send " &8╹ &7Binding: &fKeep"
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
 		send " "
 		send {_message}
 		send " "

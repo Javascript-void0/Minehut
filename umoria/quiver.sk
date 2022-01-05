@@ -170,17 +170,17 @@ on drop:
 
 function updateQuiverInventory(p: player):
 	if {quiver.%{_p}%.current} is "arrow":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::arrow} of arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::arrow}%" and " &8╹ (&7/quiver&8)"
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::arrow} of arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::arrow}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 	else if {quiver.%{_p}%.current} is "solar":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::solar} of tipped arrow of fire resistance named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::solar}%" and " &8╹ (&7/quiver&8)"
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::solar} of tipped arrow of fire resistance named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::solar}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 	else if {quiver.%{_p}%.current} is "lunar":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::lunar} of tipped arrow of swiftness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::lunar}%" and " &8╹ (&7/quiver&8)"
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::lunar} of tipped arrow of swiftness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::lunar}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 	else if {quiver.%{_p}%.current} is "terrestrial":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::terrestrial} of tipped arrow of poison named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" and " &8╹ (&7/quiver&8)"
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::terrestrial} of tipped arrow of poison named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 	else if {quiver.%{_p}%.current} is "midnight":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::midnight} of tipped arrow of weakness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::midnight}%" and " &8╹ (&7/quiver&8)"
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::midnight} of tipped arrow of weakness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::midnight}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 	else if {quiver.%{_p}%.current} is "thunder":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::thunder} of spectral arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::thunder}%" and " &8╹ (&7/quiver&8)"
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::thunder} of spectral arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::thunder}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 
 function nextQuiver(p: player):
 	loop {quiver.%{_p}%::*}:

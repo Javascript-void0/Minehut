@@ -20,60 +20,109 @@ options:
 # 	set slot 15 of metadata tag "Stats" of {_p} to netherite sword named "{@color}&lCOMBAT" with lore "&7Kills: {@color}%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: {@color}%{p_death::%{_p}%}% &7deaths" with all flags hidden
 # 	open (metadata tag "Stats" of {_p}) to {_p}
 
-command /stats [<offline player>]:
+command /stats [<offline player>] [<number>]:
 	trigger:
-		if arg-1 is not set:
+		if arg-1 is not a player:
 			set {_player} to player
+		else:
+			set {_player} to arg-1
+		if arg-2 is not between 1 and 2:
+			set {_page} to 1
+		else:
+			set {_page} to arg-2
 		send " "
 		send " &7&l------- {@color}&lSTATISTICS &7&l-------"
 		send " "
-		send "   &7Player: {@color}%{_player}%"
-		set {_level} to a("%{p_level::%{_player}%}%")
-		send formatted "<tooltip:{@color}%{_level}%>   &7Level: &8[&f:L%format({p_level::%{_player}%})%&8]"
-		set {_exp} to a("%{p_exp::%{_player}%}%")
-		set {_nextexp} to a("%{p_nextexp::%{_player}%}%")
-		send formatted "<tooltip:{@color}%{_exp}%&7/{@color}%{_nextexp}%>   &7Exp: &f%{p_exp::%{_player}%}%&7/&f%{p_nextexp::%{_player}%}% &8(&7%{p_totalexp::%{_player}%}%&8)"
-		set {_coins} to a("%{p_coins::%{_player}%}%")
-		set {_totalcoins} to a("%{p_totalcoins::%{_player}%}%")
-		send formatted "<tooltip:&7Current: {@color}%{_coins}%%nl%&7Lifetime: {@color}%{_totalcoins}%>   &7Coins: &f%format({p_coins::%{_player}%})% &8(&7%format({p_totalcoins::%{_player}%})%&8)"
-		set {_wrath} to a("%{p_wrath::%{_player}%}%")
-		set {_totalwrath} to a("%{p_totalwrath::%{_player}%}%")
-		send formatted "<tooltip:&7Current: {@color}%{_wrath}%%nl%&7Lifetime: {@color}%{_totalwrath}%>   &7Wrath: &f%format({p_wrath::%{_player}%})% &8(&7%format({p_totalwrath::%{_player}%})%&8)"
-		send "   &7Kills: &f%{p_kill::%{_player}%}%"
-		send "   &7Deaths: &f%{p_death::%{_player}%}%"
-		send "   &7Rebirth: &f%{p_rebirth::%{_player}%}%"
-		send " "
-		set {_health} to a("%{p_health::%{_player}%}%")
-		set {_maxhealth} to a("%{p_maxhealth::%{_player}%}%")
-		send formatted "<tooltip:{@color}%{_health}%&7/{@color}%{_maxhealth}%>   &7Health: &f%{p_health::%{_player}%}%&7/&f%{p_maxhealth::%{_player}%}%"
-		send "   &7Defense: &f%{p_defense::%{_player}%}%&7/&f%{p_defense::%{_player}%}%"
-		set {_damage} to a("%{p_damage::%{_player}%}%")
-		send formatted "<tooltip:{@color}%{_damage}%>   &7Damage: &f%{p_damage::%{_player}%}%"
-		send " "
-		send " "
+
+		if {_page} is 1:
+			send formatted "   &8[<tooltip:{@color}Page 1><command:/stats %{_player}% 1>{@color}&lPAGE 1<reset> &8| <tooltip:{@color}Page 2><command:/stats %{_player}% 2>&7&lPAGE 2<reset>&8] "
+			send " "
+			send "   &7Player: {@color}%{_player}%"
+			set {_level} to a("%{p_level::%{_player}%}%")
+			send formatted "<tooltip:{@color}%{_level}%>   &7Level: &8[&f:L%format({p_level::%{_player}%})%&8]"
+			set {_exp} to a("%{p_exp::%{_player}%}%")
+			set {_nextexp} to a("%{p_nextexp::%{_player}%}%")
+			send formatted "<tooltip:{@color}%{_exp}%&7/{@color}%{_nextexp}%>   &7Exp: &f%{p_exp::%{_player}%}%&7/&f%{p_nextexp::%{_player}%}% &8(&7%{p_totalexp::%{_player}%}%&8)"
+			set {_coins} to a("%{p_coins::%{_player}%}%")
+			set {_totalcoins} to a("%{p_totalcoins::%{_player}%}%")
+			send formatted "<tooltip:&7Current: {@color}%{_coins}%%nl%&7Lifetime: {@color}%{_totalcoins}%>   &7Coins: &f%format({p_coins::%{_player}%})% &8(&7%format({p_totalcoins::%{_player}%})%&8)"
+			set {_wrath} to a("%{p_wrath::%{_player}%}%")
+			set {_totalwrath} to a("%{p_totalwrath::%{_player}%}%")
+			send formatted "<tooltip:&7Current: {@color}%{_wrath}%%nl%&7Lifetime: {@color}%{_totalwrath}%>   &7Wrath: &f%format({p_wrath::%{_player}%})% &8(&7%format({p_totalwrath::%{_player}%})%&8)"
+			send "   &7Kills: &f%{p_kill::%{_player}%}%"
+			send "   &7Deaths: &f%{p_death::%{_player}%}%"
+			send "   &7Rebirth: &f%{p_rebirth::%{_player}%}%"
+			send " "
+			set {_health} to a("%{p_health::%{_player}%}%")
+			set {_maxhealth} to a("%{p_maxhealth::%{_player}%}%")
+			send formatted "<tooltip:{@color}%{_health}%&7/{@color}%{_maxhealth}%>   &7Health: &f%{p_health::%{_player}%}%&7/&f%{p_maxhealth::%{_player}%}%"
+			send "   &7Defense: &f%{p_defense::%{_player}%}%&7/&f%{p_defense::%{_player}%}%"
+			set {_damage} to a("%{p_damage::%{_player}%}%")
+			send formatted "<tooltip:{@color}%{_damage}%>   &7Damage: &f%{p_damage::%{_player}%}%"
+		else if {_page} is 2:
+			send formatted "   &8[<tooltip:{@color}Page 1><command:/stats %{_player}% 1>&7&lPAGE 1<reset> &8| <tooltip:{@color}Page 2><command:/stats %{_player}% 2>{@color}&lPAGE 2<reset>&8] "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
+			send " "
 		send " "
 		send " &7&l------------------------- "
 		send " "
 
-command /skills:
+command /upgrades [<text>]:
 	trigger:
 		send " "
-		send " &7&l-------- {@color}&lSKILLS &7&l--------"
+		send " &7&l-------- {@color}&lUPGRADES &7&l--------"
 		send " "
-		send "             &7Skill Points: {@color}%{p_skillpoint::%player%}%"
+		if arg-1 is "health":
+			if {p_upgradepoint::%player%} is greater or equal to 3:
+				set {p_upgradepoint::%player%} to {p_upgradepoint::%player%} - 3
+				set {p_health::%player%} to {p_health::%player%} + 10
+				set {p_maxhealth::%player%} to {p_maxhealth::%player%} + 10
+				set {_message} to "   &7Added {@color}10 &7to health"
+			else:
+				set {_message} to "   &7You need {@color}%3 - {p_upgradepoint::%player%}% &7more points"
+		else if arg-1 is "armor":
+			if {p_upgradepoint::%player%} is greater or equal to 50:
+				set {p_upgradepoint::%player%} to {p_upgradepoint::%player%} - 50
+				set {p_armor::%player%} to {p_armor::%player%} + 1
+				set {p_maxarmor::%player%} to {p_maxarmor::%player%} + 1
+				set {_message} to "   &7Added {@color}1 &7to armor"
+			else:
+				set {_message} to "   &7You need {@color}%50 - {p_upgradepoint::%player%}% &7more points"
+		else if arg-1 is "damage":
+			if {p_upgradepoint::%player%} is greater or equal to 1:
+				set {p_upgradepoint::%player%} to {p_upgradepoint::%player%} - 1
+				set {p_damage::%player%} to {p_damage::%player%} + 10
+				set {_message} to "   &7Added {@color}10 &7to damage"
+			else:
+				set {_message} to "   &7You need {@color}%1 - {p_upgradepoint::%player%}% &7more points"
+		else:
+			set {_message} to " "
+
+		send "                &7Points: {@color}%{p_upgradepoint::%player%}%"
 		send " "
-		send "   &8[&a+&8] ┃ &7Increase {@color}Health +10&7: cost {@color}3 &7skill points"
-		send "   &8[&a+&8] ┃ &7Increase {@color}Defense +1&7: cost {@color}50 &7skill points"
-		send "   &8[&a+&8] ╹ &7Increase {@color}Damage +10&7: cost {@color}1 &7skill points"
+		send "   &7Upgrades are permanent"
+		send "   &7You get {@color}+1 &7point"
+		send "   &7when leveling up"
+		send " "
+		send formatted "   &8[<tooltip:{@color}Click to upgrade%nl%&7Cost: {@color}3 &7Points><command:/upgrades health>&a+<reset>&8] ┃ &7Health {@color}%{p_maxhealth::%player%}% &7> {@color}%{p_maxhealth::%player%} + 10%"
+		send formatted "   &8[<tooltip:{@color}Click to upgrade%nl%&7Cost: {@color}50 &7Points><command:/upgrades armor>&a+<reset>&8] ┃ &7Defense {@color}%{p_maxdefense::%player%}% &7> {@color}%{p_maxdefense::%player%} + 1%"
+		send formatted "   &8[<tooltip:{@color}Click to upgrade%nl%&7Cost: {@color}1 &7Point><command:/upgrades damage>&a+<reset>&8] ╹ &7Damage {@color}%{p_damage::%player%}% &7> {@color}%{p_damage::%player%} + 10%"
 		send " "
 		send " "
 		send " "
 		send " "
-		send " "
-		send " "
-		send " "
-		send " "
-		send " "
+		send {_message}
 		send " "
 		send " &7&l------------------------- "
 		send " "
@@ -163,7 +212,10 @@ command /menu [<text>]:
 		
 		send "   <tooltip:{@color}Click to view your stats><command:/stats>&7Statistics: &fView<reset>"
 		send "   <tooltip:{@color}Click to open quiver><command:/quiver>&7Quiver: &fView<reset>"
-		send "   <tooltip:{@color}Click to open skills><command:/skills>&7Skills: &fView<reset>"
+		if {p_upgradepoint::%player%} is greater than 0:
+			send formatted "   <tooltip:{@color}Click to open upgrades><command:/upgrades>&7Upgrades: &fView<reset>   &8[<tooltip:&7Avaiable Points: {@color}%{p_upgradepoint::%player%}%>{@color}&lAVAIABLE&8]"
+		else:
+			send "   <tooltip:{@color}Click to open upgrades><command:/upgrades>&7Upgrades: &fView<reset>"
 		send " "
 		send " "
 		send " "
