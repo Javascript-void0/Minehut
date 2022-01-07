@@ -17,8 +17,16 @@ on portal create:
 	if group of player is not "admin":
 		cancel event
 on drop:
-    if group of player is not "admin":
-        cancel event
+	if group of player is "admin":
+		if {unlock.%player%} is not set:
+			cancel event
+			make player execute "/quiver"
+		else:
+			stop
+	else:
+		cancel event
+		make player execute "/quiver"
+
 on place:
 	if group of player is not "admin":
 		cancel event
@@ -68,7 +76,8 @@ on first join:
 command /spawn:
 	trigger:
 		if {dungeonActive::%player%} is set:
-			set {dungeonSpot::%player%} to player's location
+			world of player is "dungeon"
+			set {dungeon::%player%::lastspot} to player's location
 			# send "{@prefix} &7You can't leave the dungeon before ending it. "
 		# else:
 		teleport player to {spawn}
@@ -156,11 +165,13 @@ command /pl:
 # 	if {p_maxhealth::%player%} is not set:
 # 		set {p_maxhealth::%player%} to 20
 # 	if {p_defense::%player%} is not set:
-# 		set {p_defense::%player%} to 5
+# 		set {p_defense::%player%} to 0
 # 	if {p_maxdefense::%player%} is not set:
-# 		set {p_maxdefense::%player%} to 5
+# 		set {p_maxdefense::%player%} to 0
 # 	if {p_highestfloor::%player%} is not set:
-# 		set {p_highestfloor::%player%} to 5
+# 		set {p_highestfloor::%player%} to 0
+# 	if {p_totalroom::%player%} is not set:
+# 		set {p_totalroom::%player%} to 0
 
 on tab complete of "/top":
 	set tab completions for position 1 to "level", "coins", "totalcoins", "wrath", "totalwrath", "totalstigma", "kill", "death", "rebirth", "maxhealth", and "damage"

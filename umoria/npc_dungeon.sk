@@ -23,9 +23,9 @@ command /start [<text>]:
 				send " "
 				send "    {@color}☠ &7===== {@color}&lSTATS &7===== {@color}☠"
 				send " "
-				send "                &7Floor: {@color}%{p_floor::%player%}%"
+				send "                &7Floor: {@color}%{dungeon::%player%::floor}%"
 				send " "
-				send "             &7Room: {@color}%{p_room::%player%}% &7/ %{p_roomnum::%player%}%"
+				send "             &7Room: {@color}%{dungeon::%player%::room}% &7/ %{dungeon::%player%::roomnum}%"
 				send " "
 				send formatted "          &8[<command:/start new><tooltip:{@color}Start a new dungeon>{@color}&lNEW<reset>&8 | <command:/start continue><tooltip:{@color}Continue a dungeon>{@color}&lCONTINUE<reset>&8]"
 			else:
@@ -49,7 +49,7 @@ command /start [<text>]:
 			clearMob(player)
 			dungeonStart(player, {dungeonActive::%player%})
 		else if arg-1 is "continue":
-			teleport player to {dungeonSpot::%player%}
+			teleport player to {dungeon::%player%::lastspot}
 		else if arg-1 is "start":
 			loop {dungeonStart::*}:
 				if block at loop-value is emerald block:

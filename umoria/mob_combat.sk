@@ -25,6 +25,13 @@ function death(p: player):
 function deathEffect(e: entity):
 	show 30 critical hit at location of {_e}
 
+function counter(l: location, t: text):
+	set {_ll} to random element out of blocks in radius 1 of {_l}
+	add 3 to {_ll}'s y-coordinate
+	create holo object "%{_t}%" with id "damage.%{_ll}%" at {_ll}
+	wait 1 second
+	delete holo object "damage.%{_ll}%"
+
 on damage:
 
 	if attacker is not a player:
@@ -69,10 +76,13 @@ on damage:
 			deathEffect(victim)
 			delete victim
 			add 1 to {p_kill::%attacker%}
+			add 1 to {dungeon::%attacker%::runkill}
 			delete {%victim%::*}
-			set {p_exp::%attacker%} to {p_exp::%attacker%} + {_exp}
 			if attacker's held item is sword, bow, pickaxe or hoe:
 				expItem(attacker, {_itemexp})
+			coins("add", attacker, 1)
+			add 1 to {p_coins::%attacker%}
+			expPlayer(attacker, {_exp})
 
 			# ======== MOB DROPS =======
 
@@ -87,31 +97,9 @@ on damage:
 
 			# ========== DUNGEON MOB COUNT ==============
 
-			if {p_mobRemain::%attacker%} is greater than 0:
-				remove 1 from {p_mobRemain::%attacker%}
+			if {dungeon::%attacker%::mobRemain} is greater than 0:
+				remove 1 from {dungeon::%attacker%::mobRemain}
 				set {mobcapnum} to {mobcapnum} - 1
-
-			# =========== PLAYER LEVEL UP =======
-
-			if {p_exp::%attacker%} is greater or equal to {p_nextexp::%attacker%}:
-				set {_before} to {p_level::%attacker%}
-				set {p_exp::%attacker%} to 0
-				set {p_level::%attacker%} to {p_level::%attacker%} + 1
-				set {p_upgradepoint::%attacker%} to {p_upgradepoint::%attacker%} + 1
-				set {p_nextexp::%attacker%} to {p_level::%attacker%} * 2
-				set {action::%attacker%} to "Level Up!"
-				send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%attacker%}%&8]" to attacker for 3 seconds
-				discordLevel(attacker, {p_level::%attacker%})
-				wait 2 seconds
-				delete {action::%attacker%}
-
-			# ============= ELSE EXP =============
-
-			else:
-				set {action::%attacker%} to "+%{_exp}% exp"
-				wait 2 seconds
-				delete {action::%attacker%}
-			add 1 to {p_coins::%attacker%}
 
 		# ======= NO KILL, JUST DAMAGE ==============
 
@@ -119,17 +107,8 @@ on damage:
 			set {_name::*} to name of victim split at " "
 			set name of victim to "%{_name::1}% %{_name::2}% &7({@color}%{%victim%::health}%{@color}/%{%victim%::maxhealth}% ❤&7)"
 		if {_enchant} is greater than 1:
-			set {_location2} to random element out of blocks in radius 1 of victim
-			add 3 to {_location2}'s y-coordinate
-			create holo object "&7-%{_enchant}%" with id "damage.%{_location2}%" at {_location2}
-		set {_location} to random element out of blocks in radius 1 of victim
-		add 3 to {_location}'s y-coordinate
-		create holo object "{@color}-%{_typeModify}%" with id "damage.%{_location}%" at {_location}
-		
-		wait 1 second
-		delete holo object "damage.%{_location}%"
-		delete holo object "damage.%{_location2}%"
-
+			counter(location of victim, "&7-%{_enchant}%")
+		counter(location of victim, "{@color}-%{_typeModify}%")
 
 # =================================== MOB ATTACK PLAYER ==========================
 
@@ -149,22 +128,88 @@ on damage:
 		else if {p_defense::%victim%} is greater than 0:
 			remove 1 from {p_defense::%victim%}
 			stop
-		remove {%attacker%::damage} from {p_health::%victim%}
+
+		# ========= CALCULATE PLAYER RESISTANCE =========
+		# ========= CALCULATE PLAYER RESISTANCE =========
+		# ========= CALCULATE PLAYER RESISTANCE =========
+
+		set {_slots::*} to 36, 37, 38, and 39
+		loop {_slots::*}:
+			set {_item} to slot loop-value of victim
+			set {_itemReduction} to (level of protection of {_item}) - 1
+			set {_totalReduction} to {_totalReduction} + {_itemReduction} 
+
+		# ========= FINAL DAMAGE =========
+
+		remove ({%attacker%::damage} - {_totalReduction}) from {p_health::%victim%}
+		counter(location of victim, "&c-%{%attacker%::damage}% &8[&7%{_totalReduction}%&8]")
 
 		# ========= PLAYER DEATH =============
 
 		if {p_health::%victim%} is less than 1:
-			death(victim)
+			# death(victim)
 			cancel event
-			if attacker is not a player:
-				victim is player
-				if projectile is set:
-					broadcast "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name%"
-				else:
-					broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
-				add 1 to {p_death::%victim%}
+			# if attacker is not a player:
+			# 	victim is player
+			# 	if projectile is set:
+			# 		broadcast "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name%"
+			# 	else:
+			# 		broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
+			add 1 to {p_death::%victim%}
+
+			set {p_health::%victim%} to {p_maxhealth::%victim%}
+			set {p_defense::%victim%} to {p_maxdefense::%victim%}
+
+			# ========= CALCULATE REWARDS =========
+
+			set {_wrath} to ({dungeon::%victim%::runroom} * 3) + ({dungeon::%victim%::floor} * 10)
+			wrath("add", victim, {_wrath})
+			if {dungeon::%victim%::floor} is greater than {p_highestfloor::%victim%}:
+				set {p_highestfloor::%victim%} to {dungeon::%victim%::floor}
+				set {_exp} to {dungeon::%victim%::runkill} * 5
+				set {_best} to "{@color}New Best! &fx2 Exp"
+				set {_exp} to {_exp} * 2
+				expPlayer(victim, {_exp})
+			else:
+				set {_best} to "&7Floor &f%{p_highestfloor::%victim%}%"
+				set {_exp} to {dungeon::%victim%::runkill} * 5
+				expPlayer(victim, {_exp})
+			set {_before} to {p_level::%victim%}
+			set {_after} to {p_level::%victim%}
+			if {_after} is greater than {_before}:
+				set {_levelup} to true
+
+			# ========= SUMMARY =========
+
+			send " " to victim
+			send " &7&l------- {@color}&lSUMMARY &7&l-------" to victim
+			send " " to victim
+			send "   &7Final: &7Floor &f%{dungeon::%victim%::floor}%" to victim
+			send "   &7Final: &7Room &f%{dungeon::%victim%::room}%" to victim
+			send "   &7Best: %{_best}%" to victim
+			send "   &7Total: &f%{dungeon::%victim%::runroom}% &7rooms" to victim
+			send "   &7Total: &f%{dungeon::%victim%::runkill}% &7kills" to victim
+			send " " to victim
+			send "      &7===== {@color}&lREWARDS &7=====" to victim
+			send " " to victim
+			send "   &7Wrath: &f+%{_wrath}%" to victim
+			if {_best} contains "New Best":
+				send "   &7Exp: &f+%{_exp} / 2% &7x &f2 &7= {@color}%{_exp} * 2% {@color}Exp" to victim
+			else:
+				send "   &7Exp: &f+%{_exp}%" to victim
+			send "   &7Upgrade Pts: &f+0" to victim
+			send " " to victim
+			send "   &8[&c☠&8] &cYou Died! " to victim
+			if {_levelup} is true:
+				send "   &7You gained &f%{_exp}% &7Exp and leveled up to &fLevel %{p_level::%victim%}%" to victim
+			else:
+				send "   &7You gained &f%{_exp}% Exp" to victim
+			send " " to victim
+			send " &7&l----------------------- " to victim
+			send " " to victim
 
 			dungeonEnd(victim)
+			teleport victim to {spawn}
 
 on damage:
 	attacker is not a player

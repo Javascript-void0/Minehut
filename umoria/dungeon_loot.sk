@@ -12,6 +12,7 @@ on right click:
 	generateChest(event-block, player)
 
 function generateChest(b: block, p: player):
+	expPlayer({_p}, 1)
 	set {_dir} to facing of {_b}
 	if {_dir} is north:
 		set block at location of {_b} to north facing chest
@@ -84,11 +85,6 @@ on inventory click:
 		set {_value::*} to {_lore::1} parsed as " ┃ Quantity: %number%"
 		remove event-item from event-inventory
 		coins("add", player, {_value::1})
-		set {action::%player%} to "+%{_value::1}% coins"
-		set {actionCoins::%player%} to {_value::1}
-		wait 2 seconds
-		{actionCoins::%player%} is {_value::1}
-		delete {action::%player%}
 	else if name of event-item contains "arrow":
 		cancel event
 		if item amount of event-item is not set:

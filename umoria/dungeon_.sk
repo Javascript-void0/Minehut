@@ -57,6 +57,10 @@ function pasteDungeon(loc: location, name: text, p: player) :: number:
 		set z-coordinate of {_loc} to {_z}
 		add 1 to y-coordinate of {_loc}
 	set y-coordinate of {_loc} to {_y}
+
+	add 1 to {p_totalroom::%{_p}%}
+	add 1 to {dungeon::%{_p}%::runroom}
+
 	return {_n}
 
 function spawnMob(loc: location, p: player, nn: number):
@@ -149,7 +153,7 @@ command /dungeon [<text>] [<text>] [<integer>] [<integer>] [<integer>]:
 				stop
 			else:
 				set {_} to pasteDungeon({dungeonStart.pos}, arg-2, player)
-				set {p_mobRemain::%player%} to 0
+				set {dungeon::%player%::mobRemain} to 0
 				send "pasted %arg-2%"
 				if arg-2 is "start":
 					set {_x} to x-coordinate of {dungeonStart.pos} + 7
@@ -194,11 +198,13 @@ function dungeonStart(p: player, l: location):
 	set {dungeonStart::%{_l}%} to {_l}
 	set yaw of {dungeonStart::%{_l}%} to -90
 	set pitch of {dungeonStart::%{_l}%} to 0
-	set {p_mobRemain::%{_p}%} to 0
+	set {dungeon::%{_p}%::mobRemain} to 0
 	set {dungeonActive::%{_p}%} to {_l}
-	set {p_floor::%{_p}%} to 1
-	set {p_room::%{_p}%} to 1
-	set {p_roomnum::%{_p}%} to random integer between 10 and 20
+	set {dungeon::%{_p}%::floor} to 1
+	set {dungeon::%{_p}%::room} to 1
+	set {dungeon::%{_p}%::roomnum} to random integer between 10 and 20
+	set {dungeon::%{_p}%::runroom} to 0
+	set {dungeon::%{_p}%::runkill} to 0
 	add 7 to x-coordinate of {_l}
 	add 1 to y-coordinate of {_l}
 	teleport {_p} to {_l}
@@ -206,27 +212,24 @@ function dungeonStart(p: player, l: location):
 
 function dungeonSave(p: player):
 	if {dungeonActive::%{_p}%} is set:
-		set {p_mobRemain::%{_p}%} to 0
+		set {dungeon::%{_p}%::mobRemain} to 0
 		set block at {dungeonActive::%{_p}%} to coal block
 		clearMob({_p})
 		set {lastLogin::%{_p}%} to now
 		world of {_p} is "dungeon"
-		set {dungeonSpot::%{_p}%} to location of {_p}
+		set {dungeon::%{_p}%::lastspot} to location of {_p}
 
 function dungeonEnd(p: player):
 	if {dungeonActive::%{_p}%} is set:
 
-		if {p_floor::%{_p}%} is greater than {p_highestfloor::%{_p}%}:
-			set {p_highestfloor::%{_p}%} to {p_floor::%{_p}%}
+		if {dungeon::%{_p}%::floor} is greater than {p_highestfloor::%{_p}%}:
+			set {p_highestfloor::%{_p}%} to {dungeon::%{_p}%::floor}
 
 		set {_} to pasteDungeon({dungeonActive::%{_p}%}, "start", {_p})
 		# send "&4Restarted: &c%{dungeonActive::%{_p}%}%" to {_p}
 		set block at {dungeonActive::%{_p}%} to emerald block
 		delete {dungeonActive::%{_p}%}
-		delete {p_mobRemain::%{_p}%}
-		delete {p_floor::%{_p}%}
-		delete {p_room::%{_p}%}
-		delete {p_roomnum::%{_p}%}
+		delete {dungeon::%{_p}%::*}
 		clearMob({_p})
 	else:
 		send "&4Restarted: &cNo Active Dungeon" to {_p}
@@ -262,8 +265,8 @@ on left click with blaze rod:
 on walking on lapis lazuli block:
 	world of player is "dungeon"
 	{dungeonActive::%player%} is set
-	# {p_mobRemain::%{_p}%} is 0
-	if {p_room::%player%} is less than {p_roomnum::%player%} - 1:
+	# {dungeon::%{_p}%::mobRemain} is 0
+	if {dungeon::%player%::room} is less than {dungeon::%player%::roomnum} - 1:
 		loop {d_roomList::*}:
 			loop-value does not contain "Empty"
 			loop-value is not "start"
@@ -273,19 +276,19 @@ on walking on lapis lazuli block:
 	else:
 		set {_room} to "corridor"
 	set {_n} to pasteDungeon(location of event-block, {_room}, player)
-	set {p_mobRemain::%player%} to {_n}
+	set {dungeon::%player%::mobRemain} to {_n}
 	set event-block to stone bricks
-	add 1 to {p_room::%player%}
+	add 1 to {dungeon::%player%::room}
 
 on walking on diamond block:
 	world of player is "dungeon"
 	{dungeonActive::%player%} is set
 	set {_} to pasteDungeon({dungeonActive::%player%}, "start", player)
-	set {p_mobRemain::%player%} to 0
+	set {dungeon::%player%::mobRemain} to 0
 	set event-block to stone bricks
-	set {p_room::%player%} to 1
-	set {p_roomnum::%player%} to random integer between 10 and 20
-	add 1 to {p_floor::%player%}
+	set {dungeon::%player%::room} to 1
+	set {dungeon::%player%::roomnum} to random integer between 10 and 20
+	add 1 to {dungeon::%player%::floor}
 	set {_x} to x-coordinate of {dungeonActive::%player%}
 	set {_y} to y-coordinate of {dungeonActive::%player%}
 	set {_z} to z-coordinate of {dungeonActive::%player%}

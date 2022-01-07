@@ -39,38 +39,42 @@ command /stats [<offline player>] [<number>]:
 			send " "
 			send "   &7Player: {@color}%{_player}%"
 			set {_level} to a("%{p_level::%{_player}%}%")
-			send formatted "<tooltip:{@color}%{_level}%>   &7Level: &8[&f:L%format({p_level::%{_player}%})%&8]"
+			send formatted "   &7Level: &8[<tooltip:{@color}%{_level}%>&f:L%format({p_level::%{_player}%})%<reset>&8]"
 			set {_exp} to a("%{p_exp::%{_player}%}%")
 			set {_nextexp} to a("%{p_nextexp::%{_player}%}%")
-			send formatted "<tooltip:{@color}%{_exp}%&7/{@color}%{_nextexp}%>   &7Exp: &f%{p_exp::%{_player}%}%&7/&f%{p_nextexp::%{_player}%}% &8(&7%{p_totalexp::%{_player}%}%&8)"
+			set {_totalexp} to a("%{p_totalexp::%{_player}%}%")
+			send formatted "   &7Exp: <tooltip:{@color}%{_exp}%>&f%{p_exp::%{_player}%}%<reset>&7/<tooltip:{@color}%{_nextexp}%>&f%{p_nextexp::%{_player}%}%<reset> &8(<tooltip:{@color}%{_totalexp}%>&7%format({p_totalexp::%{_player}%})%<reset>&8)"
 			send " "
 			set {_coins} to a("%{p_coins::%{_player}%}%")
 			set {_totalcoins} to a("%{p_totalcoins::%{_player}%}%")
-			send formatted "<tooltip:&7Current: {@color}%{_coins}%%nl%&7Lifetime: {@color}%{_totalcoins}%>   &7Coins: &f%format({p_coins::%{_player}%})% &8(&7%format({p_totalcoins::%{_player}%})%&8)"
+			send formatted "   &7Coins: <tooltip:{@color}%{_coins}%>&f%format({p_coins::%{_player}%})%<reset> &8(<tooltip:{@color}%{_totalcoins}%>&7%format({p_totalcoins::%{_player}%})%<reset>&8)"
 			set {_wrath} to a("%{p_wrath::%{_player}%}%")
 			set {_totalwrath} to a("%{p_totalwrath::%{_player}%}%")
-			send formatted "<tooltip:&7Current: {@color}%{_wrath}%%nl%&7Lifetime: {@color}%{_totalwrath}%>   &7Wrath: &f%format({p_wrath::%{_player}%})% &8(&7%format({p_totalwrath::%{_player}%})%&8)"
+			send formatted "   &7Wrath: <tooltip:{@color}%{_wrath}%>&f%format({p_wrath::%{_player}%})%<reset> &8(<tooltip:{@color}%{_totalwrath}%>&7%format({p_totalwrath::%{_player}%})%<reset>&8)"
 			send " "
 			set {_health} to a("%{p_health::%{_player}%}%")
 			set {_maxhealth} to a("%{p_maxhealth::%{_player}%}%")
-			send formatted "<tooltip:{@color}%{_health}%&7/{@color}%{_maxhealth}%>   &7Health: &f%{p_health::%{_player}%}%&7/&f%{p_maxhealth::%{_player}%}%"
+			send formatted "   &7Health: <tooltip:{@color}%{_health}%>&f%format({p_health::%{_player}%})%<reset>&7/<tooltip:{@color}%{_maxhealth}%>&f%format({p_maxhealth::%{_player}%})%<reset>"
 			send "   &7Defense: &f%{p_defense::%{_player}%}%&7/&f%{p_defense::%{_player}%}%"
 			set {_damage} to a("%{p_damage::%{_player}%}%")
-			send formatted "<tooltip:{@color}%{_damage}%>   &7Damage: &f%{p_damage::%{_player}%}%"
+			send formatted "   &7Damage: <tooltip:{@color}%{_damage}%>&f%format({p_damage::%{_player}%})%"
 			send " "
 			send " "
 		else if {_page} is 2:
 			send formatted "   &8[<tooltip:{@color}Page 1><command:/stats %{_player}% 1>&7&lPAGE 1<reset> &8| <tooltip:{@color}Page 2><command:/stats %{_player}% 2>{@color}&lPAGE 2<reset>&8] "
 			send " "
 			set {_highest} to a("%{p_highestfloor::%{_player}%}%")
-			send formatted "<tooltip:{@color}%{_highest}%>   &7Highest Floor: &7Floor &f%format({p_highestfloor::%{_player}%})%"
+			send formatted "   &7Highest: &7Floor <tooltip:{@color}%{_highest}%>&f%format({p_highestfloor::%{_player}%})%"
+			set {_totalroom} to a("%{p_totalroom::%{_player}%}%")
+			send formatted "   &7Accumulated: <tooltip:{@color}%{_totalroom}%>&f%format({p_totalroom::%{_player}%})%<reset> &7rooms"
 			send " "
-			send "   &7Kills: &f%{p_kill::%{_player}%}% &7kills"
-			send "   &7Deaths: &f%{p_death::%{_player}%}% &7deaths"
+			set {_kill} to a("%{p_kill::%{_player}%}%")
+			send formatted "   &7Kills: <tooltip:{@color}%{_kill}%>&f%format({p_kill::%{_player}%})% &7kills"
+			set {_death} to a("%{p_death::%{_player}%}%")
+			send formatted "   &7Deaths: <tooltip:{@color}%{_death}%>&f%format({p_death::%{_player}%})% &7deaths"
 			send "   &7K/D: &f%({p_kill::%{_player}%} / {p_death::%{_player}%})%"
 			send " "
 			send "   &7Rebirth: N/A times"
-			send " "
 			send " "
 			send " "
 			send " "

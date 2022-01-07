@@ -5,6 +5,27 @@ options:
 	admin: &8[<##B4C788>&lADMIN&8]&7
 	world: world
 
+function expPlayer(p: player, n: number):
+	set {p_exp::%{_p}%} to {p_exp::%{_p}%} + {_n}
+	set {p_totalexp::%{_p}%} to {p_totalexp::%{_p}%} + {_n}
+	if {p_exp::%{_p}%} is greater or equal to {p_nextexp::%{_p}%}:
+		set {_before} to {p_level::%{_p}%}
+		set {p_exp::%{_p}%} to 0
+		set {p_level::%{_p}%} to {p_level::%{_p}%} + 1
+		set {p_upgradepoint::%{_p}%} to {p_upgradepoint::%{_p}%} + 1
+		set {p_nextexp::%{_p}%} to {p_level::%{_p}%} * 2
+		set {action::%{_p}%} to "Level Up!"
+		send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%{_p}%}%&8]" to {_p} for 3 seconds
+		discordLevel({_p}, {p_level::%{_p}%})
+		wait 2 seconds
+		{action::%{_p}%} is "Level Up!"
+		delete {action::%{_p}%}
+	else:
+		set {action::%{_p}%} to "+%{_n}% exp"
+		wait 2 seconds
+		"%{action::%{_p}%}%" contains "%{_n}%"
+		delete {action::%{_p}%}
+
 function expItem(p: player, n: number):
 	set {_level::*} to uncoloured line 2 of {_p}'s tool's lore parsed as " ┃ %text%: %number%"
 	set {_exp::*} to uncoloured line 3 of {_p}'s tool's lore parsed as " ╹ %text%: %number%/%number%"
@@ -86,7 +107,7 @@ function expItem(p: player, n: number):
 on break: 
 	cancel drops
 
-function discordLevel(p: player, l: integer):
+function discordLevel(p: player, l: number):
 	send "```Level: %name of {_p}%, %{_l}%```" to channel with id "900147959168118825"
 
 function expBlock(p: player, n: integer, b: block):

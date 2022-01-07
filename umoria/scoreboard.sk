@@ -62,21 +62,34 @@ every 2 ticks:
 		else:
 			set line 7 of loop-player's scoreboard to "   &8_____"
 		set line 6 of loop-player's scoreboard to "&d"
+		if {actioncoin::%loop-player%} is set:
+			set {_line3} to false
+		else:
+			set {_line3} to true
 		if loop-player is in world "dungeon":
 			set line 5 of loop-player's scoreboard to " {@color}&lDUNGEON"
 			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%format({p_coins::%loop-player%})%"
 			if {dungeonActive::%loop-player%} is not set:
-				set line 3 of loop-player's scoreboard to " &8┃ &7Floor: "
+				if {_line3} is true:
+					set line 3 of loop-player's scoreboard to " &8┃ &7Floor: "
+				else:
+					set line 3 of loop-player's scoreboard to " &8┃   &7%{actioncoin::%loop-player%}%"
 				set line 2 of loop-player's scoreboard to " &8╹ &7Room: "
 				set line 1 of loop-player's scoreboard to "&c"
 			else:
-				set line 3 of loop-player's scoreboard to " &8┃ &7Floor: &f%{p_floor::%loop-player%}%"
-				set line 2 of loop-player's scoreboard to " &8╹ &7Room: &f%{p_room::%loop-player%}%&7/&f%{p_roomnum::%loop-player%}%"
+				if {_line3} is true:
+					set line 3 of loop-player's scoreboard to " &8┃ &7Floor: &f%{dungeon::%loop-player%::floor}%"
+				else:
+					set line 3 of loop-player's scoreboard to " &8┃   &7%{actioncoin::%loop-player%}%"
+				set line 2 of loop-player's scoreboard to " &8╹ &7Room: &f%{dungeon::%loop-player%::room}%&7/&f%{dungeon::%loop-player%::roomnum}%"
 				set line 1 of loop-player's scoreboard to "&c"
 		else:
 			set line 5 of loop-player's scoreboard to " {@color}&lBALANCE"
 			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%format({p_coins::%loop-player%})%"
-			set line 3 of loop-player's scoreboard to " &8┃ &7Wrath: &f%format({p_wrath::%loop-player%})%"
+			if {_line3} is true:
+				set line 3 of loop-player's scoreboard to " &8┃ &7Wrath: &f%format({p_wrath::%loop-player%})%"
+			else:
+				set line 3 of loop-player's scoreboard to " &8┃   &7%{actioncoin::%loop-player%}%"
 			set line 2 of loop-player's scoreboard to " &8╹ &7Virtue: "
 			set line 1 of loop-player's scoreboard to "&c"
 		wait 1 second

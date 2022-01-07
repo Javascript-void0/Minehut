@@ -111,13 +111,15 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				if {p_maxhealth::%arg-2%} is not set:
 					set {p_maxhealth::%arg-2%} to 20
 				if {p_defense::%arg-2%} is not set:
-					set {p_defense::%arg-2%} to 5
+					set {p_defense::%arg-2%} to 0
 				if {p_maxdefense::%arg-2%} is not set:
-					set {p_maxdefense::%arg-2%} to 5
+					set {p_maxdefense::%arg-2%} to 0
 				if {p_bank::%arg-2%} is not set:
 					set {p_bank::%arg-2%} to 0
 				if {p_highestfloor::%arg-2%} is not set:
-					set {p_highestfloor::%arg-2%} to 1
+					set {p_highestfloor::%arg-2%} to 0
+				if {p_totalroom::%arg-3%} is not set:
+					set {p_totalroom::%arg-2%} to 0
 				send "{@admin} &7Done Checking"
 
 			else if arg-1 is "blessing":
