@@ -29,7 +29,7 @@ function newcenter(p: player):
 	set slot 32 of {_p} to {hermeslock}
 
 on tab complete of "/commands" and "/cmd" and "/command" and "/c":
-	set tab completions for position 1 to "listenchant", "itemlevel", "enchant", "3x3", "reloadGlobalShop", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
+	set tab completions for position 1 to "listenchant", "itemlevel", "enchant", "3x3", "reloadGlobalShop", "reloadItems", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
 	if tab complete arg-1 is "statcheck" or "dailyreset" or "clearMob":
 		set tab completions for position 2 to all players
 	else if tab complete arg-1 is "quiver" or "quiversize":
@@ -225,6 +225,10 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 			else if arg-1 is "reloadGlobalShop":
 				reloadGlobalShop()
 				send "{@admin} Refreshed Items in {@color}Global Shop"
+
+			else if arg-1 is "reloadItems":
+				reloadItems()
+				send "{@admin} Refreshed Items"
 
 		else:
 			send "{@admin} {@permission}"

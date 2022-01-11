@@ -32,6 +32,144 @@ function counter(l: location, t: text):
 	wait 1 second
 	delete holo object "damage.%{_ll}%"
 
+function heldexpItem(p: player, n: number):
+	set {_level::*} to uncoloured line 2 of lore of held item of {_p} parsed as " ┃ %text%: %number%"
+	set {_exp::*} to uncoloured line 3 of lore of held item of {_p} parsed as " ╹ %text%: %number%/%number%"
+	
+	set {_level} to {_level::2}
+	set {_exp} to {_exp::2}
+	set {_nextexp} to {_exp::3}
+	set {_exp} to {_exp} + {_n}
+	if {_exp} is greater or equal to {_nextexp}:
+		set {_exp} to 0
+		set {_nextexp} to ({_level} * 2) + 10
+		set {_before} to {_level}
+		add 1 to {_level}
+		send " " to "%{_p}%" parsed as player
+		send "  &7Item Level Up! &8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{_level}%&8]" to "%{_p}%" parsed as player
+		send "    {@color}+1 &7enchant point" to "%{_p}%" parsed as player
+		send " " to "%{_p}%" parsed as player
+	set line 2 of lore of held item of {_p} to " &8┃ &7Level: &f%{_level}%"					
+	set line 3 of lore of held item of {_p} to " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%"					
+
+	set {_percent} to {_exp} / {_nextexp}
+	set {_percentFormat} to roundto({_percent} * 100, 1)
+	
+	if {_percent} is between 0 and 0.05:
+		set {_bar} to " &8[{@color}&7::::::::::::::::::::&8]"
+	else if {_percent} is between 0.05 and 0.1:
+		set {_bar} to " &8[{@color}:&7:::::::::::::::::::&8]"
+	else if {_percent} is between 0.1 and 0.15:
+		set {_bar} to " &8[{@color}::&7::::::::::::::::::&8]"
+	else if {_percent} is between 0.15 and 0.2:
+		set {_bar} to " &8[{@color}:::&7:::::::::::::::::&8]"
+	else if {_percent} is between 0.2 and 0.25:
+		set {_bar} to " &8[{@color}::::&7::::::::::::::::&8]"
+	else if {_percent} is between 0.25 and 0.3:
+		set {_bar} to " &8[{@color}:::::&7:::::::::::::::&8]"
+	else if {_percent} is between 0.3 and 0.35:
+		set {_bar} to " &8[{@color}::::::&7::::::::::::::&8]"
+	else if {_percent} is between 0.35 and 0.4:
+		set {_bar} to " &8[{@color}:::::::&7:::::::::::::&8]"
+	else if {_percent} is between 0.4 and 0.45:
+		set {_bar} to " &8[{@color}::::::::&7::::::::::::&8]"
+	else if {_percent} is between 0.45 and 0.5:
+		set {_bar} to " &8[{@color}:::::::::&7:::::::::::&8]"
+	else if {_percent} is between 0.5 and 0.55:
+		set {_bar} to " &8[{@color}::::::::::&7::::::::::&8]"
+	else if {_percent} is between 0.55 and 0.6:
+		set {_bar} to " &8[{@color}:::::::::::&7:::::::::&8]"
+	else if {_percent} is between 0.6 and 0.65:
+		set {_bar} to " &8[{@color}::::::::::::&7::::::::&8]"
+	else if {_percent} is between 0.65 and 0.7:
+		set {_bar} to " &8[{@color}:::::::::::::&7:::::::&8]"
+	else if {_percent} is between 0.7 and 0.75:
+		set {_bar} to " &8[{@color}::::::::::::::&7::::::&8]"
+	else if {_percent} is between 0.75 and 0.8:
+		set {_bar} to " &8[{@color}:::::::::::::::&7:::::&8]"
+	else if {_percent} is between 0.8 and 0.85:
+		set {_bar} to " &8[{@color}::::::::::::::::&7::::&8]"
+	else if {_percent} is between 0.85 and 0.9:
+		set {_bar} to " &8[{@color}:::::::::::::::::&7:::&8]"
+	else if {_percent} is between 0.9 and 0.95:
+		set {_bar} to " &8[{@color}::::::::::::::::::&7::&8]"
+	else if {_percent} is between 0.95 and 1:
+		set {_bar} to " &8[{@color}:::::::::::::::::::&7:&8]"
+	else:
+		set {_bar} to " &8[{@color}::::::::::::::::::::&7&8]"
+
+	set line 5 of lore of held item of {_p} to "   &8(&f%{_percentFormat}%%%&8)"
+	set line 6 of lore of held item of {_p} to "%{_bar}%"
+
+function expItem(p: player, i: integer, n: number):
+	set {_level::*} to uncoloured line 2 of lore of (slot {_i} of {_p}) parsed as " ┃ %text%: %number%"
+	set {_exp::*} to uncoloured line 3 of lore of (slot {_i} of {_p}) parsed as " ╹ %text%: %number%/%number%"
+	
+	set {_level} to {_level::2}
+	set {_exp} to {_exp::2}
+	set {_nextexp} to {_exp::3}
+	set {_exp} to {_exp} + {_n}
+	if {_exp} is greater or equal to {_nextexp}:
+		set {_exp} to 0
+		set {_nextexp} to ({_level} * 2) + 10
+		set {_before} to {_level}
+		add 1 to {_level}
+		send " " to "%{_p}%" parsed as player
+		send "  &7Item Level Up! &8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{_level}%&8]" to "%{_p}%" parsed as player
+		send "    {@color}+1 &7enchant point" to "%{_p}%" parsed as player
+		send " " to "%{_p}%" parsed as player
+	set line 2 of lore of (slot {_i} of {_p}) to " &8┃ &7Level: &f%{_level}%"					
+	set line 3 of lore of (slot {_i} of {_p}) to " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%"					
+
+	set {_percent} to {_exp} / {_nextexp}
+	set {_percentFormat} to roundto({_percent} * 100, 1)
+	
+	if {_percent} is between 0 and 0.05:
+		set {_bar} to " &8[{@color}&7::::::::::::::::::::&8]"
+	else if {_percent} is between 0.05 and 0.1:
+		set {_bar} to " &8[{@color}:&7:::::::::::::::::::&8]"
+	else if {_percent} is between 0.1 and 0.15:
+		set {_bar} to " &8[{@color}::&7::::::::::::::::::&8]"
+	else if {_percent} is between 0.15 and 0.2:
+		set {_bar} to " &8[{@color}:::&7:::::::::::::::::&8]"
+	else if {_percent} is between 0.2 and 0.25:
+		set {_bar} to " &8[{@color}::::&7::::::::::::::::&8]"
+	else if {_percent} is between 0.25 and 0.3:
+		set {_bar} to " &8[{@color}:::::&7:::::::::::::::&8]"
+	else if {_percent} is between 0.3 and 0.35:
+		set {_bar} to " &8[{@color}::::::&7::::::::::::::&8]"
+	else if {_percent} is between 0.35 and 0.4:
+		set {_bar} to " &8[{@color}:::::::&7:::::::::::::&8]"
+	else if {_percent} is between 0.4 and 0.45:
+		set {_bar} to " &8[{@color}::::::::&7::::::::::::&8]"
+	else if {_percent} is between 0.45 and 0.5:
+		set {_bar} to " &8[{@color}:::::::::&7:::::::::::&8]"
+	else if {_percent} is between 0.5 and 0.55:
+		set {_bar} to " &8[{@color}::::::::::&7::::::::::&8]"
+	else if {_percent} is between 0.55 and 0.6:
+		set {_bar} to " &8[{@color}:::::::::::&7:::::::::&8]"
+	else if {_percent} is between 0.6 and 0.65:
+		set {_bar} to " &8[{@color}::::::::::::&7::::::::&8]"
+	else if {_percent} is between 0.65 and 0.7:
+		set {_bar} to " &8[{@color}:::::::::::::&7:::::::&8]"
+	else if {_percent} is between 0.7 and 0.75:
+		set {_bar} to " &8[{@color}::::::::::::::&7::::::&8]"
+	else if {_percent} is between 0.75 and 0.8:
+		set {_bar} to " &8[{@color}:::::::::::::::&7:::::&8]"
+	else if {_percent} is between 0.8 and 0.85:
+		set {_bar} to " &8[{@color}::::::::::::::::&7::::&8]"
+	else if {_percent} is between 0.85 and 0.9:
+		set {_bar} to " &8[{@color}:::::::::::::::::&7:::&8]"
+	else if {_percent} is between 0.9 and 0.95:
+		set {_bar} to " &8[{@color}::::::::::::::::::&7::&8]"
+	else if {_percent} is between 0.95 and 1:
+		set {_bar} to " &8[{@color}:::::::::::::::::::&7:&8]"
+	else:
+		set {_bar} to " &8[{@color}::::::::::::::::::::&7&8]"
+
+	set line 5 of lore of (slot {_i} of {_p}) to "   &8(&f%{_percentFormat}%%%&8)"
+	set line 6 of lore of (slot {_i} of {_p}) to "%{_bar}%"
+
 on damage:
 
 	if attacker is not a player:
@@ -79,7 +217,7 @@ on damage:
 			add 1 to {dungeon::%attacker%::runkill}
 			delete {%victim%::*}
 			if attacker's held item is sword, bow, pickaxe or hoe:
-				expItem(attacker, {_itemexp})
+				heldexpItem(attacker, {_itemexp})
 			coins("add", attacker, 1)
 			add 1 to {p_coins::%attacker%}
 			expPlayer(attacker, {_exp})
@@ -118,98 +256,136 @@ on damage:
 		if victim is blocking with a shield:
 			cancel event
 			set {_shield} to slot 40 of victim
+
+			# === SHIELD EXP ===
+			set {_exp} to level of mending of {_shield}
+			if {_exp} is not set:
+				set {_exp} to 1
+
 			set slot 40 of victim to air
-			wait 0.7 second
+			set {_cooldown::*} to uncolored line 9 of lore of {_shield} parsed as " ┃ Cooldown: %number%s"
+			if {_cooldown::1} is 0.7:
+				wait 0.7 seconds
+			else if {_cooldown::1} is 0.65:
+				wait 0.65 seconds
+			else if {_cooldown::1} is 0.6:
+				wait 0.6 seconds
+			else if {_cooldown::1} is 0.55:
+				wait 0.55 seconds
+			else if {_cooldown::1} is 0.5:
+				wait 0.5 seconds
+			else if {_cooldown::1} is 0.45:
+				wait 0.45 seconds
+			else if {_cooldown::1} is 0.3:
+				wait 0.3 seconds
+			else:
+				wait 1 second
 			set slot 40 of victim to {_shield}
-		else if damage was caused by thorns:
-			cancel event
-			stop
+			expItem(victim, 40, {_exp})
+		# else if damage was caused by thorns:
+		# 	cancel event
+		# 	stop
 
 		else if {p_defense::%victim%} is greater than 0:
 			remove 1 from {p_defense::%victim%}
 			stop
 
-		# ========= CALCULATE PLAYER RESISTANCE =========
-		# ========= CALCULATE PLAYER RESISTANCE =========
-		# ========= CALCULATE PLAYER RESISTANCE =========
+		# ========= GET ARMOR RESISTANCE =========
 
-		set {_slots::*} to 36, 37, 38, and 39
-		loop {_slots::*}:
-			set {_item} to slot loop-value of victim
-			set {_itemReduction} to (level of protection of {_item}) - 1
-			set {_totalReduction} to {_totalReduction} + {_itemReduction} 
+		else:
 
-		# ========= FINAL DAMAGE =========
+			set {_slots::*} to 36, 37, 38, and 39
+			set {_itemexp} to 1
+			set {_totalReduction} to 0
+			loop {_slots::*}:
+				set {_item} to slot loop-value of victim
+				set {_unbreaking} to (level of unbreaking of {_item}) - 1
+				if {_unbreaking} is less than 0:
+					set {_unbreaking} to 0
+				set {_totalReduction} to {_totalReduction} + {_unbreaking} 
 
-		remove ({%attacker%::damage} - {_totalReduction}) from {p_health::%victim%}
-		counter(location of victim, "&c-%{%attacker%::damage}% &8[&7%{_totalReduction}%&8]")
+				# ========= GET ARMOR EXP =========
 
-		# ========= PLAYER DEATH =============
+				set {_mending} to (level of mending of {_item}) - 1
+				if {_mending} is less than 0:
+					set {_mending} to 0
+				set {_itemexp} to {_itemexp} + ({_mending} * 1)
 
-		if {p_health::%victim%} is less than 1:
-			# death(victim)
-			cancel event
-			# if attacker is not a player:
-			# 	victim is player
-			# 	if projectile is set:
-			# 		broadcast "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name%"
-			# 	else:
-			# 		broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
-			add 1 to {p_death::%victim%}
+			# ========= FINAL =========
 
-			set {p_health::%victim%} to {p_maxhealth::%victim%}
-			set {p_defense::%victim%} to {p_maxdefense::%victim%}
+			remove ({%attacker%::damage} - {_totalReduction}) from {p_health::%victim%}
+			counter(location of victim, "&c-%{%attacker%::damage}% &8[&7%{_totalReduction}%&8]")
+			expItem(victim, 36, {_itemexp})
+			expItem(victim, 37, {_itemexp})
+			expItem(victim, 38, {_itemexp})
+			expItem(victim, 39, {_itemexp})
 
-			# ========= CALCULATE REWARDS =========
+			# ========= PLAYER DEATH =============
 
-			set {_wrath} to ({dungeon::%victim%::runroom} * 3) + ({dungeon::%victim%::floor} * 10)
-			wrath("add", victim, {_wrath})
-			if {dungeon::%victim%::floor} is greater than {p_highestfloor::%victim%}:
-				set {p_highestfloor::%victim%} to {dungeon::%victim%::floor}
-				set {_exp} to {dungeon::%victim%::runkill} * 5
-				set {_best} to "{@color}New Best! &fx2 Exp"
-				set {_exp} to {_exp} * 2
-				expPlayer(victim, {_exp})
-			else:
-				set {_best} to "&7Floor &f%{p_highestfloor::%victim%}%"
-				set {_exp} to {dungeon::%victim%::runkill} * 5
-				expPlayer(victim, {_exp})
-			set {_before} to {p_level::%victim%}
-			set {_after} to {p_level::%victim%}
-			if {_after} is greater than {_before}:
-				set {_levelup} to true
+			if {p_health::%victim%} is less than 1:
+				# death(victim)
+				cancel event
+				# if attacker is not a player:
+				# 	victim is player
+				# 	if projectile is set:
+				# 		broadcast "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name%"
+				# 	else:
+				# 		broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
+				add 1 to {p_death::%victim%}
 
-			# ========= SUMMARY =========
+				set {p_health::%victim%} to {p_maxhealth::%victim%}
+				set {p_defense::%victim%} to {p_maxdefense::%victim%}
 
-			send " " to victim
-			send " &7&l------- {@color}&lSUMMARY &7&l-------" to victim
-			send " " to victim
-			send "   &7Final: &7Floor &f%{dungeon::%victim%::floor}%" to victim
-			send "   &7Final: &7Room &f%{dungeon::%victim%::room}%" to victim
-			send "   &7Best: %{_best}%" to victim
-			send "   &7Total: &f%{dungeon::%victim%::runroom}% &7rooms" to victim
-			send "   &7Total: &f%{dungeon::%victim%::runkill}% &7kills" to victim
-			send " " to victim
-			send "      &7===== {@color}&lREWARDS &7=====" to victim
-			send " " to victim
-			send "   &7Wrath: &f+%{_wrath}%" to victim
-			if {_best} contains "New Best":
-				send "   &7Exp: &f+%{_exp} / 2% &7x &f2 &7= {@color}%{_exp} * 2% {@color}Exp" to victim
-			else:
-				send "   &7Exp: &f+%{_exp}%" to victim
-			send "   &7Upgrade Pts: &f+0" to victim
-			send " " to victim
-			send "   &8[&c☠&8] &cYou Died! " to victim
-			if {_levelup} is true:
-				send "   &7You gained &f%{_exp}% &7Exp and leveled up to &fLevel %{p_level::%victim%}%" to victim
-			else:
-				send "   &7You gained &f%{_exp}% Exp" to victim
-			send " " to victim
-			send " &7&l----------------------- " to victim
-			send " " to victim
+				# ========= CALCULATE REWARDS =========
 
-			dungeonEnd(victim)
-			teleport victim to {spawn}
+				set {_wrath} to ({dungeon::%victim%::runroom} * 3) + ({dungeon::%victim%::floor} * 10)
+				wrath("add", victim, {_wrath})
+				set {_before} to {p_level::%victim%}
+				if {dungeon::%victim%::floor} is greater than {p_highestfloor::%victim%}:
+					set {p_highestfloor::%victim%} to {dungeon::%victim%::floor}
+					set {_exp} to {dungeon::%victim%::runkill} * 5
+					set {_best} to "{@color}New Best! &fx2 Exp"
+					set {_exp} to {_exp} * 2
+					expPlayer(victim, {_exp})
+				else:
+					set {_best} to "&7Floor &f%{p_highestfloor::%victim%}%"
+					set {_exp} to {dungeon::%victim%::runkill} * 5
+					expPlayer(victim, {_exp})
+				set {_after} to {p_level::%victim%}
+				if {_after} is greater than {_before}:
+					set {_levelup} to true
+
+				# ========= SUMMARY =========
+
+				send " " to victim
+				send " &7&l------- {@color}&lSUMMARY &7&l-------" to victim
+				send " " to victim
+				send "   &7Final: &7Floor &f%{dungeon::%victim%::floor}%" to victim
+				send "   &7Final: &7Room &f%{dungeon::%victim%::room}%" to victim
+				send "   &7Best: %{_best}%" to victim
+				send "   &7Total: &f%{dungeon::%victim%::runroom}% &7rooms" to victim
+				send "   &7Total: &f%{dungeon::%victim%::runkill}% &7kills" to victim
+				send " " to victim
+				send "      &7===== {@color}&lREWARDS &7=====" to victim
+				send " " to victim
+				send "   &7Wrath: &f+%{_wrath}%" to victim
+				if {_best} contains "New Best":
+					send "   &7Exp: &f+%{_exp} / 2% &7x &f2 &7= {@color}%{_exp} * 2% {@color}Exp" to victim
+				else:
+					send "   &7Exp: &f+%{_exp}%" to victim
+				send "   &7Upgrade Pts: &f+0" to victim
+				send " " to victim
+				send "   &8[&c☠&8] &cYou Died! " to victim
+				if {_levelup} is true:
+					send "   &7You gained &f%{_exp}% &7Exp and leveled up to &fLevel %{p_level::%victim%}%" to victim
+				else:
+					send "   &7You gained &f%{_exp}% Exp" to victim
+				send " " to victim
+				send " &7&l----------------------- " to victim
+				send " " to victim
+
+				dungeonEnd(victim)
+				teleport victim to {spawn}
 
 on damage:
 	attacker is not a player

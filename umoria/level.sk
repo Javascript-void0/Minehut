@@ -10,7 +10,7 @@ function expPlayer(p: player, n: number):
 	set {p_totalexp::%{_p}%} to {p_totalexp::%{_p}%} + {_n}
 	if {p_exp::%{_p}%} is greater or equal to {p_nextexp::%{_p}%}:
 		set {_before} to {p_level::%{_p}%}
-		set {p_exp::%{_p}%} to 0
+		set {p_exp::%{_p}%} to {p_nextexp::%{_p}%} - {p_exp::%{_p}%}
 		set {p_level::%{_p}%} to {p_level::%{_p}%} + 1
 		set {p_upgradepoint::%{_p}%} to {p_upgradepoint::%{_p}%} + 1
 		set {p_nextexp::%{_p}%} to {p_level::%{_p}%} * 2
@@ -25,75 +25,6 @@ function expPlayer(p: player, n: number):
 		wait 2 seconds
 		"%{action::%{_p}%}%" contains "%{_n}%"
 		delete {action::%{_p}%}
-
-function expItem(p: player, n: number):
-	set {_level::*} to uncoloured line 2 of {_p}'s tool's lore parsed as " ┃ %text%: %number%"
-	set {_exp::*} to uncoloured line 3 of {_p}'s tool's lore parsed as " ╹ %text%: %number%/%number%"
-	
-	set {_level} to {_level::2}
-	set {_exp} to {_exp::2}
-	set {_nextexp} to {_exp::3}
-	set {_exp} to {_exp} + {_n}
-	if {_exp} is greater or equal to {_nextexp}:
-		set {_exp} to 0
-		set {_nextexp} to ({_level} * 2) + 10
-		set {_before} to {_level}
-		add 1 to {_level}
-		send " " to "%{_p}%" parsed as player
-		send "  &7Item Level Up! &8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{_level}%&8]" to "%{_p}%" parsed as player
-		send "    {@color}+1 &7enchant point" to "%{_p}%" parsed as player
-		send " " to "%{_p}%" parsed as player
-	set line 2 of {_p}'s tool's lore to " &8┃ &7Level: &f%{_level}%"					
-	set line 3 of {_p}'s tool's lore to " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%"					
-
-	set {_percent} to {_exp} / {_nextexp}
-	set {_percentFormat} to roundto({_percent} * 100, 1)
-	
-	if {_percent} is between 0 and 0.05:
-		set {_bar} to " &8[{@color}&7::::::::::::::::::::&8]"
-	else if {_percent} is between 0.05 and 0.1:
-		set {_bar} to " &8[{@color}:&7:::::::::::::::::::&8]"
-	else if {_percent} is between 0.1 and 0.15:
-		set {_bar} to " &8[{@color}::&7::::::::::::::::::&8]"
-	else if {_percent} is between 0.15 and 0.2:
-		set {_bar} to " &8[{@color}:::&7:::::::::::::::::&8]"
-	else if {_percent} is between 0.2 and 0.25:
-		set {_bar} to " &8[{@color}::::&7::::::::::::::::&8]"
-	else if {_percent} is between 0.25 and 0.3:
-		set {_bar} to " &8[{@color}:::::&7:::::::::::::::&8]"
-	else if {_percent} is between 0.3 and 0.35:
-		set {_bar} to " &8[{@color}::::::&7::::::::::::::&8]"
-	else if {_percent} is between 0.35 and 0.4:
-		set {_bar} to " &8[{@color}:::::::&7:::::::::::::&8]"
-	else if {_percent} is between 0.4 and 0.45:
-		set {_bar} to " &8[{@color}::::::::&7::::::::::::&8]"
-	else if {_percent} is between 0.45 and 0.5:
-		set {_bar} to " &8[{@color}:::::::::&7:::::::::::&8]"
-	else if {_percent} is between 0.5 and 0.55:
-		set {_bar} to " &8[{@color}::::::::::&7::::::::::&8]"
-	else if {_percent} is between 0.55 and 0.6:
-		set {_bar} to " &8[{@color}:::::::::::&7:::::::::&8]"
-	else if {_percent} is between 0.6 and 0.65:
-		set {_bar} to " &8[{@color}::::::::::::&7::::::::&8]"
-	else if {_percent} is between 0.65 and 0.7:
-		set {_bar} to " &8[{@color}:::::::::::::&7:::::::&8]"
-	else if {_percent} is between 0.7 and 0.75:
-		set {_bar} to " &8[{@color}::::::::::::::&7::::::&8]"
-	else if {_percent} is between 0.75 and 0.8:
-		set {_bar} to " &8[{@color}:::::::::::::::&7:::::&8]"
-	else if {_percent} is between 0.8 and 0.85:
-		set {_bar} to " &8[{@color}::::::::::::::::&7::::&8]"
-	else if {_percent} is between 0.85 and 0.9:
-		set {_bar} to " &8[{@color}:::::::::::::::::&7:::&8]"
-	else if {_percent} is between 0.9 and 0.95:
-		set {_bar} to " &8[{@color}::::::::::::::::::&7::&8]"
-	else if {_percent} is between 0.95 and 1:
-		set {_bar} to " &8[{@color}:::::::::::::::::::&7:&8]"
-	else:
-		set {_bar} to " &8[{@color}::::::::::::::::::::&7&8]"
-
-	set line 5 of {_p}'s tool's lore to "   &8(&f%{_percentFormat}%%%&8)"
-	set line 6 of {_p}'s tool's lore to "%{_bar}%"
 
 # on break:
 # 	if xp of player is less than 996:
