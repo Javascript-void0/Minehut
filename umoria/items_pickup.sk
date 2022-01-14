@@ -1,0 +1,8 @@
+on pickup:
+	loop {mobloot::list::*}:
+		if 1 of event-item is {mobloot::%{mobloot::%loop-value%.rarity}%::%loop-value%}:
+			stop
+		else if itemCheck(1 of event-item) is true:
+			stop
+	cancel event
+	delete (event-dropped item)

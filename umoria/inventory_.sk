@@ -297,7 +297,10 @@ on inventory click:
 	# 	cancel event
 	# 	stop
 	gamemode of player is survival
-	# if clicked slot is 36 or 37 or 38 or 39:
+	if clicked slot is 36 or 37 or 38 or 39:
+		cancel event
+		make player execute "/enchant armor"
+		close player's inventory
 		# clicked type is middle mouse button
 		# armorMenu(player)
 	# else:

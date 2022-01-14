@@ -79,6 +79,24 @@ function generateChest(b: block, p: player):
 on inventory click:
 	name of event-inventory is "Chest"
 	world of player is "dungeon"
+
+	if clicked type is left mouse button with shift:
+		cancel event
+		loop all items in event-inventory:
+			name of loop-item does not contain "arrow"
+			if loop-item is gold nugget:
+				set {_lore::*} to uncolored lore of loop-item 
+				set {_value::*} to {_lore::1} parsed as " ┃ Quantity: %number%"
+				remove loop-item from event-inventory
+				set {_coinTotal} to {_coinTotal} + {_value::1}
+			else:
+				give player loop-item
+				remove loop-item from event-inventory
+		if {_coinTotal} is greater than 0:
+			coins("add", player, {_coinTotal})
+		stop
+				
+
 	if event-item is gold nugget named "{@color}&lCOINS":
 		cancel event
 		set {_lore::*} to uncolored lore of event-item 
