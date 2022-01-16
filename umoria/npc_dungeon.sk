@@ -41,6 +41,7 @@ command /start [<text>]:
 				send " "
 				send " "
 				send " "
+				send " "
 				send formatted "               &8[<command:/start start><tooltip:{@color}Start a new dungeon>{@color}&lSTART<reset>&8]"
 			send " "
 			send " &7&l----------------------- "

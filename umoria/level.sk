@@ -10,7 +10,9 @@ function expPlayer(p: player, n: number):
 	set {p_totalexp::%{_p}%} to {p_totalexp::%{_p}%} + {_n}
 	if {p_exp::%{_p}%} is greater or equal to {p_nextexp::%{_p}%}:
 		set {_before} to {p_level::%{_p}%}
-		set {p_exp::%{_p}%} to {p_nextexp::%{_p}%} - {p_exp::%{_p}%}
+		set {p_exp::%{_p}%} to {p_exp::%{_p}%} - {p_nextexp::%{_p}%}
+		if {p_exp::%{_p}%} is less than 0:
+			set {p_exp::%{_p}%} to 0
 		set {p_level::%{_p}%} to {p_level::%{_p}%} + 1
 		set {p_upgradepoint::%{_p}%} to {p_upgradepoint::%{_p}%} + 1
 		set {p_nextexp::%{_p}%} to {p_level::%{_p}%} * 2
@@ -20,6 +22,8 @@ function expPlayer(p: player, n: number):
 		wait 2 seconds
 		{action::%{_p}%} is "Level Up!"
 		delete {action::%{_p}%}
+		if {p_exp::%{_p}%} is greater than {p_nextexp::%{_p}%}:
+			expPlayer({_p}, 0)
 	else:
 		set {action::%{_p}%} to "+%{_n}% exp"
 		wait 2 seconds

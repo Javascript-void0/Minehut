@@ -1,0 +1,70 @@
+options:
+	log: &7 (##&7log&r&7) &8|
+
+
+function healthConsume(p: player, n: number):
+	set {p_health::%{_p}%} to {p_health::%{_p}%} + {_n}
+	if {p_health::%{_p}%} is greater than {p_maxhealth::%{_p}%}:
+		set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
+
+function damageConsume(p: player, n: number):
+	if {consumeStatus.%{_p}%} is not set:
+		set {beforeConsume.%{_p}%} to {p_damage::%{_p}%}
+	set {consumeStatus.%{_p}%} to true
+	set {p_damage::%{_p}%} to {p_damage::%{_p}%} + {_n}
+	if {p_damage::%{_p}%} is less than 1:
+		set {p_damage::%{_p}%} to 1
+
+function restoreConsume(p: player, t: text):
+	if {consumeStatus.%{_p}%} is set:
+		send "{@log} &7The effects of consuming the %{_t}% &7wore off. " to "%{_p}%" parsed as player
+		set {p_damage::%{_p}%} to {beforeConsume.%{_p}%}
+		delete {beforeConsume.%{_p}%}
+	delete {consumeStatus.%{_p}%}
+
+on right click:
+
+	if 1 of event-item is {mobloot::common::flesh}:
+		healthConsume(player, 2)
+		damageConsume(player, -1)
+		remove 1 of event-item from inventory of player
+		
+		set {_n} to random integer between 1 and 3
+		if {_n} is 1:
+			send "{@log} &7You tore apart the flesh and felt a little better, but weaker."
+		else if {_n} is 2:
+			send "{@log} &7You held your breath as you nibbled down the hunk of flesh."
+		else if {_n} is 3:
+			send "{@log} &7You swallow the rotting piece of meat."
+		
+		wait 5 seconds
+		restoreConsume(player, "flesh")
+
+	else if 1 of event-item is {mobloot::rare::pancreas}:
+		healthConsume(player, 4)
+		damageConsume(player, -2)
+		remove 1 of event-item from inventory of player
+		
+		set {_n} to random integer between 1 and 3
+		if {_n} is 1:
+			send "{@log} &7You tore apart the pancreas and felt a little better, but very queasy."
+		else if {_n} is 2:
+			send "{@log} &7You held your breath as you nibbled the end of the pancreas."
+		else if {_n} is 3:
+			send "{@log} &7You swallow the slimy organ whole."
+		
+		wait 2 seconds
+		restoreConsume(player, "pancreas")
+
+	else if 1 of event-item is {mobloot::rare::qu_eggs}:
+		damageConsume(player, 2)
+		remove 1 of event-item from inventory of player
+
+		set {_n} to random integer between 1 and 2
+		if {_n} is 1:
+			send "{@log} &7You popped a quail egg into your mouth."
+		else if {_n} is 2:
+			send "{@log} &7You hear the crunch of the egg shells."
+
+		wait 2 seconds
+		restoreConsume(player, "quail eggs")

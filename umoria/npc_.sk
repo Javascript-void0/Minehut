@@ -19,10 +19,6 @@ function Map(p: player):
 	set slot 4 of metadata tag "Map" of {_p} to compass named "&cSpawn"
 	open (metadata tag "Map" of {_p}) to {_p}
 
-function Library(p: player):
-	set metadata tag "Library" of {_p} to chest inventory with 3 rows named "Library"
-	open (metadata tag "Library" of {_p}) to {_p}
-
 function Tutorial(p: player):
 	stop
 
@@ -44,9 +40,9 @@ function waitToggle(p: player):
 function npcClick(n: number, p: player):
 	set {sessionid::%{_p}%} to random integer between 1000 and 9999
 	if {_n} is 0:
-		make {_p} execute "/quest %{sessionid::%{_p}%}% dungeon1"
+		make {_p} execute "/artisan %{sessionid::%{_p}%}%"
 	else if {_n} is 1:
-		Library({_p})
+		make {_p} execute "/quest %{sessionid::%{_p}%}% dungeon1"
 	else if {_n} is 2:
 		make {_p} execute "/start"
 	else if {_n} is 3:

@@ -186,11 +186,13 @@ on damage:
 			if projectile does not exist:
 				set {_typeModify} to floor({p_damage::%attacker%} * 0.1)
 			else:
-				set {_enchant} to (level of power of attacker's tool - 1) * 5
 				set {_typeModify} to {p_damage::%attacker%}
+				level of power of attacker's tool is greater than 0
+				set {_enchant} to (level of power of attacker's tool - 1) * 5
 		else if held item of attacker is sword:
-			set {_enchant} to (level of sharpness of attacker's tool - 1) * 5
 			set {_typeModify} to {p_damage::%attacker%}
+			level of sharpness of attacker's tool is greater than 0
+			set {_enchant} to (level of sharpness of attacker's tool - 1) * 5
 		else if held item of attacker is pickaxe:
 			set {_typeModify} to floor({p_damage::%attacker%} * 0.1)
 		else if held item of attacker is hoe:
@@ -338,16 +340,14 @@ on damage:
 				set {_wrath} to ({dungeon::%victim%::runroom} * 3) + ({dungeon::%victim%::floor} * 10)
 				wrath("add", victim, {_wrath})
 				set {_before} to {p_level::%victim%}
+				set {_exp} to {dungeon::%victim%::runkill} * 5
 				if {dungeon::%victim%::floor} is greater than {p_highestfloor::%victim%}:
 					set {p_highestfloor::%victim%} to {dungeon::%victim%::floor}
-					set {_exp} to {dungeon::%victim%::runkill} * 5
 					set {_best} to "{@color}New Best! &fx2 Exp"
 					set {_exp} to {_exp} * 2
-					expPlayer(victim, {_exp})
 				else:
 					set {_best} to "&7Floor &f%{p_highestfloor::%victim%}%"
-					set {_exp} to {dungeon::%victim%::runkill} * 5
-					expPlayer(victim, {_exp})
+				expPlayer(victim, {_exp})
 				set {_after} to {p_level::%victim%}
 				if {_after} is greater than {_before}:
 					set {_levelup} to true

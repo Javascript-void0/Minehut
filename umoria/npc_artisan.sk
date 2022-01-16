@@ -1,0 +1,34 @@
+options:
+	color: <##B4C788>
+	prefix: &8[<##B4C788>&lUMORIA&8]&7
+	permission: &7Insufficient Permissions
+	admin: &8[<##B4C788>&lADMIN&8]&7
+	coins: &7Insufficient <##B4C788>Coins
+	wrath: &7Insufficient <##B4C788>Wrath
+	world: world
+
+command /artisan [<number>]:
+    trigger:
+        arg-1 is {sessionid::%player%}
+        set {sessionid::%player%} to random integer between 1000 and 9999
+        send " "
+        send " &7&l------- {@color}&lARTISAN &7&l--------"
+        send " "
+        send " "
+        send " "
+        send " "
+        send " "
+        send " "
+        send " "
+        send " "
+        send " "
+        send " "
+        send " "
+        send " "
+        send " "
+        send " "
+        set {_message} to " "
+        send {_message}
+        send " "
+        send " &7&l------------------------- "
+        send " "
