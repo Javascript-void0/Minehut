@@ -295,3 +295,4 @@ on walking on diamond block:
 	teleport player to location({_x} + 7, {_y} + 1, {_z}, world "dungeon", -90, 0)
 	set block at {dungeonActive::%player%} to redstone block
 	clearMob(player)
+	chatlog(player, "floor")

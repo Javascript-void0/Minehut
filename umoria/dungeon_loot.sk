@@ -11,6 +11,81 @@ on right click:
 	event-block is trapped chest
 	generateChest(event-block, player)
 
+function generateArrow() :: items:
+	set {_value} to random integer between 5 and 20
+	set {_id} to random integer between 1000 and 9999
+	set {_arrow} to random integer between 1 and 100
+	if {_arrow} is less than 90:
+		set {_arrow} to arrow
+		set {_name} to " &8┃ &7Type: Arrow"
+	else if {_arrow} is less than 92:
+		set {_arrow} to tipped arrow of fire resistance
+		set {_name} to " &8┃ &7Type: Solar Arrow"
+	else if {_arrow} is less than 94:
+		set {_arrow} to tipped arrow of swiftness
+		set {_name} to " &8┃ &7Type: Lunar Arrow"
+	else if {_arrow} is less than 96:
+		set {_arrow} to tipped arrow of poison
+		set {_name} to " &8┃ &7Type: Terrestrial Arrow"
+	else if {_arrow} is less than 98:
+		set {_arrow} to tipped arrow of weakness
+		set {_name} to " &8┃ &7Type: Midnight Arrow"
+	else if {_arrow} is less than 100:
+		set {_arrow} to spectral arrow
+		set {_name} to " &8┃ &7Type: Thunder Bolt"
+	set {_item} to {_value} of {_arrow} named to {_value} of {_arrow} named "{@color}&lARROWS" with lore "%{_name}%" and " &8┃ &7Quantity: {@color}%{_value}%" and " &8╹ &7##%{_id}%" with all flags hidden
+	return {_item}
+
+function generateSilver() :: items:
+	set {_silver} to random integer between 1 and 100
+	if {_silver} is less than 10:
+		set {_silver} to {polishedsilver}
+		set {_count} to 1
+	else if {_silver} is less than 40:
+		set {_silver} to {weatheredsilver}
+		set {_count} to random integer between 1 and 2
+	else:
+		set {_silver} to {tarnishedsilver}
+		set {_count} to random integer between 1 and 3
+	set {_item} to {_count} of {_silver}
+	return {_item}
+
+function generateMob() :: items:
+	if {_n} is less than 50:
+		set {_item} to random element out of {mobloot::rare::*}
+		set {_qty} to 1
+	else if {_n} is less than 400:
+		set {_item} to random element out of {mobloot::uncommon::*}
+		set {_qty} to 1
+	else:
+		set {_item} to random element out of {mobloot::common::*}
+		set {_qty} to random integer between 1 and 4
+	set {_item} to {_qty} of {_item}
+	return {_item}
+
+function generateScroll() :: item: 
+	set {_chance} to random integer between 1 and 500
+	if {_chance} is less than 475:
+		set {_level} to 1
+	else if {_chance} is less than 490:
+		set {_level} to 2
+	else if {_chance} is less than 498:
+		set {_level} to 3
+	else:
+		set {_level} to 4
+
+	set {_n} to random integer between 1 and 100
+	if {_n} is less than 48:
+		set {_stat} to "HEALTH"
+	else if {_n} is less than 96:
+		set {_stat} to "DAMAGE"
+	else:
+		set {_stat} to "DEFENSE"
+		set {_level} to 1
+	
+	set {_item} to book named "{@color}&l%{_stat}% {@color2}Scroll" with lore " &8┃ &7+%{_level}% {@color2}%{_stat}%" and " &8╹ &7Right-click to use" with all flags hidden
+	return {_item}
+
 function generateChest(b: block, p: player):
 	expPlayer({_p}, 1)
 	set {_dir} to facing of {_b}
@@ -26,55 +101,32 @@ function generateChest(b: block, p: player):
 	loop 29 times:
 		set {_n} to random integer between 1 and 10000
 		if {_n} is less than 2500:
-			if {_n} is less than 50:
-				set {_item} to random element out of {mobloot::rare::*}
-				set {_qty} to 1
-			else if {_n} is less than 400:
-				set {_item} to random element out of {mobloot::uncommon::*}
-				set {_qty} to 1
-			else:
-				set {_item} to random element out of {mobloot::common::*}
-				set {_qty} to random integer between 1 and 4
-			set slot loop-number of inventory of {_b} to {_qty} of {_item}
+			set slot loop-number of inventory of {_b} to generateMob()
 		else if {_n} is less than 2700:
-			set {_value} to random integer between 5 and 20
-			set {_id} to random integer between 1000 and 9999
-			set {_arrow} to random integer between 1 and 100
-			if {_arrow} is less than 90:
-				set {_arrow} to arrow
-				set {_name} to " &8┃ &7Type: Arrow"
-			else if {_arrow} is less than 92:
-				set {_arrow} to tipped arrow of fire resistance
-				set {_name} to " &8┃ &7Type: Solar Arrow"
-			else if {_arrow} is less than 94:
-				set {_arrow} to tipped arrow of swiftness
-				set {_name} to " &8┃ &7Type: Lunar Arrow"
-			else if {_arrow} is less than 96:
-				set {_arrow} to tipped arrow of poison
-				set {_name} to " &8┃ &7Type: Terrestrial Arrow"
-			else if {_arrow} is less than 98:
-				set {_arrow} to tipped arrow of weakness
-				set {_name} to " &8┃ &7Type: Midnight Arrow"
-			else if {_arrow} is less than 100:
-				set {_arrow} to spectral arrow
-				set {_name} to " &8┃ &7Type: Thunder Bolt"
-			set slot loop-number of inventory of {_b} to {_value} of {_arrow} named "{@color}&lARROWS" with lore "%{_name}%" and " &8┃ &7Quantity: {@color}%{_value}%" and " &8╹ &7##%{_id}%" with all flags hidden
+			set slot loop-number of inventory of {_b} to generateArrow()
 		else if {_n} is less than 3500:
 			set {_value} to random integer between 2 and 15
 			set {_id} to random integer between 1000 and 9999
 			set slot loop-number of inventory of {_b} to gold nugget named "{@color}&lCOINS" with lore " &8┃ &7Quantity: {@color}%{_value}%" and " &8╹ &7##%{_id}%" 
 		else if {_n} is less than 3700:
-			set {_silver} to random integer between 1 and 100
-			if {_silver} is less than 10:
-				set {_silver} to {polishedsilver}
-				set {_count} to 1
-			else if {_silver} is less than 40:
-				set {_silver} to {weatheredsilver}
-				set {_count} to random integer between 1 and 2
-			else:
-				set {_silver} to {tarnishedsilver}
-				set {_count} to random integer between 1 and 3
-			set slot loop-number of inventory of {_b} to {_count} of {_silver}
+			set slot loop-number of inventory of {_b} to generateSilver()
+		else if {_n} is less than 3750:
+			set slot loop-number of inventory of {_b} to 1 of generateScroll()
+
+on right click with book:
+	name of player's tool contains "Scroll"
+	set {_lore::*} to uncolored lore of player's tool
+	set {_split::*} to {_lore::1} parsed as " ┃ +%num% %text%"
+	if {_split::2} is "DEFENSE":
+		set {p_maxdefense::%player%} to {p_maxdefense::%player%} + {_split::1}
+		set {p_defense::%player%} to {p_defense::%player%} + {_split::1}
+	else if {_split::2} is "DAMAGE":
+		set {p_damage::%player%} to {p_damage::%player%} + {_split::1}
+	else if {_split::2} is "HEALTH":
+		set {p_maxhealth::%player%} to {p_maxhealth::%player%} + {_split::1}
+		set {p_health::%player%} to {p_health::%player%} + {_split::1}
+	remove 1 of player's tool from player's tool
+	log(player, "scroll")
 
 on inventory click:
 	name of event-inventory is "Chest"
