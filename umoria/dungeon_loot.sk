@@ -129,6 +129,7 @@ on right click with book:
 	log(player, "scroll")
 
 on inventory click:
+	event-inventory is not inventory of player
 	name of event-inventory is "Chest"
 	world of player is "dungeon"
 
@@ -142,6 +143,7 @@ on inventory click:
 				remove loop-item from event-inventory
 				set {_coinTotal} to {_coinTotal} + {_value::1}
 			else:
+				player has enough space for loop-item
 				give player loop-item
 				remove loop-item from event-inventory
 		if {_coinTotal} is greater than 0:
