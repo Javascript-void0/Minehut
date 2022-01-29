@@ -33,7 +33,7 @@ function generateArrow() :: items:
 	else if {_arrow} is less than 100:
 		set {_arrow} to spectral arrow
 		set {_name} to " &8┃ &7Type: Thunder Bolt"
-	set {_item} to {_value} of {_arrow} named to {_value} of {_arrow} named "{@color}&lARROWS" with lore "%{_name}%" and " &8┃ &7Quantity: {@color}%{_value}%" and " &8╹ &7##%{_id}%" with all flags hidden
+	set {_item} to {_value} of {_arrow} named "{@color}&lARROWS" with lore "%{_name}%" and " &8┃ &7Quantity: {@color}%{_value}%" and " &8╹ &7##%{_id}%" with all flags hidden
 	return {_item}
 
 function generateSilver() :: items:
@@ -126,7 +126,7 @@ on right click with book:
 		set {p_maxhealth::%player%} to {p_maxhealth::%player%} + {_split::1}
 		set {p_health::%player%} to {p_health::%player%} + {_split::1}
 	remove 1 of player's tool from player's tool
-	log(player, "scroll")
+	chatlog(player, "scroll")
 
 on inventory click:
 	event-inventory is not inventory of player

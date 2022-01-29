@@ -62,19 +62,23 @@ command /merchant [<number>] [<text>] [<text>] [<text>]:
 			if arg-4 is set:
 				loop {globalShop::%arg-3%::*}:
 					arg-4 is loop-index
-					set {_itemName} to {globalShop::%arg-3%::%loop-index%}
-					set {_rarity} to {mobloot::%{_itemName}%.rarity}
-					set {_item} to {mobloot::%{_rarity}%::%{_itemName}%}
 					set {_num} to {globalShop::%arg-3%::%loop-index%::count}
-					set {_cost} to {_num} * {mobloot::%{_itemName}%.buy}
-					if {p_coins::%player%} is greater than {_cost}:	
-						coins("remove", player, {_cost})
-						delete {globalShop::%arg-3%::%arg-4%}
-						give player {_num} of {_item}
-						set {_message} to "   &7Bought {@color}%{mobloot::%{_itemName}%.name}% &7for {@color}%{_cost}% &7coins"
+					set {_item} to {mobloot::%{_rarity}%::%{_itemName}%}
+					if player can hold 1 diamond sword:
+						set {_itemName} to {globalShop::%arg-3%::%loop-index%}
+						set {_rarity} to {mobloot::%{_itemName}%.rarity}
+						set {_cost} to {_num} * {mobloot::%{_itemName}%.buy}
+						if {p_coins::%player%} is greater than {_cost}:	
+							coins("remove", player, {_cost})
+							delete {globalShop::%arg-3%::%arg-4%}
+							give player {_num} of {_item}
+							set {_message} to "   &7Bought {@color}%{mobloot::%{_itemName}%.name}% &7for {@color}%{_cost}% &7coins"
+						else:
+							set {_message} to "   &7You don't have enough coins! You need {@color}%{_cost} - {p_coins::%player%}% &7more. "
 					else:
-						set {_message} to "   &7You don't have enough coins! You need {@color}%{_cost} - {p_coins::%player%}% &7more. "
+						set {_message} to "   &7You don't have enough space! "
 					exit loop
+
 			else:
 				set {_message} to " "
 

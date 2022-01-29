@@ -301,6 +301,10 @@ on inventory click:
 		cancel event
 		make player execute "/enchant armor"
 		close player's inventory
+	else if clicked slot is 40:
+		cancel event
+		make player execute "/enchant shield"
+		close player's inventory
 		# clicked type is middle mouse button
 		# armorMenu(player)
 	# else:

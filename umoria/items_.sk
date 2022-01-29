@@ -11,57 +11,196 @@ function reloadItems():
 
 # ::
 
-	set {1_helmet} to light gray stained glass named "&8[{@color}::&7::::::::&8] {@color}Common" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {1_chestplate} to leather chestplate named "&8[{@color}::&7::::::::&8] {@color}Chestplate" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
+	set {1_helmet} to light gray stained glass named "&8[{@color}::&7::::::::&8] {@color}Common" with all flags hidden
+	add " {@color2}&lSTATS" to lore of {1_helmet}
+	add " &8┃ &7Level: &f1" to lore of {1_helmet}
+	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_helmet}
+	add " " to lore of {1_helmet}
+	add "   &8(&f0%%&8)" to lore of {1_helmet}
+	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_helmet}
+	add " " to lore of {1_helmet}
+	add " {@color}&lATTRIBUTES" to lore of {1_helmet}
+	add " &8┃ &7ⁿ Slot I" to lore of {1_helmet}
+	add " &8┃ &7ⁿ Slot II" to lore of {1_helmet}
+	add " &8┃ &7ⁿ Slot III" to lore of {1_helmet}
+	add " &8╹ &7Enhance: &f+0" to lore of {1_helmet}
+	add " " to lore of {1_helmet}
+	add " {@color2}&lENCHANTS" to lore of {1_helmet}
+	add " &8┃ &7Protection: &f1" to lore of {1_helmet}
+	add " &8┃ &7Unbreaking: &f1" to lore of {1_helmet}
+	add " &8┃ &7Mending: &f1" to lore of {1_helmet}
+	add " &8╹ &7Binding: &f1" to lore of {1_helmet}
+	add " " to lore of {1_helmet}
+	
+	set {1_chestplate} to leather chestplate named "&8[{@color}::&7::::::::&8] {@color}Chestplate" with all flags hidden
+	add " {@color2}&lSTATS" to lore of {1_chestplate}
+	add " &8┃ &7Level: &f1" to lore of {1_chestplate}
+	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_chestplate}
+	add " " to lore of {1_chestplate}
+	add "   &8(&f0%%&8)" to lore of {1_chestplate}
+	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_chestplate}
+	add " " to lore of {1_chestplate}
+	add " {@color}&lATTRIBUTES" to lore of {1_chestplate}
+	add " &8┃ &7ⁿ Slot I" to lore of {1_chestplate}
+	add " &8┃ &7ⁿ Slot II" to lore of {1_chestplate}
+	add " &8┃ &7ⁿ Slot III" to lore of {1_chestplate}
+	add " &8╹ &7Enhance: &f+0" to lore of {1_chestplate}
+	add " " to lore of {1_chestplate}
+	add " {@color2}&lENCHANTS" to lore of {1_chestplate}
+	add " &8┃ &7Protection: &f1" to lore of {1_chestplate}
+	add " &8┃ &7Unbreaking: &f1" to lore of {1_chestplate}
+	add " &8┃ &7Mending: &f1" to lore of {1_chestplate}
+	add " &8╹ &7Binding: &f1" to lore of {1_chestplate}
+	add " " to lore of {1_chestplate}
 	dye {1_chestplate} light gray
-	set {1_leggings} to leather leggings named "&8[{@color}::&7::::::::&8] {@color}Leggings" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
+	
+	set {1_leggings} to leather leggings named "&8[{@color}::&7::::::::&8] {@color}Leggings" with all flags hidden
+	add " {@color2}&lSTATS" to lore of {1_leggings}
+	add " &8┃ &7Level: &f1" to lore of {1_leggings}
+	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_leggings}
+	add " " to lore of {1_leggings}
+	add "   &8(&f0%%&8)" to lore of {1_leggings}
+	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_leggings}
+	add " " to lore of {1_leggings}
+	add " {@color}&lATTRIBUTES" to lore of {1_leggings}
+	add " &8┃ &7ⁿ Slot I" to lore of {1_leggings}
+	add " &8┃ &7ⁿ Slot II" to lore of {1_leggings}
+	add " &8┃ &7ⁿ Slot III" to lore of {1_leggings}
+	add " &8╹ &7Enhance: &f+0" to lore of {1_leggings}
+	add " " to lore of {1_leggings}
+	add " {@color2}&lENCHANTS" to lore of {1_leggings}
+	add " &8┃ &7Protection: &f1" to lore of {1_leggings}
+	add " &8┃ &7Unbreaking: &f1" to lore of {1_leggings}
+	add " &8┃ &7Mending: &f1" to lore of {1_leggings}
+	add " &8╹ &7Binding: &f1" to lore of {1_leggings}
+	add " " to lore of {1_leggings}
 	dye {1_leggings} light gray
-	set {1_boots} to leather boots named "&8[{@color}::&7::::::::&8] {@color}Boots" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
+	
+	set {1_boots} to leather boots named "&8[{@color}::&7::::::::&8] {@color}Boots" with all flags hidden
+	add " {@color2}&lSTATS" to lore of {1_boots}
+	add " &8┃ &7Level: &f1" to lore of {1_boots}
+	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_boots}
+	add " " to lore of {1_boots}
+	add "   &8(&f0%%&8)" to lore of {1_boots}
+	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_boots}
+	add " " to lore of {1_boots}
+	add " {@color}&lATTRIBUTES" to lore of {1_boots}
+	add " &8┃ &7ⁿ Slot I" to lore of {1_boots}
+	add " &8┃ &7ⁿ Slot II" to lore of {1_boots}
+	add " &8┃ &7ⁿ Slot III" to lore of {1_boots}
+	add " &8╹ &7Enhance: &f+0" to lore of {1_boots}
+	add " " to lore of {1_boots}
+	add " {@color2}&lENCHANTS" to lore of {1_boots}
+	add " &8┃ &7Protection: &f1" to lore of {1_boots}
+	add " &8┃ &7Unbreaking: &f1" to lore of {1_boots}
+	add " &8┃ &7Mending: &f1" to lore of {1_boots}
+	add " &8╹ &7Binding: &f1" to lore of {1_boots}
+	add " " to lore of {1_boots}
 	dye {1_boots} light gray
-
-#  ::::
-
-	set {2_helmet} to lime stained glass named "&8[{@color}::::&7::::::&8] {@color}Uncommon" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {2_chestplate} to leather chestplate named "&8[&:::::&7::::::&8] {@color}Chestplate" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	dye {2_chestplate} lime
-	set {2_leggings} to leather leggings named "&8[{@color}::::&7::::::&8] {@color}Leggings" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	dye {2_leggings} lime
-	set {2_boots} to leather boots named "&8[{@color}::::&7::::::&8] {@color}Boots" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	dye {2_boots} lime
-
-#  ::::::
-
-	set {3_helmet} to light blue stained glass named "&8[{@color}::::::&7::::&8] {@color}Rare" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {3_chestplate} to leather chestplate named "&8[{@color}::::::&7::::&8] {@color}Chestplate" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	dye {3_chestplate} light blue
-	set {3_leggings} to leather leggings named "&8[{@color}::::::&7::::&8] {@color}Leggings" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	dye {3_leggings} light blue
-	set {3_boots} to leather boots named "&8[{@color}::::::&7::::&8] {@color}Boots" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	dye {3_boots} light blue
-
-# ::::::::
-
-	set {4_helmet} to orange stained glass named "&8[{@color}::::::::&7::&8] {@color}Epic" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {4_chestplate} to leather chestplate named "&8[{@color}::::::::&7::&8] {@color}Chestplate" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	dye {4_chestplate} orange
-	set {4_leggings} to leather leggings named "&8[{@color}::::::::&7::&8] {@color}Leggings" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	dye {4_leggings} orange
-	set {4_boots} to leather boots named "&8[{@color}::::::::&7::&8] {@color}Boots" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	dye {4_boots} orange
-
-# ::::::::::
-
-	set {5_helmet} to black stained glass named "&8[{@color}::::::::::&8] {@color2}Legendary" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {5_chestplate} to netherite chestplate named "&8[{@color}::::::::::&8] {@color}Chestplate" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {5_leggings} to netherite leggings named "&8[{@color}::::::::::&8] {@color}Leggings" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {5_boots} to netherite boots named "&8[{@color}::::::::::&8] {@color}Boots" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Health: &f+0" and " &8┃ &7Resistance: &f-0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
 
 # ==== TOOLS ====
 
-	set {1_sword} to netherite sword named "&8[{@color}::&7::::::::&8] {@color}Sword" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Damage: &f+0" and " &8┃ &7Drop Bonus: &f+0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Sharpness: &f1" and " &8┃ &7Looting: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {1_pickaxe} to netherite pickaxe named "&8[{@color}::&7::::::::&8] {@color}Pickaxe" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Efficiency: &f+0" and " &8┃ &7Mine Bonus: &f+0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Efficiency: &f1" and " &8┃ &7Fortune: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	#set {1_axe} to netherite axe named "&8[{@color}::&7::::::::&8] {@color}Hatchet" with " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8╹ &7Damage: &f+0" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Efficiency: &f1" and " &8┃ &7Fortune: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	#set {1_shovel} to netherite shovel named "&8[{@color}::&7::::::::&8] {@color}Shovel" with " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8╹ &7Damage: &f+0" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Efficiency: &f1" and " &8┃ &7Fortune: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {1_shield} to shield named "&8[{@color}::&7::::::::&8] {@color}Shield" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Cooldown: &f0.7s" and " &8┃ &7Defense: &f+0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Protection: &f1" and " &8┃ &7Unbreaking: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {1_bow} to bow named "&8[{@color}::&7::::::::&8] {@color}Bow" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Damage: &f+0" and " &8┃ &7Drop Bonus: &f+0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Power: &f1" and " &8┃ &7Looting&7: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
-	set {1_hoe} to netherite hoe named "&8[{@color}::&7::::::::&8] {@color}Scythe" with lore " {@color2}&lSTATS" and " &8┃ &7Level: &f1" and " &8╹ &7Exp: &f0&7/&f10" and " " and "   &8(&f0%%&8)" and " &8[{@color}&7::::::::::::::::::::&8]" and " " and " {@color}&lATTRIBUTES" and " &8┃ &7Efficiency: &f+0" and " &8┃ &7Farm Bonus: &f+0" and " &8╹ &7Exp Bonus: &fx1" and " " and " {@color2}&lENCHANTS" and " &8┃ &7Efficiency: &f1" and " &8┃ &7Fortune: &f1" and " &8┃ &7Mending: &f1" and " &8╹ &7Binding: &f1" and " " with all flags hidden
+	set {1_sword} to netherite sword named "&8[{@color}::&7::::::::&8] {@color}Sword" with all flags hidden
+	add " {@color2}&lSTATS" to lore of {1_sword}
+	add " &8┃ &7Level: &f1" to lore of {1_sword}
+	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_sword}
+	add " " to lore of {1_sword}
+	add "   &8(&f0%%&8)" to lore of {1_sword}
+	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_sword}
+	add " " to lore of {1_sword}
+	add " {@color}&lATTRIBUTES" to lore of {1_sword}
+	add " &8┃ &7ⁿ Slot I" to lore of {1_sword}
+	add " &8┃ &7ⁿ Slot II" to lore of {1_sword}
+	add " &8┃ &7ⁿ Slot III" to lore of {1_sword}
+	add " &8╹ &7Enhance: &f+0" to lore of {1_sword}
+	add " " to lore of {1_sword}
+	add " {@color2}&lENCHANTS" to lore of {1_sword}
+	add " &8┃ &7Sharpness: &f1" to lore of {1_sword}
+	add " &8┃ &7Looting: &f1" to lore of {1_sword}
+	add " &8┃ &7Mending: &f1" to lore of {1_sword}
+	add " &8╹ &7Binding: &f1" to lore of {1_sword}
+	add " " to lore of {1_sword}
+
+	set {1_pickaxe} to netherite pickaxe named "&8[{@color}::&7::::::::&8] {@color}Pickaxe" with all flags hidden
+	add " {@color2}&lSTATS" to lore of {1_pickaxe}
+	add " &8┃ &7Level: &f1" to lore of {1_pickaxe}
+	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_pickaxe}
+	add " " to lore of {1_pickaxe}
+	add "   &8(&f0%%&8)" to lore of {1_pickaxe}
+	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_pickaxe}
+	add " " to lore of {1_pickaxe}
+	add " {@color}&lATTRIBUTES" to lore of {1_pickaxe}
+	add " &8┃ &7ⁿ Slot I" to lore of {1_pickaxe}
+	add " &8┃ &7ⁿ Slot II" to lore of {1_pickaxe}
+	add " &8┃ &7ⁿ Slot III" to lore of {1_pickaxe}
+	add " &8╹ &7Enhance: &f+0" to lore of {1_pickaxe}
+	add " " to lore of {1_pickaxe}
+	add " {@color2}&lENCHANTS" to lore of {1_pickaxe}
+	add " &8┃ &7Efficiency: &f1" to lore of {1_pickaxe}
+	add " &8┃ &7Fortune: &f1" to lore of {1_pickaxe}
+	add " &8┃ &7Mending: &f1" to lore of {1_pickaxe}
+	add " &8╹ &7Binding: &f1" to lore of {1_pickaxe}
+	add " " to lore of {1_pickaxe}
+	
+	set {1_shield} to shield named "&8[{@color}::&7::::::::&8] {@color}Shield" with all flags hidden
+	add " {@color2}&lSTATS" to lore of {1_shield}
+	add " &8┃ &7Level: &f1" to lore of {1_shield}
+	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_shield}
+	add " " to lore of {1_shield}
+	add "   &8(&f0%%&8)" to lore of {1_shield}
+	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_shield}
+	add " " to lore of {1_shield}
+	add " {@color}&lATTRIBUTES" to lore of {1_shield}
+	add " &8┃ &7ⁿ Slot I" to lore of {1_shield}
+	add " &8┃ &7ⁿ Slot II" to lore of {1_shield}
+	add " &8┃ &7ⁿ Slot III" to lore of {1_shield}
+	add " &8╹ &7Enhance: &f+0" to lore of {1_shield}
+	add " " to lore of {1_shield}
+	add " {@color2}&lENCHANTS" to lore of {1_shield}
+	add " &8┃ &7Protection: &f1" to lore of {1_shield}
+	add " &8┃ &7Unbreaking: &f1" to lore of {1_shield}
+	add " &8┃ &7Mending: &f1" to lore of {1_shield}
+	add " &8╹ &7Binding: &f1" to lore of {1_shield}
+	add " " to lore of {1_shield}
+	
+	set {1_bow} to bow named "&8[{@color}::&7::::::::&8] {@color}Bow" with all flags hidden
+	add " {@color2}&lSTATS" to lore of {1_bow}
+	add " &8┃ &7Level: &f1" to lore of {1_bow}
+	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_bow}
+	add " " to lore of {1_bow}
+	add "   &8(&f0%%&8)" to lore of {1_bow}
+	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_bow}
+	add " " to lore of {1_bow}
+	add " {@color}&lATTRIBUTES" to lore of {1_bow}
+	add " &8┃ &7ⁿ Slot I" to lore of {1_bow}
+	add " &8┃ &7ⁿ Slot II" to lore of {1_bow}
+	add " &8┃ &7ⁿ Slot III" to lore of {1_bow}
+	add " &8╹ &7Enhance: &f+0" to lore of {1_bow}
+	add " " to lore of {1_bow}
+	add " {@color2}&lENCHANTS" to lore of {1_bow}
+	add " &8┃ &7Power: &f1" to lore of {1_bow}
+	add " &8┃ &7Looting&7: &f1" to lore of {1_bow}
+	add " &8┃ &7Mending: &f1" to lore of {1_bow}
+	add " &8╹ &7Binding: &f1" to lore of {1_bow}
+	add " " to lore of {1_bow}
+	
+	set {1_hoe} to netherite hoe named "&8[{@color}::&7::::::::&8] {@color}Scythe" with all flags hidden
+	add " {@color2}&lSTATS" to lore of {1_hoe}
+	add " &8┃ &7Level: &f1" to lore of {1_hoe}
+	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_hoe}
+	add " " to lore of {1_hoe}
+	add "   &8(&f0%%&8)" to lore of {1_hoe}
+	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_hoe}
+	add " " to lore of {1_hoe}
+	add " {@color}&lATTRIBUTES" to lore of {1_hoe}
+	add " &8┃ &7ⁿ Slot I" to lore of {1_hoe}
+	add " &8┃ &7ⁿ Slot II" to lore of {1_hoe}
+	add " &8┃ &7ⁿ Slot III" to lore of {1_hoe}
+	add " &8╹ &7Enhance: &f+0" to lore of {1_hoe}
+	add " " to lore of {1_hoe}
+	add " {@color2}&lENCHANTS" to lore of {1_hoe}
+	add " &8┃ &7Efficiency: &f1" to lore of {1_hoe}
+	add " &8┃ &7Fortune: &f1" to lore of {1_hoe}
+	add " &8┃ &7Mending: &f1" to lore of {1_hoe}
+	add " &8╹ &7Binding: &f1" to lore of {1_hoe}
+	add " " to lore of {1_hoe}

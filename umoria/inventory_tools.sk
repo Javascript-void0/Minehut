@@ -7,237 +7,130 @@ options:
 	wrath: &7Insufficient <##B4C788>Wrath
 	world: world
 
+	line1: 15
+	line2: 16
+	line3: 17
+	line4: 18
+
 on load: 
 	set {tooltips::enchantment::sharpness} to "{@color}+5 damage"
 	set {tooltips::enchantment::power} to "{@color}+5 damage"
 	set {tooltips::enchantment::looting} to "{@color}+1 max mob drops"
-	set {tooltips::enchantment::mending} to "{@color}Multiply exp drops"
-	set {tooltips::enchantment::binding} to "{@color}none"
+	set {tooltips::enchantment::%{_ench3::1}%} to "{@color}Multiply exp drops"
+	set {tooltips::enchantment::%{_ench4::1}%} to "{@color}none"
 
-function toolCompatible(i: item, e: text) :: boolean:
-	if {_e} is "mending" or "binding":
-		return true
-	else if {_i} is sword:
-		{_e} is "sharpness" or "looting"
-		return true
-	else if {_i} is bow:
-		{_e} is "power" or "looting"
-		return true
-	else if {_i} is pickaxe or hoe:
-		{_e} is "efficiency" or "fortune"
-		return true
-	else if {_i} is shield:
-		{_e} is "unbreaking" or "protection"
-		return true
-	else if itemCheck({_i}) is true:
-		return true
-	return false
+# function toolCompatible(i: item, e: text) :: boolean:
+# 	if {_e} is "%{_ench3::1}%" or "%{_ench4::1}%":
+# 		return true
+# 	else if {_i} is sword:
+# 		{_e} is "sharpness" or "looting"
+# 		return true
+# 	else if {_i} is bow:
+# 		{_e} is "power" or "looting"
+# 		return true
+# 	else if {_i} is pickaxe or hoe:
+# 		{_e} is "efficiency" or "fortune"
+# 		return true
+# 	else if {_i} is shield:
+# 		{_e} is "%{_ench2::1}%" or "%{_ench1::1}%"
+# 		return true
+# 	else if itemCheck({_i}) is true:
+# 		return true
+# 	return false
 
-function toolAttributes(p: player, e: text, l: number, i: item):
-	if {_e} is "Sharpness" or "Power":
-		set line 9 of lore of held item of {_p} to " &8┃ &7Damage: &f+%{_l} * 5%"
-	else if {_e} is "Looting":
-		set line 10 of lore of held item of {_p} to " &8┃ &7Drop Bonus: &f+%{_l}%"
-	else if {_e} is "Mending":
-		set line 11 of lore of held item of {_p} to " &8╹ &7Exp Bonus: &fx%{_l} + 1%"
-	else if {_e} is "Efficiency":
-		set line 9 of lore of held item of {_p} to " &8┃ &7Efficiency: &f+%{_l}%"
-	else if {_e} is "Protection":
-		set line 9 of lore of held item of {_p} to " &8┃ &7Cooldown: &f%{_l}%&fs"
-	else if {_e} is "Unbreaking":
-		set line 10 of lore of held item of {_p} to " &8┃ &7Defense: &f+%{_l}%"
-	else if {_e} is "Fortune":
-		if {_i} is pickaxe:
-			set line 10 of lore of held item of {_p} to " &8┃ &7Mine Bonus: &f+%{_l}%"
-		else if {_i} is axe:
-			set line 10 of lore of held item of {_p} to " &8┃ &7Farm Bonus: &f+%{_l}%"
-			
 on right click:
-	itemCheck(player's held item) is true
 	player is sneaking
+	itemCheck(player's held item) is true
 	cancel event
 	make player execute "/enchant"
-
-on tab complete of "/enchant":
-	if player's held item is sword:
-		set tab completions for position 1 to "sharpness", "looting", "mending", and "binding"
-	else if player's held item is pickaxe or hoe:
-		set tab completions for position 1 to "efficiency", "fortune", "mending", and "binding"
-	else if player's held item is bow:
-		set tab completions for position 1 to "power", "looting", "mending", and "binding"
-	else if player's held item is shield:
-		set tab completions for position 1 to "unbreaking", "protection", "mending", and "binding"
-	else if player's held item is helmet or chestplate or leggings or boots or light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass:
-		set tab completions for position 1 to "unbreaking", "protection", "mending", and "binding"
 
 command /enchant [<text>]:
 	trigger:
 		if arg-1 contains "armor":
 			set {_loop::*} to 36, 37, 38, and 39
-			loop {_loop::*}:
-
-				set {_ench1::*} to uncolored line 14 of lore of slot loop-value of player parsed as " ┃ %text%: %number%"
-				set {_ench2::*} to uncolored line 15 of lore of slot loop-value of player parsed as " ┃ %text%: %number%"
-				set {_ench3::*} to uncolored line 16 of lore of slot loop-value of player parsed as " ┃ %text%: %number%"
-				set {_ench4::*} to uncolored line 17 of lore of slot loop-value of player parsed as " ╹ %text%: %number%"
-
-				set {_totalAvailable::*} to uncolored line 2 of lore of slot loop-value of player parsed as " ┃ Level: %number%"
-				set {_totalAvailable} to {_totalAvailable::1} - 1
-				set {_used} to ({_ench1::2} + {_ench2::2} + {_ench3::2} + {_ench4::2}) - 4
-				set {_available} to {_totalAvailable} - {_used}
-
-				set {_message} to " "
-				if {_available} is less than 1:
-					arg-1 is not "armor"
-					set {_message} to "   &7Insufficient points"
-				else if arg-1 is "armorProtection":
-					set {_level} to {_ench1::2} + 1
-					set line 14 of lore of slot loop-value of player to " &8┃ &7Protection: &f%{_level}%"					
-					enchant slot loop-value of player with "protection %{_level}%" parsed as enchantment type
-					set line 9 of lore of slot loop-value of player to " &8┃ &7Health: &f+%{_ench1::2} * 5%"
-					set {_message} to "   &7Enchanted with {@color}Protection %{_level}%"
-					add 1 to {_ench1::2}
-					remove 1 from {_available}
-
-					add 5 to {p_health::%player%}
-					add 5 to {p_maxhealth::%player%}
-
-				else if arg-1 is "armorUnbreaking":
-					set {_level} to {_ench2::2} + 1
-					set line 15 of lore of slot loop-value of player to " &8┃ &7Unbreaking: &f%{_level}%"					
-					enchant slot loop-value of player with "unbreaking %{_level}%" parsed as enchantment type
-					set line 10 of lore of slot loop-value of player to " &8┃ &7Resistance: &f-%{_ench2::2}%"
-					set {_message} to "   &7Enchanted with {@color}Unbreaking %{_level}%"
-					add 1 to {_ench2::2}
-					remove 1 from {_available}
-				else if arg-1 is "armorMending":
-					set {_level} to {_ench3::2} + 1
-					set line 16 of lore of slot loop-value of player to " &8┃ &7Mending: &f%{_level}%"					
-					enchant slot loop-value of player with "mending %{_level}%" parsed as enchantment type
-					toolAttributes(player, "mending", {_ench2::2}, slot loop-value of player)
-					set {_message} to "   &7Enchanted with {@color}Mending %{_level}%"
-					add 1 to {_ench3::2}
-					remove 1 from {_available}
-				else if arg-1 is "armorBinding":
-					set {_level} to {_ench4::2} + 1
-					set line 17 of lore of slot loop-value of player to " &8╹ &7Binding: &f%{_level}%"					
-					enchant slot loop-value of player with "binding %{_level}%" parsed as enchantment type
-					toolAttributes(player, "binding", {_ench3::2}, slot loop-value of player)
-					set {_message} to "   &7Enchanted with {@color}Binding %{_level}%"
-					add 1 to {_ench4::2}
-					remove 1 from {_available}
-
-			send " "
-			send " &7&l------- {@color}&lENCHANTING &7&l-------"
-			send " "
-			send "   &7Available: &f%{_available}%"
-			send " "
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant armorProtection>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench1::1} in lower case%}%>&7Protection<reset>: &f%{_ench1::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant armorUnbreaking>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench2::1} in lower case%}%>&7Unbreaking<reset>: &f%{_ench2::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant armorMending>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench3::1} in lower case%}%>&7Mending<reset>: &f%{_ench3::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant armorBinding>[&a+&8]<reset> &8╹ <tooltip:%{tooltips::enchantment::%{_ench4::1} in lower case%}%>&7Binding<reset>: &f%{_ench4::2}%"
-			send " "
-			send " "
-			send " "
-			send " "
-			send " "
-			send " "
-			send " "
-			send {_message}
-			send " "
-			send " &7&l------------------------- "
-			send " "
+		else if arg-1 contains "shield":
+			set {_loop::*} to 40
+		else if held item of player is sword or bow or pickaxe or hoe:
+			set {_hotbar::*} to 0, 1, 2, 3, 4, 5, 6, 7, and 8
+			loop {_hotbar::*}:
+				if 1 of slot loop-value of player is 1 of held item of player:
+					add loop-value to {_loop::*}
+					exit loop
+		else:
+			send "{@prefix} &7This item can't be enchanted"
 			stop
+		
+		loop {_loop::*}:
 
-		if player's held item is pickaxe or sword or bow or hoe or shield:
-			set {_ench1::*} to uncolored line 14 of lore of held item of player parsed as " ┃ %text%: %number%"
-			set {_ench2::*} to uncolored line 15 of lore of held item of player parsed as " ┃ %text%: %number%"
-			set {_ench3::*} to uncolored line 16 of lore of held item of player parsed as " ┃ %text%: %number%"
-			set {_ench4::*} to uncolored line 17 of lore of held item of player parsed as " ╹ %text%: %number%"
-			set {_totalAvailable::*} to uncolored line 2 of lore of held item of player parsed as " ┃ Level: %number%"
+			# set {_lore::*} to lore of slot loop-value of player
+			# loop {_lore::*}:
+			# 	if loop-value-2 contains "ENCHANTS":
+			# 		set {_n} to loop-index-2 parsed as number
+			# 		set {_enchLines::*} to {_n} + 1, {_n} + 2, {_n} + 3, {_n} + 4
+			# 		exit loop
+
+			set {_ench1::*} to uncolored line {@line1} of lore of slot loop-value of player parsed as " ┃ %text%: %number%"
+			set {_ench2::*} to uncolored line {@line2} of lore of slot loop-value of player parsed as " ┃ %text%: %number%"
+			set {_ench3::*} to uncolored line {@line3} of lore of slot loop-value of player parsed as " ┃ %text%: %number%"
+			set {_ench4::*} to uncolored line {@line4} of lore of slot loop-value of player parsed as " ╹ %text%: %number%"
+
+			set {_totalAvailable::*} to uncolored line 2 of lore of slot loop-value of player parsed as " ┃ Level: %number%"
 			set {_totalAvailable} to {_totalAvailable::1} - 1
 			set {_used} to ({_ench1::2} + {_ench2::2} + {_ench3::2} + {_ench4::2}) - 4
-			# broadcast "used: %{_used}%"
-			# broadcast "total: %{_totalAvailable}%"
 			set {_available} to {_totalAvailable} - {_used}
-			# broadcast "available: %{_available}%"
-			
-			if {_available} is less than 1:
-				if arg-1 is set:
-					set {_message} to "   &7Insufficient points"
-				else:
-					set {_message} to " "
-			else if arg-1 is "sharpness" or "efficiency" or "power" or "protection":
-				toolCompatible(player's held item, {_ench1::1}) is true
-				set {_line} to 14
-				enchant(player, {_ench1::1}, {_ench1::2} + 1, {_line})
-				if held item of player is shield:
-					if {_ench1::2} is 2:
-						toolAttributes(player, {_ench1::1}, 0.65, held item of player)
-					else if {_ench1::2} is 3:
-						toolAttributes(player, {_ench1::1}, 0.6, held item of player)
-					else if {_ench1::2} is 4:
-						toolAttributes(player, {_ench1::1}, 0.55, held item of player)
-					else if {_ench1::2} is 5:
-						toolAttributes(player, {_ench1::1}, 0.5, held item of player)
-					else if {_ench1::2} is 6:
-						toolAttributes(player, {_ench1::1}, 0.45, held item of player)
-					else if {_ench1::2} is 7:
-						toolAttributes(player, {_ench1::1}, 0.4, held item of player)
-					else if {_ench1::2} is 8:
-						toolAttributes(player, {_ench1::1}, 0.35, held item of player)
-					else if {_ench1::2} is 9:
-						toolAttributes(player, {_ench1::1}, 0.3, held item of player)
-				else:
-					toolAttributes(player, {_ench1::1}, {_ench1::2}, held item of player)
-				set {_message} to "   &7Enchanted with {@color}%{_ench1::1}% %{_ench1::2} + 1%"
-				add 1 to {_ench1::2}
-				remove 1 from {_available}
-			else if arg-1 is "looting" or "fortune" or "unbreaking":
-				toolCompatible(player's held item, {_ench2::1}) is true
-				set {_line} to 15
-				enchant(player, {_ench2::1}, {_ench2::2} + 1, {_line})
-				toolAttributes(player, {_ench2::1}, {_ench2::2}, held item of player)
-				set {_message} to "   &7Enchanted with {@color}%{_ench2::1}% %{_ench2::2} + 1%"
-				add 1 to {_ench2::2}
-				remove 1 from {_available}
-			else if arg-1 is "mending":
-				toolCompatible(player's held item, {_ench3::1}) is true
-				set {_line} to 16
-				enchant(player, {_ench3::1}, {_ench3::2} + 1, {_line})
-				toolAttributes(player, {_ench3::1}, {_ench3::2}, held item of player)
-				set {_message} to "   &7Enchanted with {@color}%{_ench3::1}% %{_ench3::2} + 1%"
-				add 1 to {_ench3::2}
-				remove 1 from {_available}
-			else if arg-1 is "binding":
-				toolCompatible(player's held item, {_ench4::1}) is true
-				set {_line} to 17
-				enchant(player, {_ench4::1}, {_ench4::2} + 1, {_line})
-				set {_message} to "   &7Enchanted with {@color}%{_ench4::1}% %{_ench4::2} + 1%"
-				add 1 to {_ench4::2}
-				remove 1 from {_available}
-			else if arg-1 is not set:
-				set {_message} to " "
-			else:
-				set {_message} to "   &7Incompatible Enchant"
 
-			send " "
-			send " &7&l------- {@color}&lENCHANTING &7&l-------"
-			send " "
-			send "   &7Available: &f%{_available}%"
-			send " "
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench1::1}%>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench1::1} in lower case%}%>&7%{_ench1::1}%<reset>: &f%{_ench1::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench2::1}%>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench2::1} in lower case%}%>&7%{_ench2::1}%<reset>: &f%{_ench2::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench3::1}%>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench3::1} in lower case%}%>&7%{_ench3::1}%<reset>: &f%{_ench3::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %{_ench4::1}%>[&a+&8]<reset> &8╹ <tooltip:%{tooltips::enchantment::%{_ench4::1} in lower case%}%>&7%{_ench4::1}%<reset>: &f%{_ench4::2}%"
-			send " "
-			send " "
-			send " "
-			send " "
-			send " "
-			send " "
-			send " "
-			send {_message}
-			send " "
-			send " &7&l------------------------- "
-			send " "
+			set {_message} to " "
+			if {_available} is less than 1:
+				arg-1 contains "1" or "2" or "3" or "4"
+				set {_message} to "   &7Insufficient points"
+			else if arg-1 contains "1" or "2" or "3" or "4":
+				set {_level} to {_ench%arg-1%::2} + 1
+				if arg-1 contains "1":
+					set {_enchantment} to "%{_ench%arg-1%::1}% %{_level}%" parsed as enchantment type
+					set {_newLore} to " &8┃ &7%{_ench%arg-1%::1}%: &f%{_level}%"
+					set {_line} to {@line1}
+				else if arg-1 contains "2":
+					set {_enchantment} to "%{_ench%arg-1%::1}% %{_level}%" parsed as enchantment type
+					set {_newLore} to " &8┃ &7%{_ench%arg-1%::1}%: &f%{_level}%"
+					set {_line} to {@line2}
+				else if arg-1 contains "3":
+					set {_enchantment} to "%{_ench%arg-1%::1}% %{_level}%" parsed as enchantment type
+					set {_newLore} to " &8┃ &7%{_ench%arg-1%::1}%: &f%{_level}%"
+					set {_line} to {@line3}
+				else if arg-1 contains "4":
+					set {_enchantment} to "curse of binding %{_level}%" parsed as enchantment type
+					set {_newLore} to " &8╹ &7%{_ench%arg-1%::1}%: &f%{_level}%"
+					set {_line} to {@line4}
+				set line {_line} of lore of slot loop-value of player to {_newLore}
+				enchant slot loop-value of player with {_enchantment}
+				set {_message} to "   &7Enchanted with {@color}%{_ench%arg-1%::1}% %{_level}%"
+				add 1 to {_ench%arg-1%::2}
+				remove 1 from {_available}
+
+		send " "
+		send " &7&l------- {@color}&lENCHANT &7&l-------"
+		send " "
+		send "   &7Available: &f%{_available}%"
+		send " "
+		if arg-1 contains "armor" or "shield":
+			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %arg-1%1>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench1::1} in lower case%}%>&7%{_ench1::1}%<reset>: &f%{_ench1::2}%"
+			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %arg-1%2>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench2::1} in lower case%}%>&7%{_ench2::1}%<reset>: &f%{_ench2::2}%"
+			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %arg-1%3>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench3::1} in lower case%}%>&7%{_ench3::1}%<reset>: &f%{_ench3::2}%"
+			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %arg-1%4>[&a+&8]<reset> &8╹ <tooltip:%{tooltips::enchantment::%{_ench4::1} in lower case%}%>&7%{_ench4::1}%<reset>: &f%{_ench4::2}%"
+		else:
+			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant 1>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench1::1} in lower case%}%>&7%{_ench1::1}%<reset>: &f%{_ench1::2}%"
+			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant 2>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench2::1} in lower case%}%>&7%{_ench2::1}%<reset>: &f%{_ench2::2}%"
+			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant 3>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench3::1} in lower case%}%>&7%{_ench3::1}%<reset>: &f%{_ench3::2}%"
+			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant 4>[&a+&8]<reset> &8╹ <tooltip:%{tooltips::enchantment::%{_ench4::1} in lower case%}%>&7%{_ench4::1}%<reset>: &f%{_ench4::2}%"
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send " "
+		send {_message}
+		send " "
+		send " &7&l------------------------- "
+		send " "
+		stop

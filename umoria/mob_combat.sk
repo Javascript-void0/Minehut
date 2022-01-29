@@ -51,7 +51,7 @@ function expItem(p: player, i: integer, n: number):
 			chatlog({_p}, "weapon levelup", "%{_level}%")
 		else if {_i} is 40:
 			chatlog({_p}, "shield levelup", "%{_level}%")
-		else:
+		else if {_i} is 36:
 			chatlog({_p}, "armor levelup", "%{_level}%")
 		if {_exp} is greater than {_nextexp}:
 			expItem({_p}, {_i}, 0)
@@ -207,23 +207,11 @@ on damage:
 				set {_exp} to 1
 
 			set slot 40 of victim to air
-			set {_cooldown::*} to uncolored line 9 of lore of {_shield} parsed as " ┃ Cooldown: %number%s"
-			if {_cooldown::1} is 0.7:
-				wait 0.7 seconds
-			else if {_cooldown::1} is 0.65:
-				wait 0.65 seconds
-			else if {_cooldown::1} is 0.6:
-				wait 0.6 seconds
-			else if {_cooldown::1} is 0.55:
-				wait 0.55 seconds
-			else if {_cooldown::1} is 0.5:
-				wait 0.5 seconds
-			else if {_cooldown::1} is 0.45:
-				wait 0.45 seconds
-			else if {_cooldown::1} is 0.3:
-				wait 0.3 seconds
-			else:
-				wait 1 second
+			set {_cooldown} to level of protection of {_shield}
+			set {_cooldown} to 1 - ({_cooldown} / 4)
+			if {_cooldown} is less than 0.3:
+				set {_cooldown} to 0.3
+			wait "%{_cooldown}% seconds" parsed as timespan
 			set slot 40 of victim to {_shield}
 			expItem(victim, 40, {_exp})
 		# else if damage was caused by thorns:
@@ -260,6 +248,9 @@ on damage:
 			remove ({%attacker%::damage} - {_totalReduction}) from {p_health::%victim%}
 			counter(location of victim, "&c-%{%attacker%::damage}% &8[&7%{_totalReduction}%&8]")
 			expItem(victim, 36, {_itemexp})
+			expItem(victim, 37, {_itemexp})
+			expItem(victim, 38, {_itemexp})
+			expItem(victim, 39, {_itemexp})
 
 			# ========= PLAYER DEATH =============
 

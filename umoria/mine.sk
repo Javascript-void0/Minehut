@@ -23,42 +23,42 @@ on break:
 		cancel event
 	cancel event
 
-on mine:
-	player's tool is pickaxe
-	player is op
-	set {_1} to location of event-block
-	set {_2} to location of event-block
-	if player's pitch is between -50 and 50:
-		add 2 to y-coord of {_1}
-		subtract 2 from y-coord of {_2}
-		if player's horizontal facing is west or east:
-			add 2 to z-coord of {_1}
-			subtract 2 from z-coord of {_2}
-			loop blocks within {_1} to {_2}:
-				# loop-block is gray concrete or cyan terracotta
-				add 1 to {_n}
-				set loop-block to air
-				show 3 small smoke at location of loop-block
-		else if player's horizontal facing is north or south:
-			add 2 to x-coord of {_1}
-			subtract 2 from x-coord of {_2}
-			loop blocks within {_1} to {_2}:
-				# loop-block is gray concrete or cyan terracotta
-				add 1 to {_n}
-				set loop-block to air
-				show 3 small smoke at location of loop-block
-	else:
-		add 2 to x-coord of {_1}
-		add 2 to z-coord of {_1}
-		subtract 2 from x-coord of {_2}
-		subtract 2 from z-coord of {_2}
-		loop blocks within {_1} to {_2}:
-			# loop-block is gray concrete or cyan terracotta
-			add 1 to {_n}
-			set loop-block to air
-			show 3 small smoke at location of loop-block
-	expBlock(player, {_n}, event-block)
-	expItem(player, {_n})
+# on mine:
+# 	player's tool is pickaxe
+# 	player is op
+# 	set {_1} to location of event-block
+# 	set {_2} to location of event-block
+# 	if player's pitch is between -50 and 50:
+# 		add 2 to y-coord of {_1}
+# 		subtract 2 from y-coord of {_2}
+# 		if player's horizontal facing is west or east:
+# 			add 2 to z-coord of {_1}
+# 			subtract 2 from z-coord of {_2}
+# 			loop blocks within {_1} to {_2}:
+# 				# loop-block is gray concrete or cyan terracotta
+# 				add 1 to {_n}
+# 				set loop-block to air
+# 				show 3 small smoke at location of loop-block
+# 		else if player's horizontal facing is north or south:
+# 			add 2 to x-coord of {_1}
+# 			subtract 2 from x-coord of {_2}
+# 			loop blocks within {_1} to {_2}:
+# 				# loop-block is gray concrete or cyan terracotta
+# 				add 1 to {_n}
+# 				set loop-block to air
+# 				show 3 small smoke at location of loop-block
+# 	else:
+# 		add 2 to x-coord of {_1}
+# 		add 2 to z-coord of {_1}
+# 		subtract 2 from x-coord of {_2}
+# 		subtract 2 from z-coord of {_2}
+# 		loop blocks within {_1} to {_2}:
+# 			# loop-block is gray concrete or cyan terracotta
+# 			add 1 to {_n}
+# 			set loop-block to air
+# 			show 3 small smoke at location of loop-block
+# 	expBlock(player, {_n}, event-block)
+# 	expItem(player, {_n})
 		
 # on tab complete of "/mine":
 # 	set tab completions for position 1 to "reset", "set", and "color"

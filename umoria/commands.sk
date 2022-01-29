@@ -236,7 +236,7 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				else:
 					set {_n} to 1
 				loop {_n} times:
-					give player generateStatScroll()
+					give player generateScroll()
 
 		else:
 			send "{@admin} {@permission}"
