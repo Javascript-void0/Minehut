@@ -49,5 +49,43 @@ async def on_message(message):
 		await message.channel.send('```This command can only be used in #link```', delete_after=3)
 	await client.process_commands(message)
 
+@client.event
+async def on_raw_reaction_add(payload):
+	if payload.guild_id == 747233433511788637:
+		reaction = payload.emoji
+		member = await guild.fetch_member(payload.user_id)
+		if payload.channel_id == 900146957404741662:
+			if str(reaction) == '📢':
+				role = get(guild.roles, id=902023466021158933)
+			elif str(reaction) == '📅':
+				role = get(guild.roles, id=902023488511049738)
+			elif str(reaction) == '⚡':
+				role = get(guild.roles, id=902023503958663169)
+			elif str(reaction) == '🌾':
+				role = get(guild.roles, id=900177575710699530)
+			await member.add_roles(role)
+		elif payload.channel_id == 900146512699482192:
+			if str(reaction) == '💎':
+				print('drop')
+
+@client.event
+async def on_raw_reaction_remove(payload):
+	if payload.guild_id == 747233433511788637:
+		reaction = payload.emoji
+		member = await guild.fetch_member(payload.user_id)
+		if payload.channel_id == 900146957404741662:
+			if str(reaction) == '📢':
+				role = get(guild.roles, id=902023466021158933)
+			elif str(reaction) == '📅':
+				role = get(guild.roles, id=902023488511049738)
+			elif str(reaction) == '⚡':
+				role = get(guild.roles, id=902023503958663169)
+			elif str(reaction) == '🌾':
+				role = get(guild.roles, id=900177575710699530)
+			await member.remove_roles(role)
+		elif payload.channel_id == 900146512699482192:
+			if str(reaction) == '💎':
+				print('drop')
+
 if __name__ == '__main__':
 	client.run(TOKEN)
