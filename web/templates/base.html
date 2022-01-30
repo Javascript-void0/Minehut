@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+
+		{% block title %}
+
+		{% endblock %}
+
+	</title>
+	<link rel="stylesheet" href="/static/style.css">
+	<link rel="stylesheet" href="/static/menu.css">
+	<link rel='icon' type='image/x-icon' href='/static/favicon.ico'>
+</head>
+<body>
+	<div class='menu'>
+		
+		{% block menu %}
+			{% if table_of_contents %}
+				<p>
+					`7MMF'&nbsp&nbsp&nbsp`7MF'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspdb&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br>
+					&nbsp&nbspMM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br>
+					&nbsp&nbspMM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspM&nbsp`7MMpMMMb.pMMMb.&nbsp&nbsp,pW"Wq.`7Mb,od8&nbsp`7MM&nbsp&nbsp&nbsp,6"Yb.&nbsp&nbsp<br>
+					&nbsp&nbspMM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspM&nbsp&nbsp&nbspMM&nbsp&nbsp&nbsp&nbspMM&nbsp&nbsp&nbsp&nbspMM&nbsp6W'&nbsp&nbsp&nbsp`Wb&nbspMM'&nbsp"'&nbsp&nbsp&nbspMM&nbsp&nbsp8)&nbsp&nbsp&nbspMM&nbsp&nbsp<br>
+					&nbsp&nbspMM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspM&nbsp&nbsp&nbspMM&nbsp&nbsp&nbsp&nbspMM&nbsp&nbsp&nbsp&nbspMM&nbsp8M&nbsp&nbsp&nbsp&nbsp&nbspM8&nbspMM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMM&nbsp&nbsp&nbsp,pm9MM&nbsp&nbsp<br>
+					&nbsp&nbspYM.&nbsp&nbsp&nbsp&nbsp&nbsp,M&nbsp&nbsp&nbspMM&nbsp&nbsp&nbsp&nbspMM&nbsp&nbsp&nbsp&nbspMM&nbspYA.&nbsp&nbsp&nbsp,A9&nbspMM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMM&nbsp&nbsp8M&nbsp&nbsp&nbspMM&nbsp&nbsp<br>
+					&nbsp&nbsp&nbsp`bmmmmd"'&nbsp.JMML&nbsp&nbspJMML&nbsp&nbspJMML.`Ybmd9'.JMML.&nbsp&nbsp&nbsp.JMML.`Moo9^Yo.
+				</p>
+			{% else %}
+				<div class='table-of-contents'>
+					< wiki >
+					<h1>&nbsp</h1>
+					<h1><a href='#reference'>## reference&nbsp&nbsp</a></h1>
+					<h1 class='sub'><a href='#numeral'>&nbsp> numeral&nbsp&nbsp&nbsp&nbsp</a></h1>
+					<h1 class='sub'><a href='#commands'>&nbsp> commands&nbsp&nbsp&nbsp</a></h1>
+					<h1 class='sub'><a href='#value'>&nbsp> value&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></h1>
+
+					<h1><a href='#server'>## server&nbsp&nbsp&nbsp&nbsp&nbsp</a></h1>
+					<h1 class='sub'><a href='#blessing'>&nbsp> blessing&nbsp&nbsp&nbsp</a></h1>
+					<h1 class='sub'><a href='#quests'>&nbsp> quests&nbsp&nbsp&nbsp&nbsp&nbsp</a></h1>
+					<h1 class='sub'><a href='#npc'>&nbsp> npc&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></h1>
+					
+					<h1><a href='#player'>## player&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></h1>
+					<h1 class='sub'><a href='#armor'>&nbsp> armor&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></h1>
+					<h1 class='sub'><a href='#tools'>&nbsp> tools&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></h1>
+
+				</div>
+			{% endif %}
+		{% endblock %}
+		
+		<h1>< umoria.minehut.gg ></h1>
+		<h2> inspired by <a href="https://www.umoria.org/" target="_blank" rel="noopener noreferrer">Umoria</a> </h2>
+		<div class='options'>
+			<div class='option'>
+				&nbsp&nbsp&nbsp&nbsp#&nbsp<a href="/">home</a><a class="link-arrow" href="/">&nbsp></a>
+			</div>
+			<div class='option'>
+				&nbsp&nbsp&nbsp&nbsp#&nbsp<a href="/wiki">wiki</a><a class="link-arrow" href="/wiki">&nbsp></a>
+			</div>
+			<div class='option'>
+				&nbsp#&nbsp<a href="https://www.discord.gg/YkBRcR5" target="_blank" rel="noopener noreferrer">discord</a><a class="link-arrow" href="https://www.discord.gg/YkBRcR5" target="_blank" rel="noopener noreferrer">&nbsp></a>
+			</div>
+			<div class='option'>
+				&nbsp&nbsp#&nbsp<a href="https://www.github.com/Javascript-void0/" target="_blank" rel="noopener noreferrer">github</a><a class="link-arrow" href="https://www.github.com/Javascript-void0/" target="_blank" rel="noopener noreferrer">&nbsp></a>
+			</div>
+			<div class='option'>
+				&nbsp&nbsp&nbsp#&nbsp<a href="/about">about</a><a class="link-arrow" href="/about">&nbsp></a>
+			</div>
+		</div>
+	</div>
+	<div class='content'>
+		<div class='container'>
+
+			{% block body %}
+
+			{% endblock %}
+
+		</div>
+	</div>
+</body>
+</html>
