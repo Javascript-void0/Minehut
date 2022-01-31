@@ -63,10 +63,10 @@ command /merchant [<number>] [<text>] [<text>] [<text>]:
 				loop {globalShop::%arg-3%::*}:
 					arg-4 is loop-index
 					set {_num} to {globalShop::%arg-3%::%loop-index%::count}
+					set {_itemName} to {globalShop::%arg-3%::%loop-index%}
+					set {_rarity} to {mobloot::%{_itemName}%.rarity}
 					set {_item} to {mobloot::%{_rarity}%::%{_itemName}%}
 					if player can hold 1 diamond sword:
-						set {_itemName} to {globalShop::%arg-3%::%loop-index%}
-						set {_rarity} to {mobloot::%{_itemName}%.rarity}
 						set {_cost} to {_num} * {mobloot::%{_itemName}%.buy}
 						if {p_coins::%player%} is greater than {_cost}:	
 							coins("remove", player, {_cost})

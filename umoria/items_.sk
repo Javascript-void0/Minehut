@@ -6,6 +6,111 @@ options:
 	admin: &8[<##B4C788>&lADMIN&8]&r
 	world: world
 	
+function itemExpBar(percent: number) :: text:
+	if {_percent} is between 0 and 0.05:
+		set {_bar} to " &8[{@color}&7::::::::::::::::::::&8]"
+	else if {_percent} is between 0.05 and 0.1:
+		set {_bar} to " &8[{@color}:&7:::::::::::::::::::&8]"
+	else if {_percent} is between 0.1 and 0.15:
+		set {_bar} to " &8[{@color}::&7::::::::::::::::::&8]"
+	else if {_percent} is between 0.15 and 0.2:
+		set {_bar} to " &8[{@color}:::&7:::::::::::::::::&8]"
+	else if {_percent} is between 0.2 and 0.25:
+		set {_bar} to " &8[{@color}::::&7::::::::::::::::&8]"
+	else if {_percent} is between 0.25 and 0.3:
+		set {_bar} to " &8[{@color}:::::&7:::::::::::::::&8]"
+	else if {_percent} is between 0.3 and 0.35:
+		set {_bar} to " &8[{@color}::::::&7::::::::::::::&8]"
+	else if {_percent} is between 0.35 and 0.4:
+		set {_bar} to " &8[{@color}:::::::&7:::::::::::::&8]"
+	else if {_percent} is between 0.4 and 0.45:
+		set {_bar} to " &8[{@color}::::::::&7::::::::::::&8]"
+	else if {_percent} is between 0.45 and 0.5:
+		set {_bar} to " &8[{@color}:::::::::&7:::::::::::&8]"
+	else if {_percent} is between 0.5 and 0.55:
+		set {_bar} to " &8[{@color}::::::::::&7::::::::::&8]"
+	else if {_percent} is between 0.55 and 0.6:
+		set {_bar} to " &8[{@color}:::::::::::&7:::::::::&8]"
+	else if {_percent} is between 0.6 and 0.65:
+		set {_bar} to " &8[{@color}::::::::::::&7::::::::&8]"
+	else if {_percent} is between 0.65 and 0.7:
+		set {_bar} to " &8[{@color}:::::::::::::&7:::::::&8]"
+	else if {_percent} is between 0.7 and 0.75:
+		set {_bar} to " &8[{@color}::::::::::::::&7::::::&8]"
+	else if {_percent} is between 0.75 and 0.8:
+		set {_bar} to " &8[{@color}:::::::::::::::&7:::::&8]"
+	else if {_percent} is between 0.8 and 0.85:
+		set {_bar} to " &8[{@color}::::::::::::::::&7::::&8]"
+	else if {_percent} is between 0.85 and 0.9:
+		set {_bar} to " &8[{@color}:::::::::::::::::&7:::&8]"
+	else if {_percent} is between 0.9 and 0.95:
+		set {_bar} to " &8[{@color}::::::::::::::::::&7::&8]"
+	else if {_percent} is between 0.95 and 1:
+		set {_bar} to " &8[{@color}:::::::::::::::::::&7:&8]"
+	else:
+		set {_bar} to " &8[{@color}::::::::::::::::::::&7&8]"
+	return {_bar}
+
+function generateEquipment(l: number, i: item = dirt) :: item:
+	if {_i} is dirt:
+		set {_i} to random element of netherite sword, bow, netherite pickaxe, netherite hoe
+	if {_i} is netherite sword:
+		set {_name} to "Sword"
+		set {_enchant} to "Sharpness"
+		set {_enchantt} to "Looting"
+	else if {_i} is bow:
+		set {_name} to "Bow"
+		set {_enchant} to "Power"
+		set {_enchantt} to "Looting"
+	else if {_i} is netherite pickaxe:
+		set {_name} to "Pickaxe"
+		set {_enchant} to "Efficiency"
+		set {_enchantt} to "Fortune"
+	else if {_i} is netherite hoe:
+		set {_name} to "Scythe"
+		set {_enchant} to "Efficiency"
+		set {_enchantt} to "Fortune"
+	
+	set {_item} to {_i} named "&8[{@color}::&7::::::::&8] {@color}%{_name}%" with all flags hidden
+
+	set {_nextexp} to ({_l} * 2) + 10
+	set {_exp} to random integer between 0 and {_nextexp}
+
+	set {_percent} to {_exp} / {_nextexp}
+	set {_percentFormat} to roundto({_percent} * 100, 1)
+	set {_bar} to itemExpBar({_percent})
+
+	set {_enchant1} to random integer between 0 and ({_l} - 1)
+	set {_enchant2} to random integer between 0 and ({_l} - 1 - {_enchant1})
+	set {_enchant3} to random integer between 0 and ({_l} - 1 - {_enchant1} - {_enchant2})
+	
+	enchant {_item} with "%{_enchant}% %{_enchant1}%" parsed as enchantment type
+	enchant {_item} with "%{_enchantt}% %{_enchant2}%" parsed as enchantment type
+	enchant {_item} with "Mending %{_enchant3}%" parsed as enchantment type
+
+	set {_enhance} to random integer between 0 and (floor({_l} / 2))
+
+	add " {@color2}&lSTATS" to lore of {_item}
+	add " &8┃ &7Level: &f%{_l}%" to lore of {_item}
+	add " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" to lore of {_item}
+	add " " to lore of {_item}
+	add "   &8(&f%{_percentFormat}%%%&8)" to lore of {_item}
+	add " %{_bar}%" to lore of {_item}
+	add " " to lore of {_item}
+	add " {@color}&lATTRIBUTES" to lore of {_item}
+	add " &8┃ &7ⁿ Slot I" to lore of {_item}
+	add " &8┃ &7ⁿ Slot II" to lore of {_item}
+	add " &8┃ &7ⁿ Slot III" to lore of {_item}
+	add " &8╹ &7Enhance: &f+%{_enhance}%" to lore of {_item}
+	add " " to lore of {_item}
+	add " {@color2}&lENCHANTS" to lore of {_item}
+	add " &8┃ &7%{_enchant}%: &f%{_enchant1}%" to lore of {_item}
+	add " &8┃ &7%{_enchantt}%: &f%{_enchant2}%" to lore of {_item}
+	add " &8┃ &7Mending: &f%{_enchant3}%" to lore of {_item}
+	add " &8╹ &7Binding: &f1" to lore of {_item}
+	add " " to lore of {_item}
+	return {_item}
+
 # on load: 
 function reloadItems():
 

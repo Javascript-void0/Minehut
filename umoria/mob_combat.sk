@@ -60,49 +60,7 @@ function expItem(p: player, i: integer, n: number):
 
 	set {_percent} to {_exp} / {_nextexp}
 	set {_percentFormat} to roundto({_percent} * 100, 1)
-	
-	if {_percent} is between 0 and 0.05:
-		set {_bar} to " &8[{@color}&7::::::::::::::::::::&8]"
-	else if {_percent} is between 0.05 and 0.1:
-		set {_bar} to " &8[{@color}:&7:::::::::::::::::::&8]"
-	else if {_percent} is between 0.1 and 0.15:
-		set {_bar} to " &8[{@color}::&7::::::::::::::::::&8]"
-	else if {_percent} is between 0.15 and 0.2:
-		set {_bar} to " &8[{@color}:::&7:::::::::::::::::&8]"
-	else if {_percent} is between 0.2 and 0.25:
-		set {_bar} to " &8[{@color}::::&7::::::::::::::::&8]"
-	else if {_percent} is between 0.25 and 0.3:
-		set {_bar} to " &8[{@color}:::::&7:::::::::::::::&8]"
-	else if {_percent} is between 0.3 and 0.35:
-		set {_bar} to " &8[{@color}::::::&7::::::::::::::&8]"
-	else if {_percent} is between 0.35 and 0.4:
-		set {_bar} to " &8[{@color}:::::::&7:::::::::::::&8]"
-	else if {_percent} is between 0.4 and 0.45:
-		set {_bar} to " &8[{@color}::::::::&7::::::::::::&8]"
-	else if {_percent} is between 0.45 and 0.5:
-		set {_bar} to " &8[{@color}:::::::::&7:::::::::::&8]"
-	else if {_percent} is between 0.5 and 0.55:
-		set {_bar} to " &8[{@color}::::::::::&7::::::::::&8]"
-	else if {_percent} is between 0.55 and 0.6:
-		set {_bar} to " &8[{@color}:::::::::::&7:::::::::&8]"
-	else if {_percent} is between 0.6 and 0.65:
-		set {_bar} to " &8[{@color}::::::::::::&7::::::::&8]"
-	else if {_percent} is between 0.65 and 0.7:
-		set {_bar} to " &8[{@color}:::::::::::::&7:::::::&8]"
-	else if {_percent} is between 0.7 and 0.75:
-		set {_bar} to " &8[{@color}::::::::::::::&7::::::&8]"
-	else if {_percent} is between 0.75 and 0.8:
-		set {_bar} to " &8[{@color}:::::::::::::::&7:::::&8]"
-	else if {_percent} is between 0.8 and 0.85:
-		set {_bar} to " &8[{@color}::::::::::::::::&7::::&8]"
-	else if {_percent} is between 0.85 and 0.9:
-		set {_bar} to " &8[{@color}:::::::::::::::::&7:::&8]"
-	else if {_percent} is between 0.9 and 0.95:
-		set {_bar} to " &8[{@color}::::::::::::::::::&7::&8]"
-	else if {_percent} is between 0.95 and 1:
-		set {_bar} to " &8[{@color}:::::::::::::::::::&7:&8]"
-	else:
-		set {_bar} to " &8[{@color}::::::::::::::::::::&7&8]"
+	set {_bar} to itemExpBar({_percent})
 
 	set line 5 of lore of (slot {_i} of {_p}) to "   &8(&f%{_percentFormat}%%%&8)"
 	set line 6 of lore of (slot {_i} of {_p}) to "%{_bar}%"

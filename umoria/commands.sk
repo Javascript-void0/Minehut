@@ -29,7 +29,7 @@ function newcenter(p: player):
 	set slot 32 of {_p} to {hermeslock}
 
 on tab complete of "/commands" and "/cmd" and "/command" and "/c":
-	set tab completions for position 1 to "listenchant", "itemlevel", "enchant", "scroll", "3x3", "reloadGlobalShop", "reloadItems", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
+	set tab completions for position 1 to "listenchant", "itemlevel", "equipment", "enchant", "scroll", "3x3", "reloadGlobalShop", "reloadItems", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
 	if tab complete arg-1 is "statcheck" or "dailyreset" or "clearMob":
 		set tab completions for position 2 to all players
 	else if tab complete arg-1 is "quiver" or "quiversize":
@@ -237,6 +237,13 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 					set {_n} to 1
 				loop {_n} times:
 					give player generateScroll()
+
+			else if arg-1 is "equipment":
+				if arg-2 is set:
+					set {_n} to arg-2 parsed as number
+				else:
+					set {_n} to {p_level::%player%}
+				give player generateEquipment({_n})
 
 		else:
 			send "{@admin} {@permission}"
