@@ -61,3 +61,19 @@ body {
 	width: auto;
 	font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.content h2 {
+	margin-left: 40px;
+	font-size: 20px;
+	line-height: 15px;
+	/* padding-top: 7px; */
+}
+
+.content a {
+	text-decoration: none;
+	color: var(--color-light-hover);
+}
+
+.content a:hover {
+	color: var(--color-dark-hover);
+}
