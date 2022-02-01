@@ -4,7 +4,7 @@
 	color: var(--color-light);
 	height: 100%;
 	width: var(--menu-width);
-	padding-top: calc(100vh - 280px);
+	padding-top: calc(100vh - 300px);
 	text-align: center;
 }
 

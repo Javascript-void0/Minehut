@@ -5,22 +5,22 @@ options:
 	admin: &8[<##B4C788>&lADMIN&8]&r
 	world: world
 
-function death(p: player):
-	set {dead.%{_p}%} to true
-	# apply blindness of tier 255 to {_p} for 3 seconds
-	# apply weakness of tier 255 to {_p} for 3 seconds
-	# apply slowness of tier 255 to {_p} for 3 seconds
-	# set {_p}'s flight mode to true
-	# apply wither of tier 255 to {_p} for 3 seconds
-	send title "{@color}&lYOU DIED" with subtitle "&7{@color}-50%% &7coins &8| {@color}Invincible &7for 10s" to {_p} for 2 seconds
-	set {_half} to floor({p_coins::%{_p}%} / 2)
-	remove {_half} from {p_coins::%{_p}%}
-	set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
-	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
-	wait 10 second
-	delete {dead.%{_p}%}
-	send title "{@color}" with subtitle "&7You are no longer invincible" to {_p} for 2 seconds
-	# set {_p}'s flight mode to false
+# function death(p: player):
+# 	set {dead.%{_p}%} to true
+# 	# apply blindness of tier 255 to {_p} for 3 seconds
+# 	# apply weakness of tier 255 to {_p} for 3 seconds
+# 	# apply slowness of tier 255 to {_p} for 3 seconds
+# 	# set {_p}'s flight mode to true
+# 	# apply wither of tier 255 to {_p} for 3 seconds
+# 	send title "{@color}&lYOU DIED" with subtitle "&7{@color}-50%% &7coins &8| {@color}Invincible &7for 10s" to {_p} for 2 seconds
+# 	set {_half} to floor({p_coins::%{_p}%} / 2)
+# 	remove {_half} from {p_coins::%{_p}%}
+# 	set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
+# 	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
+# 	wait 10 second
+# 	delete {dead.%{_p}%}
+# 	send title "{@color}" with subtitle "&7You are no longer invincible" to {_p} for 2 seconds
+# 	# set {_p}'s flight mode to false
 
 function deathEffect(e: entity):
 	show 30 critical hit at location of {_e}
@@ -221,61 +221,64 @@ on damage:
 				# 		broadcast "&8[&f☠&8] &7%victim's display name% &7was shot by %attacker's display name%"
 				# 	else:
 				# 		broadcast "&8[&f☠&8] &7%victim's display name% &7was killed by %attacker's display name%"
-				add 1 to {p_death::%victim%}
-
-				set {p_health::%victim%} to {p_maxhealth::%victim%}
-				set {p_defense::%victim%} to {p_maxdefense::%victim%}
-
-				# ========= CALCULATE REWARDS =========
-
-				set {_wrath} to ({dungeon::%victim%::runroom} * 3) + ({dungeon::%victim%::floor} * 10)
-				wrath("add", victim, {_wrath})
-				set {_before} to {p_level::%victim%}
-				set {_exp} to {dungeon::%victim%::runkill} * 5
-				if {dungeon::%victim%::floor} is greater than {p_highestfloor::%victim%}:
-					set {p_highestfloor::%victim%} to {dungeon::%victim%::floor}
-					set {_best} to "{@color}New Best! &fx2 Exp"
-					set {_exp} to {_exp} * 2
-				else:
-					set {_best} to "&7Floor &f%{p_highestfloor::%victim%}%"
-				expPlayer(victim, {_exp})
-				set {_after} to {p_level::%victim%}
-				if {_after} is greater than {_before}:
-					set {_levelup} to true
-
-				# ========= SUMMARY =========
-
-				send " " to victim
-				send " &7&l------- {@color}&lSUMMARY &7&l-------" to victim
-				send " " to victim
-				send "   &7Final: &7Floor &f%{dungeon::%victim%::floor}%" to victim
-				send "   &7Final: &7Room &f%{dungeon::%victim%::room}%" to victim
-				send "   &7Best: %{_best}%" to victim
-				send "   &7Total: &f%{dungeon::%victim%::runroom}% &7rooms" to victim
-				send "   &7Total: &f%{dungeon::%victim%::runkill}% &7kills" to victim
-				send " " to victim
-				send "      &7===== {@color}&lREWARDS &7=====" to victim
-				send " " to victim
-				send "   &7Wrath: &f+%{_wrath}%" to victim
-				if {_best} contains "New Best":
-					send "   &7Exp: &f+%{_exp} / 2% &7x &f2 &7= {@color}%{_exp} * 2% {@color}Exp" to victim
-				else:
-					send "   &7Exp: &f+%{_exp}%" to victim
-				send "   &7Upgrade Pts: &f+0" to victim
-				send " " to victim
-				send "   &8[&c☠&8] &cYou Died! " to victim
-				if {_levelup} is true:
-					send "   &7You gained &f%{_exp}% &7Exp and leveled up to &fLevel %{p_level::%victim%}%" to victim
-				else:
-					send "   &7You gained &f%{_exp}% Exp" to victim
-				send " " to victim
-				send " &7&l----------------------- " to victim
-				send " " to victim
-
-				dungeonEnd(victim)
-				teleport victim to {spawn}
+				death(victim)
 
 on damage:
 	attacker is not a player
 	victim is a player
 	set damage to 0
+
+function death(p: player, message: text = "&cYou Died!"):
+	add 1 to {p_death::%{_p}%}
+
+	set {p_health::%{_p}%} to {p_maxhealth::%{_p}%}
+	set {p_defense::%{_p}%} to {p_maxdefense::%{_p}%}
+
+	# ========= CALCULATE REWARDS =========
+
+	set {_wrath} to ({dungeon::%{_p}%::runroom} * 3) + ({dungeon::%{_p}%::floor} * 10)
+	wrath("add", {_p}, {_wrath})
+	set {_before} to {p_level::%{_p}%}
+	set {_exp} to {dungeon::%{_p}%::runkill} * 5
+	if {dungeon::%{_p}%::floor} is greater than {p_highestfloor::%{_p}%}:
+		set {p_highestfloor::%{_p}%} to {dungeon::%{_p}%::floor}
+		set {_best} to "{@color}New Best! &fx2 Exp"
+		set {_exp} to {_exp} * 2
+	else:
+		set {_best} to "&7Floor &f%{p_highestfloor::%{_p}%}%"
+	expPlayer({_p}, {_exp})
+	set {_after} to {p_level::%{_p}%}
+	if {_after} is greater than {_before}:
+		set {_levelup} to true
+
+	# ========= SUMMARY =========
+
+	send " " to "%{_p}%" parsed as player
+	send " &7&l------- {@color}&lSUMMARY &7&l-------" to "%{_p}%" parsed as player
+	send " " to "%{_p}%" parsed as player
+	send "   &7Final: &7Floor &f%{dungeon::%{_p}%::floor}%" to "%{_p}%" parsed as player
+	send "   &7Final: &7Room &f%{dungeon::%{_p}%::room}%" to "%{_p}%" parsed as player
+	send "   &7Best: %{_best}%" to "%{_p}%" parsed as player
+	send "   &7Total: &f%{dungeon::%{_p}%::runroom}% &7rooms" to "%{_p}%" parsed as player
+	send "   &7Total: &f%{dungeon::%{_p}%::runkill}% &7kills" to "%{_p}%" parsed as player
+	send " " to "%{_p}%" parsed as player
+	send "      &7===== {@color}&lREWARDS &7=====" to "%{_p}%" parsed as player
+	send " " to "%{_p}%" parsed as player
+	send "   &7Wrath: &f+%{_wrath}%" to "%{_p}%" parsed as player
+	if {_best} contains "New Best":
+		send "   &7Exp: &f+%{_exp} / 2% &7x &f2 &7= {@color}%{_exp} * 2% {@color}Exp" to "%{_p}%" parsed as player
+	else:
+		send "   &7Exp: &f+%{_exp}%" to "%{_p}%" parsed as player
+	send "   &7Upgrade Pts: &f+0" to "%{_p}%" parsed as player
+	send " " to "%{_p}%" parsed as player
+	send "   &8[&c☠&8] %{_message}% " to "%{_p}%" parsed as player
+	if {_levelup} is true:
+		send "   &7You gained &f%{_exp}% &7Exp and leveled up to &fLevel %{p_level::%{_p}%}%" to "%{_p}%" parsed as player
+	else:
+		send "   &7You gained &f%{_exp}% Exp" to "%{_p}%" parsed as player
+	send " " to "%{_p}%" parsed as player
+	send " &7&l----------------------- " to "%{_p}%" parsed as player
+	send " " to "%{_p}%" parsed as player
+
+	dungeonEnd({_p})
+	teleport {_p} to {spawn}

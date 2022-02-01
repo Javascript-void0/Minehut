@@ -39,7 +39,7 @@ on load:
 	set {mobloot::flesh.sell} to 1
 	set {mobloot::flesh.name} to "&8[{@color}::&7::::&8] {@color2}Flesh"
 	set {mobloot::flesh.rarity} to "Common"
-	set {mobloot::flesh.consume} to "{@color}+2 hp &8| {@color2}-1 dmg &7(5m)"
+	set {mobloot::flesh.consume} to "{@color}+20%% hp &8| {@color2}-10%% dmg &7(5m)"
 	set {mobloot::flesh.lore} to "&7The rotten flesh stinks of burnt fish. "
 	add "flesh" to {mobloot::list::*}
 	
@@ -72,7 +72,7 @@ on load:
 	set {mobloot::pancreas.sell} to 7
 	set {mobloot::pancreas.name} to "&8[{@color}::::::&8] {@color2}Pancreas"
 	set {mobloot::pancreas.rarity} to "Rare"
-	set {mobloot::pancreas.consume} to "{@color}+4 hp &8| {@color2}-2 dmg &7(2m)"
+	set {mobloot::pancreas.consume} to "{@color}+40%% hp &8| {@color2}-20%% dmg &7(2m)"
 	set {mobloot::pancreas.lore} to "&7Looks... tasty. "
 	add "pancreas" to {mobloot::list::*}
 	
@@ -89,7 +89,7 @@ on load:
 	set {mobloot::qu_eggs.sell} to 8
 	set {mobloot::qu_eggs.name} to "&8[{@color}::::::&8] {@color2}Quail Eggs"
 	set {mobloot::qu_eggs.rarity} to "Rare"
-	set {mobloot::qu_eggs.consume} to "{@color}+2 dmg &7(2m)"
+	set {mobloot::qu_eggs.consume} to "{@color}+20%% dmg &7(2m)"
 	set {mobloot::qu_eggs.lore} to "&7Only &oslightly &7better than chicken eggs. "
 	add "qu_eggs" to {mobloot::list::*}
 	

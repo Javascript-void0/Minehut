@@ -66,13 +66,20 @@ on join:
 	send " "
 on join:
 	teleport player to {spawn}
-on connect:
-	broadcast "&8[&a+&8] &7%player%"
-on disconnect:
-	broadcast "&8[<##8fb6ab>-&8] &7%player%"
+on join:
+	# broadcast "&8[&a+&8] &7%player%"
+	send "[`+`] `%player%`" to channel with id "900146282717413436"
+on quit:
+	# broadcast "&8[<##8fb6ab>-&8] &7%player%"
+	send "[`-`] `%player%`" to channel with id "900146282717413436"
 on first join:
-	broadcast "&8[&a+&8] {@color}%player% &8[&f##%size of all offline players%&8]"
+	# broadcast "&8[&a+&8] {@color}%player% &8[&f##%size of all offline players%&8]"
 	new(player)
+	send "[`+`] `%player%` [**##%size of all offline players%]" to channel with id "900146282717413436"
+on skript start:
+	send "Server has started" to channel with id "900146282717413436"
+on skript start:
+	send "Server has stopped" to channel with id "900146282717413436"
 
 command /spawn:
 	trigger:

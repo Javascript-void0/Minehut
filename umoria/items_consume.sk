@@ -21,24 +21,32 @@ function restoreConsume(p: player, t: text):
 on right click:
 
 	if 1 of event-item is {mobloot::common::flesh}:
-		healthConsume(player, 2)
-		damageConsume(player, -1)
+		set {_h} to floor({p_maxhealth::%player%} * 0.2)
+		set {_d} to floor({p_damage::%player%} * 0.1) * -1
+		healthConsume(player, {_h})
+		damageConsume(player, {_d})
 		remove 1 of event-item from inventory of player
 		chatlog(player, "consume flesh")
 		wait 5 minutes
 		restoreConsume(player, "flesh")
 
 	else if 1 of event-item is {mobloot::rare::pancreas}:
-		healthConsume(player, 4)
-		damageConsume(player, -2)
+		set {_h} to floor({p_maxhealth::%player%} * 0.4)
+		set {_d} to floor({p_damage::%player%} * 0.2) * -1
+		healthConsume(player, {_h})
+		damageConsume(player, {_d})
 		remove 1 of event-item from inventory of player
 		chatlog(player, "consume pancreas")
 		wait 2 minutes
 		restoreConsume(player, "pancreas")
 
 	else if 1 of event-item is {mobloot::rare::qu_eggs}:
+		set {_d} to floor({p_damage::%player%} * 0.2)
 		damageConsume(player, 2)
 		remove 1 of event-item from inventory of player
 		chatlog(player, "consume qu_eggs")
 		wait 2 minutes
 		restoreConsume(player, "quail eggs")
+
+	if {p_health::%player%} is less than 1:
+		death(player)
