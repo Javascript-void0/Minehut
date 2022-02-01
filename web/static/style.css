@@ -1,10 +1,12 @@
 :root {
 	--color-dark: #2b302d;
+	--color-dark-lighter: #49524c;
 	--color-dark-hover: #747976;
 	--color-light: #edf3ed;
 	--color-light-hover: #9eaa9e;
 	--color-link: #c6dbc6;
-	--color-link-hover: rgb(202, 218, 202);
+	--color-link-hover: #cadaca;
+	--color-content-link: #63a581;
 	--menu-width: 240px;
 }
 
@@ -66,14 +68,28 @@ body {
 	margin-left: 40px;
 	font-size: 20px;
 	line-height: 15px;
-	/* padding-top: 7px; */
+	color: var(--color-dark-lighter);
 }
 
 .content a {
 	text-decoration: none;
-	color: var(--color-light-hover);
+	color: var(--color-content-link);
 }
 
 .content a:hover {
 	color: var(--color-dark-hover);
+}
+
+.content code {
+	background: var(--color-link);
+	border-radius: 3px;
+	padding: 3px;
+}
+
+.wiki-section {
+	background-color: var(--color-light);
+	border-radius: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-left: -20px;
 }
