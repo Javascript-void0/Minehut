@@ -72,6 +72,7 @@ on disconnect:
 	broadcast "&8[<##8fb6ab>-&8] &7%player%"
 on first join:
 	broadcast "&8[&a+&8] {@color}%player% &8[&f##%size of all offline players%&8]"
+	new(player)
 
 command /spawn:
 	trigger:
@@ -131,47 +132,47 @@ command /pl:
 		else:
 			send "&fPlugins (4): &aNone&f, &aOf&f, &aYour&f, &aBusiness"
 
-# on join:
-# 	if {p_level::%player%} is not set:
-# 		set {p_level::%player%} to 1
-# 	if {p_skillpoint::%player%} is not set:
-# 		set {p_skillpoint::%player%} to 0
-# 	if {p_exp::%player%} is not set:
-# 		set {p_exp::%player%} to 0
-# 	if {p_nextexp::%player%} is not set:
-# 		set {p_nextexp::%player%} to 10
-# 	if {p_totalexp::%player%} is not set:
-# 		set {p_totalexp::%player%} to 0
-# 	if {p_coins::%player%} is not set:
-# 		set {p_coins::%player%} to 0
-# 	if {p_wrath::%player%} is not set:
-# 		set {p_wrath::%player%} to 0
-# 	if {p_virtue::%player%} is not set:
-# 		set {p_virtue::%player%} to 100
-# 	if {p_totalcoins::%player%} is not set:
-# 		set {p_totalcoins::%player%} to 0
-# 	if {p_totalwrath::%player%} is not set:
-# 		set {p_totalwrath::%player%} to 0
-# 	if {p_kill::%player%} is not set:
-# 		set {p_kill::%player%} to 0
-# 	if {p_death::%player%} is not set:
-# 		set {p_death::%player%} to 0
-# 	if {p_rebirth::%player%} is not set:
-# 		set {p_rebirth::%player%} to 0
-# 	if {p_damage::%player%} is not set:
-# 		set {p_damage::%player%} to 1
-# 	if {p_health::%player%} is not set:
-# 		set {p_health::%player%} to 20
-# 	if {p_maxhealth::%player%} is not set:
-# 		set {p_maxhealth::%player%} to 20
-# 	if {p_defense::%player%} is not set:
-# 		set {p_defense::%player%} to 0
-# 	if {p_maxdefense::%player%} is not set:
-# 		set {p_maxdefense::%player%} to 0
-# 	if {p_highestfloor::%player%} is not set:
-# 		set {p_highestfloor::%player%} to 0
-# 	if {p_totalroom::%player%} is not set:
-# 		set {p_totalroom::%player%} to 0
+on join:
+	if {p_level::%player%} is not set:
+		set {p_level::%player%} to 1
+	if {p_skillpoint::%player%} is not set:
+		set {p_skillpoint::%player%} to 0
+	if {p_exp::%player%} is not set:
+		set {p_exp::%player%} to 0
+	if {p_nextexp::%player%} is not set:
+		set {p_nextexp::%player%} to 10
+	if {p_totalexp::%player%} is not set:
+		set {p_totalexp::%player%} to 0
+	if {p_coins::%player%} is not set:
+		set {p_coins::%player%} to 0
+	if {p_wrath::%player%} is not set:
+		set {p_wrath::%player%} to 0
+	if {p_virtue::%player%} is not set:
+		set {p_virtue::%player%} to 100
+	if {p_totalcoins::%player%} is not set:
+		set {p_totalcoins::%player%} to 0
+	if {p_totalwrath::%player%} is not set:
+		set {p_totalwrath::%player%} to 0
+	if {p_kill::%player%} is not set:
+		set {p_kill::%player%} to 0
+	if {p_death::%player%} is not set:
+		set {p_death::%player%} to 0
+	if {p_rebirth::%player%} is not set:
+		set {p_rebirth::%player%} to 0
+	if {p_damage::%player%} is not set:
+		set {p_damage::%player%} to 1
+	if {p_health::%player%} is not set:
+		set {p_health::%player%} to 20
+	if {p_maxhealth::%player%} is not set:
+		set {p_maxhealth::%player%} to 20
+	if {p_defense::%player%} is not set:
+		set {p_defense::%player%} to 0
+	if {p_maxdefense::%player%} is not set:
+		set {p_maxdefense::%player%} to 0
+	if {p_highestfloor::%player%} is not set:
+		set {p_highestfloor::%player%} to 0
+	if {p_totalroom::%player%} is not set:
+		set {p_totalroom::%player%} to 0
 
 on tab complete of "/top":
 	set tab completions for position 1 to "level", "coins", "totalcoins", "wrath", "totalwrath", "totalstigma", "kill", "death", "rebirth", "maxhealth", and "damage"
