@@ -1,10 +1,12 @@
 from flask import Flask, render_template
 from views.about import about
 from views.wiki import wiki
+from views.faq import faq
 
 app = Flask(__name__, static_url_path='/static')
 app.register_blueprint(about, url_prefix='/about')
 app.register_blueprint(wiki, url_prefix='/wiki')
+app.register_blueprint(faq, url_prefix='/faq')
 
 @app.route('/')
 def index():
