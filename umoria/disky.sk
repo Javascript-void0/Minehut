@@ -126,14 +126,14 @@ command /discord:
 		send "  <tooltip:{@color}Click to join!><link:https://discord.gg/y333BGhxFP>&7Click Here to Join!<reset>"
 		send " "
 
-every 10 minutes:
-	loop all players:
-		send " " to loop-player
-		send "  {@discord}" to loop-player
-		send " " to loop-player
-		send "  &7Join our {@color}Discord &7for events, updates, and extra features" to loop-player
-		send "  &7Link your account &7(<tooltip:{@color}Click to link!><command:/link>{@color}/link<reset>&7) to recieve perks! <tooltip:{@color}Click to join!><link:https://discord.gg/y333BGhxFP>&7({@color}/discord&7)<reset>" to loop-player
-		send " " to loop-player
+# every 10 minutes:
+# 	loop all players:
+# 		send " " to loop-player
+# 		send "  {@discord}" to loop-player
+# 		send " " to loop-player
+# 		send "  &7Join our {@color}Discord &7for events, updates, and extra features" to loop-player
+# 		send "  &7Link your account &7(<tooltip:{@color}Click to link!><command:/link>{@color}/link<reset>&7) to recieve perks! <tooltip:{@color}Click to join!><link:https://discord.gg/y333BGhxFP>&7({@color}/discord&7)<reset>" to loop-player
+# 		send " " to loop-player
 
 command /link:
 	trigger:

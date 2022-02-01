@@ -135,8 +135,10 @@ command /pl:
 on join:
 	if {p_level::%player%} is not set:
 		set {p_level::%player%} to 1
-	if {p_skillpoint::%player%} is not set:
-		set {p_skillpoint::%player%} to 0
+	# if {p_skillpoint::%player%} is not set:
+	# 	set {p_skillpoint::%player%} to 0
+	if {p_upgradepoint::%player%} is not set:
+		set {p_upgradepoint::%player%} to 0
 	if {p_exp::%player%} is not set:
 		set {p_exp::%player%} to 0
 	if {p_nextexp::%player%} is not set:
@@ -169,6 +171,8 @@ on join:
 		set {p_defense::%player%} to 0
 	if {p_maxdefense::%player%} is not set:
 		set {p_maxdefense::%player%} to 0
+	if {p_bank::%player%} is not set:
+		set {p_bank::%player%} to 0
 	if {p_highestfloor::%player%} is not set:
 		set {p_highestfloor::%player%} to 0
 	if {p_totalroom::%player%} is not set:

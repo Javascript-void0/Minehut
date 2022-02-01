@@ -70,6 +70,19 @@ async def on_message(message):
                 member = guild.get_member(int(discord))
                 nick = member.nick.split(' ', 1)
                 await member.edit(nick=f'[:L{level}] {nick[1]}')
+    elif message.channel.id == 900148161262284850:
+        if message.author.id != 779111449343164418:
+            if '.nick' not in message.content:
+                if await registered(message.author.id):
+                    if len(message.content) > 15:
+                        await message.channel.send('```Nicknames must be less than 16 characters long```')
+                    else:
+                        nick_split = message.author.nick.split(' ', 1)
+                        await message.author.edit(nick=f'{nick_split[0]} {message.content}')
+                        await message.channel.send(f'```Nickname changed to {message.content}```')
+                else:
+                    await message.channel.send('```You must link your account with minecraft to change your nickname```')
+
     await client.process_commands(message)
 
 # ============================= DISCORD COMMANDS =============================
