@@ -29,7 +29,7 @@ function newcenter(p: player):
 	set slot 32 of {_p} to {hermeslock}
 
 on tab complete of "/commands" and "/cmd" and "/command" and "/c":
-	set tab completions for position 1 to "listenchant", "itemlevel", "equipment", "enchant", "scroll", "3x3", "reloadGlobalShop", "reloadItems", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
+	set tab completions for position 1 to "listenchant", "items_mob.craft", "clearCraft", "itemlevel", "equipment", "enchant", "scroll", "3x3", "reloadGlobalShop", "reloadItems", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
 	if tab complete arg-1 is "statcheck" or "dailyreset" or "clearMob":
 		set tab completions for position 2 to all players
 	else if tab complete arg-1 is "quiver" or "quiversize":
@@ -193,6 +193,14 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				loop {mobloot::rare::*}:
 					give player loop-value
 
+			else if arg-1 is "items_mob.craft":
+				loop {mobloot.craft::common::*}:
+					give player loop-value
+				loop {mobloot.craft::uncommon::*}:
+					give player loop-value
+				loop {mobloot.craft::rare::*}:
+					give player loop-value
+
 			else if arg-1 is "itemlevel":
 				arg-2 is set
 				set {_level::*} to uncolored line 2 of lore of player's held item parsed as " ┃ Level: %number%"
@@ -244,6 +252,10 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 				else:
 					set {_n} to {p_level::%player%}
 				give player generateEquipment({_n})
+
+			else if arg-1 is "clearCraft":
+				wipe server crafting recipes
+				send "{@admin} &7Wiped Server Crafting Recipes"
 
 		else:
 			send "{@admin} {@permission}"

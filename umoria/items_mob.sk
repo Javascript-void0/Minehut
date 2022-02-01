@@ -8,7 +8,12 @@ options:
 
 on load:
 
+	# RAW MOB DROPS RAW MOB DROPS RAW MOB DROPS RAW MOB DROPS RAW MOB DROPS
+	# RAW MOB DROPS RAW MOB DROPS RAW MOB DROPS RAW MOB DROPS RAW MOB DROPS
+	# RAW MOB DROPS RAW MOB DROPS RAW MOB DROPS RAW MOB DROPS RAW MOB DROPS
+
 	delete {mobloot::*}
+	delete {mobloot.craft::*}
 
 	set {mobloot::bone.item} to bone
 	set {mobloot::bone.buy} to 30
@@ -154,3 +159,93 @@ on load:
 			set {mobloot::%{mobloot::%loop-value%.rarity}%::%loop-value%} to {mobloot::%loop-value%.item} named {mobloot::%loop-value%.name} with lore " &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%" and " &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins" and " &8┃ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins" and " &8╹ &7Consume: %{mobloot::%loop-value%.consume}%" and " " and "&7%{mobloot::%loop-value%.lore}%" with all flags hidden
 		else:
 			set {mobloot::%{mobloot::%loop-value%.rarity}%::%loop-value%} to {mobloot::%loop-value%.item} named {mobloot::%loop-value%.name} with lore " &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%" and " &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins" and " &8╹ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins" and " " and "&7%{mobloot::%loop-value%.lore}%" with all flags hidden
+
+
+	# CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE
+	# CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE
+	# CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE
+
+
+	set {mobloot.craft::bone_bits.item} to pumpkin seeds
+	set {mobloot.craft::bone_bits.buy} to 7
+	set {mobloot.craft::bone_bits.sell} to 1
+	set {mobloot.craft::bone_bits.name} to "&8[{@color}::::::&8] {@color2}Bone Bits"
+	set {mobloot.craft::bone_bits.rarity} to "Common"
+	set {mobloot.craft::bone_bits.lore} to "&7Sharp to the touch. "
+	add "bone_bits" to {mobloot.craft::list::*}
+
+	set {mobloot.craft::br_mush_dust.item} to brown dye
+	set {mobloot.craft::br_mush_dust.buy} to 10
+	set {mobloot.craft::br_mush_dust.sell} to 1
+	set {mobloot.craft::br_mush_dust.name} to "&8[{@color}::::::&8] {@color2}Brown Mushroom Dust"
+	set {mobloot.craft::br_mush_dust.rarity} to "Uncommon"
+	set {mobloot.craft::br_mush_dust.lore} to "&7Tangy smell. "
+	add "br_mush_dust" to {mobloot.craft::list::*}
+
+	set {mobloot.craft::red_mush_dust.item} to red dye
+	set {mobloot.craft::red_mush_dust.buy} to 10
+	set {mobloot.craft::red_mush_dust.sell} to 1
+	set {mobloot.craft::red_mush_dust.name} to "&8[{@color}::::::&8] {@color2}Red Mushroom Dust"
+	set {mobloot.craft::red_mush_dust.rarity} to "Uncommon"
+	set {mobloot.craft::red_mush_dust.lore} to "&7Sweet scent. "
+	add "red_mush_dust" to {mobloot.craft::list::*}
+
+	set {mobloot.craft::dried_flesh.item} to dried kelp
+	set {mobloot.craft::dried_flesh.buy} to 15
+	set {mobloot.craft::dried_flesh.sell} to 2
+	set {mobloot.craft::dried_flesh.name} to "&8[{@color}::&7::::&8] {@color2}Dried Flesh"
+	set {mobloot.craft::dried_flesh.rarity} to "Common"
+	set {mobloot.craft::dried_flesh.consume} to "{@color}+20%% hp &7(5m)"
+	set {mobloot.craft::dried_flesh.lore} to "&7Chewy and burnt texture. "
+	add "dried_flesh" to {mobloot.craft::list::*}
+
+	set {mobloot.craft::twig.item} to stick
+	set {mobloot.craft::twig.buy} to 3
+	set {mobloot.craft::twig.sell} to 1
+	set {mobloot.craft::twig.name} to "&8[{@color}::::&7::&8] {@color2}Twig"
+	set {mobloot.craft::twig.rarity} to "Uncommon"
+	set {mobloot.craft::twig.lore} to "&7Easily snappable. "
+	add "twig" to {mobloot.craft::list::*}
+
+	set {mobloot.craft::treeling.item} to dark oak sapling
+	set {mobloot.craft::treeling.buy} to 50
+	set {mobloot.craft::treeling.sell} to 8
+	set {mobloot.craft::treeling.name} to "&8[{@color}::::&7::&8] {@color2}Treeling"
+	set {mobloot.craft::treeling.rarity} to "Uncommon"
+	set {mobloot.craft::treeling.lore} to "&7Plant a tree. "
+	add "treeling" to {mobloot.craft::list::*}
+
+	set {mobloot.craft::silk.item} to string
+	set {mobloot.craft::silk.buy} to 5
+	set {mobloot.craft::silk.sell} to 1
+	set {mobloot.craft::silk.name} to "&8[{@color}::::&7::&8] {@color2}Silk"
+	set {mobloot.craft::silk.rarity} to "Uncommon"
+	set {mobloot.craft::silk.lore} to "&7Thin but quite strong. "
+	add "silk" to {mobloot.craft::list::*}
+
+	set {mobloot.craft::warp_mush_dust.item} to cyan dye
+	set {mobloot.craft::warp_mush_dust.buy} to 10
+	set {mobloot.craft::warp_mush_dust.sell} to 2
+	set {mobloot.craft::warp_mush_dust.name} to "&8[{@color}::::&7::&8] {@color2}Glowing Mushroom Dust"
+	set {mobloot.craft::warp_mush_dust.rarity} to "Uncommon"
+	set {mobloot.craft::warp_mush_dust.lore} to "&7Fuzzy and sparking. "
+	add "warp_mush_dust" to {mobloot.craft::list::*}
+
+	set {mobloot.craft::ref_crystal.item} to nether quartz
+	set {mobloot.craft::ref_crystal.buy} to 90
+	set {mobloot.craft::ref_crystal.sell} to 15
+	set {mobloot.craft::ref_crystal.name} to "&8[{@color}::::::&8] {@color2}Refined Crystal"
+	set {mobloot.craft::ref_crystal.rarity} to "Rare"
+	set {mobloot.craft::ref_crystal.lore} to "&7Polished, translucent surface. "
+	add "ref_crystal" to {mobloot.craft::list::*}
+
+	loop {mobloot.craft::list::*}:
+		if {mobloot.craft::%loop-value%.consume} is set:
+			set {mobloot.craft::%{mobloot.craft::%loop-value%.rarity}%::%loop-value%} to {mobloot.craft::%loop-value%.item} named {mobloot.craft::%loop-value%.name} with lore " &8┃ &7Rarity: {@color}%{mobloot.craft::%loop-value%.rarity}%" and " &8┃ &7Buy: {@color}%{mobloot.craft::%loop-value%.buy}% coins" and " &8┃ &7Sell: {@color}%{mobloot.craft::%loop-value%.sell}% coins" and " &8╹ &7Consume: %{mobloot.craft::%loop-value%.consume}%" and " " and "&7%{mobloot.craft::%loop-value%.lore}%" with all flags hidden
+		else:
+			set {mobloot.craft::%{mobloot.craft::%loop-value%.rarity}%::%loop-value%} to {mobloot.craft::%loop-value%.item} named {mobloot.craft::%loop-value%.name} with lore " &8┃ &7Rarity: {@color}%{mobloot.craft::%loop-value%.rarity}%" and " &8┃ &7Buy: {@color}%{mobloot.craft::%loop-value%.buy}% coins" and " &8╹ &7Sell: {@color}%{mobloot.craft::%loop-value%.sell}% coins" and " " and "&7%{mobloot.craft::%loop-value%.lore}%" with all flags hidden
+
+
+
+
+

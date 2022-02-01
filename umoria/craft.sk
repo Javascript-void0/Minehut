@@ -1,3 +1,14 @@
-on craft:
+on click on crafting table:
 	player is not op
 	cancel event
+
+on load:
+	register new shapeless recipe for 4 of {mobloot.craft::common::bone_bits} using {mobloot::common::bone}, air, air, air, air, air, air, air, air
+	register new shapeless recipe for 3 of {mobloot.craft::uncommon::br_mush_dust} using {mobloot::uncommon::br_mush}, air, air, air, air, air, air, air, air
+	register new shapeless recipe for 3 of {mobloot.craft::uncommon::red_mush_dust} using {mobloot::uncommon::red_mush}, air, air, air, air, air, air, air, air
+	register new shapeless recipe for 1 of {mobloot.craft::common::dried_flesh} using {mobloot::common::flesh}, {mobloot::common::flesh}, air, air, air, air, air, air, air
+	register new shapeless recipe for 3 of {mobloot.craft::uncommon::twig} using {mobloot::uncommon::bush}, air, air, air, air, air, air, air, air
+	# register new shapeless recipe for 1 of {mobloot.craft::uncommon::treeling} using {mobloot::uncommon::dark_sapling}, {mobloot::uncommon::dark_sapling}, {mobloot::uncommon::dark_sapling}, {mobloot::uncommon::dark_sapling}, air, air, air, air, air
+	register new shapeless recipe for 1 of {mobloot.craft::uncommon::silk} using {mobloot::uncommon::cobweb}, {mobloot::uncommon::cobweb}, {mobloot::uncommon::cobweb}, air, air, air, air, air, air
+	# register new shapeless recipe for 3 of {mobloot.craft::uncommon::warp_mush_dust} using {mobloot::uncommon::warp_mush}, air, air, air, air, air, air, air, air
+	register new shapeless recipe for 1 of {mobloot.craft::rare::ref_crystal} using {mobloot::rare::crystal}, {mobloot::rare::crystal}, {mobloot::rare::crystal}, {mobloot::rare::crystal}, air, air, air, air, air

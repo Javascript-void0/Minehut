@@ -93,7 +93,7 @@ on damage:
 		else if held item of attacker is hoe:
 			set {_typeModify} to floor({p_damage::%attacker%} * 0.05)
 		else:
-			set {_typeModify} to {p_damage::%attacker%}
+			set {_typeModify} to floor({p_damage::%attacker%} * 0.01)
 		remove ({_typeModify} + {_enchant}) from {%victim%::health}
 
 		# ========= CALCULATE EXP =========
