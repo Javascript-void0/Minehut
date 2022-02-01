@@ -57,26 +57,28 @@ command /mutechat:
 	trigger:
 		if {Globalchat} is not set:
 			set {Globalchat} to true
-			broadcast "{@prefix} &7Chat {@color}&lMUTED &7by %player%"
+			# broadcast "{@prefix} &7Chat {@color}&lMUTED &7by %player%"
+			send "```Chat has been muted by %player%```" to channel with id "900146282717413436"
 			stop trigger
 		if {Globalchat} is set:
 			clear {Globalchat}
-			broadcast "{@prefix} &7Chat {@color}&lUNMUTED &7by %player%"
+			send "```Chat has been unmuted by %player%```" to channel with id "900146282717413436"
+			# broadcast "{@prefix} &7Chat {@color}&lUNMUTED &7by %player%"
 on chat:
 	if {Globalchat} is true:
-		if player has permission "chat.mute.bypass":
+		if player is op:
 			stop trigger
 		else:
 			cancel event
 			send "{@prefix} &7Chat is currently {@color}muted."
-command /clearchat:
-	permission: staff
-	permission message: {@staff} {@permission}
-	aliases: /cc
-	trigger:
-		loop 100 times:
-			broadcast ""
-		send "{@prefix} &7You have {@color}cleared &7the chat"
+# command /clearchat:
+# 	permission: staff
+# 	permission message: {@staff} {@permission}
+# 	aliases: /cc
+# 	trigger:
+# 		loop 100 times:
+# 			broadcast ""
+# 		send "{@prefix} &7You have {@color}cleared &7the chat"
 command /clearlag:
 	permission: staff
 	permission message: {@staff} {@permission}
