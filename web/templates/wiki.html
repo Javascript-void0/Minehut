@@ -22,48 +22,66 @@ Wiki | umoria.minehut.gg
 <p>
 Numbers on the server are represented differently than conventional 'K', 'M', 'B', 'T', etc. Instead of these, the server represents thousands, millions, billions, etc. with lowercase alphabet letters. Starting with 'a', representing thousands, then to 'b', representing millions. 
 <br>
-<br>&nbsp# Ex: 12.2a = ~12,200 (rounded)
-<br>&nbsp# Ex: 109.3b = ~109,300,000
-<br>&nbsp# Ex: 4.8b = ~4,800,000,000
 <br>
-<br>Knowing exact numbers isn't really important, but you can often hover over these abbreviated numbers in chat to reveal its exact, un-rounded value. Skript's variables allow the numbers to go up to 'f'. 
+<div class='block'>
+	<p># Ex: 12.2a = ~12,200 (rounded)</p>
+	<p># Ex: 109.3b = ~109,300,000</p>
+	<p># Ex: 4.8b = ~4,800,000,000</p>
+</div>
+<br><p>Knowing exact numbers isn't really important, but you can often hover over these abbreviated numbers in chat to reveal its exact, un-rounded value. Skript's variables allow the numbers to go up to 'f'. 
 </p>
 
 <h1 id='commands'> &nbsp> Commands</h1>
-<p>
-/spawn:
-</p>
+<div class='block'>
+	<p>/spawn | Teleport to spawn</p>
+	<p>/link &nbsp| Link Discord and Minecraft</p>
+	<p>/top &nbsp&nbsp| List top players in different categories</p>
+</div>
 
 <h1 id='currency'> &nbsp> Currency</h1>
-<p>
-Etiam eget bibendum ex. Morbi facilisis erat leo, eu mollis ante posuere ac. Sed non mattis turpis, eu ornare libero. In hac habitasse platea dictumst. Sed sed dui a ligula ultrices elementum. Nam convallis vestibulum orci. Donec at aliquet turpis.
-</p>
+<h2>Coins</h2>
+<br><p>Coins are a general-purpose currency</p>
+<br>
+<h2>Wrath</h2>
+<br><p>Wrath is a premium currency...</p>
+<br>
+<h2>Virtue</h2>
+<br><p>useless</p>
+
 
 <h1 id='chat-ui'> &nbsp> Chat-UI</h1>
 <p>Umoria uses Minecraft chat as UI. I opted to try this because I can show more information through chat, and the original Umoria is a game played by displaying text in a terminal window. </p>
-<br><p>Because of this design choice, Minecraft's chat is designated to be used for chat-ui and other gameplay features. Chatting is still avaibale, but messages will not show up in-game, only in <code>#umoria</code> in Discord. <a href='#overlay'>Click here for more info</a></p>
+<br><p>Because of this design choice, Minecraft's chat is designated to be used for chat-ui and other gameplay features. Chatting is still avaibale, but messages will not show up in-game, only in <code>#umoria</code> in Discord. <a href='#overlay'>Click here for more info▸</a></p>
 <br><h2>Recommended settings : </h2>
-<br><p>Options > Chat Settings... </p>
-<p>Focused Height: 180px</p>
-<p>Unfocused Height: 180px</p>
-<p>Width: ~300px</p>
-<p>Line Spacing: 0%</p>
-<p>Command Suggestions: ON</p>
-<p>Colors: ON</p>
+<br>
+<div class='block'>
+	<p>[ Options > Chat Settings... ]</p>
+	<p>&nbsp</p>
+	<p>Focused Height: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp180px</p>
+	<p>Unfocused Height: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp180px</p>
+	<p>Width: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp~300px</p>
+	<p>Line Spacing: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp0%</p>
+	<p>Command Suggestions: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspON</p>
+	<p>Colors: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspON</p>
+</div>
 
 <h1 id='discord'> &nbsp> Discord</h1>
 <p>
 <h2>Linking :</h2> 
+<br><p>To link your Minecraft account to Discord, first use <code>/link</code> in-game. It will give you a five digit code. Remember the code, or click to copy the whole command to your clipboard.</p>
+<br><p>Then go to discord and type <code>.link [code]</code> in <code>#code</code>, or paste it from your clipboard. </p>
 <br><h2>Bots :</h2> 
 <br><p>Umoria#1911 : Umoria Utilities</p> 
 <p>Tebex#83223 : Tebex Store</p> 
 <p>Dyno#3861 : Moderation</p> 
-<br><h2>Channels :</h2>
-<br><h2>Commands :</h2> 
-<br><p>.nick</p>
-<p>.list</p>
-<p>.link</p>
-<p>.top</p>
+<br><h2>Discord Commands :</h2> 
+<br>
+<div class='block'>
+	<p>.nick | Change your Discord nickname (must be linked)</p>
+	<p>.list | List online players</p>
+	<p>.link | Link Discord and Minecraft</p>
+	<p>.top &nbsp| List top players in different categories</p>
+</div>
 <br><h2 id='overlay'>Overlay :</h2>
 <br><p>In-game chat (Minecraft chat) is disabled because it might interfere with the <a href='#chat-ui'>chat-ui</a>. But, chat is still avaiable in Discord in <code>#umoria</code>. If you really want to view chat, I would recommend either having Discord open on the side, or using Discord's overlay feature. </p>
 <br><p>To use the overlay, go into settings and add Minecraft to <code>Activity Status</code>. Make sure <code>OVERLAY: ON</code> in Activity Status for Minecraft. Then go to Game Overlay menu and make sure it is also on. Open minecraft and press <code>Shift + `</code> (or whatever keybind you have it set to)</p>
@@ -98,6 +116,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu purus rhoncu
 <br><hr>
 <h1 id='dungeon' class='wiki-section'> ## Dungeon </h1>
 <br><p>Rooms throughout the dungeon are randomized. Location of chests and mob types are also randomized (except special rooms). </p>
+<br><p>Dungeons are split into floors and rooms. Each floor can have anywhere from 10 to 20 rooms. You ascend a floor after going through every room on the floor. </p>
 
 <h1 id='blocks'> &nbsp> Blocks</h1>
 <p>
@@ -117,19 +136,59 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu purus rhoncu
 <h1 id='stats'> &nbsp> Stats</h1>
 <p>
 	<h2>Health : </h2>
+	<br><p>Health is taken once defense is depleted. Health does not regenerate naturally. </p>
+	<p>Costs: 3 Upgrade Points</p>
 	<br><h2>Defense : </h2>
-	<br><h2>Damage : </h2> 
+	<br><p>Defense stat regenerates overtime, until it reaches its max. Defense is taken before health. </p>
+	<p>Costs: 50 Upgrade Points</p>
+	<br><h2>Damage : </h2>
+	<br><p>Damage stat is base damage</p>
+	<p>Costs: 1 Upgrade Points</p>
 	<br><h2>Level : </h2> 
+	<br><p>Leveling up gives the player 1 Upgrade Point, used in <code>Upgrades</code> menu to increase health, defense, or damage. </p>
 </p>
 
-<h1 id='armor'> &nbsp> Armor</h1>
-<p>
-Etiam eget bibendum ex. Morbi facilisis erat leo, eu mollis ante posuere ac. Sed non mattis turpis, eu ornare libero. In hac habitasse platea dictumst. Sed sed dui a ligula ultrices elementum. Nam convallis vestibulum orci. Donec at aliquet turpis.
-</p>
-
-<h1 id='tools'> &nbsp> Tools</h1>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu purus rhoncus ante maximus rhoncus sit amet eleifend nisi. Vivamus condimentum viverra erat id pulvinar. Suspendisse dictum egestas nunc, et hendrerit arcu facilisis ac. Cras venenatis pulvinar ornare. Etiam ultrices ipsum nec justo gravida, sit amet sagittis lorem varius. Vestibulum sit amet tortor in neque congue pharetra. Integer sit amet nulla venenatis, iaculis eros eu, sodales dolor. Cras lorem eros, semper sit amet ipsum non, malesuada feugiat quam. Vivamus consequat pretium justo auctor feugiat. Aenean elementum neque lorem, eget commodo neque molestie id. Sed eu gravida risus, sed venenatis tellus. Praesent id maximus neque. Etiam nisl ex, porta ac varius id, dapibus sit amet urna.
-</p>
+<h1 id='equipment'> &nbsp> Equipment</h1>
+<h2>Damage : </h2>
+<br>
+<p>Using tools not meant for melee results in less damage. </p>
+<p>Green damage indicators from attacking show damage done with damage stat. </p>
+<p>Gray damage indicators from attacking show damage done with sharpness or power. </p>
+<br>
+<div class='block'>
+	<p>Sword ---------------- + </p>
+	<p> | Melee: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp100% |</p>
+	<p> | Sharpness: +5dmg/lvl |</p>
+	<p>&nbsp</p>
+	<p>Bow ------------------ + </p>
+	<p> | Melee: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp10% |</p>
+	<p> | Range: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp100% |</p>
+	<p> | Power: &nbsp&nbsp&nbsp&nbsp+5dmg/lvl |</p>
+	<p>&nbsp</p>
+	<p>Pickaxe -------------- + </p>
+	<p> | Melee: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp10% |</p>
+	<p>&nbsp</p>
+	<p>Scythe --------------- + </p>
+	<p> | Melee: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp5% |</p>
+	<p>&nbsp</p>
+	<p>Item / Fist ---------- + </p>
+	<p> | Melee: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp1% |</p>
+</div>
+<br>
+<h2>Defense : </h2>
+<br>
+<p>All four armor pieces share the same enchantments, so they are all calculated once, not x4. </p>
+<br><p>For each level of <code>Unbreaking</code>, the damage the player takes is reduced by the level of <code>Unbreaking</code>. </p>
+<br><p>For the shield, each level of <code>Protection</code> allows the cooldown of the shield to shortened with this simple formula: <code>cooldown = 1 - (level of protection / 10)</code>.</p>
+<br>
+<div class='block'>
+	<p># Ex. Protection I &nbsp&nbsp&nbsp&nbsp0.9s</p>
+	<p># Ex. Protection II &nbsp&nbsp&nbsp0.8s</p>
+	<p># Ex. Protection III &nbsp&nbsp0.7s</p>
+	<p># Ex. Protection IV &nbsp&nbsp&nbsp0.6s</p>
+	<p># Ex. Protection V &nbsp&nbsp&nbsp&nbsp0.5s</p>
+	<p># Ex. Protection VI &nbsp&nbsp&nbsp0.4s</p>
+	<p># Ex. Protection VII &nbsp&nbsp0.3s</p>
+</div>
 
 {% endblock %}
