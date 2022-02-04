@@ -29,7 +29,7 @@ function newcenter(p: player):
 	set slot 32 of {_p} to {hermeslock}
 
 on tab complete of "/commands" and "/cmd" and "/command" and "/c":
-	set tab completions for position 1 to "listenchant", "items_mob.craft", "clearCraft", "itemlevel", "equipment", "enchant", "scroll", "3x3", "reloadGlobalShop", "reloadItems", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
+	set tab completions for position 1 to "resetMine", "setMine", "listenchant", "items_mob.craft", "clearCraft", "itemlevel", "equipment", "enchant", "scroll", "3x3", "reloadGlobalShop", "reloadItems", "new", "statcheck", "items_mob", "armor", "jumplock", "dailyreset", "blessing", "invlock", "mobcap", "serverWorth", "quiver", "quiversize", "clearMob", and "tools"
 	if tab complete arg-1 is "statcheck" or "dailyreset" or "clearMob":
 		set tab completions for position 2 to all players
 	else if tab complete arg-1 is "quiver" or "quiversize":
@@ -256,6 +256,15 @@ command /commands [<text>] [<text>] [<text>] [<text>]:
 			else if arg-1 is "clearCraft":
 				wipe server crafting recipes
 				send "{@admin} &7Wiped Server Crafting Recipes"
+
+			else if arg-1 is "setMine":
+				set {_block} to block under player
+				set {k_mineStart} to location of {_block}
+				send "{@admin} &7Location Set"
+				
+			else if arg-1 is "resetMine":
+				mine({k_mineStart})
+				send "{@admin} &7Reset Mine"
 
 		else:
 			send "{@admin} {@permission}"
