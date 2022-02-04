@@ -39,10 +39,10 @@ Numbers on the server are represented differently than conventional 'K', 'M', 'B
 </div>
 
 <h1 id='currency'> &nbsp> Currency</h1>
-<h2>Coins</h2>
+<h2 id='coins'>Coins</h2>
 <br><p>Coins are a general-purpose currency</p>
 <br>
-<h2>Wrath</h2>
+<h2 id="wrath">Wrath</h2>
 <br><p>Wrath is a premium currency...</p>
 <br>
 <h2>Virtue</h2>
@@ -68,8 +68,9 @@ Numbers on the server are represented differently than conventional 'K', 'M', 'B
 <h1 id='discord'> &nbsp> Discord</h1>
 <p>
 <h2>Linking :</h2> 
-<br><p>To link your Minecraft account to Discord, first use <code>/link</code> in-game. It will give you a five digit code. Remember the code, or click to copy the whole command to your clipboard.</p>
+<br><p>To link your Minecraft account to Discord, first use <code>/link</code> in-game. It will give you a five digit code. Remember the code, or click to copy the whole command to your clipboard. The code is valid for 1 minute. </p>
 <br><p>Then go to discord and type <code>.link [code]</code> in <code>#code</code>, or paste it from your clipboard. </p>
+<br><p>Once linked, you will recieve <a href='/wiki/#coins'>10b coins</a> and <a href='/wiki/#wrath'>10a wrath</a>. </p>
 <br><h2>Bots :</h2> 
 <br><p>Umoria#1911 : Umoria Utilities</p> 
 <p>Tebex#83223 : Tebex Store</p> 
@@ -104,12 +105,11 @@ Proin in efficitur mi, egestas maximus enim. Ut dignissim magna felis, eu conval
 Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras in orci eget ligula convallis lobortis non eu lorem. Integer quis aliquet quam. Curabitur porta vitae erat accumsan tempor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse tortor nibh, efficitur et velit auctor, dignissim porttitor ipsum. Morbi luctus porta posuere. Suspendisse sit amet mauris sed purus mattis molestie in et odio. Nulla tristique varius condimentum. Sed interdum imperdiet posuere.
 </p>
 
-<h1 id='npc'> &nbsp> Npc</h1>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu purus rhoncus ante maximus rhoncus sit amet eleifend nisi. Vivamus condimentum viverra erat id pulvinar. Suspendisse dictum egestas nunc, et hendrerit arcu facilisis ac. Cras venenatis pulvinar ornare. Etiam ultrices ipsum nec justo gravida, sit amet sagittis lorem varius. Vestibulum sit amet tortor in neque congue pharetra. Integer sit amet nulla venenatis, iaculis eros eu, sodales dolor. Cras lorem eros, semper sit amet ipsum non, malesuada feugiat quam. Vivamus consequat pretium justo auctor feugiat. Aenean elementum neque lorem, eget commodo neque molestie id. Sed eu gravida risus, sed venenatis tellus. Praesent id maximus neque. Etiam nisl ex, porta ac varius id, dapibus sit amet urna.
-</p>
-
-
+<h1 id='npc'> &nbsp> NPC</h1>
+<h2 id='merchant'> Merchant </h2>
+<br><p>Buy and sell goods. </p>
+<br><h2 id='mercenary'> Mercenary </h2>
+<br><p>Manage Dungeon</p>
 
 
 
@@ -129,10 +129,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu purus rhoncu
 	<p>Trapped Chest : Un-opened chest. Generated randomly throughout rooms. <code>Shift + Left Click</code> to loot all, except for arrows. </p>
 </div>
 <br>
-	
 <div class='block2'>
 	<img src='https://static.wikia.nocookie.net/minecraft/images/6/66/CrackedStoneBricksNew.png' class='block-img'>
-	<p>Cracked Stone Bricks : You can break cracked stone bricks with a <a href='#tools'>pickaxe</a>. </p>
+	<p>Cracked Stone Bricks : You can break cracked stone bricks with a <a href=''>pickaxe</a>. </p>
 </div>
 
 
@@ -143,26 +142,21 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu purus rhoncu
 <h1 id='stats'> &nbsp> Stats</h1>
 <p>
 	<h2>Health : </h2>
-	<br><p>Health is taken once defense is depleted. Health does not regenerate naturally. </p>
-	<p>Costs: 3 Upgrade Points</p>
+	<br><p>Health is taken once defense is depleted. Health does not regenerate naturally. It costs 3 Upgrade Points to increase max health by 10. </p>
 	<br><h2>Defense : </h2>
-	<br><p>Defense stat regenerates overtime, until it reaches its max. Defense is taken before health. </p>
-	<p>Costs: 50 Upgrade Points</p>
+	<br><p>Defense stat regenerates overtime, until it reaches its max. Defense is taken before health. It costs 50 Upgrade Points to increase max defense by 1. </p>
 	<br><h2>Damage : </h2>
-	<br><p>Damage stat is base damage</p>
-	<p>Costs: 1 Upgrade Points</p>
+	<br><p>Damage stat is base damage. It costs 1 Upgrade Point to increase damage by 10. </p>
 	<br><h2>Level : </h2> 
 	<br><p>Leveling up gives the player 1 Upgrade Point, used in <code>Upgrades</code> menu to increase health, defense, or damage. </p>
 </p>
 
 <h1 id='equipment'> &nbsp> Equipment</h1>
 <h2>Damage : </h2>
-<br>
-<p>Using tools not meant for melee results in less damage. </p>
-<p>Green damage indicators from attacking show damage done with damage stat. </p>
-<p>Gray damage indicators from attacking show damage done with sharpness or power. </p>
-<br>
-<div class='block'>
+<br><p>Using tools not meant for melee results in less damage. </p>
+<br><p>Green damage indicators from attacking show damage done with damage stat. </p>
+<br><p>Gray damage indicators from attacking show damage done with sharpness or power. </p>
+<br><div class='block'>
 	<p>Sword ---------------- + </p>
 	<p> | Melee: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp100% |</p>
 	<p> | Sharpness: +5dmg/lvl |</p>
@@ -181,14 +175,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu purus rhoncu
 	<p>Item / Fist ---------- + </p>
 	<p> | Melee: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp1% |</p>
 </div>
-<br>
-<h2>Defense : </h2>
-<br>
-<p>All four armor pieces share the same enchantments, so they are all calculated once, not x4. </p>
-<br><p>For each level of <code>Unbreaking</code>, the damage the player takes is reduced by the level of <code>Unbreaking</code>. </p>
-<br><p>For the shield, each level of <code>Protection</code> allows the cooldown of the shield to shortened with this simple formula: <code>cooldown = 1 - (level of protection / 10)</code>.</p>
-<br>
-<div class='block'>
+<br><h2>Defense : </h2>
+<br><p>All four armor pieces share the same enchantments, so they are all calculated once, not x4. </p>
+<br><p>For each level of <code>Unbreaking</code>, the damage the player takes is reduced by the level of <code>Unbreaking</code>. Defense indicators are placed in brackets '[' and ']'.  </p>
+<br><p>For the shield, each level of <code>Protection</code> allows the cooldown of the shield to shortened with this simple formula: <code>cooldown = 1 - (level of protection / 10)</code>. The minimum cooldown is 0.3s. </p>
+<br><div class='block'>
 	<p># Ex. Protection I &nbsp&nbsp&nbsp&nbsp0.9s</p>
 	<p># Ex. Protection II &nbsp&nbsp&nbsp0.8s</p>
 	<p># Ex. Protection III &nbsp&nbsp0.7s</p>
@@ -197,5 +188,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu purus rhoncu
 	<p># Ex. Protection VI &nbsp&nbsp&nbsp0.4s</p>
 	<p># Ex. Protection VII &nbsp&nbsp0.3s</p>
 </div>
-
+<br><h2>Quiver : /quiver</h2>
+<br><p>Using the quiver, you can select arrows. Access the quiver by dropping an item 'q', clicking in the <code>menu</code>, clicking the quiver in the top right of your inventory, or using <code>/quiver</code>. Selected arrows will automatically replaced and collected. </p>
+<br><div class='block'>
+	<p>Arrow:</p>
+	<p>Solar:</p>
+	<p>Lunar:</p>
+	<p>Terrestrial:</p>
+	<p>Midnight:</p>
+	<p>Thunder Bolt:</p>
+</div>
 {% endblock %}

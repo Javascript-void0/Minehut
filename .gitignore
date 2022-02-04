@@ -2,3 +2,4 @@
 venv/
 discord/data.txt
 Minehut.jar
+__pycache__
