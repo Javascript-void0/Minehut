@@ -47,8 +47,12 @@ function expItem(p: player, i: integer, n: number):
 			set {_exp} to 0
 		set {_nextexp} to ({_level} * 2) + 10
 		add 1 to {_level}
-		if {_i} is less than 10:
-			chatlog({_p}, "weapon levelup", "%{_level}%")
+		if slot {_i} of {_p} is sword:
+			chatlog({_p}, "sword levelup", "%{_level}%")
+		else if slot {_i} of {_p} is bow:
+			chatlog({_p}, "bow levelup", "%{_level}%")
+		else if slot {_i} of {_p} is pickaxe:
+			chatlog({_p}, "pickaxe levelup", "%{_level}%")
 		else if {_i} is 40:
 			chatlog({_p}, "shield levelup", "%{_level}%")
 		else if {_i} is 36:

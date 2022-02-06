@@ -37,44 +37,44 @@ on mine:
 	set {_1} to location of event-block
 	set {_2} to location of event-block
 	if player's pitch is between -50 and 50:
-		add 2 to y-coord of {_1}
-		subtract 2 from y-coord of {_2}
+		add 1 to y-coord of {_1}
+		subtract 1 from y-coord of {_2}
 		if player's horizontal facing is west or east:
-			add 2 to z-coord of {_1}
-			subtract 2 from z-coord of {_2}
+			add 1 to z-coord of {_1}
+			subtract 1 from z-coord of {_2}
 			loop blocks within {_1} to {_2}:
-				loop-block is brown terracotta
+				loop-block is brown terracotta or gray terracotta
 				y-location of loop-block is less than or equal to 66
 				add 1 to {_n}
 				set loop-block to air
 				show 3 small smoke at location of loop-block
 		else if player's horizontal facing is north or south:
-			add 2 to x-coord of {_1}
-			subtract 2 from x-coord of {_2}
+			add 1 to x-coord of {_1}
+			subtract 1 from x-coord of {_2}
 			loop blocks within {_1} to {_2}:
-				loop-block is brown terracotta
+				loop-block is brown terracotta or gray terracotta
 				y-location of loop-block is less than or equal to 66
 				add 1 to {_n}
 				set loop-block to air
 				show 3 small smoke at location of loop-block
 	else:
-		add 2 to x-coord of {_1}
-		add 2 to z-coord of {_1}
-		subtract 2 from x-coord of {_2}
-		subtract 2 from z-coord of {_2}
+		add 1 to x-coord of {_1}
+		add 1 to z-coord of {_1}
+		subtract 1 from x-coord of {_2}
+		subtract 1 from z-coord of {_2}
 		loop blocks within {_1} to {_2}:
-			loop-block is brown terracotta
+			loop-block is brown terracotta or gray terracotta
 			y-location of loop-block is less than or equal to 66
 			add 1 to {_n}
 			set loop-block to air
 			show 3 small smoke at location of loop-block
-	expBlock(player, {_n}, event-block)
+	expPlayer(player, {_n})
 	set {_hotbar::*} to 0, 1, 2, 3, 4, 5, 6, 7, and 8
 	loop {_hotbar::*}:
 		if 1 of slot loop-value of player is 1 of held item of player:
 			set {_slot} to loop-value
 			exit loop
-	expItem(player, {_slot}, {_itemexp})
+	expItem(player, {_slot}, {_n})
 
 function mine(location: location):
 	delete {k_mine::*}
@@ -82,8 +82,8 @@ function mine(location: location):
 	set {_x} to x-location of {_loc}
 	set {_z} to z-location of {_loc}
 
-	loop 60 times:
-		loop 60 times:
+	loop 61 times:
+		loop 61 times:
 			set {_cx} to x-location of {_loc}
 			set {_cz} to z-location of {_loc}
 			set {k_mine::%{_cx}%.%{_cz}%} to type of block at {_loc}
@@ -98,17 +98,24 @@ function mine(location: location):
 	set {_z} to z-location of {_loc}
 	loop 65 times:
 		add 1 to y-location of {_loc}
-		if loop-number is divisible by 5:
-			wait 0.5 seconds
-		loop 60 times:
-			loop 60 times:
+		if loop-number is divisible by 2:
+			wait 2 ticks
+		loop 61 times:
+			loop 61 times:
 				set {_cx} to x-location of {_loc}
 				set {_cz} to z-location of {_loc}
 				if {k_mine::%{_cx}%.%{_cz}%} is bedrock:
-					set block at {_loc} to brown terracotta
+					set block at {_loc} to gray terracotta
+					if y-location of {_loc} is less than 50:
+						chance of y-location of {_loc} / 50:
+							set block at {_loc} to brown terracotta
+					else:
+						set block at {_loc} to brown terracotta
 				else:
 					set block at {_loc} to air
 				add 1 to x-coordinate of {_loc}
+				if {_x} is 298:
+					broadcast "test"
 			set x-coordinate of {_loc} to {_x}
 			add 1 to z-coordinate of {_loc}
 		set z-coordinate of {_loc} to {_z}

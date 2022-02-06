@@ -10,7 +10,10 @@ function chatlog(p: player, t: text, o: text = "none", o2: text = "none", o3: te
 		else:
 			set {_c} to "&7"
 	else if {_t} contains "levelup":
-		set {_c} to "<##BFFB8B>"
+		if {_t} contains "player":
+			set {_c} to "<##50787e>"
+		else:
+			set {_c} to "<##BFFB8B>"
 	else if {_t} is "scroll":
 		set {_c} to "<##ACC0FB>"
 	else if {_t} is "floor":
@@ -40,11 +43,18 @@ function chatlog(p: player, t: text, o: text = "none", o2: text = "none", o3: te
 
 	else if {_t} is "armor levelup":
 		set {_message} to "{@log} %{_c}%You endured the attack. Your armor rises to level %{_o}%."
-	else if {_t} is "weapon levelup":
-		set {_message} to "{@log} %{_c}%You slayed the monster. Your weapon rises to level %{_o}%."
+	else if {_t} is "sword levelup":
+		set {_message} to "{@log} %{_c}%You slayed the monster. Your sword rises to level %{_o}%."
+	else if {_t} is "bow levelup":
+		set {_message} to "{@log} %{_c}%Your arrows pierce the monster. Your bow rises to level %{_o}%."
+	else if {_t} is "pickaxe levelup":
+		set {_message} to "{@log} %{_c}%You gain experience cracking the earth. Your pickaxe rises to level %{_o}%."
 	else if {_t} is "shield levelup":
 		set {_message} to "{@log} %{_c}%You parried the attack. Your shield rises to level %{_o}%."
 	
+	else if {_t} is "player levelup":
+		set {_message} to "{@log} %{_c}%You feel a little stronger! Gained one upgrade point. "
+
 	else if {_t} is "scroll":
 		set {_message} to "{@log} %{_c}%You read the scroll and feel enlightened."
 

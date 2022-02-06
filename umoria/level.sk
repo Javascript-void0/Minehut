@@ -18,6 +18,7 @@ function expPlayer(p: player, n: number):
 		set {p_nextexp::%{_p}%} to {p_level::%{_p}%} * 2
 		set {action::%{_p}%} to "Level Up!"
 		send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%{_p}%}%&8]" to {_p} for 3 seconds
+		chatlog({_p}, "player levelup")
 		discordLevel({_p}, {p_level::%{_p}%})
 		wait 2 seconds
 		{action::%{_p}%} is "Level Up!"
@@ -46,7 +47,8 @@ function discordLevel(p: player, l: number):
 	send "```Level: %name of {_p}%, %{_l}%```" to channel with id "900147959168118825"
 
 function expBlock(p: player, n: integer, b: block):
-	set {_total} to 0.1 * {_n}
+	# set {_total} to 0.1 * {_n}
+	set {_total} to {_n}
 	add {_total} to {p_exp::%{_p}%}
 	if {p_exp::%{_p}%} is greater or equal to {p_nextexp::%{_p}%}:
 		set {_before} to {p_level::%{_p}%}
