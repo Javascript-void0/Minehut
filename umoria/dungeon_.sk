@@ -39,7 +39,10 @@ function pasteDungeon(loc: location, name: text, p: player) :: number:
 				set {_offsetY} to loop-number-1
 				remove 1 from {_offsetY}
 				set block at {_loc} to {d_%{_name}%::%{_offsetX}%.%{_offsetY}%.%{_offsetZ}%}
-				if block at {_loc} is trapped chest:
+				if block at {_loc} is stone:
+					chance of 2%:
+						set block at {_loc} to coal ore
+				else if block at {_loc} is trapped chest:
 					chance of 80%:
 						set block at {_loc} to air
 				else if block at {_loc} is netherite block:

@@ -15,9 +15,9 @@ options:
 on break:
 	player is not op
 	if world of player is "piratehub":
-		if event-block is brown terracotta:
-			if y-coordinate of location of event-block is less than 66:
-				stop
+		# if event-block is brown terracotta:
+		# 	if y-coordinate of location of event-block is less than 66:
+		# 		stop
 		cancel event
 	
 	else if world of player is "dungeon":
@@ -26,6 +26,10 @@ on break:
 				stop
 			else:
 				cancel event
+		else if event-block is coal ore:
+			if player's tool is pickaxe:
+				drop (random integer between 2 and 5) of coal at event-location
+				set event-block to stone
 		else:
 			cancel event
 		cancel event

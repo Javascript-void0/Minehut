@@ -4,5 +4,7 @@ on pickup:
 			stop
 		else if itemCheck(1 of event-item) is true:
 			stop
+		else if (1 of event-item) is coal:
+			stop
 	cancel event
 	delete (event-dropped item)
