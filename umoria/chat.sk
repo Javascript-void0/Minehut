@@ -1,7 +1,7 @@
 options:
-	prefix: &8[<##B4C788>&lUMORIA&8]&7
-	color: <##f7ffc5>
-	color2: <##B4C788>
+	prefix: &8[&f&lUMORIA&8]&7
+	color: &f
+	color2: &f
 
 on chat:
 	if {staffchat::%player%} is set:

@@ -1,10 +1,10 @@
 options:
-	color: <##B4C788>
-	prefix: &8[<##B4C788>&lUMORIA&8]&7
+	color: &f
+	prefix: &8[&f&lUMORIA&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[<##B4C788>&lADMIN&8]&7
-	coins: &7Insufficient <##B4C788>Coins
-	wrath: &7Insufficient <##B4C788>Wrath
+	admin: &8[&f&lADMIN&8]&7
+	coins: &7Insufficient &fCoins
+	wrath: &7Insufficient &fWrath
 	world: world
 
 function reloadGlobalShop():

@@ -1,7 +1,7 @@
 options:
-	color: <##B4C788>
-	color2: <##f7ffc5>
-	prefix: &8[<##B4C788>&lUMORIA&8]&f
+	color: &f
+	color2: &f
+	prefix: &8[&f&lUMORIA&8]&f
 	world: world
 
 every 2 ticks:

@@ -1,5 +1,5 @@
 options:
-	color: <##B4C788>
+	color: &f
 
 on shoot:
 	if {quiver.%shooter%.current} is not "none":

@@ -1,9 +1,9 @@
 options:
-	color: <##f7ffc5>
-	color2: <##B4C788>
-	prefix: &8[<##B4C788>&lUMORIA&8]&7
+	color: &f
+	color2: &f
+	prefix: &8[&f&lUMORIA&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[<##B4C788>&lADMIN&8]&r
+	admin: &8[&f&lADMIN&8]&r
 	world: world
 	
 function itemExpBar(percent: number) :: text:

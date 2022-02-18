@@ -1,10 +1,10 @@
 options:
-	color: <##B4C788>
-	color2: <##f7ffc5>
-	prefix: &8[<##B4C788>&lUMORIA&8]&r
-	discord: &8[<##f7ffc5>&lDISCORD&8]&7
+	color: &f
+	color2: &f
+	prefix: &8[&f&lUMORIA&8]&r
+	discord: &8[&f&lDISCORD&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[<##B4C788>&lADMIN&8]&7
+	admin: &8[&f&lADMIN&8]&7
 	world: world
 
 on load:
@@ -17,7 +17,7 @@ discord command list:
 	trigger:
 		make embed:
 			set title of embed to "Online Players: %size of all players%"
-			set color of the embed to color from hex "8fb6ab"
+			set color of the embed to color from hex "00000"
 			set description of embed to "%all players%"
 		reply with last embed
 
@@ -26,17 +26,8 @@ discord command tps:
 	trigger:
 		make embed:
 			set title of embed to "Ticks Per Second (TPS)"
-			set color of the embed to color from hex "8fb6ab"
+			set color of the embed to color from hex "00000"
 			set description of embed to "%tps%"
-		reply with last embed
-
-discord command test2:
-	prefixes: .
-	trigger:
-		make embed:
-			set title of embed to "Online Players: %size of all players%"
-			set color of the embed to color from hex "8fb6ab"
-			set description of embed to "%all players%"
 		reply with last embed
 
 discord command link [<text>]:
@@ -44,7 +35,7 @@ discord command link [<text>]:
 	trigger:
 		make embed:
 			set title of embed to "Link Minecraft to Discord"
-			set color of the embed to color from hex "8fb6ab"
+			set color of the embed to color from hex "00000"
 			if arg-1 is not set:
 				set description of embed to ".link <code>"
 			else if {code::%arg-1%} is not set:
@@ -67,7 +58,7 @@ discord command top [<text>]:
 	trigger:
 		make embed:
 			set title of embed to "Leaderboards"
-			set color of the embed to color from hex "8fb6ab"
+			set color of the embed to color from hex "00000"
 			if arg-1 is not "level" or "coins" or "totalcoins" or "wrath" or "totalwrath" or "totalstigma" or "kill" or "death" or "rebirth" or "maxhealth" or "damage":
 				set description of embed to ".top <level | coins | totalcoins | wrath | totalwrath | totalstigma | kill | death | rebirth | maxhealth | damage>"
 			else:

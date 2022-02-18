@@ -1,9 +1,9 @@
 options:
-	color: <##f7ffc5>
-	color2: <##B4C788>
-	color3: <##768153>
-	title: &x&d&9&e&3&c&3&lU&x&f&f&f&f&f&f&lM&x&f&f&f&f&f&f&lO&x&f&f&f&f&f&f&lR&x&e&6&e&c&d&7&lI&x&c&d&d&9&a&f&lA
-	ip: &x&c&1&d&0&9&du&x&c&e&d&a&b&2m&x&d&b&e&4&c&7o&x&e&8&e&e&d&br&x&f&6&f&8&f&1i&x&f&f&f&f&f&fa&x&f&f&f&f&f&f.&x&f&f&f&f&f&fm&x&f&f&f&f&f&fi&x&f&f&f&f&f&fn&x&f&f&f&f&f&fe&x&f&f&f&f&f&fh&x&f&6&f&8&f&1u&x&e&d&f&1&e&3t&x&e&4&e&b&d&5.&x&d&b&e&4&c&7g&x&d&2&d&e&b&9g
+	color: &f
+	color2: &f
+	color3: &f
+	title: &f&lUMORIA
+	ip: &fumoria.minehut.gg
 
 every 4 ticks:
 	loop all players:

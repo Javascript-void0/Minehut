@@ -1,8 +1,8 @@
 options:
-	color: <##B4C788>
-	prefix: &8[<##B4C788>&lUMORIA&8]&f
+	color: &f
+	prefix: &8[&f&lUMORIA&8]&f
 	permission: &7Insufficient Permissions
-	admin: &8[<##B4C788>&lADMIN&8]&r
+	admin: &8[&f&lADMIN&8]&r
 	world: world
 
 function boneWarrior(loc: location, p: player) :: entity:

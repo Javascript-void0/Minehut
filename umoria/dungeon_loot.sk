@@ -1,9 +1,9 @@
 options:
-	color: <##f7ffc5>
-	color2: <##B4C788>
-	prefix: &8[<##B4C788>&lUMORIA&8]&7
+	color: &f
+	color2: &f
+	prefix: &8[&f&lUMORIA&8]&7
 	permission: &7Insufficient Permissions
-	admin: &8[<##B4C788>&lADMIN&8]&r
+	admin: &8[&f&lADMIN&8]&r
 	world: world
 
 on right click:
@@ -189,7 +189,7 @@ on inventory click:
 		else:
 			set {quiver.%player%::%{_arrow}%} to {quiver.%player%::%{_arrow}%} + {_n}
 			updateQuiverInventory(player)
-			set slot {_slot} of event-inventory to brown candle named "{@color}&lQuiver" with lore " &8┃ &7Added to quiver"
+			set slot {_slot} of event-inventory to brown candle named "{@color}&lQUIVER" with lore " &8┃ &7Added to quiver"
 			wait 1 second
 			set slot {_slot} of event-inventory to air
 	else if event-item is brown candle:
