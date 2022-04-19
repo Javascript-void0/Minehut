@@ -62,14 +62,30 @@ async def on_message(message):
             await log.send(f'```Linked {discord} to {minecraft}```')
             member = guild.get_member(int(discord))
             await member.edit(nick=f'[:L0] {minecraft}')
-        if message.content.startswith('```Level: '):
+        elif message.content.startswith('```Level: '):
             markdown = message.content.replace('```', '')
-            minecraft, level = markdown[6:].split(', ')
+            minecraft, level = markdown[7:].split(', ')
             if await registered(minecraft):
                 discord, minecraft = await get_data(minecraft)
                 member = guild.get_member(int(discord))
                 nick = member.nick.split(' ', 1)
                 await member.edit(nick=f'[:L{level}] {nick[1]}')
+        elif message.content.startswith('```Join: '):
+            markdown = message.content.replace('```', '')
+            minecraft = markdown[6:]
+            if await registered(minecraft):
+                discord, minecraft = await get_data(minecraft)
+                member = guild.get_member(int(discord))
+                role = get(guild.roles, name='On Server')
+                await member.add_roles(role)
+        elif message.content.startswith('```Leave: '):
+            markdown = message.content.replace('```', '')
+            minecraft = markdown[7:]
+            if await registered(minecraft):
+                discord, minecraft = await get_data(minecraft)
+                member = guild.get_member(int(discord))
+                role = get(guild.roles, name='On Server')
+                await member.remove_roles(role)
     elif message.channel.id == 900148161262284850:
         if message.author.id != 779111449343164418:
             if '.nick' not in message.content:
