@@ -60,12 +60,5 @@ npc left click:
 npc right click:
 	npcClick(event-number, player)
 
-command /npctest [<number>]:
-	trigger:
-		if arg-1 is set:
-			npcClick(arg-1, player)
-		else:
-			send "{@admin} &7/npctest <number>"
-
 on skript stop:
 	delete {sessionid::*}

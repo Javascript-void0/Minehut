@@ -1,4 +1,0 @@
-on load:
-	set {color1} to "<##72a488>" 
-	set {color2} to "<##a2c3b0>" 
-	set {token} to "Nzc5MTExNDQ5MzQzMTY0NDE4.X7byFA.-gPoJzsHyH_LQOtfmkLNERujrLA"
