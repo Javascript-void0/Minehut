@@ -1,3 +1,0 @@
-on load:
-	set {color1} to "<##72a488>" 
-	set {color2} to "<##a2c3b0>" 

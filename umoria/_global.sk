@@ -1,0 +1,8 @@
+on load:
+	set {color1} to "<##F5A65B>" 
+	set {color2} to "<##AC9C82>" 
+
+	set {prefix_umori} to "&8[%{color2}%&lUMORIA&8]&r"
+	set {prefix_admin} to "&8[%{color2}%&lADMIN&8]&r"
+	set {prefix_staff} to "&8[%{color2}%&lSTAFF&8]&r"
+	set {permission_error} to "&7Insufficient Permissions&r"

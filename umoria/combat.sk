@@ -12,13 +12,13 @@ options:
 function pvpToggle(p: player):
 	if {pvp::%{_p}%} is not set:
 		set {pvp::%{_p}%} to false
-		send "{@prefix} &7PvP turned off" to {_p}
+		send "%{prefix_umori}% &7PvP turned off" to {_p}
 	else if {pvp::%{_p}%} is true:
 		set {pvp::%{_p}%} to false
-		send "{@prefix} &7PvP turned off" to {_p}
+		send "%{prefix_umori}% &7PvP turned off" to {_p}
 	else if {pvp::%{_p}%} is false:
 		set {pvp::%{_p}%} to true
-		send "{@prefix} &7PvP turned on" to {_p}
+		send "%{prefix_umori}% &7PvP turned on" to {_p}
 
 every 5 tick:
 	loop all players:
@@ -26,7 +26,7 @@ every 5 tick:
 			set {_health} to format({p_health::%loop-player%})
 			set {_maxhealth} to format({p_maxhealth::%loop-player%})
 			set {_damage} to format({p_damage::%loop-player%})
-			send action bar "{@color}%{_health}%/%{_maxhealth}% ❤ &8| {@color}%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| {@color}%{_damage}% dmg" to loop-player
+			send action bar "%{color1}%%{_health}%/%{_maxhealth}% ❤ &8| &7%{p_defense::%loop-player%}%/%{p_maxdefense::%loop-player%}% def &8| %{color2}%%{_damage}% dmg" to loop-player
 
 on damage:
     attacker is player
@@ -62,14 +62,14 @@ on damage:
 # 		victim is a player
 # 		{pvp::%victim%} is set
 # 		cancel event
-# 		send action bar "{@prefix} &7PvP is {@color}&lDISABLED &7 for %victim%" to attacker
+# 		send action bar "%{prefix_umori}% &7PvP is {@color}&lDISABLED &7 for %victim%" to attacker
 # 		stop
 # 	if attacker is set:
 # 		attacker is a player
 # 		victim is a player
 # 		{pvp::%attacker%} is set
 # 		cancel event
-# 		send action bar "{@prefix} &7Your PvP is {@color}&lDISABLED" to attacker
+# 		send action bar "%{prefix_umori}% &7Your PvP is {@color}&lDISABLED" to attacker
 # 		stop
 
 on join:

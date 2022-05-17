@@ -1,23 +1,14 @@
-options:
-	color: &f
-	prefix: &8[&f&lUMORIA&8]&7
-	permission: &7Insufficient Permissions
-	admin: &8[&f&lADMIN&8]&7
-	coins: &7Insufficient &fCoins
-	wrath: &7Insufficient &fWrath
-	world: world
-
 # function stats(p: player):
 # 	set metadata tag "Stats" of {_p} to chest inventory with 3 rows named "&8Statistics: %{_p}%"
-# 	set slot 10 of metadata tag "Stats" of {_p} to head of {_p} named "&8[{@color}:L%{p_level::%{_p}%}%&8] {@color}%display name of {_p}%" with lore "{@color}Playtime: &7%time played of {_p}%"
+# 	set slot 10 of metadata tag "Stats" of {_p} to head of {_p} named "&8[%{color1}%:L%{p_level::%{_p}%}%&8] %{color1}%%display name of {_p}%" with lore "%{color1}%Playtime: &7%time played of {_p}%"
 # 	set {_coins} to format({p_coins::%{_p}%})
 # 	set {_totalcoins} to format({p_totalcoins::%{_p}%})
-# 	set slot 12 of metadata tag "Stats" of {_p} to gold block named "{@color}&lCOINS" with lore "&7Current: {@color}%{_coins}% &7coins" and "&7Total: {@color}%{_totalcoins}% &7coins"
+# 	set slot 12 of metadata tag "Stats" of {_p} to gold block named "%{color1}%&lCOINS" with lore "&7Current: %{color1}%%{_coins}% &7coins" and "&7Total: %{color1}%%{_totalcoins}% &7coins"
 # 	set {_wrath} to format({p_wrath::%{_p}%})
 # 	set {_totalwrath} to format({p_totalwrath::%{_p}%})
-# 	set slot 13 of metadata tag "Stats" of {_p} to bell named "{@color}&lWRATH" with lore "&7Current: {@color}%{_wrath}% &7wrath" and "&7Total: {@color}%{_totalwrath}% &7wrath"
-# 	set slot 14 of metadata tag "Stats" of {_p} to nether star named "{@color}&lVIRTUE" with lore "&7Current: {@color}%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
-# 	set slot 15 of metadata tag "Stats" of {_p} to netherite sword named "{@color}&lCOMBAT" with lore "&7Kills: {@color}%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: {@color}%{p_death::%{_p}%}% &7deaths" with all flags hidden
+# 	set slot 13 of metadata tag "Stats" of {_p} to bell named "%{color1}%&lWRATH" with lore "&7Current: %{color1}%%{_wrath}% &7wrath" and "&7Total: %{color1}%%{_totalwrath}% &7wrath"
+# 	set slot 14 of metadata tag "Stats" of {_p} to nether star named "%{color1}%&lVIRTUE" with lore "&7Current: %{color1}%%{p_virtue::%{_p}%}%%%" and "&7 > Depends on your current gear"
+# 	set slot 15 of metadata tag "Stats" of {_p} to netherite sword named "%{color1}%&lCOMBAT" with lore "&7Kills: %{color1}%%{p_kill::%{_p}%}% &7mobs killed" and "&7Deaths: %{color1}%%{p_death::%{_p}%}% &7deaths" with all flags hidden
 # 	open (metadata tag "Stats" of {_p}) to {_p}
 
 command /stats [<offline player>] [<number>]:
@@ -31,47 +22,47 @@ command /stats [<offline player>] [<number>]:
 		else:
 			set {_page} to arg-2
 		send " "
-		send " &7&l------- {@color}&lSTATISTICS &7&l-------"
+		send " &7&l------- %{color1}%&lSTATISTICS &7&l-------"
 		send " "
 
 		if {_page} is 1:
-			send formatted "   &8[<tooltip:{@color}Page 1><command:/stats %{_player}% 1>{@color}&lPAGE 1<reset> &8| <tooltip:{@color}Page 2><command:/stats %{_player}% 2>&7&lPAGE 2<reset>&8] "
+			send formatted "   &8[<tooltip:%{color1}%Page 1><command:/stats %{_player}% 1>%{color1}%&lPAGE 1<reset> &8| <tooltip:%{color1}%Page 2><command:/stats %{_player}% 2>&7&lPAGE 2<reset>&8] "
 			send " "
-			send "   &7Player: {@color}%{_player}%"
+			send "   &7Player: %{color1}%%{_player}%"
 			set {_level} to a("%{p_level::%{_player}%}%")
-			send formatted "   &7Level: &8[<tooltip:{@color}%{_level}%>&f:L%format({p_level::%{_player}%})%<reset>&8]"
+			send formatted "   &7Level: &8[<tooltip:%{color1}%%{_level}%>&f:L%format({p_level::%{_player}%})%<reset>&8]"
 			set {_exp} to a("%{p_exp::%{_player}%}%")
 			set {_nextexp} to a("%{p_nextexp::%{_player}%}%")
 			set {_totalexp} to a("%{p_totalexp::%{_player}%}%")
-			send formatted "   &7Exp: <tooltip:{@color}%{_exp}%>&f%{p_exp::%{_player}%}%<reset>&7/<tooltip:{@color}%{_nextexp}%>&f%{p_nextexp::%{_player}%}%<reset> &8(<tooltip:{@color}%{_totalexp}%>&7%format({p_totalexp::%{_player}%})%<reset>&8)"
+			send formatted "   &7Exp: <tooltip:%{color1}%%{_exp}%>&f%{p_exp::%{_player}%}%<reset>&7/<tooltip:%{color1}%%{_nextexp}%>&f%{p_nextexp::%{_player}%}%<reset> &8(<tooltip:%{color1}%%{_totalexp}%>&7%format({p_totalexp::%{_player}%})%<reset>&8)"
 			send " "
 			set {_coins} to a("%{p_coins::%{_player}%}%")
 			set {_totalcoins} to a("%{p_totalcoins::%{_player}%}%")
-			send formatted "   &7Coins: <tooltip:{@color}%{_coins}%>&f%format({p_coins::%{_player}%})%<reset> &8(<tooltip:{@color}%{_totalcoins}%>&7%format({p_totalcoins::%{_player}%})%<reset>&8)"
+			send formatted "   &7Coins: <tooltip:%{color1}%%{_coins}%>&f%format({p_coins::%{_player}%})%<reset> &8(<tooltip:%{color1}%%{_totalcoins}%>&7%format({p_totalcoins::%{_player}%})%<reset>&8)"
 			set {_wrath} to a("%{p_wrath::%{_player}%}%")
 			set {_totalwrath} to a("%{p_totalwrath::%{_player}%}%")
-			send formatted "   &7Wrath: <tooltip:{@color}%{_wrath}%>&f%format({p_wrath::%{_player}%})%<reset> &8(<tooltip:{@color}%{_totalwrath}%>&7%format({p_totalwrath::%{_player}%})%<reset>&8)"
+			send formatted "   &7Wrath: <tooltip:%{color1}%%{_wrath}%>&f%format({p_wrath::%{_player}%})%<reset> &8(<tooltip:%{color1}%%{_totalwrath}%>&7%format({p_totalwrath::%{_player}%})%<reset>&8)"
 			send " "
 			set {_health} to a("%{p_health::%{_player}%}%")
 			set {_maxhealth} to a("%{p_maxhealth::%{_player}%}%")
-			send formatted "   &7Health: <tooltip:{@color}%{_health}%>&f%format({p_health::%{_player}%})%<reset>&7/<tooltip:{@color}%{_maxhealth}%>&f%format({p_maxhealth::%{_player}%})%<reset>"
+			send formatted "   &7Health: <tooltip:%{color1}%%{_health}%>&f%format({p_health::%{_player}%})%<reset>&7/<tooltip:%{color1}%%{_maxhealth}%>&f%format({p_maxhealth::%{_player}%})%<reset>"
 			send "   &7Defense: &f%{p_defense::%{_player}%}%&7/&f%{p_defense::%{_player}%}%"
 			set {_damage} to a("%{p_damage::%{_player}%}%")
-			send formatted "   &7Damage: <tooltip:{@color}%{_damage}%>&f%format({p_damage::%{_player}%})%"
+			send formatted "   &7Damage: <tooltip:%{color1}%%{_damage}%>&f%format({p_damage::%{_player}%})%"
 			send " "
 			send " "
 		else if {_page} is 2:
-			send formatted "   &8[<tooltip:{@color}Page 1><command:/stats %{_player}% 1>&7&lPAGE 1<reset> &8| <tooltip:{@color}Page 2><command:/stats %{_player}% 2>{@color}&lPAGE 2<reset>&8] "
+			send formatted "   &8[<tooltip:%{color1}%Page 1><command:/stats %{_player}% 1>&7&lPAGE 1<reset> &8| <tooltip:%{color1}%Page 2><command:/stats %{_player}% 2>%{color1}%&lPAGE 2<reset>&8] "
 			send " "
 			set {_highest} to a("%{p_highestfloor::%{_player}%}%")
-			send formatted "   &7Highest: &7Floor <tooltip:{@color}%{_highest}%>&f%format({p_highestfloor::%{_player}%})%"
+			send formatted "   &7Highest: &7Floor <tooltip:%{color1}%%{_highest}%>&f%format({p_highestfloor::%{_player}%})%"
 			set {_totalroom} to a("%{p_totalroom::%{_player}%}%")
-			send formatted "   &7Accumulated: <tooltip:{@color}%{_totalroom}%>&f%format({p_totalroom::%{_player}%})%<reset> &7rooms"
+			send formatted "   &7Accumulated: <tooltip:%{color1}%%{_totalroom}%>&f%format({p_totalroom::%{_player}%})%<reset> &7rooms"
 			send " "
 			set {_kill} to a("%{p_kill::%{_player}%}%")
-			send formatted "   &7Kills: <tooltip:{@color}%{_kill}%>&f%format({p_kill::%{_player}%})% &7kills"
+			send formatted "   &7Kills: <tooltip:%{color1}%%{_kill}%>&f%format({p_kill::%{_player}%})% &7kills"
 			set {_death} to a("%{p_death::%{_player}%}%")
-			send formatted "   &7Deaths: <tooltip:{@color}%{_death}%>&f%format({p_death::%{_player}%})% &7deaths"
+			send formatted "   &7Deaths: <tooltip:%{color1}%%{_death}%>&f%format({p_death::%{_player}%})% &7deaths"
 			send "   &7K/D: &f%({p_kill::%{_player}%} / {p_death::%{_player}%})%"
 			send " "
 			send "   &7Rebirth: N/A times"
@@ -86,43 +77,43 @@ command /stats [<offline player>] [<number>]:
 command /upgrades [<text>]:
 	trigger:
 		send " "
-		send " &7&l-------- {@color}&lUPGRADES &7&l--------"
+		send " &7&l-------- %{color1}%&lUPGRADES &7&l--------"
 		send " "
 		if arg-1 is "health":
 			if {p_upgradepoint::%player%} is greater or equal to 3:
 				set {p_upgradepoint::%player%} to {p_upgradepoint::%player%} - 3
 				set {p_health::%player%} to {p_health::%player%} + 10
 				set {p_maxhealth::%player%} to {p_maxhealth::%player%} + 10
-				set {_message} to "   &7Added {@color}10 &7to health"
+				set {_message} to "   &7Added %{color1}%10 &7to health"
 			else:
-				set {_message} to "   &7You need {@color}%3 - {p_upgradepoint::%player%}% &7more points"
+				set {_message} to "   &7You need %{color1}%%3 - {p_upgradepoint::%player%}% &7more points"
 		else if arg-1 is "armor":
 			if {p_upgradepoint::%player%} is greater or equal to 50:
 				set {p_upgradepoint::%player%} to {p_upgradepoint::%player%} - 50
 				set {p_armor::%player%} to {p_armor::%player%} + 1
 				set {p_maxarmor::%player%} to {p_maxarmor::%player%} + 1
-				set {_message} to "   &7Added {@color}1 &7to armor"
+				set {_message} to "   &7Added %{color1}%1 &7to armor"
 			else:
-				set {_message} to "   &7You need {@color}%50 - {p_upgradepoint::%player%}% &7more points"
+				set {_message} to "   &7You need %{color1}%%50 - {p_upgradepoint::%player%}% &7more points"
 		else if arg-1 is "damage":
 			if {p_upgradepoint::%player%} is greater or equal to 1:
 				set {p_upgradepoint::%player%} to {p_upgradepoint::%player%} - 1
 				set {p_damage::%player%} to {p_damage::%player%} + 10
-				set {_message} to "   &7Added {@color}10 &7to damage"
+				set {_message} to "   &7Added %{color1}%10 &7to damage"
 			else:
-				set {_message} to "   &7You need {@color}%1 - {p_upgradepoint::%player%}% &7more points"
+				set {_message} to "   &7You need %{color1}%%1 - {p_upgradepoint::%player%}% &7more points"
 		else:
 			set {_message} to " "
 
-		send "                &7Points: {@color}%{p_upgradepoint::%player%}%"
+		send "                &7Points: %{color1}%%{p_upgradepoint::%player%}%"
 		send " "
 		send "   &7Upgrades are permanent"
-		send "   &7You get {@color}+1 &7point"
+		send "   &7You get %{color1}%+1 &7point"
 		send "   &7when leveling up"
 		send " "
-		send formatted "   &8[<tooltip:{@color}Click to upgrade%nl%&7Cost: {@color}3 &7Points><command:/upgrades health>&a+<reset>&8] ┃ &7Health {@color}%{p_maxhealth::%player%}% &7> {@color}%{p_maxhealth::%player%} + 10%"
-		send formatted "   &8[<tooltip:{@color}Click to upgrade%nl%&7Cost: {@color}50 &7Points><command:/upgrades armor>&a+<reset>&8] ┃ &7Defense {@color}%{p_maxdefense::%player%}% &7> {@color}%{p_maxdefense::%player%} + 1%"
-		send formatted "   &8[<tooltip:{@color}Click to upgrade%nl%&7Cost: {@color}1 &7Point><command:/upgrades damage>&a+<reset>&8] ╹ &7Damage {@color}%{p_damage::%player%}% &7> {@color}%{p_damage::%player%} + 10%"
+		send formatted "   &8[<tooltip:%{color1}%Click to upgrade%nl%&7Cost: %{color1}%3 &7Points><command:/upgrades health>&a+<reset>&8] ┃ &7Health %{color1}%%{p_maxhealth::%player%}% &7> %{color1}%%{p_maxhealth::%player%} + 10%"
+		send formatted "   &8[<tooltip:%{color1}%Click to upgrade%nl%&7Cost: %{color1}%50 &7Points><command:/upgrades armor>&a+<reset>&8] ┃ &7Defense %{color1}%%{p_maxdefense::%player%}% &7> %{color1}%%{p_maxdefense::%player%} + 1%"
+		send formatted "   &8[<tooltip:%{color1}%Click to upgrade%nl%&7Cost: %{color1}%1 &7Point><command:/upgrades damage>&a+<reset>&8] ╹ &7Damage %{color1}%%{p_damage::%player%}% &7> %{color1}%%{p_damage::%player%} + 10%"
 		send " "
 		send " "
 		send " "
@@ -136,7 +127,7 @@ on right click:
 	if player's tool is pickaxe or axe or shovel:
 		if player's tool is wooden axe:
 			stop
-	else if name of player's tool is "{@color}&lMENU":
+	else if name of player's tool is "%{color1}%&lMENU":
 		make player execute "/menu"
 		# menu(player)
 
@@ -156,7 +147,7 @@ on right click with light gray stained glass or lime stained glass or light blue
 
 on inventory click:
 	name of player's inventory is "Crafting"
-	clicked type is left mouse button with shift
+	click type is left mouse button with shift
 	event-item is light gray stained glass or lime stained glass or light blue stained glass or orange stained glass or black stained glass
 	helmet of player is air
 	set {_hel} to event-item
@@ -185,10 +176,10 @@ command /menu [<text>]:
 		else if arg-1 is "daily":
 			set {_waited} to difference between {daily.%player%.lastused} and now
 			if {_waited} is less than 24 hours:
-				set {_message} to "   &7Your daily reward was already claimed at {@color}%{daily.%player%.lastused}%"
+				set {_message} to "   &7Your daily reward was already claimed at %{color1}%%{daily.%player%.lastused}%"
 			else:
 				set {daily.%player%.lastused} to now
-				set {_message} to "   &7You claimed your daily reward at {@color}%now%"
+				set {_message} to "   &7You claimed your daily reward at %{color1}%%now%"
 				wrath("add", player, 100)
 		
 		else if arg-1 is not set:
@@ -196,31 +187,31 @@ command /menu [<text>]:
 
 
 		send " "
-		send " &7&l-------- {@color}&lSETTINGS &7&l--------"
+		send " &7&l-------- %{color1}%&lSETTINGS &7&l--------"
 		send " "
 
 		if {pvp::%player%} is false:
-			send "   &8<tooltip:{@color}Click to enable><command:/menu pvp>&7PvP: &cDisabled<reset>"
+			send "   &8<tooltip:%{color1}%Click to enable><command:/menu pvp>&7PvP: &cDisabled<reset>"
 		else:
-			send "   &8<tooltip:{@color}Click to disable><command:/menu pvp>&7PvP: &aEnabled<reset>"
+			send "   &8<tooltip:%{color1}%Click to disable><command:/menu pvp>&7PvP: &aEnabled<reset>"
 		
 		set {_waited} to difference between {daily.%player%.lastused} and now
 		set {_next} to 1 day after {daily.%player%.lastused}
 		if {_waited} is less than 24 hours:
-			send formatted "   <tooltip:{@color}&lDAILY REWARD%nl% &8┃ &7+100 wrath>&7Daily: &fNext Available: {@color}%{_next}%<reset>"
+			send formatted "   <tooltip:%{color1}%&lDAILY REWARD%nl% &8┃ &7+100 wrath>&7Daily: &fNext Available: %{color1}%%{_next}%<reset>"
 		else:
 			if {_waited} is not set:
-				send formatted "   <tooltip:{@color}&lDAILY REWARD%nl% &8┃ &7+100 wrath><command:/menu daily>&7Daily: &fClick to claim!<reset>"
+				send formatted "   <tooltip:%{color1}%&lDAILY REWARD%nl% &8┃ &7+100 wrath><command:/menu daily>&7Daily: &fClick to claim!<reset>"
 			else:
-				send formatted "   <tooltip:{@color}&lDAILY REWARD%nl% &8┃ &7+100 wrath><command:/menu daily>&7Daily: &fReady to claim!<reset>"
+				send formatted "   <tooltip:%{color1}%&lDAILY REWARD%nl% &8┃ &7+100 wrath><command:/menu daily>&7Daily: &fReady to claim!<reset>"
 		set {daily.%player%.lastused} to 1 day before {daily.%player%.lastused}
 		
-		send "   <tooltip:{@color}Click to view your stats><command:/stats>&7Statistics: &fView<reset>"
-		send "   <tooltip:{@color}Click to open quiver><command:/quiver>&7Quiver: &fView<reset>"
+		send "   <tooltip:%{color1}%Click to view your stats><command:/stats>&7Statistics: &fView<reset>"
+		send "   <tooltip:%{color1}%Click to open quiver><command:/quiver>&7Quiver: &fView<reset>"
 		if {p_upgradepoint::%player%} is greater than 0:
-			send formatted "   <tooltip:{@color}Click to open upgrades><command:/upgrades>&7Upgrades: &fView<reset>   &8[<tooltip:&7Avaiable Points: {@color}%{p_upgradepoint::%player%}%>{@color}&lAVAIABLE&8]"
+			send formatted "   <tooltip:%{color1}%Click to open upgrades><command:/upgrades>&7Upgrades: &fView<reset>   &8[<tooltip:&7Avaiable Points: %{color1}%%{p_upgradepoint::%player%}%>%{color1}%&lAVAIABLE&8]"
 		else:
-			send "   <tooltip:{@color}Click to open upgrades><command:/upgrades>&7Upgrades: &fView<reset>"
+			send "   <tooltip:%{color1}%Click to open upgrades><command:/upgrades>&7Upgrades: &fView<reset>"
 		send " "
 		send " "
 		send " "
@@ -249,11 +240,11 @@ command /menu [<text>]:
 # 		cancel event
 # 		set {_waited} to difference between {daily.%player%.lastused} and now
 # 		if {_waited} is less than 24 hours:
-# 			send "{@prefix} &7Your daily reward was already claimed at {@color}%{daily.%player%.lastused}%"
+# 			send "{@prefix} &7Your daily reward was already claimed at %{color1}%%{daily.%player%.lastused}%"
 # 			menu(player)
 # 		else:
 # 			set {daily.%player%.lastused} to now
-# 			send "{@prefix} &7You claimed your daily reward at {@color}%now%"
+# 			send "{@prefix} &7You claimed your daily reward at %{color1}%%now%"
 # 			add 100 to {p_wrath::%player%}
 # 			menu(player)
 # 	else if clicked slot is 2:
@@ -263,26 +254,26 @@ command /menu [<text>]:
 # function menu(p: player):
 # 	set metadata tag "Menu" of {_p} to chest inventory with 3 rows named "&8Menu"
 # 	if {pvp::%{_p}%} is false:
-# 		set slot 0 of metadata tag "Menu" of {_p} to red dye named "{@color}&lPVP &7Disabled" with lore " &8╹ &7Enable (/pvp)"
+# 		set slot 0 of metadata tag "Menu" of {_p} to red dye named "%{color1}%&lPVP &7Disabled" with lore " &8╹ &7Enable (/pvp)"
 # 	else:
-# 		set slot 0 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lPVP &7Enabled" with lore " &8╹ &7Disable (/pvp)"
+# 		set slot 0 of metadata tag "Menu" of {_p} to lime dye named "%{color1}%&lPVP &7Enabled" with lore " &8╹ &7Disable (/pvp)"
 # 	if {wait.%{_p}%} is false:
-# 		set slot 1 of metadata tag "Menu" of {_p} to red dye named "{@color}&lWAIT &7Disabled" with lore " &8╹ &7Enable (/wait)"
+# 		set slot 1 of metadata tag "Menu" of {_p} to red dye named "%{color1}%&lWAIT &7Disabled" with lore " &8╹ &7Enable (/wait)"
 # 	else:
-# 		set slot 1 of metadata tag "Menu" of {_p} to lime dye named "{@color}&lWAIT &7Enabled" with lore " &8╹ &7Disable (/wait)"
+# 		set slot 1 of metadata tag "Menu" of {_p} to lime dye named "%{color1}%&lWAIT &7Enabled" with lore " &8╹ &7Disable (/wait)"
 # 	set {_waited} to difference between {daily.%{_p}%.lastused} and now
 # 	set {_next} to 1 day after {daily.%{_p}%.lastused}
 # 	if {_waited} is less than 24 hours:
-# 		set slot 8 of metadata tag "Menu" of {_p} to red stained glass named "{@color}&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&8┃ &7Already {@color}Claimed " and "&8╹ {@color}+100 &7Wrath"
+# 		set slot 8 of metadata tag "Menu" of {_p} to red stained glass named "%{color1}%&lDAILY" with lore "&7Next Avaiable: %{_next}%" and "&8┃ &7Already %{color1}%Claimed " and "&8╹ %{color1}%+100 &7Wrath"
 # 	else:
 # 		if {_waited} is not set:
 # 			set {_m} to "Never Used"
 # 		else:
 # 			set {_m} to "%{daily.%{_p}%.lastused}%"
-# 		set slot 8 of metadata tag "Menu" of {_p} to lime stained glass named "{@color}&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to {@color}Claim" and " &8╹ {@color}+100 &7Wrath"
+# 		set slot 8 of metadata tag "Menu" of {_p} to lime stained glass named "%{color1}%&lDAILY" with lore "&7Last Used: %{_m}%" and " &8┃ &7Ready to %{color1}%Claim" and " &8╹ %{color1}%+100 &7Wrath"
 
 # 	set {daily.%{_p}%.lastused} to 1 day before {daily.%{_p}%.lastused}
-# 	set slot 2 of metadata tag "Menu" of {_p} to book named "{@color}&lSTATS" with lore " &8╹ &7view"
+# 	set slot 2 of metadata tag "Menu" of {_p} to book named "%{color1}%&lSTATS" with lore " &8╹ &7view"
 # 		# stats(player)
 # 	open (metadata tag "Menu" of {_p}) to {_p}
 
@@ -320,8 +311,8 @@ on inventory click:
 
 function armorMenu(p: player):
 	set metadata tag "armorMenu" of {_p} to hopper inventory named "&8Armor"
-	set slot 1 of metadata tag "armorMenu" of {_p} to smithing table named "{@color}&lUPGRADE" with lore " &8┃ &7Upgrade your armor to ..." and " &8╹ &7"
-	set slot 3 of metadata tag "armorMenu" of {_p} to anvil named "{@color}&lPROMOTE" with lore " &8┃ &7Promote your armor for ..." and " &8╹ &7"
+	set slot 1 of metadata tag "armorMenu" of {_p} to smithing table named "%{color1}%&lUPGRADE" with lore " &8┃ &7Upgrade your armor to ..." and " &8╹ &7"
+	set slot 3 of metadata tag "armorMenu" of {_p} to anvil named "%{color1}%&lPROMOTE" with lore " &8┃ &7Promote your armor for ..." and " &8╹ &7"
 	open (metadata tag "armorMenu" of {_p}) to {_p}
 
 on inventory click:
@@ -348,15 +339,15 @@ function armorPromote(p: player):
 	set slot 0 of metadata tag "armorPromote" of {_p} to helmet of {_p}
 	set slot 1 of metadata tag "armorPromote" of {_p} to chestplate of {_p}
 	if helmet of {_p} is light gray stained glass:
-		set slot 2 of metadata tag "armorPromote" of {_p} to iron ingot named "{@color}&lPROMOTE" with lore " &8┃ &7Next: " and " " and " {@color}REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
+		set slot 2 of metadata tag "armorPromote" of {_p} to iron ingot named "%{color1}%&lPROMOTE" with lore " &8┃ &7Next: " and " " and " %{color1}%REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
 	if helmet of {_p} is lime stained glass:
-		set slot 2 of metadata tag "armorPromote" of {_p} to emerald named "{@color}&lPROMOTE" with lore " &8┃ &7Next: " and " " and " {@color}REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
+		set slot 2 of metadata tag "armorPromote" of {_p} to emerald named "%{color1}%&lPROMOTE" with lore " &8┃ &7Next: " and " " and " %{color1}%REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
 	if helmet of {_p} is light blue stained glass:
-		set slot 2 of metadata tag "armorPromote" of {_p} to diamond named "{@color}&lPROMOTE" with lore " &8┃ &7Next: " and " " and " {@color}REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
+		set slot 2 of metadata tag "armorPromote" of {_p} to diamond named "%{color1}%&lPROMOTE" with lore " &8┃ &7Next: " and " " and " %{color1}%REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
 	if helmet of {_p} is orange stained glass:
-		set slot 2 of metadata tag "armorPromote" of {_p} to copper ingot named "{@color}&lPROMOTE" with lore " &8┃ &7Next: " and " " and " {@color}REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
+		set slot 2 of metadata tag "armorPromote" of {_p} to copper ingot named "%{color1}%&lPROMOTE" with lore " &8┃ &7Next: " and " " and " %{color1}%REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
 	if helmet of {_p} is black stained glass:
-		set slot 2 of metadata tag "armorPromote" of {_p} to netherite ingot named "{@color}&lPROMOTE" with lore " &8┃ &7Next: " and " " and " {@color}REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
+		set slot 2 of metadata tag "armorPromote" of {_p} to netherite ingot named "%{color1}%&lPROMOTE" with lore " &8┃ &7Next: " and " " and " %{color1}%REQUIREMENTS" and " &8┃ &7Coins: &f" and " &8┃ &7Level: " and " &8┃ &7Protection: " and " "
 	set slot 3 of metadata tag "armorPromote" of {_p} to leggings of {_p}
 	set slot 4 of metadata tag "armorPromote" of {_p} to boots of {_p}
 	open (metadata tag "armorPromote" of {_p}) to {_p}

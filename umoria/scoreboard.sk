@@ -1,14 +1,8 @@
-options:
-	color: &f
-	color2: &f
-	prefix: &8[&f&lUMORIA&8]&f
-	world: world
-
 every 2 ticks:
 	loop all players:
-		set title of loop-player's scoreboard to "{@color}&lUMORIA"
+		set title of loop-player's scoreboard to "%{color1}%&lUMORIA"
 		set line 14 of loop-player's scoreboard to "&7"
-		set line 13 of loop-player's scoreboard to " {@color2}&lPLAYER"
+		set line 13 of loop-player's scoreboard to " %{color2}%&lPLAYER"
 		set line 12 of loop-player's scoreboard to " &8┃ &7Level: &f%format({p_level::%loop-player%})%"
 		set line 11 of loop-player's scoreboard to " &8╹ &7Exp: &f%format({p_exp::%loop-player%})%&7/&f%format({p_nextexp::%loop-player%})%"
 		set line 10 of loop-player's scoreboard to "&8"
@@ -16,47 +10,47 @@ every 2 ticks:
 		set {_percentFormat} to roundto({_percent} * 100, 1)
 		set line 9 of loop-player's scoreboard to "   &8(&f%{_percentFormat}%%%&8)"
 		if {_percent} is between 0 and 0.05:
-			set line 8 of loop-player's scoreboard to " &8[{@color}&7::::::::::::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%&7::::::::::::::::::::&8]"
 		else if {_percent} is between 0.05 and 0.1:
-			set line 8 of loop-player's scoreboard to " &8[{@color}:&7:::::::::::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%:&7:::::::::::::::::::&8]"
 		else if {_percent} is between 0.1 and 0.15:
-			set line 8 of loop-player's scoreboard to " &8[{@color}::&7::::::::::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%::&7::::::::::::::::::&8]"
 		else if {_percent} is between 0.15 and 0.2:
-			set line 8 of loop-player's scoreboard to " &8[{@color}:::&7:::::::::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%:::&7:::::::::::::::::&8]"
 		else if {_percent} is between 0.2 and 0.25:
-			set line 8 of loop-player's scoreboard to " &8[{@color}::::&7::::::::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%::::&7::::::::::::::::&8]"
 		else if {_percent} is between 0.25 and 0.3:
-			set line 8 of loop-player's scoreboard to " &8[{@color}:::::&7:::::::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%:::::&7:::::::::::::::&8]"
 		else if {_percent} is between 0.3 and 0.35:
-			set line 8 of loop-player's scoreboard to " &8[{@color}::::::&7::::::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%::::::&7::::::::::::::&8]"
 		else if {_percent} is between 0.35 and 0.4:
-			set line 8 of loop-player's scoreboard to " &8[{@color}:::::::&7:::::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%:::::::&7:::::::::::::&8]"
 		else if {_percent} is between 0.4 and 0.45:
-			set line 8 of loop-player's scoreboard to " &8[{@color}::::::::&7::::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%::::::::&7::::::::::::&8]"
 		else if {_percent} is between 0.45 and 0.5:
-			set line 8 of loop-player's scoreboard to " &8[{@color}:::::::::&7:::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%:::::::::&7:::::::::::&8]"
 		else if {_percent} is between 0.5 and 0.55:
-			set line 8 of loop-player's scoreboard to " &8[{@color}::::::::::&7::::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%::::::::::&7::::::::::&8]"
 		else if {_percent} is between 0.55 and 0.6:
-			set line 8 of loop-player's scoreboard to " &8[{@color}:::::::::::&7:::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%:::::::::::&7:::::::::&8]"
 		else if {_percent} is between 0.6 and 0.65:
-			set line 8 of loop-player's scoreboard to " &8[{@color}::::::::::::&7::::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%::::::::::::&7::::::::&8]"
 		else if {_percent} is between 0.65 and 0.7:
-			set line 8 of loop-player's scoreboard to " &8[{@color}:::::::::::::&7:::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%:::::::::::::&7:::::::&8]"
 		else if {_percent} is between 0.7 and 0.75:
-			set line 8 of loop-player's scoreboard to " &8[{@color}::::::::::::::&7::::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%::::::::::::::&7::::::&8]"
 		else if {_percent} is between 0.75 and 0.8:
-			set line 8 of loop-player's scoreboard to " &8[{@color}:::::::::::::::&7:::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%:::::::::::::::&7:::::&8]"
 		else if {_percent} is between 0.8 and 0.85:
-			set line 8 of loop-player's scoreboard to " &8[{@color}::::::::::::::::&7::::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%::::::::::::::::&7::::&8]"
 		else if {_percent} is between 0.85 and 0.9:
-			set line 8 of loop-player's scoreboard to " &8[{@color}:::::::::::::::::&7:::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%:::::::::::::::::&7:::&8]"
 		else if {_percent} is between 0.9 and 0.95:
-			set line 8 of loop-player's scoreboard to " &8[{@color}::::::::::::::::::&7::&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%::::::::::::::::::&7::&8]"
 		else if {_percent} is between 0.95 and 1:
-			set line 8 of loop-player's scoreboard to " &8[{@color}:::::::::::::::::::&7:&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%:::::::::::::::::::&7:&8]"
 		else:
-			set line 8 of loop-player's scoreboard to " &8[{@color}::::::::::::::::::::&7&8]"
+			set line 8 of loop-player's scoreboard to " &8[%{color1}%::::::::::::::::::::&7&8]"
 		if {action::%loop-player%} is set:
 			set line 7 of loop-player's scoreboard to "   &7%{action::%loop-player%}% "
 		else:
@@ -67,7 +61,7 @@ every 2 ticks:
 		else:
 			set {_line3} to true
 		if loop-player is in world "dungeon":
-			set line 5 of loop-player's scoreboard to " {@color}&lDUNGEON"
+			set line 5 of loop-player's scoreboard to " %{color1}%&lDUNGEON"
 			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%format({p_coins::%loop-player%})%"
 			if {dungeonActive::%loop-player%} is not set:
 				if {_line3} is true:
@@ -84,7 +78,7 @@ every 2 ticks:
 				set line 2 of loop-player's scoreboard to " &8╹ &7Room: &f%{dungeon::%loop-player%::room}%&7/&f%{dungeon::%loop-player%::roomnum}%"
 				set line 1 of loop-player's scoreboard to "&c"
 		else:
-			set line 5 of loop-player's scoreboard to " {@color}&lBALANCE"
+			set line 5 of loop-player's scoreboard to " %{color1}%&lBALANCE"
 			set line 4 of loop-player's scoreboard to " &8┃ &7Coins: &f%format({p_coins::%loop-player%})%"
 			if {_line3} is true:
 				set line 3 of loop-player's scoreboard to " &8┃ &7Wrath: &f%format({p_wrath::%loop-player%})%"

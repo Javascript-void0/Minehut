@@ -1,10 +1,3 @@
-options:
-	color: &f
-	prefix: &8[&f&lUMORIA&8]&r
-	permission: &7Insufficient Permissions
-	admin: &8[&f&lADMIN&8]&r
-	world: world
-
 # function death(p: player):
 # 	set {dead.%{_p}%} to true
 # 	# apply blindness of tier 255 to {_p} for 3 seconds
@@ -28,9 +21,10 @@ function deathEffect(e: entity):
 function counter(l: location, t: text):
 	set {_ll} to random element out of blocks in radius 1 of {_l}
 	add 3 to {_ll}'s y-coordinate
-	create holo object "%{_t}%" with id "damage.%{_ll}%" at {_ll}
+	create hologram with line "%{_t}%" at {_ll}
+	set {_damage.%{_ll}%} to created hologram
 	wait 1 second
-	delete holo object "damage.%{_ll}%"
+	delete hologram {_damage.%{_ll}%}
 
 function expItem(p: player, i: integer, n: number):
 	set {_level::*} to uncoloured line 2 of lore of (slot {_i} of {_p}) parsed as " ┃ %text%: %number%"
@@ -149,10 +143,10 @@ on damage:
 
 		else:
 			set {_name::*} to name of victim split at " "
-			set name of victim to "%{_name::1}% %{_name::2}% &7({@color}%{%victim%::health}%{@color}/%{%victim%::maxhealth}% ❤&7)"
+			set name of victim to "%{_name::1}% %{_name::2}% &7(%{color1}%%{%victim%::health}%%{color1}%/%{%victim%::maxhealth}% ❤&7)"
 		if {_enchant} is greater than 1:
 			counter(location of victim, "&7-%{_enchant}%")
-		counter(location of victim, "{@color}-%{_typeModify}%")
+		counter(location of victim, "%{color1}%-%{_typeModify}%")
 
 # =================================== MOB ATTACK PLAYER ==========================
 
@@ -246,7 +240,7 @@ function death(p: player, message: text = "&cYou Died!"):
 	set {_exp} to {dungeon::%{_p}%::runkill} * 5
 	if {dungeon::%{_p}%::floor} is greater than {p_highestfloor::%{_p}%}:
 		set {p_highestfloor::%{_p}%} to {dungeon::%{_p}%::floor}
-		set {_best} to "{@color}New Best! &fx2 Exp"
+		set {_best} to "%{color1}%New Best! &fx2 Exp"
 		set {_exp} to {_exp} * 2
 	else:
 		set {_best} to "&7Floor &f%{p_highestfloor::%{_p}%}%"
@@ -258,7 +252,7 @@ function death(p: player, message: text = "&cYou Died!"):
 	# ========= SUMMARY =========
 
 	send " " to "%{_p}%" parsed as player
-	send " &7&l------- {@color}&lSUMMARY &7&l-------" to "%{_p}%" parsed as player
+	send " &7&l------- %{color1}%&lSUMMARY &7&l-------" to "%{_p}%" parsed as player
 	send " " to "%{_p}%" parsed as player
 	send "   &7Final: &7Floor &f%{dungeon::%{_p}%::floor}%" to "%{_p}%" parsed as player
 	send "   &7Final: &7Room &f%{dungeon::%{_p}%::room}%" to "%{_p}%" parsed as player
@@ -266,11 +260,11 @@ function death(p: player, message: text = "&cYou Died!"):
 	send "   &7Total: &f%{dungeon::%{_p}%::runroom}% &7rooms" to "%{_p}%" parsed as player
 	send "   &7Total: &f%{dungeon::%{_p}%::runkill}% &7kills" to "%{_p}%" parsed as player
 	send " " to "%{_p}%" parsed as player
-	send "      &7===== {@color}&lREWARDS &7=====" to "%{_p}%" parsed as player
+	send "      &7===== %{color2}%&lREWARDS &7=====" to "%{_p}%" parsed as player
 	send " " to "%{_p}%" parsed as player
 	send "   &7Wrath: &f+%{_wrath}%" to "%{_p}%" parsed as player
 	if {_best} contains "New Best":
-		send "   &7Exp: &f+%{_exp} / 2% &7x &f2 &7= {@color}%{_exp} * 2% {@color}Exp" to "%{_p}%" parsed as player
+		send "   &7Exp: &f+%{_exp} / 2% &7x &f2 &7= %{color1}%%{_exp} * 2% %{color1}%Exp" to "%{_p}%" parsed as player
 	else:
 		send "   &7Exp: &f+%{_exp}%" to "%{_p}%" parsed as player
 	send "   &7Upgrade Pts: &f+0" to "%{_p}%" parsed as player

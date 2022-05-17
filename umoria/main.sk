@@ -66,20 +66,26 @@ on join:
 	send " "
 on join:
 	teleport player to {spawn}
-on join:
-	# broadcast "&8[&a+&8] &7%player%"
-	send "[`+`] `%player%`" to channel with id "900146282717413436"
-on quit:
-	# broadcast "&8[<##8fb6ab>-&8] &7%player%"
-	send "[`-`] `%player%`" to channel with id "900146282717413436"
-on first join:
-	# broadcast "&8[&a+&8] {@color}%player% &8[&f##%size of all offline players%&8]"
-	new(player)
-	send "[`+`] `%player%` [**##%size of all offline players%]" to channel with id "900146282717413436"
-on skript start:
-	send "Server has started" to channel with id "900146282717413436"
-on skript start:
-	send "Server has stopped" to channel with id "900146282717413436"
+# on join:
+# 	# broadcast "&8[&a+&8] &7%player%"
+# 	send "[`+`] `%player%`" to channel with id "900146282717413436"
+# on quit:
+# 	# broadcast "&8[<##8fb6ab>-&8] &7%player%"
+# 	send "[`-`] `%player%`" to channel with id "900146282717413436"
+
+
+
+# on first join:
+# 	# broadcast "&8[&a+&8] {@color}%player% &8[&f##%size of all offline players%&8]"
+# 	new(player)
+# 	send "[`+`] `%player%` [**##%size of all offline players%]" to channel with id "900146282717413436"
+
+
+
+# on skript start:
+# 	send "Server has started" to channel with id "900146282717413436"
+# on skript start:
+# 	send "Server has stopped" to channel with id "900146282717413436"
 
 command /spawn:
 	trigger:
@@ -94,31 +100,38 @@ command /setspawn:
 	trigger:
 		if player is op:
 			set {k_spawn} to player's position
-			send "{@admin} Spawn Set to %player's position%"
+			# send "{@admin} Spawn Set to %player's position%"
+			chatlog(player, "setspawn")
 		else:
-			send "{@admin} {@permission}"
+			# send "{@admin} {@permission}"
+			chatlog(player, "permission")
 
 command /tps:
 	trigger:
 		set {_tps} to tps from the last 1 minute
 		set {_t} to roundto({_tps}, 2)
-		if {_t} >= 19:
-			send "{@prefix} &a%{_t}% &7TPS"
-		else if {_t} >= 16:
-			send "{@prefix} {@color}%{_t}% &7TPS"
-		else:
-			send "{@prefix} <##8fb6ab>%{_t}% &7TPS"
+		chatlog(player, "system", "TPS: %{_tps}%")
+		# if {_t} >= 19:
+			# send "{@prefix} &a%{_t}% &7TPS"
+		# else if {_t} >= 16:
+			# send "{@prefix} {@color}%{_t}% &7TPS"
+		# else:
+			# send "{@prefix} <##8fb6ab>%{_t}% &7TPS"
 
 command /bc [<text>]:
 	aliases: /broadcast
 	trigger:
 		if player is op:
 			if arg-1 is set:
-				broadcast colored "{@broadcast} {@color}%arg-1%"
+				# broadcast colored "{@broadcast} {@color}%arg-1%"
+				loop all players: 
+					chatlog(loop-player, "system", "%arg-1%")
 			else:
-				send "{@admin} /bc <msg>"
+				chatlog(player, "usage", "/broadcast <message>")
+				# send "{@admin} /bc <msg>"
 		else:
-			send "{@admin} {@permission}"
+			chatlog(player, "permission")
+			# send "{@admin} {@permission}"
 
 command /rules: 
 	trigger:
@@ -191,7 +204,9 @@ on tab complete of "/top":
 command /top [<text>]:
 	trigger:
 		if arg-1 is not "level" or "coins" or "totalcoins" or "wrath" or "totalwrath" or "totalstigma" or "kill" or "kill" or "rebirth" or "maxhealth" or "damage":
-			send "{@prefix} /top <level coins totalcoins wrath totalwrath totalstigma kill kill rebirth>"
+			# send "{@prefix} /top <level coins totalcoins wrath totalwrath totalstigma kill kill rebirth>"
+			chatlog(player, "usage", " /top <level coins totalcoins wrath totalwrath totalstigma kill kill rebirth>")
+			stop
 		else:
 			loop {p_%arg-1%::*}:
 				add 1 to {_size}

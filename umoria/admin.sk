@@ -1,10 +1,3 @@
-options:
-	color: &f
-	prefix: &8[&f&lUMORIA&8]&7
-	permission: &7Insufficient Permissions
-	admin: &8[&f&lADMIN&8]&7
-	world: world
-
 on tab complete of "/modify":
 	set tab completions for position 2 to "level", "coins", "totalcoins", "wrath", "totalwrath", "exp", "nextexp", "totalexp", "totalroom", "kill", "death", "rebirth", "all", "maxhealth", "health", "highestfloor", "damage", "defense", "bank", and "maxdefense"
 	set tab completions for position 3 to "add", "remove", "set", and "reset"
@@ -13,25 +6,25 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 	trigger:
 		if player is op:
 			if arg-1 is not set:
-				send "{@admin} &f/modify &f<player>"
+				send colored "%{prefix_admin}% %{color1}%/modify %{color1}%<player>"
 				stop
 			else if arg-2 is not "level" or "coins" or "totalcoins" or "totalroom" or "wrath" or  "totalwrath" or "exp" or "nextexp" or "totalexp" or "kill" or "death" or "rebirth" or "all" or "maxhealth" or "highestfloor" or "bank" or "health" or "damage" or "defense" or "maxdefense":
-				send "{@admin} &f/modify <%arg-1%> &f<level exp nextexp totalexp coins totalcoins wrath totalwrath death kill rebirth maxhealth health damage all defense maxdefense>"
+				send colored "%{prefix_admin}% %{color1}%/modify <%arg-1%> %{color1}%<level exp nextexp totalexp coins totalcoins wrath totalwrath death kill rebirth maxhealth health damage all defense maxdefense>"
 				stop
 			else if arg-3 is not "add" or "remove" or "set" or "reset":
 				if arg-2 is "reset":
-					send "{@admin} &f/modify <%arg-1%> <%arg-2%> &f<reset>"
+					send colored "%{prefix_admin}% %{color1}%/modify <%arg-1%> <%arg-2%> %{color1}%<reset>"
 				else:
-					send "{@admin} &f/modify <%arg-1%> <%arg-2%> &f<add remove set reset>"
+					send colored "%{prefix_admin}% %{color1}%/modify <%arg-1%> <%arg-2%> %{color1}%<add remove set reset>"
 				stop
 			else if arg-4 is not set:
 				if arg-3 is not "reset":
-					send "{@admin} &f/modify <%arg-1%> <%arg-2%> <%arg-3%> &f<integer>"
+					send colored "%{prefix_admin}% %{color1}%/modify <%arg-1%> <%arg-2%> <%arg-3%> %{color1}%<integer>"
 					stop
 			if arg-3 is "add":
 				add arg-4 to {p_%arg-2%::%arg-1%}
 				set {_nn} to format(arg-4)
-				send "{@admin} &7Added {@color}%{_nn}% &7to %arg-1% &7%arg-2%"
+				send colored "%{prefix_admin}% &7Added %{color1}%%{_nn}% &7to %arg-1% &7%arg-2%"
 			else if arg-3 is "remove":
 				if arg-2 is "level":
 					if arg-4 is greater than {p_level::%arg-1%} - 1:
@@ -59,7 +52,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to arg-4
 				remove {_n} from {p_%arg-2%::%arg-1%}
 				set {_nn} to format({_n})
-				send "{@admin} &7Removed {@color}%{_nn}% &7from %arg-1% &7%arg-2%"
+				send colored "%{prefix_admin}% &7Removed %{color1}%%{_nn}% &7from %arg-1% &7%arg-2%"
 			else if arg-3 is "set":
 				if arg-2 is "level":
 					if arg-4 is less than 1:
@@ -87,7 +80,7 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {_n} to arg-4
 				set {p_%arg-2%::%arg-1%} to {_n}
 				set {_nn} to format({_n})
-				send "{@admin} &7Set %arg-1% &7%arg-2% &7to {@color}%{_nn}%"
+				send colored "%{prefix_admin}% &7Set %arg-1% &7%arg-2% &7to %{color1}%%{_nn}%"
 			else if arg-3 is "reset":
 				if arg-2 is "level" or "damage":
 					set {_n} to 1
@@ -110,11 +103,11 @@ command /modify [<offline player>] [<text>] [<text>] [<integer>]:
 					set {p_damage::%arg-1%} to 1
 					set {p_bank::%arg-1%} to 0
 					set {p_highestfloor::%arg-1%} to 0
-					send "{@admin} &7Reset all for {@color}%arg-1%"
+					send colored "%{prefix_admin}% &7Reset all for %{color1}%%arg-1%"
 					stop
 				else:
 					set {_n} to 0
 				set {p_%arg-2%::%arg-1%} to {_n}
-				send "{@admin} &7Reset %arg-1% &7%arg-2%"
+				send colored "%{prefix_admin}% &7Reset %arg-1% &7%arg-2%"
 		else:
-			send "{@admin} {@permission}"
+			chatlog(player, "permission")

@@ -33,7 +33,7 @@ function generateArrow() :: items:
 	else if {_arrow} is less than 100:
 		set {_arrow} to spectral arrow
 		set {_name} to " &8┃ &7Type: Thunder Bolt"
-	set {_item} to {_value} of {_arrow} named "{@color}&lARROWS" with lore "%{_name}%" and " &8┃ &7Quantity: {@color}%{_value}%" and " &8╹ &7##%{_id}%" with all flags hidden
+	set {_item} to {_value} of {_arrow} named "%{color1}%&lARROWS" with lore "%{_name}%" and " &8┃ &7Quantity: %{color1}%%{_value}%" and " &8╹ &7##%{_id}%" with all flags hidden
 	return {_item}
 
 function generateSilver() :: items:
@@ -83,7 +83,7 @@ function generateScroll() :: item:
 		set {_stat} to "DEFENSE"
 		set {_level} to 1
 	
-	set {_item} to book named "{@color}&l%{_stat}% {@color2}Scroll" with lore " &8┃ &7+%{_level}% {@color2}%{_stat}%" and " &8╹ &7Right-click to use" with all flags hidden
+	set {_item} to book named "%{color1}%&l%{_stat}% %{color1}%Scroll" with lore " &8┃ &7+%{_level}% %{color1}%%{_stat}%" and " &8╹ &7Right-click to use" with all flags hidden
 	return {_item}
 
 function generateChest(b: block, p: player):
@@ -107,7 +107,7 @@ function generateChest(b: block, p: player):
 		else if {_n} is less than 3500:
 			set {_value} to random integer between 2 and 15
 			set {_id} to random integer between 1000 and 9999
-			set slot loop-number of inventory of {_b} to gold nugget named "{@color}&lCOINS" with lore " &8┃ &7Quantity: {@color}%{_value}%" and " &8╹ &7##%{_id}%" 
+			set slot loop-number of inventory of {_b} to gold nugget named "%{color1}%&lCOINS" with lore " &8┃ &7Quantity: %{color1}%%{_value}%" and " &8╹ &7##%{_id}%" 
 		else if {_n} is less than 3700:
 			set slot loop-number of inventory of {_b} to generateSilver()
 		else if {_n} is less than 3750:
@@ -133,7 +133,7 @@ on inventory click:
 	name of event-inventory is "Chest"
 	world of player is "dungeon"
 
-	if clicked type is left mouse button with shift:
+	if click type is left mouse button with shift:
 		cancel event
 		loop all items in event-inventory:
 			name of loop-item does not contain "arrow"
@@ -151,7 +151,7 @@ on inventory click:
 		stop
 				
 
-	if event-item is gold nugget named "{@color}&lCOINS":
+	if event-item is gold nugget named "%{color1}%&lCOINS":
 		cancel event
 		set {_lore::*} to uncolored lore of event-item 
 		set {_value::*} to {_lore::1} parsed as " ┃ Quantity: %number%"
@@ -183,13 +183,13 @@ on inventory click:
 			set {quiver.%player%::%{_arrow}%} to 100
 			set {_origItem} to 1 of event-item
 			updateQuiverInventory(player)
-			set slot {_slot} of event-inventory to brown candle named "{@color}&lQUIVER" with lore " &8┃ &7Added to quiver"
+			set slot {_slot} of event-inventory to brown candle named "%{color1}%&lQUIVER" with lore " &8┃ &7Added to quiver"
 			wait 1 second
 			set slot {_slot} of event-inventory to {_extra} of {_origItem}
 		else:
 			set {quiver.%player%::%{_arrow}%} to {quiver.%player%::%{_arrow}%} + {_n}
 			updateQuiverInventory(player)
-			set slot {_slot} of event-inventory to brown candle named "{@color}&lQUIVER" with lore " &8┃ &7Added to quiver"
+			set slot {_slot} of event-inventory to brown candle named "%{color1}%&lQUIVER" with lore " &8┃ &7Added to quiver"
 			wait 1 second
 			set slot {_slot} of event-inventory to air
 	else if event-item is brown candle:

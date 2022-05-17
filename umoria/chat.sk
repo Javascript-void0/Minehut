@@ -1,34 +1,3 @@
-options:
-	prefix: &8[&f&lUMORIA&8]&7
-	color: &f
-	color2: &f
-
 on chat:
-	if {staffchat::%player%} is set:
-		stop
 	cancel event
-	if {Globalchat} is true:
-		player is not op
-		cancel event
-		stop
-	if message contains "@everyone" or "@here":
-		stop
-	set {_levelFormat} to format({p_level::%player%})
-	if group of player is "admin":
-		send "[**ADMIN**] [:**L%{_levelFormat}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
-	else if group of player is "mod":
-		send "[**MOD**] [:**L%{_levelFormat}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
-	else:
-		send "[:**L%{_levelFormat}%**] %uncolored display name of player%: %message%" to channel with id "900146282717413436"
-
-command /chat [<text>]:
-	trigger:
-		if player is op:
-			if arg-1 is set:
-				set {_levelFormat} to format({p_level::%player%})
-				send "[**ADMIN**] [:**L%{_levelFormat}%**] %uncolored display name of player%: %arg-1%" to channel with id "900146282717413436"
-				broadcast "&8[{@color}&lADMIN&8]&r &8[{@color2}:L%{_levelFormat}%&8] %display name of player%&7: &f%arg-1%"
-			else:
-				send "{@prefix} &7/chat <message>"
-		else:
-			send "{@prefix} &7Chat is not displayed in-game. Use ##umoria in Discord to view chat. <tooltip:{@color}Umoria Wiki><link:https://umoriaweb.herokuapp.com/wiki/##chat-ui>{@color2}Click here for more info<reset>"
+	chatlog(player, "chat")

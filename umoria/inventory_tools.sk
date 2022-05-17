@@ -1,11 +1,4 @@
 options:
-	color: <##B4C788>
-	prefix: &8[<##B4C788>&lUMORIA&8]&7
-	permission: &7Insufficient Permissions
-	admin: &8[<##B4C788>&lADMIN&8]&7
-	coins: &7Insufficient <##B4C788>Coins
-	wrath: &7Insufficient <##B4C788>Wrath
-	world: world
 
 	line1: 15
 	line2: 16
@@ -13,11 +6,11 @@ options:
 	line4: 18
 
 on load: 
-	set {tooltips::enchantment::sharpness} to "{@color}+5 damage"
-	set {tooltips::enchantment::power} to "{@color}+5 damage"
-	set {tooltips::enchantment::looting} to "{@color}+1 max mob drops"
-	set {tooltips::enchantment::%{_ench3::1}%} to "{@color}Multiply exp drops"
-	set {tooltips::enchantment::%{_ench4::1}%} to "{@color}none"
+	set {tooltips::enchantment::sharpness} to "%{color1}%+5 damage"
+	set {tooltips::enchantment::power} to "%{color1}%+5 damage"
+	set {tooltips::enchantment::looting} to "%{color1}%+1 max mob drops"
+	set {tooltips::enchantment::%{_ench3::1}%} to "%{color1}%Multiply exp drops"
+	set {tooltips::enchantment::%{_ench4::1}%} to "%{color1}%none"
 
 # function toolCompatible(i: item, e: text) :: boolean:
 # 	if {_e} is "%{_ench3::1}%" or "%{_ench4::1}%":
@@ -57,7 +50,7 @@ command /enchant [<text>]:
 					add loop-value to {_loop::*}
 					exit loop
 		else:
-			send "{@prefix} &7This item can't be enchanted"
+			send "%{prefix_umori}% &7This item can't be enchanted"
 			stop
 		
 		loop {_loop::*}:
@@ -103,25 +96,25 @@ command /enchant [<text>]:
 					set {_line} to {@line4}
 				set line {_line} of lore of slot loop-value of player to {_newLore}
 				enchant slot loop-value of player with {_enchantment}
-				set {_message} to "   &7Enchanted with {@color}%{_ench%arg-1%::1}% %{_level}%"
+				set {_message} to "   &7Enchanted with %{color1}%%{_ench%arg-1%::1}% %{_level}%"
 				add 1 to {_ench%arg-1%::2}
 				remove 1 from {_available}
 
 		send " "
-		send " &7&l------- {@color}&lENCHANT &7&l-------"
+		send colored " &7&l------- %{color1}%&lENCHANT &7&l-------"
 		send " "
 		send "   &7Available: &f%{_available}%"
 		send " "
 		if arg-1 contains "armor" or "shield":
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %arg-1%1>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench1::1} in lower case%}%>&7%{_ench1::1}%<reset>: &f%{_ench1::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %arg-1%2>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench2::1} in lower case%}%>&7%{_ench2::1}%<reset>: &f%{_ench2::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %arg-1%3>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench3::1} in lower case%}%>&7%{_ench3::1}%<reset>: &f%{_ench3::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant %arg-1%4>[&a+&8]<reset> &8╹ <tooltip:%{tooltips::enchantment::%{_ench4::1} in lower case%}%>&7%{_ench4::1}%<reset>: &f%{_ench4::2}%"
+			send formatted " &8<tooltip:%{color1}%Click to enchant><command:/enchant %arg-1%1>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench1::1} in lower case%}%>&7%{_ench1::1}%<reset>: &f%{_ench1::2}%"
+			send formatted " &8<tooltip:%{color1}%Click to enchant><command:/enchant %arg-1%2>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench2::1} in lower case%}%>&7%{_ench2::1}%<reset>: &f%{_ench2::2}%"
+			send formatted " &8<tooltip:%{color1}%Click to enchant><command:/enchant %arg-1%3>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench3::1} in lower case%}%>&7%{_ench3::1}%<reset>: &f%{_ench3::2}%"
+			send formatted " &8<tooltip:%{color1}%Click to enchant><command:/enchant %arg-1%4>[&a+&8]<reset> &8╹ <tooltip:%{tooltips::enchantment::%{_ench4::1} in lower case%}%>&7%{_ench4::1}%<reset>: &f%{_ench4::2}%"
 		else:
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant 1>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench1::1} in lower case%}%>&7%{_ench1::1}%<reset>: &f%{_ench1::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant 2>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench2::1} in lower case%}%>&7%{_ench2::1}%<reset>: &f%{_ench2::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant 3>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench3::1} in lower case%}%>&7%{_ench3::1}%<reset>: &f%{_ench3::2}%"
-			send formatted " &8<tooltip:{@color}Click to enchant><command:/enchant 4>[&a+&8]<reset> &8╹ <tooltip:%{tooltips::enchantment::%{_ench4::1} in lower case%}%>&7%{_ench4::1}%<reset>: &f%{_ench4::2}%"
+			send formatted " &8<tooltip:%{color1}%Click to enchant><command:/enchant 1>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench1::1} in lower case%}%>&7%{_ench1::1}%<reset>: &f%{_ench1::2}%"
+			send formatted " &8<tooltip:%{color1}%Click to enchant><command:/enchant 2>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench2::1} in lower case%}%>&7%{_ench2::1}%<reset>: &f%{_ench2::2}%"
+			send formatted " &8<tooltip:%{color1}%Click to enchant><command:/enchant 3>[&a+&8]<reset> &8┃ <tooltip:%{tooltips::enchantment::%{_ench3::1} in lower case%}%>&7%{_ench3::1}%<reset>: &f%{_ench3::2}%"
+			send formatted " &8<tooltip:%{color1}%Click to enchant><command:/enchant 4>[&a+&8]<reset> &8╹ <tooltip:%{tooltips::enchantment::%{_ench4::1} in lower case%}%>&7%{_ench4::1}%<reset>: &f%{_ench4::2}%"
 		send " "
 		send " "
 		send " "

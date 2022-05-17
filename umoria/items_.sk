@@ -8,47 +8,47 @@ options:
 	
 function itemExpBar(percent: number) :: text:
 	if {_percent} is between 0 and 0.05:
-		set {_bar} to " &8[{@color}&7::::::::::::::::::::&8]"
+		set {_bar} to " &8[%{color1}%&7::::::::::::::::::::&8]"
 	else if {_percent} is between 0.05 and 0.1:
-		set {_bar} to " &8[{@color}:&7:::::::::::::::::::&8]"
+		set {_bar} to " &8[%{color1}%:&7:::::::::::::::::::&8]"
 	else if {_percent} is between 0.1 and 0.15:
-		set {_bar} to " &8[{@color}::&7::::::::::::::::::&8]"
+		set {_bar} to " &8[%{color1}%::&7::::::::::::::::::&8]"
 	else if {_percent} is between 0.15 and 0.2:
-		set {_bar} to " &8[{@color}:::&7:::::::::::::::::&8]"
+		set {_bar} to " &8[%{color1}%:::&7:::::::::::::::::&8]"
 	else if {_percent} is between 0.2 and 0.25:
-		set {_bar} to " &8[{@color}::::&7::::::::::::::::&8]"
+		set {_bar} to " &8[%{color1}%::::&7::::::::::::::::&8]"
 	else if {_percent} is between 0.25 and 0.3:
-		set {_bar} to " &8[{@color}:::::&7:::::::::::::::&8]"
+		set {_bar} to " &8[%{color1}%:::::&7:::::::::::::::&8]"
 	else if {_percent} is between 0.3 and 0.35:
-		set {_bar} to " &8[{@color}::::::&7::::::::::::::&8]"
+		set {_bar} to " &8[%{color1}%::::::&7::::::::::::::&8]"
 	else if {_percent} is between 0.35 and 0.4:
-		set {_bar} to " &8[{@color}:::::::&7:::::::::::::&8]"
+		set {_bar} to " &8[%{color1}%:::::::&7:::::::::::::&8]"
 	else if {_percent} is between 0.4 and 0.45:
-		set {_bar} to " &8[{@color}::::::::&7::::::::::::&8]"
+		set {_bar} to " &8[%{color1}%::::::::&7::::::::::::&8]"
 	else if {_percent} is between 0.45 and 0.5:
-		set {_bar} to " &8[{@color}:::::::::&7:::::::::::&8]"
+		set {_bar} to " &8[%{color1}%:::::::::&7:::::::::::&8]"
 	else if {_percent} is between 0.5 and 0.55:
-		set {_bar} to " &8[{@color}::::::::::&7::::::::::&8]"
+		set {_bar} to " &8[%{color1}%::::::::::&7::::::::::&8]"
 	else if {_percent} is between 0.55 and 0.6:
-		set {_bar} to " &8[{@color}:::::::::::&7:::::::::&8]"
+		set {_bar} to " &8[%{color1}%:::::::::::&7:::::::::&8]"
 	else if {_percent} is between 0.6 and 0.65:
-		set {_bar} to " &8[{@color}::::::::::::&7::::::::&8]"
+		set {_bar} to " &8[%{color1}%::::::::::::&7::::::::&8]"
 	else if {_percent} is between 0.65 and 0.7:
-		set {_bar} to " &8[{@color}:::::::::::::&7:::::::&8]"
+		set {_bar} to " &8[%{color1}%:::::::::::::&7:::::::&8]"
 	else if {_percent} is between 0.7 and 0.75:
-		set {_bar} to " &8[{@color}::::::::::::::&7::::::&8]"
+		set {_bar} to " &8[%{color1}%::::::::::::::&7::::::&8]"
 	else if {_percent} is between 0.75 and 0.8:
-		set {_bar} to " &8[{@color}:::::::::::::::&7:::::&8]"
+		set {_bar} to " &8[%{color1}%:::::::::::::::&7:::::&8]"
 	else if {_percent} is between 0.8 and 0.85:
-		set {_bar} to " &8[{@color}::::::::::::::::&7::::&8]"
+		set {_bar} to " &8[%{color1}%::::::::::::::::&7::::&8]"
 	else if {_percent} is between 0.85 and 0.9:
-		set {_bar} to " &8[{@color}:::::::::::::::::&7:::&8]"
+		set {_bar} to " &8[%{color1}%:::::::::::::::::&7:::&8]"
 	else if {_percent} is between 0.9 and 0.95:
-		set {_bar} to " &8[{@color}::::::::::::::::::&7::&8]"
+		set {_bar} to " &8[%{color1}%::::::::::::::::::&7::&8]"
 	else if {_percent} is between 0.95 and 1:
-		set {_bar} to " &8[{@color}:::::::::::::::::::&7:&8]"
+		set {_bar} to " &8[%{color1}%:::::::::::::::::::&7:&8]"
 	else:
-		set {_bar} to " &8[{@color}::::::::::::::::::::&7&8]"
+		set {_bar} to " &8[%{color1}%::::::::::::::::::::&7&8]"
 	return {_bar}
 
 function generateEquipment(l: number, i: item = dirt) :: item:
@@ -71,7 +71,7 @@ function generateEquipment(l: number, i: item = dirt) :: item:
 		set {_enchant} to "Efficiency"
 		set {_enchantt} to "Fortune"
 	
-	set {_item} to {_i} named "&8[{@color}::&7::::::::&8] {@color}%{_name}%" with all flags hidden
+	set {_item} to {_i} named "&8[%{color1}%::&7::::::::&8] %{color1}%%{_name}%" with all flags hidden
 
 	set {_nextexp} to ({_l} * 2) + 10
 	set {_exp} to random integer between 0 and {_nextexp}
@@ -90,20 +90,20 @@ function generateEquipment(l: number, i: item = dirt) :: item:
 
 	set {_enhance} to random integer between 0 and (floor({_l} / 2))
 
-	add " {@color2}&lSTATS" to lore of {_item}
+	add " %{color2}%&lSTATS" to lore of {_item}
 	add " &8┃ &7Level: &f%{_l}%" to lore of {_item}
 	add " &8╹ &7Exp: &f%{_exp}%&7/&f%{_nextexp}%" to lore of {_item}
 	add " " to lore of {_item}
 	add "   &8(&f%{_percentFormat}%%%&8)" to lore of {_item}
 	add " %{_bar}%" to lore of {_item}
 	add " " to lore of {_item}
-	add " {@color}&lATTRIBUTES" to lore of {_item}
+	add " %{color1}%&lATTRIBUTES" to lore of {_item}
 	add " &8┃ &7ⁿ Slot I" to lore of {_item}
 	add " &8┃ &7ⁿ Slot II" to lore of {_item}
 	add " &8┃ &7ⁿ Slot III" to lore of {_item}
 	add " &8╹ &7Enhance: &f+%{_enhance}%" to lore of {_item}
 	add " " to lore of {_item}
-	add " {@color2}&lENCHANTS" to lore of {_item}
+	add " %{color2}%&lENCHANTS" to lore of {_item}
 	add " &8┃ &7%{_enchant}%: &f%{_enchant1}%" to lore of {_item}
 	add " &8┃ &7%{_enchantt}%: &f%{_enchant2}%" to lore of {_item}
 	add " &8┃ &7Mending: &f%{_enchant3}%" to lore of {_item}
@@ -116,42 +116,42 @@ function reloadItems():
 
 # ::
 
-	set {1_helmet} to light gray stained glass named "&8[{@color}::&7::::::::&8] {@color}Common" with all flags hidden
-	add " {@color2}&lSTATS" to lore of {1_helmet}
+	set {1_helmet} to light gray stained glass named "&8[%{color1}%::&7::::::::&8] %{color1}%Common" with all flags hidden
+	add " %{color2}%&lSTATS" to lore of {1_helmet}
 	add " &8┃ &7Level: &f1" to lore of {1_helmet}
 	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_helmet}
 	add " " to lore of {1_helmet}
 	add "   &8(&f0%%&8)" to lore of {1_helmet}
-	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_helmet}
+	add " &8[%{color1}%&7::::::::::::::::::::&8]" to lore of {1_helmet}
 	add " " to lore of {1_helmet}
-	add " {@color}&lATTRIBUTES" to lore of {1_helmet}
+	add " %{color1}%&lATTRIBUTES" to lore of {1_helmet}
 	add " &8┃ &7ⁿ Slot I" to lore of {1_helmet}
 	add " &8┃ &7ⁿ Slot II" to lore of {1_helmet}
 	add " &8┃ &7ⁿ Slot III" to lore of {1_helmet}
 	add " &8╹ &7Enhance: &f+0" to lore of {1_helmet}
 	add " " to lore of {1_helmet}
-	add " {@color2}&lENCHANTS" to lore of {1_helmet}
+	add " %{color2}%&lENCHANTS" to lore of {1_helmet}
 	add " &8┃ &7Protection: &f1" to lore of {1_helmet}
 	add " &8┃ &7Unbreaking: &f1" to lore of {1_helmet}
 	add " &8┃ &7Mending: &f1" to lore of {1_helmet}
 	add " &8╹ &7Binding: &f1" to lore of {1_helmet}
 	add " " to lore of {1_helmet}
 	
-	set {1_chestplate} to leather chestplate named "&8[{@color}::&7::::::::&8] {@color}Chestplate" with all flags hidden
-	add " {@color2}&lSTATS" to lore of {1_chestplate}
+	set {1_chestplate} to leather chestplate named "&8[%{color1}%::&7::::::::&8] %{color1}%Chestplate" with all flags hidden
+	add " %{color2}%&lSTATS" to lore of {1_chestplate}
 	add " &8┃ &7Level: &f1" to lore of {1_chestplate}
 	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_chestplate}
 	add " " to lore of {1_chestplate}
 	add "   &8(&f0%%&8)" to lore of {1_chestplate}
-	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_chestplate}
+	add " &8[%{color1}%&7::::::::::::::::::::&8]" to lore of {1_chestplate}
 	add " " to lore of {1_chestplate}
-	add " {@color}&lATTRIBUTES" to lore of {1_chestplate}
+	add " %{color1}%&lATTRIBUTES" to lore of {1_chestplate}
 	add " &8┃ &7ⁿ Slot I" to lore of {1_chestplate}
 	add " &8┃ &7ⁿ Slot II" to lore of {1_chestplate}
 	add " &8┃ &7ⁿ Slot III" to lore of {1_chestplate}
 	add " &8╹ &7Enhance: &f+0" to lore of {1_chestplate}
 	add " " to lore of {1_chestplate}
-	add " {@color2}&lENCHANTS" to lore of {1_chestplate}
+	add " %{color2}%&lENCHANTS" to lore of {1_chestplate}
 	add " &8┃ &7Protection: &f1" to lore of {1_chestplate}
 	add " &8┃ &7Unbreaking: &f1" to lore of {1_chestplate}
 	add " &8┃ &7Mending: &f1" to lore of {1_chestplate}
@@ -159,21 +159,21 @@ function reloadItems():
 	add " " to lore of {1_chestplate}
 	dye {1_chestplate} light gray
 	
-	set {1_leggings} to leather leggings named "&8[{@color}::&7::::::::&8] {@color}Leggings" with all flags hidden
-	add " {@color2}&lSTATS" to lore of {1_leggings}
+	set {1_leggings} to leather leggings named "&8[%{color1}%::&7::::::::&8] %{color1}%Leggings" with all flags hidden
+	add " %{color2}%&lSTATS" to lore of {1_leggings}
 	add " &8┃ &7Level: &f1" to lore of {1_leggings}
 	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_leggings}
 	add " " to lore of {1_leggings}
 	add "   &8(&f0%%&8)" to lore of {1_leggings}
-	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_leggings}
+	add " &8[%{color1}%&7::::::::::::::::::::&8]" to lore of {1_leggings}
 	add " " to lore of {1_leggings}
-	add " {@color}&lATTRIBUTES" to lore of {1_leggings}
+	add " %{color1}%&lATTRIBUTES" to lore of {1_leggings}
 	add " &8┃ &7ⁿ Slot I" to lore of {1_leggings}
 	add " &8┃ &7ⁿ Slot II" to lore of {1_leggings}
 	add " &8┃ &7ⁿ Slot III" to lore of {1_leggings}
 	add " &8╹ &7Enhance: &f+0" to lore of {1_leggings}
 	add " " to lore of {1_leggings}
-	add " {@color2}&lENCHANTS" to lore of {1_leggings}
+	add " %{color2}%&lENCHANTS" to lore of {1_leggings}
 	add " &8┃ &7Protection: &f1" to lore of {1_leggings}
 	add " &8┃ &7Unbreaking: &f1" to lore of {1_leggings}
 	add " &8┃ &7Mending: &f1" to lore of {1_leggings}
@@ -181,21 +181,21 @@ function reloadItems():
 	add " " to lore of {1_leggings}
 	dye {1_leggings} light gray
 	
-	set {1_boots} to leather boots named "&8[{@color}::&7::::::::&8] {@color}Boots" with all flags hidden
-	add " {@color2}&lSTATS" to lore of {1_boots}
+	set {1_boots} to leather boots named "&8[%{color1}%::&7::::::::&8] %{color1}%Boots" with all flags hidden
+	add " %{color2}%&lSTATS" to lore of {1_boots}
 	add " &8┃ &7Level: &f1" to lore of {1_boots}
 	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_boots}
 	add " " to lore of {1_boots}
 	add "   &8(&f0%%&8)" to lore of {1_boots}
-	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_boots}
+	add " &8[%{color1}%&7::::::::::::::::::::&8]" to lore of {1_boots}
 	add " " to lore of {1_boots}
-	add " {@color}&lATTRIBUTES" to lore of {1_boots}
+	add " %{color1}%&lATTRIBUTES" to lore of {1_boots}
 	add " &8┃ &7ⁿ Slot I" to lore of {1_boots}
 	add " &8┃ &7ⁿ Slot II" to lore of {1_boots}
 	add " &8┃ &7ⁿ Slot III" to lore of {1_boots}
 	add " &8╹ &7Enhance: &f+0" to lore of {1_boots}
 	add " " to lore of {1_boots}
-	add " {@color2}&lENCHANTS" to lore of {1_boots}
+	add " %{color2}%&lENCHANTS" to lore of {1_boots}
 	add " &8┃ &7Protection: &f1" to lore of {1_boots}
 	add " &8┃ &7Unbreaking: &f1" to lore of {1_boots}
 	add " &8┃ &7Mending: &f1" to lore of {1_boots}
@@ -205,105 +205,105 @@ function reloadItems():
 
 # ==== TOOLS ====
 
-	set {1_sword} to netherite sword named "&8[{@color}::&7::::::::&8] {@color}Sword" with all flags hidden
-	add " {@color2}&lSTATS" to lore of {1_sword}
+	set {1_sword} to netherite sword named "&8[%{color1}%::&7::::::::&8] %{color1}%Sword" with all flags hidden
+	add " %{color2}%&lSTATS" to lore of {1_sword}
 	add " &8┃ &7Level: &f1" to lore of {1_sword}
 	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_sword}
 	add " " to lore of {1_sword}
 	add "   &8(&f0%%&8)" to lore of {1_sword}
-	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_sword}
+	add " &8[%{color1}%&7::::::::::::::::::::&8]" to lore of {1_sword}
 	add " " to lore of {1_sword}
-	add " {@color}&lATTRIBUTES" to lore of {1_sword}
+	add " %{color1}%&lATTRIBUTES" to lore of {1_sword}
 	add " &8┃ &7ⁿ Slot I" to lore of {1_sword}
 	add " &8┃ &7ⁿ Slot II" to lore of {1_sword}
 	add " &8┃ &7ⁿ Slot III" to lore of {1_sword}
 	add " &8╹ &7Enhance: &f+0" to lore of {1_sword}
 	add " " to lore of {1_sword}
-	add " {@color2}&lENCHANTS" to lore of {1_sword}
+	add " %{color2}%&lENCHANTS" to lore of {1_sword}
 	add " &8┃ &7Sharpness: &f1" to lore of {1_sword}
 	add " &8┃ &7Looting: &f1" to lore of {1_sword}
 	add " &8┃ &7Mending: &f1" to lore of {1_sword}
 	add " &8╹ &7Binding: &f1" to lore of {1_sword}
 	add " " to lore of {1_sword}
 
-	set {1_pickaxe} to netherite pickaxe named "&8[{@color}::&7::::::::&8] {@color}Pickaxe" with all flags hidden
-	add " {@color2}&lSTATS" to lore of {1_pickaxe}
+	set {1_pickaxe} to netherite pickaxe named "&8[%{color1}%::&7::::::::&8] %{color1}%Pickaxe" with all flags hidden
+	add " %{color2}%&lSTATS" to lore of {1_pickaxe}
 	add " &8┃ &7Level: &f1" to lore of {1_pickaxe}
 	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_pickaxe}
 	add " " to lore of {1_pickaxe}
 	add "   &8(&f0%%&8)" to lore of {1_pickaxe}
-	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_pickaxe}
+	add " &8[%{color1}%&7::::::::::::::::::::&8]" to lore of {1_pickaxe}
 	add " " to lore of {1_pickaxe}
-	add " {@color}&lATTRIBUTES" to lore of {1_pickaxe}
+	add " %{color1}%&lATTRIBUTES" to lore of {1_pickaxe}
 	add " &8┃ &7ⁿ Slot I" to lore of {1_pickaxe}
 	add " &8┃ &7ⁿ Slot II" to lore of {1_pickaxe}
 	add " &8┃ &7ⁿ Slot III" to lore of {1_pickaxe}
 	add " &8╹ &7Enhance: &f+0" to lore of {1_pickaxe}
 	add " " to lore of {1_pickaxe}
-	add " {@color2}&lENCHANTS" to lore of {1_pickaxe}
+	add " %{color2}%&lENCHANTS" to lore of {1_pickaxe}
 	add " &8┃ &7Efficiency: &f1" to lore of {1_pickaxe}
 	add " &8┃ &7Fortune: &f1" to lore of {1_pickaxe}
 	add " &8┃ &7Mending: &f1" to lore of {1_pickaxe}
 	add " &8╹ &7Binding: &f1" to lore of {1_pickaxe}
 	add " " to lore of {1_pickaxe}
 	
-	set {1_shield} to shield named "&8[{@color}::&7::::::::&8] {@color}Shield" with all flags hidden
-	add " {@color2}&lSTATS" to lore of {1_shield}
+	set {1_shield} to shield named "&8[%{color1}%::&7::::::::&8] %{color1}%Shield" with all flags hidden
+	add " %{color2}%&lSTATS" to lore of {1_shield}
 	add " &8┃ &7Level: &f1" to lore of {1_shield}
 	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_shield}
 	add " " to lore of {1_shield}
 	add "   &8(&f0%%&8)" to lore of {1_shield}
-	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_shield}
+	add " &8[%{color1}%&7::::::::::::::::::::&8]" to lore of {1_shield}
 	add " " to lore of {1_shield}
-	add " {@color}&lATTRIBUTES" to lore of {1_shield}
+	add " %{color1}%&lATTRIBUTES" to lore of {1_shield}
 	add " &8┃ &7ⁿ Slot I" to lore of {1_shield}
 	add " &8┃ &7ⁿ Slot II" to lore of {1_shield}
 	add " &8┃ &7ⁿ Slot III" to lore of {1_shield}
 	add " &8╹ &7Enhance: &f+0" to lore of {1_shield}
 	add " " to lore of {1_shield}
-	add " {@color2}&lENCHANTS" to lore of {1_shield}
+	add " %{color2}%&lENCHANTS" to lore of {1_shield}
 	add " &8┃ &7Protection: &f1" to lore of {1_shield}
 	add " &8┃ &7Unbreaking: &f1" to lore of {1_shield}
 	add " &8┃ &7Mending: &f1" to lore of {1_shield}
 	add " &8╹ &7Binding: &f1" to lore of {1_shield}
 	add " " to lore of {1_shield}
 	
-	set {1_bow} to bow named "&8[{@color}::&7::::::::&8] {@color}Bow" with all flags hidden
-	add " {@color2}&lSTATS" to lore of {1_bow}
+	set {1_bow} to bow named "&8[%{color1}%::&7::::::::&8] %{color1}%Bow" with all flags hidden
+	add " %{color2}%&lSTATS" to lore of {1_bow}
 	add " &8┃ &7Level: &f1" to lore of {1_bow}
 	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_bow}
 	add " " to lore of {1_bow}
 	add "   &8(&f0%%&8)" to lore of {1_bow}
-	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_bow}
+	add " &8[%{color1}%&7::::::::::::::::::::&8]" to lore of {1_bow}
 	add " " to lore of {1_bow}
-	add " {@color}&lATTRIBUTES" to lore of {1_bow}
+	add " %{color1}%&lATTRIBUTES" to lore of {1_bow}
 	add " &8┃ &7ⁿ Slot I" to lore of {1_bow}
 	add " &8┃ &7ⁿ Slot II" to lore of {1_bow}
 	add " &8┃ &7ⁿ Slot III" to lore of {1_bow}
 	add " &8╹ &7Enhance: &f+0" to lore of {1_bow}
 	add " " to lore of {1_bow}
-	add " {@color2}&lENCHANTS" to lore of {1_bow}
+	add " %{color2}%&lENCHANTS" to lore of {1_bow}
 	add " &8┃ &7Power: &f1" to lore of {1_bow}
 	add " &8┃ &7Looting&7: &f1" to lore of {1_bow}
 	add " &8┃ &7Mending: &f1" to lore of {1_bow}
 	add " &8╹ &7Binding: &f1" to lore of {1_bow}
 	add " " to lore of {1_bow}
 	
-	set {1_hoe} to netherite hoe named "&8[{@color}::&7::::::::&8] {@color}Scythe" with all flags hidden
-	add " {@color2}&lSTATS" to lore of {1_hoe}
+	set {1_hoe} to netherite hoe named "&8[%{color1}%::&7::::::::&8] %{color1}%Scythe" with all flags hidden
+	add " %{color2}%&lSTATS" to lore of {1_hoe}
 	add " &8┃ &7Level: &f1" to lore of {1_hoe}
 	add " &8╹ &7Exp: &f0&7/&f10" to lore of {1_hoe}
 	add " " to lore of {1_hoe}
 	add "   &8(&f0%%&8)" to lore of {1_hoe}
-	add " &8[{@color}&7::::::::::::::::::::&8]" to lore of {1_hoe}
+	add " &8[%{color1}%&7::::::::::::::::::::&8]" to lore of {1_hoe}
 	add " " to lore of {1_hoe}
-	add " {@color}&lATTRIBUTES" to lore of {1_hoe}
+	add " %{color1}%&lATTRIBUTES" to lore of {1_hoe}
 	add " &8┃ &7ⁿ Slot I" to lore of {1_hoe}
 	add " &8┃ &7ⁿ Slot II" to lore of {1_hoe}
 	add " &8┃ &7ⁿ Slot III" to lore of {1_hoe}
 	add " &8╹ &7Enhance: &f+0" to lore of {1_hoe}
 	add " " to lore of {1_hoe}
-	add " {@color2}&lENCHANTS" to lore of {1_hoe}
+	add " %{color2}%&lENCHANTS" to lore of {1_hoe}
 	add " &8┃ &7Efficiency: &f1" to lore of {1_hoe}
 	add " &8┃ &7Fortune: &f1" to lore of {1_hoe}
 	add " &8┃ &7Mending: &f1" to lore of {1_hoe}

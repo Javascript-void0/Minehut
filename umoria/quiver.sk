@@ -1,6 +1,3 @@
-options:
-	color: &f
-
 on shoot:
 	if {quiver.%shooter%.current} is not "none":
 		remove 1 from {quiver.%shooter%::%{quiver.%shooter%.current}%}
@@ -18,84 +15,84 @@ command /quiver [<text>]:
 		if arg-1 is "arrow":
 			if {quiver.%player%::arrow} is greater than 0:
 				set {quiver.%player%.current} to "arrow"
-				set {_message} to "   &7You equipped {@color}Arrow"
+				set {_message} to "   &7You equipped %{color1}%Arrow"
 			else:
 				set {_message} to "   &7You need at least x1 to equip"
 		else if arg-1 is "solar":
 			if {quiver.%player%::solar} is greater than 0:
 				set {quiver.%player%.current} to "solar"
-				set {_message} to "   &7You equipped {@color}Solar Arrow"
+				set {_message} to "   &7You equipped %{color1}%Solar Arrow"
 			else:
 				set {_message} to "   &7You need at least x1 to equip"
 		else if arg-1 is "lunar":
 			if {quiver.%player%::lunar} is greater than 0:
 				set {quiver.%player%.current} to "lunar"
-				set {_message} to "   &7You equipped {@color}Lunar Arrow"
+				set {_message} to "   &7You equipped %{color1}%Lunar Arrow"
 			else:
 				set {_message} to "   &7You need at least x1 to equip"
 		else if arg-1 is "terrestrial":
 			if {quiver.%player%::terrestrial} is greater than 0:
 				set {quiver.%player%.current} to "terrestrial"
-				set {_message} to "   &7You equipped {@color}Terrestrial Arrow"
+				set {_message} to "   &7You equipped %{color1}%Terrestrial Arrow"
 			else:
 				set {_message} to "   &7You need at least x1 to equip"
 		else if arg-1 is "midnight":
 			if {quiver.%player%::midnight} is greater than 0:
 				set {quiver.%player%.current} to "midnight"
-				set {_message} to "   &7You equipped {@color}Midnight Arrow"
+				set {_message} to "   &7You equipped %{color1}%Midnight Arrow"
 			else:
 				set {_message} to "   &7You need at least x1 to equip"
 		else if arg-1 is "thunder":
 			if {quiver.%player%::thunder} is greater than 0:
 				set {quiver.%player%.current} to "thunder"
-				set {_message} to "   &7You equipped {@color}Thunder Bolt"
+				set {_message} to "   &7You equipped %{color1}%Thunder Bolt"
 			else:
 				set {_message} to "   &7You need at least x1 to equip"
 		else if arg-1 is "shortcut":
-			set {_message} to "   &7Quiver Shortcut: {@color}Q &7(Sneak to drop bow)"
+			set {_message} to "   &7Quiver Shortcut: %{color1}%Q &7(Sneak to drop bow)"
 		else:
 			set {_message} to " "
 		set {_selected::*} to "", "", "", "", "", and ""
 		if {quiver.%player%.current} is "arrow":
 			set {_active} to "Arrow"
-			set {_selected::1} to "&8[{@color}&lSELECTED&8] "
+			set {_selected::1} to "&8[%{color1}%&lSELECTED&8] "
 		else if {quiver.%player%.current} is "solar":
 			set {_active} to "Solar Arrow"
-			set {_selected::2} to "&8[{@color}&lSELECTED&8] "
+			set {_selected::2} to "&8[%{color1}%&lSELECTED&8] "
 		else if {quiver.%player%.current} is "lunar":
 			set {_active} to "Lunar Arrow"
-			set {_selected::3} to "&8[{@color}&lSELECTED&8] "
+			set {_selected::3} to "&8[%{color1}%&lSELECTED&8] "
 		else if {quiver.%player%.current} is "terrestrial":
 			set {_active} to "Terrestrial Arrow"
-			set {_selected::4} to "&8[{@color}&lSELECTED&8] "
+			set {_selected::4} to "&8[%{color1}%&lSELECTED&8] "
 		else if {quiver.%player%.current} is "midnight":
 			set {_active} to "Midnight Arrow"
-			set {_selected::5} to "&8[{@color}&lSELECTED&8] "
+			set {_selected::5} to "&8[%{color1}%&lSELECTED&8] "
 		else if {quiver.%player%.current} is "thunder":
 			set {_active} to "Thunder Bolt"
-			set {_selected::6} to "&8[{@color}&lSELECTED&8] "
+			set {_selected::6} to "&8[%{color1}%&lSELECTED&8] "
 		else:
 			set {_active} to "None"
 		send " "
-		send " &7&l------- {@color}&lQUIVER &7&l--------"
+		send " &7&l------- %{color1}%&lQUIVER &7&l--------"
 		send " "
-		send "   <command:/quiver arrow><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::1}%&7Arrow &ox%{quiver.%player%::arrow}%"
-		send "   <command:/quiver solar><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::2}%&7Solar Arrow &ox%{quiver.%player%::solar}%"
-		send "   <command:/quiver lunar><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::3}%&7Lunar Arrow &ox%{quiver.%player%::lunar}%"
-		send "   <command:/quiver terrestrial><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::4}%&7Terrestrial Arrow &ox%{quiver.%player%::terrestrial}%"
-		send "   <command:/quiver midnight><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::5}%&7Midnight Arrow &ox%{quiver.%player%::midnight}%"
-		send "   <command:/quiver thunder><tooltip:{@color}Click to select>&8[{@color}+&8] %{_selected::6}%&7Thunder Bolt &ox%{quiver.%player%::thunder}%"
+		send "   <command:/quiver arrow><tooltip:%{color1}%Click to select>&8[%{color1}%+&8] %{_selected::1}%&7Arrow &ox%{quiver.%player%::arrow}%"
+		send "   <command:/quiver solar><tooltip:%{color1}%Click to select>&8[%{color1}%+&8] %{_selected::2}%&7Solar Arrow &ox%{quiver.%player%::solar}%"
+		send "   <command:/quiver lunar><tooltip:%{color1}%Click to select>&8[%{color1}%+&8] %{_selected::3}%&7Lunar Arrow &ox%{quiver.%player%::lunar}%"
+		send "   <command:/quiver terrestrial><tooltip:%{color1}%Click to select>&8[%{color1}%+&8] %{_selected::4}%&7Terrestrial Arrow &ox%{quiver.%player%::terrestrial}%"
+		send "   <command:/quiver midnight><tooltip:%{color1}%Click to select>&8[%{color1}%+&8] %{_selected::5}%&7Midnight Arrow &ox%{quiver.%player%::midnight}%"
+		send "   <command:/quiver thunder><tooltip:%{color1}%Click to select>&8[%{color1}%+&8] %{_selected::6}%&7Thunder Bolt &ox%{quiver.%player%::thunder}%"
 		send " "
-		send "   &7Active: {@color}%{_active}%"
+		send "   &7Active: %{color1}%%{_active}%"
 		send " "
-		send "   &7Quiver Size: {@color}100"
-		# send "   &7Quiver Size: {@color}%{p_quiversize::%player%}%"
+		send "   &7Quiver Size: %{color1}%100"
+		# send "   &7Quiver Size: %{color1}%%{p_quiversize::%player%}%"
 		send " "
 		send " "
 		send " "
 		send {_message}
 		send " "
-		send " &7&l---------- {@color}x &7------------ "
+		send " &7&l---------- %{color1}%x &7------------ "
 		send ""
 		updateQuiverInventory(player)
 
@@ -170,48 +167,48 @@ on drop:
 
 function updateQuiverInventory(p: player):
 	if {quiver.%{_p}%.current} is "arrow":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::arrow} of arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::arrow}%" and " &8╹ (&7/quiver&8)" with all flags hidden
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::arrow} of arrow named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::arrow}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 	else if {quiver.%{_p}%.current} is "solar":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::solar} of tipped arrow of fire resistance named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::solar}%" and " &8╹ (&7/quiver&8)" with all flags hidden
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::solar} of tipped arrow of fire resistance named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::solar}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 	else if {quiver.%{_p}%.current} is "lunar":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::lunar} of tipped arrow of swiftness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::lunar}%" and " &8╹ (&7/quiver&8)" with all flags hidden
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::lunar} of tipped arrow of swiftness named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::lunar}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 	else if {quiver.%{_p}%.current} is "terrestrial":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::terrestrial} of tipped arrow of poison named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" and " &8╹ (&7/quiver&8)" with all flags hidden
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::terrestrial} of tipped arrow of poison named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 	else if {quiver.%{_p}%.current} is "midnight":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::midnight} of tipped arrow of weakness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::midnight}%" and " &8╹ (&7/quiver&8)" with all flags hidden
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::midnight} of tipped arrow of weakness named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::midnight}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 	else if {quiver.%{_p}%.current} is "thunder":
-		set slot 17 of inventory of {_p} to {quiver.%{_p}%::thunder} of spectral arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::thunder}%" and " &8╹ (&7/quiver&8)" with all flags hidden
+		set slot 17 of inventory of {_p} to {quiver.%{_p}%::thunder} of spectral arrow named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::thunder}%" and " &8╹ (&7/quiver&8)" with all flags hidden
 
 function nextQuiver(p: player):
 	loop {quiver.%{_p}%::*}:
 		loop-value is not 0
 		set {_n} to loop-value
 		if loop-index is "arrow":
-			set {_item} to {_n} of arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::arrow}%" and " &8╹ &7Click to Open" with all flags hidden
+			set {_item} to {_n} of arrow named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::arrow}%" and " &8╹ &7Click to Open" with all flags hidden
 			set {quiver.%{_p}%.current} to loop-index
 			exit loop
 		else if loop-index is "solar":
-			set {_item} to {_n} of tipped arrow of fire resistance named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::solar}%" and " &8╹ &7Click to Open" with all flags hidden
+			set {_item} to {_n} of tipped arrow of fire resistance named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::solar}%" and " &8╹ &7Click to Open" with all flags hidden
 			set {quiver.%{_p}%.current} to loop-index
 			exit loop
 		else if loop-index is "lunar":
-			set {_item} to {_n} of tipped arrow of swiftness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::lunar}%" and " &8╹ &7Click to Open" with all flags hidden
+			set {_item} to {_n} of tipped arrow of swiftness named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::lunar}%" and " &8╹ &7Click to Open" with all flags hidden
 			set {quiver.%{_p}%.current} to loop-index
 			exit loop
 		else if loop-index is "terrestrial":
-			set {_item} to {_n} of tipped arrow of poison named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" and " &8╹ &7Click to Open" with all flags hidden
+			set {_item} to {_n} of tipped arrow of poison named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::terrestrial}%" and " &8╹ &7Click to Open" with all flags hidden
 			set {quiver.%{_p}%.current} to loop-index
 			exit loop
 		else if loop-index is "midnight":
-			set {_item} to {_n} of tipped arrow of weakness named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::midnight}%" and " &8╹ &7Click to Open" with all flags hidden
+			set {_item} to {_n} of tipped arrow of weakness named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::midnight}%" and " &8╹ &7Click to Open" with all flags hidden
 			set {quiver.%{_p}%.current} to loop-index
 			exit loop
 		else if loop-index is "thunder":
-			set {_item} to {_n} of spectral arrow named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::thunder}%" and " &8╹ &7Click to Open" with all flags hidden
+			set {_item} to {_n} of spectral arrow named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x%{quiver.%{_p}%::thunder}%" and " &8╹ &7Click to Open" with all flags hidden
 			set {quiver.%{_p}%.current} to loop-index
 			exit loop
 	if {_item} is not set:
-		set {_item} to brown candle named "{@color}&lQUIVER" with lore " &8┃ &7Quantity: x0" and " &8╹ &7Click to Open"
+		set {_item} to brown candle named "%{color1}%&lQUIVER" with lore " &8┃ &7Quantity: x0" and " &8╹ &7Click to Open"
 		set {quiver.%{_p}%.current} to "none"
 	set slot 17 of {_p} to {_item}
 

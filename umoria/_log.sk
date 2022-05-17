@@ -1,0 +1,80 @@
+options:
+	log: &7 *%now formatted human-readable as "hh:mm:ss"% &8:&r
+
+function chatlog(p: player, t: text, o: text = "none", o2: text = "none", o3: text = "none"):
+	set {_n} to random integer between 1 and 100
+	
+	if {_t} contains "consume":
+		if {_t} is "consume status":
+			set {_c} to "<##FBD172>"
+		else:
+			set {_c} to "&7"
+	else if {_t} contains "levelup":
+		if {_t} contains "player":
+			set {_c} to "<##50787e>"
+		else:
+			set {_c} to "<##BFFB8B>"
+
+	else if {_t} contains "admin":
+		set {_c} to "<##FBCF84>"
+	else if {_t} is "system":
+		set {_c} to "<##FFFFFF>"
+	else if {_t} is "scroll":
+		set {_c} to "<##ACC0FB>"
+	else if {_t} is "floor":
+		set {_c} to "<##FB7163>"
+	else if {_t} is "chat":
+		set {_c} to "<##FB2610>"
+	else if {_t} is "permission":
+		set {_c} to "<##FB5E33>"
+	else if {_t} is "usage":
+		set {_c} to "<##DBB6FB>"
+
+	if {_t} is "consume flesh":
+		if {_n} is less than 33:
+			set {_message} to "You tore apart the flesh and felt a little better, but weaker."
+		else if {_n} is less than 66:
+			set {_message} to "You held your breath as you nibbled down the hunk of flesh."
+		else:
+			set {_message} to "You swallow the rotting piece of meat."
+	else if {_t} is "consume pancreas":
+		if {_n} is less than 33:
+			set {_message} to "You tore apart the pancreas and felt a little better, but very queasy."
+		else if {_n} is less than 66:
+			set {_message} to "You held your breath as you nibbled the end of the pancreas."
+		else:
+			set {_message} to "You swallow the slimy organ whole."
+	else if {_t} is "consume qu_eggs":
+		if {_n} is less than 50:
+			set {_message} to "You popped a quail egg into your mouth."
+		else:
+			set {_message} to "You hear the crunch of the egg shells."
+	
+	else if {_t} is "consume status":
+		set {_message} to "The effects of consuming the %{_o}% %{_c}%wore off."
+	else if {_t} is "armor levelup":
+		set {_message} to "You endured the attack. Your armor rises to level %{_o}%."
+	else if {_t} is "sword levelup":
+		set {_message} to "You slayed the monster. Your sword rises to level %{_o}%."
+	else if {_t} is "bow levelup":
+		set {_message} to "Your arrows pierce the monster. Your bow rises to level %{_o}%."
+	else if {_t} is "pickaxe levelup":
+		set {_message} to "You gain experience cracking the earth. Your pickaxe rises to level %{_o}%."
+	else if {_t} is "shield levelup":
+		set {_message} to "You parried the attack. Your shield rises to level %{_o}%."
+	else if {_t} is "player levelup":
+		set {_message} to "You feel a little stronger! Gained one upgrade point. "
+	else if {_t} is "scroll":
+		set {_message} to "You read the scroll and feel enlightened."
+	else if {_t} is "floor":
+		set {_message} to "You ascended up to the next floor. "
+	else if {_t} is "chat":
+		set {_message} to "In-game chat is disabled. Use Discord instead. "
+	else if {_t} is "permission":
+		set {_message} to "Insufficient Permissions"
+	else if {_t} is "system":
+		set {_message} to "&lSYSTEM &r%{_c}%%{_o}%"
+	else if {_t} is "usage":
+		set {_message} to "Usage: %{_o}%"
+	set {_message} to "{@log} %{_c}%%{_message}%"
+	send {_message} to "%{_p}%" parsed as player

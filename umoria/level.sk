@@ -17,7 +17,7 @@ function expPlayer(p: player, n: number):
 		set {p_upgradepoint::%{_p}%} to {p_upgradepoint::%{_p}%} + 1
 		set {p_nextexp::%{_p}%} to {p_level::%{_p}%} * 2
 		set {action::%{_p}%} to "Level Up!"
-		send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%{_p}%}%&8]" to {_p} for 3 seconds
+		send title "&3" with subtitle "&8[%{color2}%:L%{_before}%&8] &7> &8[%{color2}%:L%{p_level::%{_p}%}%&8]" to {_p} for 3 seconds
 		chatlog({_p}, "player levelup")
 		discordLevel({_p}, {p_level::%{_p}%})
 		wait 2 seconds
@@ -57,7 +57,7 @@ function expBlock(p: player, n: integer, b: block):
 		set {p_skillpoint::%{_p}%} to {p_skillpoint::%{_p}%} + 1
 		set {p_nextexp::%{_p}%} to ({p_level::%{_p}%} * 2) + 10
 		set {action::%{_p}%} to "Level Up!"
-		send title "&3" with subtitle "&8[{@color}:L%{_before}%&8] &7> &8[{@color}:L%{p_level::%{_p}%}%&8]" to {_p} for 3 seconds
+		send title "&3" with subtitle "&8[%{color2}%:L%{_before}%&8] &7> &8[%{color2}%:L%{p_level::%{_p}%}%&8]" to {_p} for 3 seconds
 		# discordLevel({_p}, {p_level::%{_p}%})
 		set {actionBlock::%{_p}%} to {_b}
 		wait 2 seconds

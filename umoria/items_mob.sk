@@ -18,7 +18,7 @@ on load:
 	set {mobloot::bone.item} to bone
 	set {mobloot::bone.buy} to 30
 	set {mobloot::bone.sell} to 1
-	set {mobloot::bone.name} to "&8[{@color}::&7::::&8] {@color2}Bone"
+	set {mobloot::bone.name} to "&8[%{color1}%::&7::::&8] %{color1}%Bone"
 	set {mobloot::bone.rarity} to "Common"
 	set {mobloot::bone.lore} to "&7Cleaned off with something's fangs. "
 	add "bone" to {mobloot::list::*}
@@ -26,7 +26,7 @@ on load:
 	set {mobloot::br_mush.item} to brown mushroom
 	set {mobloot::br_mush.buy} to 25
 	set {mobloot::br_mush.sell} to 2
-	set {mobloot::br_mush.name} to "&8[{@color}::::&7::&8] {@color2}Brown Mushroom"
+	set {mobloot::br_mush.name} to "&8[%{color1}%::::&7::&8] %{color1}%Brown Mushroom"
 	set {mobloot::br_mush.rarity} to "Uncommon"
 	set {mobloot::br_mush.lore} to "&7Looks ready to be cooked into a stew. "
 	add "br_mush" to {mobloot::list::*}
@@ -34,7 +34,7 @@ on load:
 	set {mobloot::red_mush.item} to red mushroom
 	set {mobloot::red_mush.buy} to 25
 	set {mobloot::red_mush.sell} to 2
-	set {mobloot::red_mush.name} to "&8[{@color}::::&7::&8] {@color2}Red Mushroom"
+	set {mobloot::red_mush.name} to "&8[%{color1}%::::&7::&8] %{color1}%Red Mushroom"
 	set {mobloot::red_mush.rarity} to "Uncommon"
 	set {mobloot::red_mush.lore} to "&7Looks ready to be cooked into a stew. "
 	add "red_mush" to {mobloot::list::*}
@@ -42,16 +42,16 @@ on load:
 	set {mobloot::flesh.item} to rotten flesh
 	set {mobloot::flesh.buy} to 10
 	set {mobloot::flesh.sell} to 1
-	set {mobloot::flesh.name} to "&8[{@color}::&7::::&8] {@color2}Flesh"
+	set {mobloot::flesh.name} to "&8[%{color1}%::&7::::&8] %{color1}%Flesh"
 	set {mobloot::flesh.rarity} to "Common"
-	set {mobloot::flesh.consume} to "{@color}+20%% hp &8| {@color2}-10%% dmg &7(5m)"
+	set {mobloot::flesh.consume} to "%{color1}%+20%% hp &8| %{color2}%-10%% dmg &7(5m)"
 	set {mobloot::flesh.lore} to "&7The rotten flesh stinks of burnt fish. "
 	add "flesh" to {mobloot::list::*}
 	
 	set {mobloot::skel_skull.item} to skeleton skull
 	set {mobloot::skel_skull.buy} to 140
 	set {mobloot::skel_skull.sell} to 10
-	set {mobloot::skel_skull.name} to "&8[{@color}::::::&8] {@color2}Skull"
+	set {mobloot::skel_skull.name} to "&8[%{color1}%::::::&8] %{color1}%Skull"
 	set {mobloot::skel_skull.rarity} to "Rare"
 	set {mobloot::skel_skull.lore} to "&7The poor guy's face..."
 	add "skel_skull" to {mobloot::list::*}
@@ -59,7 +59,7 @@ on load:
 	set {mobloot::bush.item} to dead bush
 	set {mobloot::bush.buy} to 9
 	set {mobloot::bush.sell} to 3
-	set {mobloot::bush.name} to "&8[{@color}::::&7::&8] {@color2}Dead Bush"
+	set {mobloot::bush.name} to "&8[%{color1}%::::&7::&8] %{color1}%Dead Bush"
 	set {mobloot::bush.rarity} to "Uncommon"
 	set {mobloot::bush.lore} to "&7Small bundle of weeds. "
 	add "bush" to {mobloot::list::*}
@@ -67,7 +67,7 @@ on load:
 	set {mobloot::bottle.item} to glass bottle
 	set {mobloot::bottle.buy} to 45
 	set {mobloot::bottle.sell} to 2
-	set {mobloot::bottle.name} to "&8[{@color}::&7::::&8] {@color2}Bottle"
+	set {mobloot::bottle.name} to "&8[%{color1}%::&7::::&8] %{color1}%Bottle"
 	set {mobloot::bottle.rarity} to "Common"
 	set {mobloot::bottle.lore} to "&7Caked in dried mud and dirt. "
 	add "bottle" to {mobloot::list::*}
@@ -75,16 +75,16 @@ on load:
 	set {mobloot::pancreas.item} to fermented spider eye
 	set {mobloot::pancreas.buy} to 180
 	set {mobloot::pancreas.sell} to 7
-	set {mobloot::pancreas.name} to "&8[{@color}::::::&8] {@color2}Pancreas"
+	set {mobloot::pancreas.name} to "&8[%{color1}%::::::&8] %{color1}%Pancreas"
 	set {mobloot::pancreas.rarity} to "Rare"
-	set {mobloot::pancreas.consume} to "{@color}+40%% hp &8| {@color2}-20%% dmg &7(2m)"
+	set {mobloot::pancreas.consume} to "%{color1}%+40%% hp &8| %{color2}%-20%% dmg &7(2m)"
 	set {mobloot::pancreas.lore} to "&7Looks... tasty. "
 	add "pancreas" to {mobloot::list::*}
 	
 	set {mobloot::foot.item} to rabbit's foot
 	set {mobloot::foot.buy} to 200
 	set {mobloot::foot.sell} to 5
-	set {mobloot::foot.name} to "&8[{@color}::::::&8] {@color2}Foot"
+	set {mobloot::foot.name} to "&8[%{color1}%::::::&8] %{color1}%Foot"
 	set {mobloot::foot.rarity} to "Rare"
 	set {mobloot::foot.lore} to "&7One way to disable someone. "
 	add "foot" to {mobloot::list::*}
@@ -92,16 +92,16 @@ on load:
 	set {mobloot::qu_eggs.buy} to 80
 	set {mobloot::qu_eggs.item} to phantom membrane
 	set {mobloot::qu_eggs.sell} to 8
-	set {mobloot::qu_eggs.name} to "&8[{@color}::::::&8] {@color2}Quail Eggs"
+	set {mobloot::qu_eggs.name} to "&8[%{color1}%::::::&8] %{color1}%Quail Eggs"
 	set {mobloot::qu_eggs.rarity} to "Rare"
-	set {mobloot::qu_eggs.consume} to "{@color}+20%% dmg &7(2m)"
+	set {mobloot::qu_eggs.consume} to "%{color1}%+20%% dmg &7(2m)"
 	set {mobloot::qu_eggs.lore} to "&7Only &oslightly &7better than chicken eggs. "
 	add "qu_eggs" to {mobloot::list::*}
 	
 	set {mobloot::mag_orb.item} to magma cream
 	set {mobloot::mag_orb.buy} to 240
 	set {mobloot::mag_orb.sell} to 7
-	set {mobloot::mag_orb.name} to "&8[{@color}::::::&8] {@color2}Glowing Orb"
+	set {mobloot::mag_orb.name} to "&8[%{color1}%::::::&8] %{color1}%Glowing Orb"
 	set {mobloot::mag_orb.rarity} to "Rare"
 	set {mobloot::mag_orb.lore} to "&7Warm to the touch. "
 	add "mag_orb" to {mobloot::list::*}
@@ -109,7 +109,7 @@ on load:
 	set {mobloot::dark_sapling.item} to dark oak sapling
 	set {mobloot::dark_sapling.buy} to 25
 	set {mobloot::dark_sapling.sell} to 3
-	set {mobloot::dark_sapling.name} to "&8[{@color}::::&7::&8] {@color2}Sapling"
+	set {mobloot::dark_sapling.name} to "&8[%{color1}%::::&7::&8] %{color1}%Sapling"
 	set {mobloot::dark_sapling.rarity} to "Uncommon"
 	set {mobloot::dark_sapling.lore} to "&7Plant a tree. "
 	add "dark_sapling" to {mobloot::list::*}
@@ -117,7 +117,7 @@ on load:
 	set {mobloot::cobweb.item} to cobweb
 	set {mobloot::cobweb.buy} to 25
 	set {mobloot::cobweb.sell} to 4
-	set {mobloot::cobweb.name} to "&8[{@color}::::&7::&8] {@color2}Cobweb"
+	set {mobloot::cobweb.name} to "&8[%{color1}%::::&7::&8] %{color1}%Cobweb"
 	set {mobloot::cobweb.rarity} to "Uncommon"
 	set {mobloot::cobweb.lore} to "&7Wispy and delicate. "
 	add "cobweb" to {mobloot::list::*}
@@ -125,7 +125,7 @@ on load:
 	set {mobloot::gel.item} to "glow ink sac" parsed as item
 	set {mobloot::gel.buy} to 15
 	set {mobloot::gel.sell} to 2
-	set {mobloot::gel.name} to "&8[{@color}::&7::::&8] {@color2}Gel"
+	set {mobloot::gel.name} to "&8[%{color1}%::&7::::&8] %{color1}%Gel"
 	set {mobloot::gel.rarity} to "Common"
 	set {mobloot::gel.lore} to "&7Radiating with bubbly energy. "
 	add "gel" to {mobloot::list::*}
@@ -133,7 +133,7 @@ on load:
 	set {mobloot::warp_mush.item} to warped fungus
 	set {mobloot::warp_mush.buy} to 20
 	set {mobloot::warp_mush.sell} to 4
-	set {mobloot::warp_mush.name} to "&8[{@color}::::&7::&8] {@color2}Glowing Mushroom"
+	set {mobloot::warp_mush.name} to "&8[%{color1}%::::&7::&8] %{color1}%Glowing Mushroom"
 	set {mobloot::warp_mush.rarity} to "Uncommon"
 	set {mobloot::warp_mush.lore} to "&7Radiating with bubbly energy. "
 	add "warp_mush" to {mobloot::list::*}
@@ -141,7 +141,7 @@ on load:
 	set {mobloot::crystal.item} to prismarine crystals
 	set {mobloot::crystal.buy} to 30
 	set {mobloot::crystal.sell} to 6
-	set {mobloot::crystal.name} to "&8[{@color}::::::&8] {@color2}Crystals"
+	set {mobloot::crystal.name} to "&8[%{color1}%::::::&8] %{color1}%Crystals"
 	set {mobloot::crystal.rarity} to "Rare"
 	set {mobloot::crystal.lore} to "&7Dull and translucent textured surface. "
 	add "crystal" to {mobloot::list::*}
@@ -149,16 +149,16 @@ on load:
 	set {mobloot::tide_orb.item} to heart of the sea
 	set {mobloot::tide_orb.buy} to 350
 	set {mobloot::tide_orb.sell} to 8
-	set {mobloot::tide_orb.name} to "&8[{@color}::::::&8] {@color2}Tide Orb"
+	set {mobloot::tide_orb.name} to "&8[%{color1}%::::::&8] %{color1}%Tide Orb"
 	set {mobloot::tide_orb.rarity} to "Rare"
 	set {mobloot::tide_orb.lore} to "&7Still wet. "
 	add "tide_orb" to {mobloot::list::*}
 
 	loop {mobloot::list::*}:
 		if {mobloot::%loop-value%.consume} is set:
-			set {mobloot::%{mobloot::%loop-value%.rarity}%::%loop-value%} to {mobloot::%loop-value%.item} named {mobloot::%loop-value%.name} with lore " &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%" and " &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins" and " &8┃ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins" and " &8╹ &7Consume: %{mobloot::%loop-value%.consume}%" and " " and "&7%{mobloot::%loop-value%.lore}%" with all flags hidden
+			set {mobloot::%{mobloot::%loop-value%.rarity}%::%loop-value%} to {mobloot::%loop-value%.item} named {mobloot::%loop-value%.name} with lore " &8┃ &7Rarity: %{color1}%%{mobloot::%loop-value%.rarity}%" and " &8┃ &7Buy: %{color1}%%{mobloot::%loop-value%.buy}% coins" and " &8┃ &7Sell: %{color1}%%{mobloot::%loop-value%.sell}% coins" and " &8╹ &7Consume: %{mobloot::%loop-value%.consume}%" and " " and "&7%{mobloot::%loop-value%.lore}%" with all flags hidden
 		else:
-			set {mobloot::%{mobloot::%loop-value%.rarity}%::%loop-value%} to {mobloot::%loop-value%.item} named {mobloot::%loop-value%.name} with lore " &8┃ &7Rarity: {@color}%{mobloot::%loop-value%.rarity}%" and " &8┃ &7Buy: {@color}%{mobloot::%loop-value%.buy}% coins" and " &8╹ &7Sell: {@color}%{mobloot::%loop-value%.sell}% coins" and " " and "&7%{mobloot::%loop-value%.lore}%" with all flags hidden
+			set {mobloot::%{mobloot::%loop-value%.rarity}%::%loop-value%} to {mobloot::%loop-value%.item} named {mobloot::%loop-value%.name} with lore " &8┃ &7Rarity: %{color1}%%{mobloot::%loop-value%.rarity}%" and " &8┃ &7Buy: %{color1}%%{mobloot::%loop-value%.buy}% coins" and " &8╹ &7Sell: %{color1}%%{mobloot::%loop-value%.sell}% coins" and " " and "&7%{mobloot::%loop-value%.lore}%" with all flags hidden
 
 
 	# CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE CRAFTABLE
@@ -169,7 +169,7 @@ on load:
 	set {mobloot.craft::bone_bits.item} to pumpkin seeds
 	set {mobloot.craft::bone_bits.buy} to 7
 	set {mobloot.craft::bone_bits.sell} to 1
-	set {mobloot.craft::bone_bits.name} to "&8[{@color}::::::&8] {@color2}Bone Bits"
+	set {mobloot.craft::bone_bits.name} to "&8[%{color1}%::::::&8] %{color1}%Bone Bits"
 	set {mobloot.craft::bone_bits.rarity} to "Common"
 	set {mobloot.craft::bone_bits.lore} to "&7Sharp to the touch. "
 	add "bone_bits" to {mobloot.craft::list::*}
@@ -177,7 +177,7 @@ on load:
 	set {mobloot.craft::br_mush_dust.item} to brown dye
 	set {mobloot.craft::br_mush_dust.buy} to 10
 	set {mobloot.craft::br_mush_dust.sell} to 1
-	set {mobloot.craft::br_mush_dust.name} to "&8[{@color}::::::&8] {@color2}Brown Mushroom Dust"
+	set {mobloot.craft::br_mush_dust.name} to "&8[%{color1}%::::::&8] %{color1}%Brown Mushroom Dust"
 	set {mobloot.craft::br_mush_dust.rarity} to "Uncommon"
 	set {mobloot.craft::br_mush_dust.lore} to "&7Tangy smell. "
 	add "br_mush_dust" to {mobloot.craft::list::*}
@@ -185,7 +185,7 @@ on load:
 	set {mobloot.craft::red_mush_dust.item} to red dye
 	set {mobloot.craft::red_mush_dust.buy} to 10
 	set {mobloot.craft::red_mush_dust.sell} to 1
-	set {mobloot.craft::red_mush_dust.name} to "&8[{@color}::::::&8] {@color2}Red Mushroom Dust"
+	set {mobloot.craft::red_mush_dust.name} to "&8[%{color1}%::::::&8] %{color1}%Red Mushroom Dust"
 	set {mobloot.craft::red_mush_dust.rarity} to "Uncommon"
 	set {mobloot.craft::red_mush_dust.lore} to "&7Sweet scent. "
 	add "red_mush_dust" to {mobloot.craft::list::*}
@@ -193,16 +193,16 @@ on load:
 	set {mobloot.craft::dried_flesh.item} to dried kelp
 	set {mobloot.craft::dried_flesh.buy} to 15
 	set {mobloot.craft::dried_flesh.sell} to 2
-	set {mobloot.craft::dried_flesh.name} to "&8[{@color}::&7::::&8] {@color2}Dried Flesh"
+	set {mobloot.craft::dried_flesh.name} to "&8[%{color1}%::&7::::&8] %{color1}%Dried Flesh"
 	set {mobloot.craft::dried_flesh.rarity} to "Common"
-	set {mobloot.craft::dried_flesh.consume} to "{@color}+20%% hp &7(5m)"
+	set {mobloot.craft::dried_flesh.consume} to "%{color1}%+20%% hp &7(5m)"
 	set {mobloot.craft::dried_flesh.lore} to "&7Chewy and burnt texture. "
 	add "dried_flesh" to {mobloot.craft::list::*}
 
 	set {mobloot.craft::twig.item} to stick
 	set {mobloot.craft::twig.buy} to 3
 	set {mobloot.craft::twig.sell} to 1
-	set {mobloot.craft::twig.name} to "&8[{@color}::::&7::&8] {@color2}Twig"
+	set {mobloot.craft::twig.name} to "&8[%{color1}%::::&7::&8] %{color1}%Twig"
 	set {mobloot.craft::twig.rarity} to "Uncommon"
 	set {mobloot.craft::twig.lore} to "&7Easily snappable. "
 	add "twig" to {mobloot.craft::list::*}
@@ -210,7 +210,7 @@ on load:
 	set {mobloot.craft::treeling.item} to dark oak sapling
 	set {mobloot.craft::treeling.buy} to 50
 	set {mobloot.craft::treeling.sell} to 8
-	set {mobloot.craft::treeling.name} to "&8[{@color}::::&7::&8] {@color2}Treeling"
+	set {mobloot.craft::treeling.name} to "&8[%{color1}%::::&7::&8] %{color1}%Treeling"
 	set {mobloot.craft::treeling.rarity} to "Uncommon"
 	set {mobloot.craft::treeling.lore} to "&7Plant a tree. "
 	add "treeling" to {mobloot.craft::list::*}
@@ -218,7 +218,7 @@ on load:
 	set {mobloot.craft::silk.item} to string
 	set {mobloot.craft::silk.buy} to 5
 	set {mobloot.craft::silk.sell} to 1
-	set {mobloot.craft::silk.name} to "&8[{@color}::::&7::&8] {@color2}Silk"
+	set {mobloot.craft::silk.name} to "&8[%{color1}%::::&7::&8] %{color1}%Silk"
 	set {mobloot.craft::silk.rarity} to "Uncommon"
 	set {mobloot.craft::silk.lore} to "&7Thin but quite strong. "
 	add "silk" to {mobloot.craft::list::*}
@@ -226,7 +226,7 @@ on load:
 	set {mobloot.craft::warp_mush_dust.item} to cyan dye
 	set {mobloot.craft::warp_mush_dust.buy} to 10
 	set {mobloot.craft::warp_mush_dust.sell} to 2
-	set {mobloot.craft::warp_mush_dust.name} to "&8[{@color}::::&7::&8] {@color2}Glowing Mushroom Dust"
+	set {mobloot.craft::warp_mush_dust.name} to "&8[%{color1}%::::&7::&8] %{color1}%Glowing Mushroom Dust"
 	set {mobloot.craft::warp_mush_dust.rarity} to "Uncommon"
 	set {mobloot.craft::warp_mush_dust.lore} to "&7Fuzzy and sparking. "
 	add "warp_mush_dust" to {mobloot.craft::list::*}
@@ -234,16 +234,16 @@ on load:
 	set {mobloot.craft::ref_crystal.item} to nether quartz
 	set {mobloot.craft::ref_crystal.buy} to 90
 	set {mobloot.craft::ref_crystal.sell} to 15
-	set {mobloot.craft::ref_crystal.name} to "&8[{@color}::::::&8] {@color2}Refined Crystal"
+	set {mobloot.craft::ref_crystal.name} to "&8[%{color1}%::::::&8] %{color1}%Refined Crystal"
 	set {mobloot.craft::ref_crystal.rarity} to "Rare"
 	set {mobloot.craft::ref_crystal.lore} to "&7Polished, translucent surface. "
 	add "ref_crystal" to {mobloot.craft::list::*}
 
 	loop {mobloot.craft::list::*}:
 		if {mobloot.craft::%loop-value%.consume} is set:
-			set {mobloot.craft::%{mobloot.craft::%loop-value%.rarity}%::%loop-value%} to {mobloot.craft::%loop-value%.item} named {mobloot.craft::%loop-value%.name} with lore " &8┃ &7Rarity: {@color}%{mobloot.craft::%loop-value%.rarity}%" and " &8┃ &7Buy: {@color}%{mobloot.craft::%loop-value%.buy}% coins" and " &8┃ &7Sell: {@color}%{mobloot.craft::%loop-value%.sell}% coins" and " &8╹ &7Consume: %{mobloot.craft::%loop-value%.consume}%" and " " and "&7%{mobloot.craft::%loop-value%.lore}%" with all flags hidden
+			set {mobloot.craft::%{mobloot.craft::%loop-value%.rarity}%::%loop-value%} to {mobloot.craft::%loop-value%.item} named {mobloot.craft::%loop-value%.name} with lore " &8┃ &7Rarity: %{color1}%%{mobloot.craft::%loop-value%.rarity}%" and " &8┃ &7Buy: %{color1}%%{mobloot.craft::%loop-value%.buy}% coins" and " &8┃ &7Sell: %{color1}%%{mobloot.craft::%loop-value%.sell}% coins" and " &8╹ &7Consume: %{mobloot.craft::%loop-value%.consume}%" and " " and "&7%{mobloot.craft::%loop-value%.lore}%" with all flags hidden
 		else:
-			set {mobloot.craft::%{mobloot.craft::%loop-value%.rarity}%::%loop-value%} to {mobloot.craft::%loop-value%.item} named {mobloot.craft::%loop-value%.name} with lore " &8┃ &7Rarity: {@color}%{mobloot.craft::%loop-value%.rarity}%" and " &8┃ &7Buy: {@color}%{mobloot.craft::%loop-value%.buy}% coins" and " &8╹ &7Sell: {@color}%{mobloot.craft::%loop-value%.sell}% coins" and " " and "&7%{mobloot.craft::%loop-value%.lore}%" with all flags hidden
+			set {mobloot.craft::%{mobloot.craft::%loop-value%.rarity}%::%loop-value%} to {mobloot.craft::%loop-value%.item} named {mobloot.craft::%loop-value%.name} with lore " &8┃ &7Rarity: %{color1}%%{mobloot.craft::%loop-value%.rarity}%" and " &8┃ &7Buy: %{color1}%%{mobloot.craft::%loop-value%.buy}% coins" and " &8╹ &7Sell: %{color1}%%{mobloot.craft::%loop-value%.sell}% coins" and " " and "&7%{mobloot.craft::%loop-value%.lore}%" with all flags hidden
 
 
 
