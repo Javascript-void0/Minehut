@@ -191,9 +191,9 @@ command /menu [<text>]:
 		send " "
 
 		if {pvp::%player%} is false:
-			send "   &8<tooltip:%{color1}%Click to enable><command:/menu pvp>&7PvP: &cDisabled<reset>"
+			send formatted "   <tooltip:%{color1}%Click to enable><command:/menu pvp>&7PvP: &cDisabled<reset>"
 		else:
-			send "   &8<tooltip:%{color1}%Click to disable><command:/menu pvp>&7PvP: &aEnabled<reset>"
+			send formatted "   <tooltip:%{color1}%Click to disable><command:/menu pvp>&7PvP: &aEnabled<reset>"
 		
 		set {_waited} to difference between {daily.%player%.lastused} and now
 		set {_next} to 1 day after {daily.%player%.lastused}
@@ -206,12 +206,12 @@ command /menu [<text>]:
 				send formatted "   <tooltip:%{color1}%&lDAILY REWARD%nl% &8┃ &7+100 wrath><command:/menu daily>&7Daily: &fReady to claim!<reset>"
 		set {daily.%player%.lastused} to 1 day before {daily.%player%.lastused}
 		
-		send "   <tooltip:%{color1}%Click to view your stats><command:/stats>&7Statistics: &fView<reset>"
-		send "   <tooltip:%{color1}%Click to open quiver><command:/quiver>&7Quiver: &fView<reset>"
+		send formatted "   <tooltip:%{color1}%Click to view your stats><command:/stats>&7Statistics: &fView<reset>"
+		send formatted "   <tooltip:%{color1}%Click to open quiver><command:/quiver>&7Quiver: &fView<reset>"
 		if {p_upgradepoint::%player%} is greater than 0:
 			send formatted "   <tooltip:%{color1}%Click to open upgrades><command:/upgrades>&7Upgrades: &fView<reset>   &8[<tooltip:&7Avaiable Points: %{color1}%%{p_upgradepoint::%player%}%>%{color1}%&lAVAIABLE&8]"
 		else:
-			send "   <tooltip:%{color1}%Click to open upgrades><command:/upgrades>&7Upgrades: &fView<reset>"
+			send formatted "   <tooltip:%{color1}%Click to open upgrades><command:/upgrades>&7Upgrades: &fView<reset>"
 		send " "
 		send " "
 		send " "

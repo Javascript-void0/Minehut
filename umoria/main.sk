@@ -275,3 +275,7 @@ on tab complete of "/skript" and "/sk":
 # 			send "{@admin} &7Reloaded {@color}%arg-2%{@color}"
 # 		else:
 # 			send "{@admin} {@permission}"
+
+on tab complete of "/multiverse" and "/mv":
+	set tab completions for position 1 to "tp"
+	set tab completions for position 2 to "dungeon"
